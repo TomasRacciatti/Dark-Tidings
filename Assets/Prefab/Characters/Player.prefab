@@ -234,6 +234,9 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   shoot: 0
+  analogMovement: 0
+  cursorLocked: 1
+  cursorInputForLook: 1
 --- !u!114 &6598456043702126084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -536,9 +539,9 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.2
+  near clip plane: 0.03
   far clip plane: 500
-  field of view: 40
+  field of view: 90
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -859,9 +862,9 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 7645581628950374267}
   m_Lens:
-    FieldOfView: 40
+    FieldOfView: 90
     OrthographicSize: 10
-    NearClipPlane: 0.2
+    NearClipPlane: 0.03
     FarClipPlane: 500
     Dutch: 0
     ModeOverride: 0

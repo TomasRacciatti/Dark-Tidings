@@ -120,6 +120,10 @@ public abstract class Weapon : MonoBehaviour
     protected void CreateRay(Vector3 direction)
     {
         GameObject trail = ObjectPoolManager.instance.SpawnObject(_trailRenderer, _firePoint.position, _firePoint.rotation);
+        if (trail.TryGetComponent<BulletRay>(out var bulletRay))
+        {
+            bulletRay.speed = _trailSpeed;
+        }
         
         Vector3 hitPoint;
         if (Physics.Raycast(_firePoint.position, direction, out RaycastHit hit, 1000, _layerMask))

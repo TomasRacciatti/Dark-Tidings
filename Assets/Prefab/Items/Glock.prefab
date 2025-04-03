@@ -790,7 +790,7 @@ MonoBehaviour:
   _shootingParticle: {fileID: 0}
   _impactParticle: {fileID: 0}
   _trailRenderer: {fileID: 6904666637446915446, guid: 3590d5eb3034a59438b371bfbc7d25de, type: 3}
-  _trailSpeed: 100
+  _trailSpeed: 250
   _fireSound: {fileID: 0}
   _reloadSound: {fileID: 0}
   _impactSound: {fileID: 0}

@@ -1,0 +1,30 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BulletRay : MonoBehaviour
+{
+    public float speed = 50;
+    TrailRenderer trail;
+
+    private void Awake()
+    {
+        trail = GetComponent<TrailRenderer>();
+    }
+
+    private void OnEnable()
+    {
+        trail.Clear();
+    }
+
+    private void OnDisable()
+    {
+        trail.Clear();
+    }
+
+    void Update()
+    {
+        transform.position += Vector3.right * (Time.deltaTime * speed);
+    }
+}

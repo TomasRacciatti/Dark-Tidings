@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
+using Interfaces;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
+[RequireComponent(typeof(AudioSource))]
 public abstract class Weapon : MonoBehaviour
 {
     [Header("Weapon")] [SerializeField] public string weaponName = "Weapon";
@@ -10,27 +13,44 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] private int _magazineSize = 13;
     [SerializeField] protected float _reloadTime = 2.5f;
     [SerializeField] private bool _automatic = false;
-    [SerializeField] private Transform _firePoint;
-    [SerializeField] private GameObject _bulletPrefab;
+    [SerializeField] protected Transform _firePoint;
+    [SerializeField] private LayerMask _layerMask;
+
+    //recoil tipo circular y para arriba
+    [SerializeField] private float _recoveryTime = 0.25f;
+    [SerializeField] private float _baseInaccuracy = 0f;
+    [SerializeField] private float _incrementalInaccuracy = 10f;
+    [SerializeField] private float _maxInaccuracy = 100f;
+
+    [SerializeField] private ParticleSystem _shootingParticle;
+    [SerializeField] private ParticleSystem _impactParticle;
+    [SerializeField] private GameObject _trailRenderer;
+    [SerializeField] private AudioClip _fireSound;
+    [SerializeField] private AudioClip _reloadSound;
+    [SerializeField] private AudioClip _impactSound;
+
+    private Animator _animator;
+    private AudioSource _audioSource;
 
     private int _bullets;
     private float _timeBetweenShots;
     private bool _isReloading, _isShooting;
+    private float _currentInaccuracy = 0f;
     private Cooldown _cooldown = new Cooldown();
 
     private Coroutine shootingCoroutine;
 
-    public event Action OnShoot;
-    public event Action OnReload;
+    private void Awake()
+    {
+        _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
-        if (_firePoint == null) Debug.LogError($"{weaponName}: FirePoint no asignado.");
-        if (_bulletPrefab == null) Debug.LogError($"{weaponName}: BulletPrefab no asignado.");
-
         _timeBetweenShots = 1f / _firerate;
         _bullets = _magazineSize;
-        StartShooting();//sacar es solo prueba
+        StartShooting(); //sacar esto y que es automatica es solo prueba
     }
 
     public void StartShooting()
@@ -60,11 +80,11 @@ public abstract class Weapon : MonoBehaviour
                 yield return null;
                 continue;
             }
-            
+
             Shoot();
             _bullets--;
             _cooldown.StartCooldown(_timeBetweenShots);
-            
+
             if (_bullets <= 0)
             {
                 StartCoroutine(Reload());
@@ -77,17 +97,18 @@ public abstract class Weapon : MonoBehaviour
 
     protected virtual void Shoot()
     {
-        OnShoot?.Invoke(); //effects, anims
+        //anims y sonido
     }
 
     public IEnumerator Reload()
     {
         if (_isReloading) yield break;
         _isReloading = true;
-        OnReload?.Invoke(); //effects, anims
+        //anims y sonido
         yield return new WaitForSeconds(_reloadTime);
         _bullets = _magazineSize;
         _isReloading = false;
+        //anims y sonido
         if (_automatic && _isShooting)
         {
             if (shootingCoroutine != null) StopCoroutine(shootingCoroutine);
@@ -95,9 +116,24 @@ public abstract class Weapon : MonoBehaviour
         }
     }
 
-    protected void CreateRay()
+    protected void CreateRay(Vector3 direction)
     {
-        //crear rays con el prefab
-        Instantiate(_bulletPrefab, _firePoint.position, _firePoint.rotation);
+        GameObject trail = ObjectPoolManager.instance.SpawnObject(_trailRenderer, _firePoint.position, _firePoint.rotation);
+        //return
+
+        Vector3 hitPoint;
+        if (Physics.Raycast(_firePoint.position, direction, out RaycastHit hit, 1000, _layerMask))
+        {
+            hitPoint = hit.point;
+            //Instantiate(_impactParticle, hitPoint, Quaternion.LookRotation(hit.normal));
+            if (hit.collider.TryGetComponent<IDamageable>(out var damageable))
+            {
+                damageable.TakeDamage(_damage);
+            }
+        }
+        else
+        {
+            hitPoint = _firePoint.position + _firePoint.forward * 1000;
+        }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BulletRay : MonoBehaviour
 {
-    public float speed = 50;
+    public float speed = 100;
     TrailRenderer trail;
 
     private void Awake()

@@ -89,4 +89,15 @@ public class ObjectPoolManager : MonoBehaviour
         pool.inactiveObjects.Enqueue(obj); // Add the object back to the queue
         obj.SetActive(false);
     }
+
+    public void ReturnObjectToPool(GameObject obj, float delay)
+    {
+        StartCoroutine(ReturnObjectWithDelay(obj, delay));
+    }
+
+    private IEnumerator ReturnObjectWithDelay(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        ReturnObjectToPool(obj);
+    }
 }

@@ -25,6 +25,7 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] private ParticleSystem _shootingParticle;
     [SerializeField] private ParticleSystem _impactParticle;
     [SerializeField] private GameObject _trailRenderer;
+    [SerializeField] private float _trailSpeed = 100f;
     [SerializeField] private AudioClip _fireSound;
     [SerializeField] private AudioClip _reloadSound;
     [SerializeField] private AudioClip _impactSound;
@@ -119,8 +120,7 @@ public abstract class Weapon : MonoBehaviour
     protected void CreateRay(Vector3 direction)
     {
         GameObject trail = ObjectPoolManager.instance.SpawnObject(_trailRenderer, _firePoint.position, _firePoint.rotation);
-        //return
-
+        
         Vector3 hitPoint;
         if (Physics.Raycast(_firePoint.position, direction, out RaycastHit hit, 1000, _layerMask))
         {
@@ -130,10 +130,13 @@ public abstract class Weapon : MonoBehaviour
             {
                 damageable.TakeDamage(_damage);
             }
+            print(hit.collider.name);
         }
         else
         {
-            hitPoint = _firePoint.position + _firePoint.forward * 1000;
+            hitPoint = _firePoint.position + direction * 1000;
         }
+        
+        ObjectPoolManager.instance.ReturnObjectToPool(trail,Vector3.Distance(_firePoint.position, hitPoint)/_trailSpeed);
     }
 }

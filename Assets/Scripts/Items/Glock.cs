@@ -12,6 +12,6 @@ public class Glock : Weapon
     protected override void Shoot()
     {
         base.Shoot();
-        CreateRay(_firePoint.forward);
+        CreateRay(_firePoint.right);
     }
 }

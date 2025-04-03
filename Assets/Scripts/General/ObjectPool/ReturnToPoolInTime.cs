@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ReturnToPoolInTime : MonoBehaviour
 {
-    [SerializeField] private float _time = 5;
+    [SerializeField] public float time = 5;
 
     private void OnEnable()
     {
-        Invoke("ReturnToPool", _time);
+        Invoke("ReturnToPool", time);
     }
 
     protected virtual void ReturnToPool()

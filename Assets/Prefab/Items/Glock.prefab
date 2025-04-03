@@ -782,7 +782,7 @@ MonoBehaviour:
   _firePoint: {fileID: 6778236433649631453}
   _layerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4033
   _recoveryTime: 0.25
   _baseInaccuracy: 0
   _incrementalInaccuracy: 10
@@ -790,6 +790,7 @@ MonoBehaviour:
   _shootingParticle: {fileID: 0}
   _impactParticle: {fileID: 0}
   _trailRenderer: {fileID: 6904666637446915446, guid: 3590d5eb3034a59438b371bfbc7d25de, type: 3}
+  _trailSpeed: 100
   _fireSound: {fileID: 0}
   _reloadSound: {fileID: 0}
   _impactSound: {fileID: 0}

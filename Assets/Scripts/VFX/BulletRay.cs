@@ -25,6 +25,6 @@ public class BulletRay : MonoBehaviour
 
     void Update()
     {
-        transform.position += Vector3.right * (Time.deltaTime * speed);
+        transform.position += transform.forward * (Time.deltaTime * speed);
     }
 }

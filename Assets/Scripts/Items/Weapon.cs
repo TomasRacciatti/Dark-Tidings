@@ -82,16 +82,17 @@ public abstract class Weapon : MonoBehaviour
                 continue;
             }
 
-            Shoot();
-            _bullets--;
-            _cooldown.StartCooldown(_timeBetweenShots);
-
             if (_bullets <= 0)
             {
                 StartCoroutine(Reload());
                 yield break;
             }
-
+            
+            Shoot();
+            _bullets--;
+            PlayShootEffects();
+            _cooldown.StartCooldown(_timeBetweenShots);
+            
             yield return new WaitUntil(() => _cooldown.IsReady);
         }
     }
@@ -105,7 +106,7 @@ public abstract class Weapon : MonoBehaviour
     {
         if (_isReloading) yield break;
         _isReloading = true;
-        //anims y sonido
+        PlayReloadEffects();
         yield return new WaitForSeconds(_reloadTime);
         _bullets = _magazineSize;
         _isReloading = false;
@@ -119,7 +120,7 @@ public abstract class Weapon : MonoBehaviour
 
     protected void CreateRay(Vector3 direction)
     {
-        GameObject trail = ObjectPoolManager.instance.SpawnObject(_trailRenderer, _firePoint.position, _firePoint.rotation);
+        GameObject trail = ObjectPoolManager.instance.SpawnObject(_trailRenderer, _firePoint.position, Quaternion.LookRotation(direction));
         if (trail.TryGetComponent<BulletRay>(out var bulletRay))
         {
             bulletRay.speed = _trailSpeed;
@@ -134,7 +135,6 @@ public abstract class Weapon : MonoBehaviour
             {
                 damageable.TakeDamage(_damage);
             }
-            print(hit.collider.name);
         }
         else
         {
@@ -142,5 +142,17 @@ public abstract class Weapon : MonoBehaviour
         }
         
         ObjectPoolManager.instance.ReturnObjectToPool(trail,Vector3.Distance(_firePoint.position, hitPoint)/_trailSpeed);
+    }
+    
+    private void PlayShootEffects()
+    {
+        if (_fireSound) _audioSource.PlayOneShot(_fireSound);
+        if (_shootingParticle) _shootingParticle.Play();
+    }
+
+    private void PlayReloadEffects()
+    {
+        if (_reloadSound) _audioSource.PlayOneShot(_reloadSound);
+        _animator?.SetTrigger("Reload");
     }
 }

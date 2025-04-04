@@ -8,7 +8,7 @@ public class Glock : Weapon
     {
         weaponName = "Glock";
     }
-    
+
     protected override void Shoot()
     {
         base.Shoot();

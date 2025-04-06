@@ -14,6 +14,7 @@ namespace Inputs
         public bool jump;
         public bool sprint;
         public bool shoot;
+        public bool toggleBackpack;
         
         [Header("Movement Settings")]
         public bool analogMovement;
@@ -52,6 +53,10 @@ namespace Inputs
             shoot = context.ReadValueAsButton();
         }
         
+        public void ToggleBackpack(InputAction.CallbackContext context)
+        {
+            toggleBackpack = context.ReadValueAsButton();
+        }
         private void OnApplicationFocus(bool hasFocus)
         {
             SetCursorState(cursorLocked);

@@ -791,8 +791,8 @@ MonoBehaviour:
   _impactParticle: {fileID: 0}
   _trailRenderer: {fileID: 6904666637446915446, guid: 3590d5eb3034a59438b371bfbc7d25de, type: 3}
   _trailSpeed: 250
-  _fireSound: {fileID: 0}
-  _reloadSound: {fileID: 0}
+  _fireSound: {fileID: 8300000, guid: e6cc77596c67713409b2d29752fb18d8, type: 3}
+  _reloadSound: {fileID: 8300000, guid: 93ebb6bec6424434fba03bfdb046ac4f, type: 3}
   _impactSound: {fileID: 0}
 --- !u!95 &7081942705892491367
 Animator:
@@ -836,7 +836,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 15
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -871,7 +871,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -887,6 +887,24 @@ AudioSource:
     - serializedVersion: 3
       time: 0
       value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6776123
+      value: 0.34939444
+      inSlope: 1.6329017
+      outSlope: 1.6329017
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.22105865
+    - serializedVersion: 3
+      time: 1
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

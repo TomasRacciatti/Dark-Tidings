@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2155.4153, g: 2259.176, b: 3281.2466, a: 1}
+  m_IndirectSpecularColor: {r: 2157.5725, g: 2260.9885, b: 3282.774, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1135,6 +1135,10 @@ PrefabInstance:
     - target: {fileID: 7522966995587419875, guid: 747054159008e8b4abf7d927afb497fd, type: 3}
       propertyPath: m_Name
       value: Shotgun
+      objectReference: {fileID: 0}
+    - target: {fileID: 7522966995587419875, guid: 747054159008e8b4abf7d927afb497fd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,7 +11,7 @@ namespace Inventory
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
 
-        [HideInInspector] public Item item;
+        [FormerlySerializedAs("item")] [HideInInspector] public ItemObject itemObject;
         [HideInInspector] public int count = 1;
         [HideInInspector] public Transform parentTransform;
 
@@ -19,16 +19,16 @@ namespace Inventory
         {
             countText.raycastTarget = false;
             parentTransform = transform.parent;
-            if (item)
+            if (itemObject)
             {
-                SetItem(item);
+                SetItem(itemObject);
             }
         }
 
-        public void SetItem(Item newItem, int setCount = 1)
+        public void SetItem(ItemObject newItemObject, int setCount = 1)
         {
-            item = newItem;
-            image.sprite = item.image;
+            itemObject = newItemObject;
+            image.sprite = itemObject.image;
             count = setCount;
             RefreshCount();
         }

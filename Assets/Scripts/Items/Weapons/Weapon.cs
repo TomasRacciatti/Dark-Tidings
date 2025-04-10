@@ -51,10 +51,10 @@ public abstract class Weapon : MonoBehaviour
     {
         _timeBetweenShots = 1f / _firerate;
         _bullets = _magazineSize;
-        StartShooting(); //sacar esto y que es automatica es solo prueba
+        StartUsing(); //sacar esto y que es automatica es solo prueba
     }
 
-    public void StartShooting()
+    public void StartUsing()
     {
         if (_isShooting || shootingCoroutine != null) return;
         _isShooting = true;
@@ -62,7 +62,7 @@ public abstract class Weapon : MonoBehaviour
         shootingCoroutine = StartCoroutine(ShootCoroutine());
     }
 
-    public void StopShooting()
+    public void StopUsing()
     {
         _isShooting = false;
         if (shootingCoroutine != null)

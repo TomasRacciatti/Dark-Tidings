@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Inventory
 {
-    public class InventoryManager : MonoBehaviour
+    public class InventoryManager : MonoBehaviour, IInventory
     {
         [SerializeField] private GameObject inventoryItemPrefab;
         [SerializeField] private InventorySlot[] toolbarSlots;
@@ -18,6 +18,11 @@ namespace Inventory
         private void Start()
         {
             ChangeSelectedSlot(toolbarSlots[0]);
+        }
+
+        public InventoryItem GetSelectedItem()
+        {
+            return selectedSlot.GetComponentInChildren<InventoryItem>();
         }
         
         public void ChangeSelectedSlot(int slot)
@@ -35,19 +40,19 @@ namespace Inventory
             selector.transform.localPosition = Vector3.zero;
         }
         
-        public int AddItem(Item item, int count)
+        public int AddItem(ItemObject itemObject, int count)
         {
             InventoryItem itemSlot;
 
             //Find Stackeable Slot
-            if (item.stack > 1)
+            if (itemObject.stack > 1)
             {
-                foreach (var slot in GetOrder(item.type))
+                foreach (var slot in GetOrder(itemObject.type))
                 {
                     itemSlot = slot.GetComponentInChildren<InventoryItem>();
-                    if (slot && itemSlot.item == item && itemSlot.count < item.stack)
+                    if (slot && itemSlot.itemObject == itemObject && itemSlot.count < itemObject.stack)
                     {
-                        int remainingCount = Mathf.Clamp(count, 1, item.stack - itemSlot.count);
+                        int remainingCount = Mathf.Clamp(count, 1, itemObject.stack - itemSlot.count);
                         itemSlot.AddCount(remainingCount);
                         count -= remainingCount;
                         if (count <= 0) return 0;
@@ -56,13 +61,13 @@ namespace Inventory
             }
 
             //Find Empty Slot
-            foreach (var slot in GetOrder(item.type))
+            foreach (var slot in GetOrder(itemObject.type))
             {
                 itemSlot = slot.GetComponentInChildren<InventoryItem>();
                 if (!itemSlot)
                 {
-                    int remainingCount = Mathf.Clamp(count, 1, item.stack);
-                    SpawnItem(item, slot, count);
+                    int remainingCount = Mathf.Clamp(count, 1, itemObject.stack);
+                    SpawnItem(itemObject, slot, count);
                     count -= remainingCount;
                     if (count <= 0) return 0;
                 }
@@ -72,11 +77,11 @@ namespace Inventory
             return count;
         }
 
-        private void SpawnItem(Item item, InventorySlot slot, int count)
+        private void SpawnItem(ItemObject itemObject, InventorySlot slot, int count)
         {
             GameObject newItem = Instantiate(inventoryItemPrefab, slot.transform);
             InventoryItem inventoryItem = newItem.GetComponent<InventoryItem>();
-            inventoryItem.SetItem(item);
+            inventoryItem.SetItem(itemObject);
         }
 
         private IEnumerable<InventorySlot> GetOrder(ItemType itemType)
@@ -90,7 +95,7 @@ namespace Inventory
                 case ItemType.Armor:
                     return GetSlotsInCustomOrder(inventorySlots, armorSlots, toolbarSlots );
                 case ItemType.Material:
-                    return GetSlotsInCustomOrder(inventorySlots, toolbarSlots );
+                    return GetSlotsInCustomOrder(inventorySlots );
                 default:
                     return GetSlotsInCustomOrder(toolbarSlots, inventorySlots );
             }
@@ -105,6 +110,33 @@ namespace Inventory
                     yield return slot;
                 }
             }
+        }
+        
+        
+        //interface
+        public void AddItem(object item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RemoveItem(object item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<object> GetItems()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool HasItem(object item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
         }
     }
 }

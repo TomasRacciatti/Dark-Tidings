@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Inventory
 {
     [CreateAssetMenu(menuName = "Custom/Item")]
-    public class Item : ScriptableObject
+    public class ItemObject : ScriptableObject
     {
         public Sprite image;
         public int stack = 10;

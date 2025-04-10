@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Interfaces
+namespace Inventory
 {
     public interface IInventory
     {

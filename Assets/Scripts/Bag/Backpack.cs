@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Interfaces;
 using UnityEngine;
 
-public class Backpack : MonoBehaviour, IInventory
+public class Backpack : MonoBehaviour
 {
     [SerializeField] private BackpackStats _backpackStats;
     

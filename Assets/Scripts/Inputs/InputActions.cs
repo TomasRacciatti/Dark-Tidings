@@ -64,7 +64,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Shoot"",
+                    ""name"": ""Use"",
                     ""type"": ""Button"",
                     ""id"": ""f5817585-9797-48f1-9874-7167da944aea"",
                     ""expectedControlType"": """",
@@ -76,6 +76,51 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""name"": ""ToggleBackpack"",
                     ""type"": ""Button"",
                     ""id"": ""1ff2c46a-36d2-4c17-bce2-c69f13a89b66"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toolbar1"",
+                    ""type"": ""Button"",
+                    ""id"": ""ccce0bec-a2e6-41d2-bb23-19f6dd97ad7e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toolbar2"",
+                    ""type"": ""Button"",
+                    ""id"": ""9806beb8-3a6f-437f-8818-f50fd9009f36"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toolbar3"",
+                    ""type"": ""Button"",
+                    ""id"": ""cc734168-448d-4f73-a3b4-24feed119fba"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toolbar4"",
+                    ""type"": ""Button"",
+                    ""id"": ""254212ff-722b-49eb-a955-79cf27a7da74"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Flashlight"",
+                    ""type"": ""Button"",
+                    ""id"": ""f4a2bab3-d592-419a-bb06-a201f229ca2c"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -222,7 +267,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": "";KeyboardMouse"",
-                    ""action"": ""Shoot"",
+                    ""action"": ""Use"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -234,6 +279,61 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";KeyboardMouse"",
                     ""action"": ""ToggleBackpack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3397736b-bd17-402c-9e0b-63c683e20f36"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toolbar1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3df8a353-6170-4f12-97c1-3de484de1d31"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toolbar2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""107a231c-f0d7-4884-aa2e-cdd10d934f5f"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toolbar3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b3d81871-8179-4c7e-ab1a-183ac4c14d84"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toolbar4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69268ae4-9aff-4cb8-a9c5-9ca89dc3bf8a"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Flashlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -296,8 +396,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-        m_Player_Shoot = m_Player.FindAction("Shoot", throwIfNotFound: true);
+        m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
         m_Player_ToggleBackpack = m_Player.FindAction("ToggleBackpack", throwIfNotFound: true);
+        m_Player_Toolbar1 = m_Player.FindAction("Toolbar1", throwIfNotFound: true);
+        m_Player_Toolbar2 = m_Player.FindAction("Toolbar2", throwIfNotFound: true);
+        m_Player_Toolbar3 = m_Player.FindAction("Toolbar3", throwIfNotFound: true);
+        m_Player_Toolbar4 = m_Player.FindAction("Toolbar4", throwIfNotFound: true);
+        m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -368,8 +473,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Sprint;
-    private readonly InputAction m_Player_Shoot;
+    private readonly InputAction m_Player_Use;
     private readonly InputAction m_Player_ToggleBackpack;
+    private readonly InputAction m_Player_Toolbar1;
+    private readonly InputAction m_Player_Toolbar2;
+    private readonly InputAction m_Player_Toolbar3;
+    private readonly InputAction m_Player_Toolbar4;
+    private readonly InputAction m_Player_Flashlight;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -378,8 +488,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
-        public InputAction @Shoot => m_Wrapper.m_Player_Shoot;
+        public InputAction @Use => m_Wrapper.m_Player_Use;
         public InputAction @ToggleBackpack => m_Wrapper.m_Player_ToggleBackpack;
+        public InputAction @Toolbar1 => m_Wrapper.m_Player_Toolbar1;
+        public InputAction @Toolbar2 => m_Wrapper.m_Player_Toolbar2;
+        public InputAction @Toolbar3 => m_Wrapper.m_Player_Toolbar3;
+        public InputAction @Toolbar4 => m_Wrapper.m_Player_Toolbar4;
+        public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -401,12 +516,27 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Sprint.started += instance.OnSprint;
             @Sprint.performed += instance.OnSprint;
             @Sprint.canceled += instance.OnSprint;
-            @Shoot.started += instance.OnShoot;
-            @Shoot.performed += instance.OnShoot;
-            @Shoot.canceled += instance.OnShoot;
+            @Use.started += instance.OnUse;
+            @Use.performed += instance.OnUse;
+            @Use.canceled += instance.OnUse;
             @ToggleBackpack.started += instance.OnToggleBackpack;
             @ToggleBackpack.performed += instance.OnToggleBackpack;
             @ToggleBackpack.canceled += instance.OnToggleBackpack;
+            @Toolbar1.started += instance.OnToolbar1;
+            @Toolbar1.performed += instance.OnToolbar1;
+            @Toolbar1.canceled += instance.OnToolbar1;
+            @Toolbar2.started += instance.OnToolbar2;
+            @Toolbar2.performed += instance.OnToolbar2;
+            @Toolbar2.canceled += instance.OnToolbar2;
+            @Toolbar3.started += instance.OnToolbar3;
+            @Toolbar3.performed += instance.OnToolbar3;
+            @Toolbar3.canceled += instance.OnToolbar3;
+            @Toolbar4.started += instance.OnToolbar4;
+            @Toolbar4.performed += instance.OnToolbar4;
+            @Toolbar4.canceled += instance.OnToolbar4;
+            @Flashlight.started += instance.OnFlashlight;
+            @Flashlight.performed += instance.OnFlashlight;
+            @Flashlight.canceled += instance.OnFlashlight;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -423,12 +553,27 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Sprint.started -= instance.OnSprint;
             @Sprint.performed -= instance.OnSprint;
             @Sprint.canceled -= instance.OnSprint;
-            @Shoot.started -= instance.OnShoot;
-            @Shoot.performed -= instance.OnShoot;
-            @Shoot.canceled -= instance.OnShoot;
+            @Use.started -= instance.OnUse;
+            @Use.performed -= instance.OnUse;
+            @Use.canceled -= instance.OnUse;
             @ToggleBackpack.started -= instance.OnToggleBackpack;
             @ToggleBackpack.performed -= instance.OnToggleBackpack;
             @ToggleBackpack.canceled -= instance.OnToggleBackpack;
+            @Toolbar1.started -= instance.OnToolbar1;
+            @Toolbar1.performed -= instance.OnToolbar1;
+            @Toolbar1.canceled -= instance.OnToolbar1;
+            @Toolbar2.started -= instance.OnToolbar2;
+            @Toolbar2.performed -= instance.OnToolbar2;
+            @Toolbar2.canceled -= instance.OnToolbar2;
+            @Toolbar3.started -= instance.OnToolbar3;
+            @Toolbar3.performed -= instance.OnToolbar3;
+            @Toolbar3.canceled -= instance.OnToolbar3;
+            @Toolbar4.started -= instance.OnToolbar4;
+            @Toolbar4.performed -= instance.OnToolbar4;
+            @Toolbar4.canceled -= instance.OnToolbar4;
+            @Flashlight.started -= instance.OnFlashlight;
+            @Flashlight.performed -= instance.OnFlashlight;
+            @Flashlight.canceled -= instance.OnFlashlight;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -488,7 +633,12 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
-        void OnShoot(InputAction.CallbackContext context);
+        void OnUse(InputAction.CallbackContext context);
         void OnToggleBackpack(InputAction.CallbackContext context);
+        void OnToolbar1(InputAction.CallbackContext context);
+        void OnToolbar2(InputAction.CallbackContext context);
+        void OnToolbar3(InputAction.CallbackContext context);
+        void OnToolbar4(InputAction.CallbackContext context);
+        void OnFlashlight(InputAction.CallbackContext context);
     }
 }

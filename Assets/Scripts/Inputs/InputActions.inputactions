@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Use",
                     "type": "Button",
                     "id": "f5817585-9797-48f1-9874-7167da944aea",
                     "expectedControlType": "",
@@ -54,6 +54,51 @@
                     "name": "ToggleBackpack",
                     "type": "Button",
                     "id": "1ff2c46a-36d2-4c17-bce2-c69f13a89b66",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toolbar1",
+                    "type": "Button",
+                    "id": "ccce0bec-a2e6-41d2-bb23-19f6dd97ad7e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toolbar2",
+                    "type": "Button",
+                    "id": "9806beb8-3a6f-437f-8818-f50fd9009f36",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toolbar3",
+                    "type": "Button",
+                    "id": "cc734168-448d-4f73-a3b4-24feed119fba",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Toolbar4",
+                    "type": "Button",
+                    "id": "254212ff-722b-49eb-a955-79cf27a7da74",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Flashlight",
+                    "type": "Button",
+                    "id": "f4a2bab3-d592-419a-bb06-a201f229ca2c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -200,7 +245,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";KeyboardMouse",
-                    "action": "Shoot",
+                    "action": "Use",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -212,6 +257,61 @@
                     "processors": "",
                     "groups": ";KeyboardMouse",
                     "action": "ToggleBackpack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3397736b-bd17-402c-9e0b-63c683e20f36",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toolbar1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3df8a353-6170-4f12-97c1-3de484de1d31",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toolbar2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "107a231c-f0d7-4884-aa2e-cdd10d934f5f",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toolbar3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3d81871-8179-4c7e-ab1a-183ac4c14d84",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Toolbar4",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69268ae4-9aff-4cb8-a9c5-9ca89dc3bf8a",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Flashlight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,5 +1,6 @@
 using System;
 using Inputs;
+using Inventory;
 using UnityEngine;
 using Random = UnityEngine.Random;
 #if ENABLE_INPUT_SYSTEM
@@ -15,6 +16,8 @@ namespace Players
     [RequireComponent(typeof(PlayerInput))]
     public class Controller : MonoBehaviour
     {
+        public InventoryManager inventory;
+        
         [Header("Player")] [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
@@ -94,8 +97,6 @@ namespace Players
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
-
-        private PlayerInput _playerInput;
 
         private Animator _animator;
         private CharacterController _controller;

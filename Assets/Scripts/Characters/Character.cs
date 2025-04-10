@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class Character : MonoBehaviour, IDamageable
 {
-    public int health;
+    public int health = 100;
     public int maxHealth = 100;
     public float speed = 3;
 

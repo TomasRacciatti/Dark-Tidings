@@ -1,6 +1,8 @@
 using Players;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 namespace Inputs
 {
@@ -16,6 +18,7 @@ namespace Inputs
         public bool jump;
         public bool sprint;
         public bool shoot;
+        public bool inventoryOpened;
         public bool toggleBackpack;
         
         [Header("Movement Settings")]
@@ -44,6 +47,7 @@ namespace Inputs
             inputActions.Player.Sprint.canceled += Sprint;
             inputActions.Player.Use.performed += StartUse;
             inputActions.Player.Use.canceled += StopUse;
+            inputActions.Player.ToggleInventory.performed += ToggleInventory;
             inputActions.Player.Toolbar1.performed += SelectToolbar1;
             inputActions.Player.Toolbar2.performed += SelectToolbar2;
             inputActions.Player.Toolbar3.performed += SelectToolbar3;
@@ -53,6 +57,21 @@ namespace Inputs
         
         private void OnDisable()
         {
+            inputActions.Player.Movement.performed -= Movement;
+            inputActions.Player.Movement.canceled -= Movement;
+            inputActions.Player.Look.performed -= Look;
+            inputActions.Player.Look.canceled -= Look;
+            inputActions.Player.Jump.performed -= Jump;
+            inputActions.Player.Jump.canceled -= Jump;
+            inputActions.Player.Sprint.performed -= Sprint;
+            inputActions.Player.Sprint.canceled -= Sprint;
+            inputActions.Player.Use.performed -= StartUse;
+            inputActions.Player.Use.canceled -= StopUse;
+            inputActions.Player.ToggleInventory.performed -= ToggleInventory;
+            inputActions.Player.Toolbar1.performed -= SelectToolbar1;
+            inputActions.Player.Toolbar2.performed -= SelectToolbar2;
+            inputActions.Player.Toolbar3.performed -= SelectToolbar3;
+            inputActions.Player.Toolbar4.performed -= SelectToolbar4;
             inputActions.Disable();
         }
 
@@ -85,6 +104,11 @@ namespace Inputs
         {
             shoot = context.ReadValueAsButton();
         }
+        
+        public void ToggleInventory(InputAction.CallbackContext context)
+        {
+            inventoryOpened = _controller.hudGameManager.inventoryManager.ToggleInventory();
+        }
 
         public void SelectToolbar1(InputAction.CallbackContext context) => SelectToolbar(0);
         public void SelectToolbar2(InputAction.CallbackContext context) => SelectToolbar(1);
@@ -93,7 +117,7 @@ namespace Inputs
         
         private void SelectToolbar(int index)
         {
-            _controller.inventory.ChangeSelectedSlot(index);
+            _controller.hudGameManager.inventoryManager.ChangeSelectedSlot(index);
         }
         
         public void ToggleBackpack(InputAction.CallbackContext context)

@@ -12,7 +12,10 @@ namespace Inventory
         [SerializeField] private InventorySlot[] armorSlots;
         //[SerializeField] private InventorySlot[] bagpackSlots;
         [SerializeField] private InventorySlot selectedSlot;
-        [SerializeField] private GameObject selector;
+        [SerializeField] private GameObject inventoryUI;
+        [SerializeField] private GameObject backpackUI;
+        [SerializeField] private GameObject slotSelector;
+        [SerializeField] private GameObject bulletSelector;
         //public bool hasBagpack = false;
 
         private void Start()
@@ -36,8 +39,27 @@ namespace Inventory
         public void ChangeSelectedSlot(InventorySlot slot)
         {
             selectedSlot = slot;
-            selector.transform.SetParent(selectedSlot.transform, false);
-            selector.transform.localPosition = Vector3.zero;
+            slotSelector.transform.SetParent(selectedSlot.transform, false);
+            slotSelector.transform.localPosition = Vector3.zero;
+        }
+
+        public bool ToggleInventory()
+        {
+            bool setActive = !inventoryUI.gameObject.activeSelf;
+            inventoryUI.gameObject.SetActive(setActive);
+            if (setActive)
+            {
+                // Mostrar y liberar el cursor
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                // Ocultar y bloquear el cursor
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            return setActive;
         }
         
         public int AddItem(ItemObject itemObject, int count)

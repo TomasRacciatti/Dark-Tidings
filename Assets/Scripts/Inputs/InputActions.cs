@@ -125,6 +125,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""c5ab7d12-161a-490a-bc69-2ecb256cbed3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -336,6 +345,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Flashlight"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""91efe65c-7f55-4236-8696-c6f628afe565"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -403,6 +423,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Toolbar3 = m_Player.FindAction("Toolbar3", throwIfNotFound: true);
         m_Player_Toolbar4 = m_Player.FindAction("Toolbar4", throwIfNotFound: true);
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
+        m_Player_ToggleInventory = m_Player.FindAction("ToggleInventory", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -480,6 +501,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Toolbar3;
     private readonly InputAction m_Player_Toolbar4;
     private readonly InputAction m_Player_Flashlight;
+    private readonly InputAction m_Player_ToggleInventory;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -495,6 +517,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Toolbar3 => m_Wrapper.m_Player_Toolbar3;
         public InputAction @Toolbar4 => m_Wrapper.m_Player_Toolbar4;
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
+        public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -537,6 +560,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Flashlight.started += instance.OnFlashlight;
             @Flashlight.performed += instance.OnFlashlight;
             @Flashlight.canceled += instance.OnFlashlight;
+            @ToggleInventory.started += instance.OnToggleInventory;
+            @ToggleInventory.performed += instance.OnToggleInventory;
+            @ToggleInventory.canceled += instance.OnToggleInventory;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -574,6 +600,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Flashlight.started -= instance.OnFlashlight;
             @Flashlight.performed -= instance.OnFlashlight;
             @Flashlight.canceled -= instance.OnFlashlight;
+            @ToggleInventory.started -= instance.OnToggleInventory;
+            @ToggleInventory.performed -= instance.OnToggleInventory;
+            @ToggleInventory.canceled -= instance.OnToggleInventory;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -640,5 +669,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnToolbar3(InputAction.CallbackContext context);
         void OnToolbar4(InputAction.CallbackContext context);
         void OnFlashlight(InputAction.CallbackContext context);
+        void OnToggleInventory(InputAction.CallbackContext context);
     }
 }

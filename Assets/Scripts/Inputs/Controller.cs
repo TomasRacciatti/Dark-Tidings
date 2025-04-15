@@ -16,7 +16,7 @@ namespace Players
     [RequireComponent(typeof(PlayerInput))]
     public class Controller : MonoBehaviour
     {
-        public InventoryManager inventory;
+        public HudGameManager hudGameManager;
         
         [Header("Player")] [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
@@ -159,7 +159,7 @@ namespace Players
         private void CameraRotation()
         {
             // if there is an input and camera position is not fixed
-            if (_input.look.sqrMagnitude >= _threshold && !LockCameraPosition)
+            if (_input.look.sqrMagnitude >= _threshold && !_input.inventoryOpened)
             {
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = 1.0f;

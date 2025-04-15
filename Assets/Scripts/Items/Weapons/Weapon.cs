@@ -5,7 +5,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : Item
 {
     [Header("Weapon")] [SerializeField] public string weaponName = "Weapon";
     [SerializeField] protected int _damage = 10;
@@ -54,7 +54,7 @@ public abstract class Weapon : MonoBehaviour
         StartUsing(); //sacar esto y que es automatica es solo prueba
     }
 
-    public void StartUsing()
+    public override void StartUsing()
     {
         if (_isShooting || shootingCoroutine != null) return;
         _isShooting = true;
@@ -62,7 +62,7 @@ public abstract class Weapon : MonoBehaviour
         shootingCoroutine = StartCoroutine(ShootCoroutine());
     }
 
-    public void StopUsing()
+    public override void StopUsing()
     {
         _isShooting = false;
         if (shootingCoroutine != null)
@@ -70,6 +70,11 @@ public abstract class Weapon : MonoBehaviour
             StopCoroutine(shootingCoroutine);
             shootingCoroutine = null;
         }
+    }
+    
+    public override void AlternativeUse()
+    {
+        Reload();
     }
 
     private IEnumerator ShootCoroutine()
@@ -153,6 +158,6 @@ public abstract class Weapon : MonoBehaviour
     private void PlayReloadEffects()
     {
         if (_reloadSound) _audioSource.PlayOneShot(_reloadSound);
-        _animator?.SetTrigger("Reload");
+        //_animator?.SetTrigger("Reload");
     }
 }

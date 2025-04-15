@@ -1,6 +1,5 @@
 using System;
 using Inputs;
-using Inventory;
 using UnityEngine;
 using Random = UnityEngine.Random;
 #if ENABLE_INPUT_SYSTEM
@@ -17,7 +16,7 @@ namespace Players
     public class Controller : MonoBehaviour
     {
         public HudGameManager hudGameManager;
-        
+
         [Header("Player")] [Tooltip("Move speed of the character in m/s")]
         public float MoveSpeed = 2.0f;
 
@@ -102,6 +101,7 @@ namespace Players
         private CharacterController _controller;
         private InputsEvents _input;
         [SerializeField] private GameObject _mainCamera;
+        [SerializeField] private LayerMask _raycastLayers;
 
         private const float _threshold = 0.01f;
 
@@ -346,6 +346,14 @@ namespace Players
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center),
                     FootstepAudioVolume);
             }
+        }
+
+        public RaycastHit GetCameraRay()
+        {
+            Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out RaycastHit hit, 1000,
+                _raycastLayers);
+            Debug.Log("Hit: " + hit.collider.gameObject.name);
+            return hit;
         }
     }
 }

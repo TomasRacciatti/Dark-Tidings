@@ -51,7 +51,7 @@ public abstract class Weapon : Item
     {
         _timeBetweenShots = 1f / _firerate;
         _bullets = _magazineSize;
-        StartUsing();
+        //StartUsing();
     }
 
     public override void StartUsing()

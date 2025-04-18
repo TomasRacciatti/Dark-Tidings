@@ -1,8 +1,5 @@
-using Players;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
-using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
 namespace Inputs
@@ -11,7 +8,7 @@ namespace Inputs
     {
         private PlayerInput _playerInput;
         private InputActions inputActions;
-        private Controller _controller;
+        private PlayerController _playerController;
     
         [Header("Character Input Values")]
         public Vector2 movement;
@@ -32,7 +29,7 @@ namespace Inputs
         private void Awake()
         {
             inputActions = new InputActions();
-            _controller = GetComponent<Controller>();
+            _playerController = GetComponent<PlayerController>();
             _playerInput = GetComponent<PlayerInput>();
         }
         
@@ -91,6 +88,10 @@ namespace Inputs
         public void Jump(InputAction.CallbackContext context)
         {
             jump = context.ReadValueAsButton();
+            if (jump)
+            {
+                _playerController.Jump();
+            }
         }
     
         public void Sprint(InputAction.CallbackContext context)
@@ -110,12 +111,12 @@ namespace Inputs
         
         public void ToggleInventory(InputAction.CallbackContext context)
         {
-            inventoryOpened = _controller.hudGameManager.inventoryManager.ToggleInventory();
+            //inventoryOpened = _controller.hudGameManager.inventoryManager.ToggleInventory();
         }
         
         public void ToggleBackpack(InputAction.CallbackContext context)
         {
-            _controller.hudGameManager.inventoryManager.ToggleBackpack();
+            //_controller.hudGameManager.inventoryManager.ToggleBackpack();
         }
 
         public void SelectToolbar1(InputAction.CallbackContext context) => SelectToolbar(0);
@@ -125,7 +126,7 @@ namespace Inputs
         
         private void SelectToolbar(int index)
         {
-            _controller.hudGameManager.inventoryManager.ChangeSelectedSlot(index);
+            //_controller.hudGameManager.inventoryManager.ChangeSelectedSlot(index);
         }
         
         private void OnApplicationFocus(bool hasFocus)

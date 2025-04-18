@@ -131,13 +131,13 @@ namespace Inventory
                     slotOrder.AddRange(inventorySlots);
                     break;
 
-                case ItemType.Armor:
+                case ItemType.Armour:
                     slotOrder.AddRange(armorSlots);
                     slotOrder.AddRange(inventorySlots);
                     slotOrder.AddRange(toolbarSlots);
                     break;
 
-                case ItemType.Material:
+                case ItemType.MatMetal:
                     slotOrder.AddRange(inventorySlots);
                     break;
 

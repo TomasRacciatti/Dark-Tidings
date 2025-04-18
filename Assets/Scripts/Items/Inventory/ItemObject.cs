@@ -6,6 +6,7 @@ namespace Inventory
     public class ItemObject : ScriptableObject
     {
         public Sprite image;
+        public string description = "ItemDescription";
         public int stack = 10;
         public ItemType type;
     }
@@ -14,7 +15,12 @@ namespace Inventory
     {
         Weapon,
         Tool,
-        Armor,
-        Material
+        Armour,
+        MatMetal,
+        MatResidue,
+        MatInfusion,
+        MatSpecial,
+        Consumable,
+        Throwable
     }
 }

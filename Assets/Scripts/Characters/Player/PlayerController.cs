@@ -1,4 +1,5 @@
 using UnityEngine;
+using Interfaces;
 using Inputs;
 
 [RequireComponent(typeof(CharacterController))]
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float FallTimeout = 0.15f;
     [SerializeField] private float SpeedChangeRate = 10.0f;
     [SerializeField] private float GroundedOffset = -0.14f;
-    [SerializeField] private float GroundedRadius = 0.28f;
+    [SerializeField] private float GroundedRadius = 0.1f;
     [SerializeField] private LayerMask GroundLayers;
     private float ceilingOffset;
     private float ceilingRadius;
@@ -198,7 +199,7 @@ public class PlayerController : MonoBehaviour
             // stop our velocity dropping infinitely when grounded
             if (_verticalVelocity < 0.0f)
             {
-                _verticalVelocity = 0f;
+                _verticalVelocity = -1f;
             }
         }
         else
@@ -243,5 +244,17 @@ public class PlayerController : MonoBehaviour
             _raycastLayers);
         Debug.Log("Hit: " + hit.collider.gameObject.name);
         return hit;
+    }
+
+    public void Interact()
+    {
+        RaycastHit hit = GetCameraRay();
+        if (hit.collider)
+        {
+            if (hit.collider.TryGetComponent(out IInteractable interactable))
+            {
+                interactable.Interact(gameObject);
+            }
+        }
     }
 }

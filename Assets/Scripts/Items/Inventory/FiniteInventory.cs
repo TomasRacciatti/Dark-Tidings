@@ -14,7 +14,7 @@ namespace Inventory
             ClearInventory(); //limpia e inicializa los slots, borrar esto despues
         }
         
-        public override int AddItems(ItemObject itemObject, int amount)
+        public override int AddItem(ItemObject itemObject, int amount)
         {
             amount = StackItems(itemObject, amount);
             amount = PlaceInEmptySlot(itemObject, amount);
@@ -22,7 +22,7 @@ namespace Inventory
             return amount; // amount not added
         }
         
-        public override int RemoveItems(ItemObject itemObject, int amount)
+        public override int RemoveItem(ItemObject itemObject, int amount)
         {
             return RemoveItemsInternal(itemObject, amount, i =>
             {

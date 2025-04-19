@@ -9,6 +9,8 @@ namespace Inventory
         public string description = "ItemDescription";
         public int stack = 10;
         public ItemType type;
+        public Mesh mesh;
+        public Material[] materials;
     }
 
     public enum ItemType

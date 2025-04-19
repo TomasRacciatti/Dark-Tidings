@@ -5,7 +5,7 @@ namespace Inventory
 {
     public class InfiniteInventory : InventorySystem
     {
-        public override int AddItems(ItemObject itemObject, int amount)
+        public override int AddItem(ItemObject itemObject, int amount)
         {
             amount = StackItems(itemObject, amount);
             AddNewItemStacks(itemObject, amount);
@@ -13,7 +13,7 @@ namespace Inventory
             return 0;
         }
         
-        public override int RemoveItems(ItemObject itemObject, int amount)
+        public override int RemoveItem(ItemObject itemObject, int amount)
         {
             return RemoveItemsInternal(itemObject, amount, i =>
             {

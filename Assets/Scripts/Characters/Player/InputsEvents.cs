@@ -45,6 +45,7 @@ namespace Inputs
             inputActions.Player.Sprint.canceled += Sprint;
             inputActions.Player.Use.performed += StartUse;
             inputActions.Player.Use.canceled += StopUse;
+            inputActions.Player.Interact.performed += Interact;
             inputActions.Player.ToggleInventory.performed += ToggleInventory;
             inputActions.Player.ToggleBackpack.performed += ToggleBackpack;
             inputActions.Player.Toolbar1.performed += SelectToolbar1;
@@ -54,7 +55,7 @@ namespace Inputs
             inputActions.Enable();
         }
         
-        private void OnDisable()
+        private void OnDisable() //fijarme al final si esto esta igual q arriba con -
         {
             inputActions.Disable();
             inputActions.Player.Movement.performed -= Movement;
@@ -67,6 +68,7 @@ namespace Inputs
             inputActions.Player.Sprint.canceled -= Sprint;
             inputActions.Player.Use.performed -= StartUse;
             inputActions.Player.Use.canceled -= StopUse;
+            inputActions.Player.Interact.performed -= Interact;
             inputActions.Player.ToggleInventory.performed -= ToggleInventory;
             inputActions.Player.ToggleBackpack.performed -= ToggleBackpack;
             inputActions.Player.Toolbar1.performed -= SelectToolbar1;
@@ -102,6 +104,11 @@ namespace Inputs
         public void StartUse(InputAction.CallbackContext context)
         {
             use = context.ReadValueAsButton();
+        }
+        
+        public void Interact(InputAction.CallbackContext context)
+        {
+            _playerController.Interact();
         }
         
         public void StopUse(InputAction.CallbackContext context)

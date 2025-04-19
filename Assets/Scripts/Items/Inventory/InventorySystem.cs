@@ -10,8 +10,8 @@ namespace Inventory
     {
         [SerializeField] protected List<ItemAmount> items = new List<ItemAmount>();
 
-        public abstract int AddItems(ItemObject itemObject, int amount);
-        public abstract int RemoveItems(ItemObject itemObject, int amount);
+        public abstract int AddItem(ItemObject itemObject, int amount);
+        public abstract int RemoveItem(ItemObject itemObject, int amount);
 
         public int GetItemAmount(ItemObject itemObject)
         {
@@ -72,7 +72,7 @@ namespace Inventory
         public void TransferSlotTo(InventorySystem otherInventory, int index)
         {
             var item = items[index];
-            otherInventory.AddItems(item.item, item.amount);
+            otherInventory.AddItem(item.item, item.amount);
             ClearSlot(index);
         }
         

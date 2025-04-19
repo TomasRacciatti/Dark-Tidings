@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shotgun : Weapon
 {
-    [SerializeField] private int Pellets = 10;
+    [SerializeField] private int _pellets = 10;
     
     public Shotgun()
     {
@@ -14,7 +14,7 @@ public class Shotgun : Weapon
     protected override void Shoot()
     {
         base.Shoot();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < _pellets; i++)
         {
             Vector2 randomCircle = Random.insideUnitCircle * Mathf.Tan(15f * Mathf.Deg2Rad);
             Vector3 spreadOffset = (_firePoint.up * randomCircle.y) + (_firePoint.forward * randomCircle.x);

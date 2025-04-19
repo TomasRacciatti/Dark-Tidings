@@ -17,10 +17,10 @@ public abstract class Weapon : Item
     [SerializeField] private LayerMask _layerMask;
 
     //recoil tipo circular y para arriba
-    [SerializeField] private float _recoveryTime = 0.25f;
-    [SerializeField] private float _baseInaccuracy = 0f;
-    [SerializeField] private float _incrementalInaccuracy = 10f;
-    [SerializeField] private float _maxInaccuracy = 100f;
+    //[SerializeField] private float _recoveryTime = 0.25f;
+    //[SerializeField] private float _baseInaccuracy = 0f;
+    //SerializeField] private float _incrementalInaccuracy = 10f;
+    //[SerializeField] private float _maxInaccuracy = 100f;
 
     [SerializeField] private ParticleSystem _shootingParticle;
     [SerializeField] private ParticleSystem _impactParticle;
@@ -36,7 +36,7 @@ public abstract class Weapon : Item
     private int _bullets;
     private float _timeBetweenShots;
     private bool _isReloading, _isShooting;
-    private float _currentInaccuracy = 0f;
+    //private float _currentInaccuracy = 0f;
     private Cooldown _cooldown = new Cooldown();
 
     private Coroutine shootingCoroutine;
@@ -51,7 +51,7 @@ public abstract class Weapon : Item
     {
         _timeBetweenShots = 1f / _firerate;
         _bullets = _magazineSize;
-        StartUsing(); //sacar esto y que es automatica es solo prueba
+        //StartUsing();
     }
 
     public override void StartUsing()

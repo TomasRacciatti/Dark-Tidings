@@ -1439,6 +1439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dfe328dbef5b394aa6c7f699e6b32a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemObject: {fileID: 11400000, guid: 64d3439e961f9aa40b29db2c1fae33f4, type: 2}
   weaponName: Shotgun
   _damage: 10
   _firerate: 1

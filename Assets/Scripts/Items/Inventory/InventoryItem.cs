@@ -11,7 +11,7 @@ namespace Inventory
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI countText;
 
-        [FormerlySerializedAs("item")] [HideInInspector] public ItemObject itemObject;
+        [HideInInspector] public ItemObject itemObject;
         [HideInInspector] public int count = 1;
         [HideInInspector] public Transform parentTransform;
 

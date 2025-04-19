@@ -1,7 +1,5 @@
-using Players;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 using Cursor = UnityEngine.Cursor;
 
 namespace Inputs
@@ -10,14 +8,14 @@ namespace Inputs
     {
         private PlayerInput _playerInput;
         private InputActions inputActions;
-        private Controller _controller;
+        private PlayerController _playerController;
     
         [Header("Character Input Values")]
         public Vector2 movement;
         public Vector2 look;
         public bool jump;
         public bool sprint;
-        public bool shoot;
+        public bool use;
         public bool inventoryOpened;
         public bool toggleBackpack;
         
@@ -31,7 +29,7 @@ namespace Inputs
         private void Awake()
         {
             inputActions = new InputActions();
-            _controller = GetComponent<Controller>();
+            _playerController = GetComponent<PlayerController>();
             _playerInput = GetComponent<PlayerInput>();
         }
         
@@ -48,6 +46,7 @@ namespace Inputs
             inputActions.Player.Use.performed += StartUse;
             inputActions.Player.Use.canceled += StopUse;
             inputActions.Player.ToggleInventory.performed += ToggleInventory;
+            inputActions.Player.ToggleBackpack.performed += ToggleBackpack;
             inputActions.Player.Toolbar1.performed += SelectToolbar1;
             inputActions.Player.Toolbar2.performed += SelectToolbar2;
             inputActions.Player.Toolbar3.performed += SelectToolbar3;
@@ -57,6 +56,7 @@ namespace Inputs
         
         private void OnDisable()
         {
+            inputActions.Disable();
             inputActions.Player.Movement.performed -= Movement;
             inputActions.Player.Movement.canceled -= Movement;
             inputActions.Player.Look.performed -= Look;
@@ -68,11 +68,11 @@ namespace Inputs
             inputActions.Player.Use.performed -= StartUse;
             inputActions.Player.Use.canceled -= StopUse;
             inputActions.Player.ToggleInventory.performed -= ToggleInventory;
+            inputActions.Player.ToggleBackpack.performed -= ToggleBackpack;
             inputActions.Player.Toolbar1.performed -= SelectToolbar1;
             inputActions.Player.Toolbar2.performed -= SelectToolbar2;
             inputActions.Player.Toolbar3.performed -= SelectToolbar3;
             inputActions.Player.Toolbar4.performed -= SelectToolbar4;
-            inputActions.Disable();
         }
 
         public void Movement(InputAction.CallbackContext context)
@@ -88,6 +88,10 @@ namespace Inputs
         public void Jump(InputAction.CallbackContext context)
         {
             jump = context.ReadValueAsButton();
+            if (jump)
+            {
+                _playerController.Jump();
+            }
         }
     
         public void Sprint(InputAction.CallbackContext context)
@@ -97,17 +101,22 @@ namespace Inputs
     
         public void StartUse(InputAction.CallbackContext context)
         {
-            shoot = context.ReadValueAsButton();
+            use = context.ReadValueAsButton();
         }
         
         public void StopUse(InputAction.CallbackContext context)
         {
-            shoot = context.ReadValueAsButton();
+            use = context.ReadValueAsButton();
         }
         
         public void ToggleInventory(InputAction.CallbackContext context)
         {
-            inventoryOpened = _controller.hudGameManager.inventoryManager.ToggleInventory();
+            //inventoryOpened = _controller.hudGameManager.inventoryManager.ToggleInventory();
+        }
+        
+        public void ToggleBackpack(InputAction.CallbackContext context)
+        {
+            //_controller.hudGameManager.inventoryManager.ToggleBackpack();
         }
 
         public void SelectToolbar1(InputAction.CallbackContext context) => SelectToolbar(0);
@@ -117,13 +126,9 @@ namespace Inputs
         
         private void SelectToolbar(int index)
         {
-            _controller.hudGameManager.inventoryManager.ChangeSelectedSlot(index);
+            //_controller.hudGameManager.inventoryManager.ChangeSelectedSlot(index);
         }
         
-        public void ToggleBackpack(InputAction.CallbackContext context)
-        {
-            toggleBackpack = context.ReadValueAsButton();
-        }
         private void OnApplicationFocus(bool hasFocus)
         {
             SetCursorState(cursorLocked);

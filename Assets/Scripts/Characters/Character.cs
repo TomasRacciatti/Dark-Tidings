@@ -15,13 +15,13 @@ public abstract class Character : MonoBehaviour, IDamageable
         _backpackHandler = GetComponent<PlayerBackpackHandler>();
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         // If this character has a backpack handler (is a player with a backpack), 
         // let it modify the damage amount
         if (_backpackHandler != null)
         {
-            _backpackHandler.ModifyIncomingDamage(ref damage);
+            //_backpackHandler.ModifyIncomingDamage(ref damage);
         }
 
         health -= damage;

@@ -114,7 +114,7 @@ public class LightDistanceOnOff : MonoBehaviour
     
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.yellow; 
+        Gizmos.color = Color.magenta; 
         Gizmos.DrawWireSphere(transform.position, _activeDistance); 
     }
 }

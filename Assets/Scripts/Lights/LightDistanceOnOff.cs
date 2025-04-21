@@ -8,6 +8,8 @@ public class LightDistanceOnOff : MonoBehaviour
     // Setteo para que se apaguen a la distancia
     private Light _light;
     [SerializeField] private float _activeDistance = 20f;
+    [SerializeField] private Vector3 _detectionOffset = Vector3.zero;
+    
     [SerializeField] private PlayerCharacter _player;
     [SerializeField] private LayerMask _playerLayerMask;
     
@@ -64,7 +66,7 @@ public class LightDistanceOnOff : MonoBehaviour
     {
         if (_player == null) return;
         
-        float distance = Vector3.Distance(transform.position, _player.transform.position);
+        float distance = Vector3.Distance(transform.position + _detectionOffset, _player.transform.position);
         _distanceAllowsLight = distance <= _activeDistance;
         ApplyFinalLightState();
     }
@@ -88,7 +90,7 @@ public class LightDistanceOnOff : MonoBehaviour
 
         while (_player == null)
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, _activeDistance * 1.5f, _playerLayerMask);
+            Collider[] hits = Physics.OverlapSphere(transform.position + _detectionOffset, _activeDistance * 1.5f, _playerLayerMask);
 
             foreach (var hit in hits)
             {
@@ -111,10 +113,30 @@ public class LightDistanceOnOff : MonoBehaviour
     }
 
     
-    
+    /*
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.magenta; 
-        Gizmos.DrawWireSphere(transform.position, _activeDistance); 
+        Gizmos.DrawWireSphere(transform.position + _detectionOffset, _activeDistance); 
+    }
+    */
+    
+    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.magenta; 
+        Gizmos.DrawWireSphere(transform.position + _detectionOffset, _activeDistance); 
+        
+#if UNITY_EDITOR
+        UnityEditor.Handles.color = Color.cyan;
+        UnityEditor.Handles.DrawLine(transform.position, transform.position + _detectionOffset);
+        UnityEditor.Handles.SphereHandleCap(
+            0,
+            transform.position + _detectionOffset,
+            Quaternion.identity,
+            0.2f,
+            EventType.Repaint
+        );
+#endif
     }
 }

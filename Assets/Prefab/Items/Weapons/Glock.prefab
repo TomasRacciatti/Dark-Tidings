@@ -779,15 +779,11 @@ MonoBehaviour:
   _firerate: 6
   _magazineSize: 13
   _reloadTime: 2.5
-  _automatic: 1
+  _automatic: 0
   _firePoint: {fileID: 6778236433649631453}
   _layerMask:
     serializedVersion: 2
     m_Bits: 4033
-  _recoveryTime: 0.25
-  _baseInaccuracy: 0
-  _incrementalInaccuracy: 10
-  _maxInaccuracy: 100
   _shootingParticle: {fileID: 0}
   _impactParticle: {fileID: 0}
   _trailRenderer: {fileID: 6904666637446915446, guid: 3590d5eb3034a59438b371bfbc7d25de, type: 3}

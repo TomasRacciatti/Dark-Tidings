@@ -12,11 +12,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float Gravity = -9.8f;
     [SerializeField] private float FallTimeout = 0.15f;
     [SerializeField] private float SpeedChangeRate = 10.0f;
-    [SerializeField] private float GroundedOffset = -0.14f;
-    [SerializeField] private float GroundedRadius = 0.1f;
+    [SerializeField] private float GroundedOffset = -0.41f;
     [SerializeField] private LayerMask GroundLayers;
-    private float ceilingOffset;
-    private float ceilingRadius;
+    private float characterHeight;
+    private float characterRadius;
 
     [HideInInspector] public bool Grounded = true;
 
@@ -52,8 +51,11 @@ public class PlayerController : MonoBehaviour
 
     private Character _character;
 
+    public static PlayerController Instance;
+
     private void Awake()
     {
+        Instance = this;
         _character = GetComponent<Character>();
         _characterController = GetComponent<CharacterController>();
         _inputEvents = GetComponent<InputsEvents>();
@@ -65,8 +67,8 @@ public class PlayerController : MonoBehaviour
     {
         if (_characterController)
         {
-            ceilingOffset = _characterController.height;
-            ceilingRadius = _characterController.radius;
+            characterHeight = _characterController.height;
+            characterRadius = _characterController.radius;
         }
     }
 
@@ -90,14 +92,14 @@ public class PlayerController : MonoBehaviour
     }
 
     private void GroundedCheck()
-    { 
+    {
         bool wasGrounded = Grounded;
-        
+
         Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
             transform.position.z);
-        Grounded = Physics.CheckSphere(spherePosition, GroundedRadius, GroundLayers,
+        Grounded = Physics.CheckSphere(spherePosition, characterRadius, GroundLayers,
             QueryTriggerInteraction.Ignore);
-        
+
         if (!wasGrounded && Grounded)
         {
             _playerView.Landed();
@@ -111,9 +113,9 @@ public class PlayerController : MonoBehaviour
         if (_verticalVelocity <= 0f) return;
 
         Vector3 spherePosition =
-            new Vector3(transform.position.x, transform.position.y + ceilingOffset, transform.position.z);
+            new Vector3(transform.position.x, transform.position.y + characterHeight, transform.position.z);
 
-        if (Physics.CheckSphere(spherePosition, ceilingRadius, GroundLayers, QueryTriggerInteraction.Ignore))
+        if (Physics.CheckSphere(spherePosition, characterRadius, GroundLayers, QueryTriggerInteraction.Ignore))
         {
             _verticalVelocity = 0f;
         }
@@ -214,7 +216,7 @@ public class PlayerController : MonoBehaviour
                 _playerView.SetFalling(true);
             }
         }
-        
+
         _playerView.SetVerticalSpeed(_verticalVelocity);
 
         //Gravity
@@ -238,17 +240,16 @@ public class PlayerController : MonoBehaviour
         return Mathf.Clamp(lfAngle, lfMin, lfMax);
     }
 
-    public RaycastHit GetCameraRay()
+    public RaycastHit GetCameraRay(int distance = 1000)
     {
-        Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out RaycastHit hit, 1000,
+        Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out RaycastHit hit, distance,
             _raycastLayers);
-        Debug.Log("Hit: " + hit.collider.gameObject.name);
         return hit;
     }
 
     public void Interact()
     {
-        RaycastHit hit = GetCameraRay();
+        RaycastHit hit = GetCameraRay(3);
         if (hit.collider)
         {
             if (hit.collider.TryGetComponent(out IInteractable interactable))

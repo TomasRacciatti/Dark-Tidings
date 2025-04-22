@@ -92,9 +92,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 3045129941214039440}
-  countText: {fileID: 1408082257979482802}
+  amountText: {fileID: 1408082257979482802}
   itemObject: {fileID: 0}
-  count: 1
+  amount: 1
   parentTransform: {fileID: 0}
 --- !u!223 &1072410674843284913
 Canvas:

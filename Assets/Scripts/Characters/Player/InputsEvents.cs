@@ -104,6 +104,7 @@ namespace Inputs
         public void StartUse(InputAction.CallbackContext context)
         {
             use = context.ReadValueAsButton();
+            ItemsInHand.Instance.Shoot();
         }
         
         public void Interact(InputAction.CallbackContext context)
@@ -118,12 +119,12 @@ namespace Inputs
         
         public void ToggleInventory(InputAction.CallbackContext context)
         {
-            //inventoryOpened = _controller.hudGameManager.inventoryManager.ToggleInventory();
+            inventoryOpened = CanvasGameManager.Instance.inventoryManager.ToggleInventory();
         }
         
         public void ToggleBackpack(InputAction.CallbackContext context)
         {
-            //_controller.hudGameManager.inventoryManager.ToggleBackpack();
+            CanvasGameManager.Instance.inventoryManager.ToggleBackpack();
         }
 
         public void SelectToolbar1(InputAction.CallbackContext context) => SelectToolbar(0);
@@ -133,7 +134,7 @@ namespace Inputs
         
         private void SelectToolbar(int index)
         {
-            //_controller.hudGameManager.inventoryManager.ChangeSelectedSlot(index);
+            CanvasGameManager.Instance.inventoryManager.toolbar.ChangeSelectedSlot(index);
         }
         
         private void OnApplicationFocus(bool hasFocus)

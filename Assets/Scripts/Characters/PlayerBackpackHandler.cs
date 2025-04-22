@@ -1,12 +1,12 @@
 using System;
 using Inputs;
 using UnityEngine;
-using Players;
 
-[RequireComponent(typeof(Controller))]
-[RequireComponent(typeof(Player))]
+[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(PlayerCharacter))]
 public class PlayerBackpackHandler : MonoBehaviour
 {
+    /*
     private Controller _controller;
     private Player _player;
     private Backpack _backpack;
@@ -121,5 +121,5 @@ public class PlayerBackpackHandler : MonoBehaviour
                 damage = Mathf.RoundToInt(damage * backpackStats.DamageTakenMultiplier);
             }
         }
-    }
+    }*/
 }

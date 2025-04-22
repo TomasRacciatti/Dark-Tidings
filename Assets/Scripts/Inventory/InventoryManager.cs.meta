@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 300b5ae22d0ba9440bdc6fc223112e82
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - inventoryItemPrefab: {fileID: 6071862886307314409, guid: 7ff0fa7b3952a07458029e98113e2e1d, type: 3}
+  - toolbar: {instanceID: 0}
+  - inventoryView: {instanceID: 0}
+  - selectedSlot: {instanceID: 0}
+  - inventoryUI: {instanceID: 0}
+  - backpackUI: {instanceID: 0}
+  - slotSelector: {instanceID: 0}
+  - bulletSelector: {instanceID: 0}
+  - backpack: {instanceID: 0}
+  - backpackRoot: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

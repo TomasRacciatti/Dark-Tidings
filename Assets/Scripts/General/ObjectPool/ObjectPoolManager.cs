@@ -88,6 +88,14 @@ public class ObjectPoolManager : MonoBehaviour
         return spawneableObject;
     }
 
+    //Sobrecarga con tiempo de vida establecido
+    public GameObject SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation, float delay)
+    {
+        GameObject spawneableObject = SpawnObject(prefab, position, rotation);
+        ReturnObjectToPool(spawneableObject, delay);
+        return spawneableObject;
+    }
+
     public void ReturnObjectToPool(GameObject obj)
     {
         string objName = obj.name.Replace("(Clone)", "").Trim();
@@ -98,6 +106,7 @@ public class ObjectPoolManager : MonoBehaviour
         pool.inactiveObjects.Enqueue(obj); // Add the object back to the queue
     }
 
+    //Sobrecarga con tiempo de vida establecido
     public void ReturnObjectToPool(GameObject obj, float delay)
     {
         StartCoroutine(ReturnObjectWithDelay(obj, delay));

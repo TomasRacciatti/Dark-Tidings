@@ -1,8 +1,7 @@
-using System;
+using Inventory.View;
 using UnityEngine;
-using System.Collections.Generic;
 
-namespace Inventory
+namespace Inventory.Controller
 {
     public class InventoryManager : MonoBehaviour
     {

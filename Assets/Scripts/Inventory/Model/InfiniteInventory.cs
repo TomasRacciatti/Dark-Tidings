@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Items;
 
-namespace Inventory
+namespace Inventory.Model
 {
     public class InfiniteInventory : InventorySystem
     {

@@ -32,29 +32,31 @@ namespace Inventory
             }
 
             item = newItem;
-            return AddAmount(newAmount);
+            SetAmount(Mathf.Min(newAmount, item.stack));
+            return Mathf.Max(0, newAmount - item.stack);
         }
 
-        public int AddAmount(int amountAdded)
+        public int SetAmount(int newAmount)
         {
-            if (IsEmpty || amountAdded <= 0) return amountAdded;
-
-            int add = Mathf.Min(StackSpace, amountAdded);
-            amount += add;
-            return amountAdded - add;
+            if (IsEmpty) return newAmount;
+            int clampedAmount = Mathf.Clamp(newAmount, 0, item.stack);
+            amount = clampedAmount;
+            if (amount <= 0) Clear();
+            return newAmount - clampedAmount;
         }
 
-        public int RemoveAmount(int amountRemoved)
+        public int AddAmount(int amountToAdd)
         {
-            if (IsEmpty || amountRemoved <= 0) return amountRemoved;
-
-            int toRemove = Mathf.Min(amount, amountRemoved);
-            amount -= toRemove;
-            if (amount == 0) Clear();
-
-            return amountRemoved - toRemove;
+            if (IsEmpty || amountToAdd <= 0) return amountToAdd;
+            return SetAmount(amount + amountToAdd);
         }
 
+        public int RemoveAmount(int amountToRemove)
+        {
+            if (IsEmpty || amountToRemove <= 0) return amountToRemove;
+            return SetAmount(amount - amountToRemove);
+        }
+        
         public void Clear()
         {
             item = null;

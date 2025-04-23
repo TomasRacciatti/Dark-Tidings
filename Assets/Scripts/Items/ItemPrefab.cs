@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
 using Inventory;
+using Inventory.Model;
 using UnityEngine;
 
 public class ItemPrefab : MonoBehaviour, IInteractable

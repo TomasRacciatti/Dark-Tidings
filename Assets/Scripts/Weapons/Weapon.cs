@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using Interfaces;
+using Patterns;
+using Patterns.ObjectPool;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]

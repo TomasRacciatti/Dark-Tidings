@@ -1,25 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
+using Inventory.View;
 using UnityEngine;
 
-namespace Inventory
+namespace Inventory.Controller
 {
     public class Toolbar : MonoBehaviour
     {
         [SerializeField] private InventorySlot[] toolbarSlots;
         [SerializeField] private int selectedSlot = 0;
         [SerializeField] private GameObject slotSelector;
-
-        public static Toolbar Instance { get; private set; }
-
-        private void Awake()
+        
+        public InventorySlot SelectedSlot
         {
-            if (Instance != null && Instance != this)
+            get
             {
-                Destroy(gameObject);
-                return;
+                if (toolbarSlots == null || toolbarSlots.Length == 0) return null;
+                if (selectedSlot < 0 || selectedSlot >= toolbarSlots.Length) return null;
+                return toolbarSlots[selectedSlot];
             }
-            Instance = this;
         }
         
         private void Start()
@@ -33,13 +30,13 @@ namespace Inventory
             if (slot >= toolbarSlots.Length) return;
 
             selectedSlot = slot;
-            slotSelector.transform.SetParent(toolbarSlots[selectedSlot].transform, false);
+            slotSelector.transform.SetParent(SelectedSlot.transform, false);
             slotSelector.transform.localPosition = Vector3.zero;
         }
         
         public InventoryItem GetSelectedItem()
         {
-            return toolbarSlots[selectedSlot].GetComponentInChildren<InventoryItem>();
+            return SelectedSlot.GetComponentInChildren<InventoryItem>();
         }
 
         public void EquipItem(ItemAmount itemAmount, int slot)

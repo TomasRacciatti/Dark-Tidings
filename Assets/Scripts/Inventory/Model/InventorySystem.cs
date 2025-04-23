@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Items;
+using UnityEngine;
 
-namespace Inventory
+namespace Inventory.Model
 {
     [System.Serializable]
     public abstract class InventorySystem : MonoBehaviour
@@ -16,7 +16,7 @@ namespace Inventory
 
         protected void UpdateHud(int index)
         {
-            //print("indice: " + index + ", item: " + items[index].item  + ", cant:" + items[index].amount);
+            print("indice: " + index + ", item: " + items[index].item  + ", cant:" + items[index].amount);
             CanvasGameManager.Instance.inventoryManager.inventoryView.SetItem(index, items[index]);
         }
 

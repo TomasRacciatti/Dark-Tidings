@@ -1,11 +1,11 @@
+using Inventory.Controller;
+using Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using Items;
 
-namespace Inventory
+namespace Inventory.View
 {
     public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
     {
@@ -70,7 +70,7 @@ namespace Inventory
                     Debug.Log("Clic izquierdo");
                     if (itemAmount.item.type == ItemType.Weapon)
                     {
-                        Toolbar.Instance.EquipItem(itemAmount, 0);
+                        //Toolbar.Instance.EquipItem(itemAmount, 0);
                         ItemsInHand.Instance.ActivateGlock();
                     }
                     break;

@@ -1,5 +1,5 @@
 using System;
-using Inputs;
+using Characters.Player;
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]

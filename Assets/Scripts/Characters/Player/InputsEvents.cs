@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Cursor = UnityEngine.Cursor;
 
-namespace Inputs
+namespace Characters.Player
 {
     public class InputsEvents : MonoBehaviour
     {
@@ -104,7 +103,7 @@ namespace Inputs
         public void StartUse(InputAction.CallbackContext context)
         {
             use = context.ReadValueAsButton();
-            ItemsInHand.Instance.Shoot();
+            //ItemsInHand.Instance.Shoot();
         }
         
         public void Interact(InputAction.CallbackContext context)

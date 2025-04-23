@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System.Linq;
 using Items;
 
-namespace Inventory
+namespace Inventory.Model
 {
     public class FiniteInventory : InventorySystem
     {

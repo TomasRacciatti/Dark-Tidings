@@ -15,8 +15,6 @@ namespace Characters.Player
         [SerializeField] private float SpeedChangeRate = 10.0f;
         [SerializeField] private float GroundedOffset = -0.41f;
         [SerializeField] private LayerMask GroundLayers;
-        private float characterHeight;
-        private float characterRadius;
 
         [HideInInspector] public bool Grounded = true;
 
@@ -61,16 +59,6 @@ namespace Characters.Player
             _characterController = GetComponent<CharacterController>();
             _inputEvents = GetComponent<InputsEvents>();
             _playerView = GetComponent<PlayerView>();
-            InitializeVariables();
-        }
-
-        private void InitializeVariables()
-        {
-            if (_characterController)
-            {
-                characterHeight = _characterController.height;
-                characterRadius = _characterController.radius;
-            }
         }
 
         private void Start()
@@ -98,7 +86,7 @@ namespace Characters.Player
 
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
                 transform.position.z);
-            Grounded = Physics.CheckSphere(spherePosition, characterRadius, GroundLayers,
+            Grounded = Physics.CheckSphere(spherePosition, _characterController.radius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
             if (!wasGrounded && Grounded)
@@ -114,9 +102,9 @@ namespace Characters.Player
             if (_verticalVelocity <= 0f) return;
 
             Vector3 spherePosition =
-                new Vector3(transform.position.x, transform.position.y + characterHeight, transform.position.z);
+                new Vector3(transform.position.x, transform.position.y + _characterController.height, transform.position.z);
 
-            if (Physics.CheckSphere(spherePosition, characterRadius, GroundLayers, QueryTriggerInteraction.Ignore))
+            if (Physics.CheckSphere(spherePosition, _characterController.radius, GroundLayers, QueryTriggerInteraction.Ignore))
             {
                 _verticalVelocity = 0f;
             }
@@ -202,7 +190,7 @@ namespace Characters.Player
                 // stop our velocity dropping infinitely when grounded
                 if (_verticalVelocity < 0.0f)
                 {
-                    _verticalVelocity = -1f;
+                    _verticalVelocity = -3f;
                 }
             }
             else
@@ -218,7 +206,7 @@ namespace Characters.Player
                 }
             }
 
-            _playerView.SetVerticalSpeed(_verticalVelocity);
+            _playerView.SetVerticalSpeed(Grounded ? 0 : _verticalVelocity);
 
             //Gravity
             if (_verticalVelocity < _terminalVelocity)

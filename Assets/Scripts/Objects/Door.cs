@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Interfaces;
@@ -8,8 +9,8 @@ namespace Objects
 {
     public class Door : MonoBehaviour, IInteractable
     {
-        [SerializeField] private Transform doorPivot;
-        [SerializeField] private float openAngle = -90f;
+        [SerializeField] private float openedAngle = -120f;
+        [SerializeField] private float closedAngle = 0f;
         [SerializeField] private float timeAnim = 2f;
         [SerializeField] private AnimationCurve openCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
         [SerializeField] private bool isOpen = false;
@@ -19,17 +20,33 @@ namespace Objects
         private Quaternion closedRotation;
         private Quaternion openRotation;
         private Coroutine currentCoroutine;
+        private HingeJoint hingeJoint;
 
+        private void Awake()
+        {
+            hingeJoint = GetComponent<HingeJoint>();
+        }
+        
         void Start()
         {
-            closedRotation = doorPivot.rotation;
-            openRotation = doorPivot.rotation * Quaternion.Euler(0f, openAngle, 0f);
-            doorPivot.rotation = isOpen ? openRotation : closedRotation;
+            closedRotation = transform.rotation;
+            openRotation = transform.rotation * Quaternion.Euler(0f, openedAngle, 0f);
+            
+            transform.rotation = isOpen ? openRotation : closedRotation;
+            
+            JointLimits limits = hingeJoint.limits;
+            limits.min = openedAngle;
+            limits.max = closedAngle;
+            hingeJoint.limits = limits;
+
+            JointSpring spring = hingeJoint.spring;
+            spring.targetPosition = isOpen ? openedAngle : closedAngle;
+            hingeJoint.spring = spring;
         }
 
         public void Interact(GameObject interactableObject)
         {
-            if (isLocked)
+            /*if (isLocked)
             {
                 InventorySystem inventory = interactableObject.GetComponent<InventorySystem>();
                 if (inventory.HasItem(keyItem))
@@ -44,14 +61,18 @@ namespace Objects
                     currentCoroutine = StartCoroutine(ForceDoor());
                     return;
                 }
-            }
+            }*/
         
             isOpen = !isOpen;
+            JointSpring spring = hingeJoint.spring;
+            spring.targetPosition = isOpen ? openedAngle : closedAngle;
+            hingeJoint.spring = spring;
 
+            /*
             if (currentCoroutine != null)
                 StopCoroutine(currentCoroutine);
 
-            currentCoroutine = StartCoroutine(RotateDoor());
+            currentCoroutine = StartCoroutine(RotateDoor());*/
         }
     
         public void LockDoor(bool locked)
@@ -62,7 +83,7 @@ namespace Objects
 
         private IEnumerator RotateDoor()
         {
-            Quaternion startRotation = doorPivot.rotation;
+            Quaternion startRotation = transform.rotation;
             Quaternion targetRotation = isOpen ? openRotation : closedRotation;
 
             float time = 0f;
@@ -70,11 +91,11 @@ namespace Objects
             {
                 time += Time.deltaTime;
                 float curveT = openCurve.Evaluate(time / timeAnim);
-                doorPivot.rotation = Quaternion.Lerp(startRotation, targetRotation, curveT);
+                transform.rotation = Quaternion.Lerp(startRotation, targetRotation, curveT);
                 yield return null;
             }
 
-            doorPivot.rotation = targetRotation;
+            transform.rotation = targetRotation;
             currentCoroutine = null;
         }
     
@@ -83,18 +104,18 @@ namespace Objects
             float duration = 0.3f;
             float magnitude = 2f;
 
-            Quaternion originalRotation = doorPivot.rotation;
+            Quaternion originalRotation = transform.rotation;
 
             float elapsed = 0f;
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
                 float shake = Mathf.Sin(elapsed * 40f) * magnitude;
-                doorPivot.localRotation = originalRotation * Quaternion.Euler(0f, shake, 0f);
+                transform.localRotation = originalRotation * Quaternion.Euler(0f, shake, 0f);
                 yield return null;
             }
 
-            doorPivot.localRotation = originalRotation;
+            transform.localRotation = originalRotation;
         }
     }
 }

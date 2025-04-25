@@ -178,14 +178,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3df6c540c9f30a4887f05084d47c734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpHeight: 1.2
+  JumpHeight: 1
   Gravity: -9.8
   FallTimeout: 1
   SpeedChangeRate: 10
   GroundedOffset: -0.41
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 449
+    m_Bits: 16833
   Grounded: 1
   CinemachineCameraTarget: {fileID: 9055658549706281260}
   TopClamp: 89
@@ -194,7 +194,7 @@ MonoBehaviour:
   _mainCamera: {fileID: 5777399186146976923}
   _raycastLayers:
     serializedVersion: 2
-    m_Bits: 7617
+    m_Bits: 32193
 --- !u!114 &3118061232746742294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
+  view: {fileID: 0}
   slotsAmount: 12
 --- !u!114 &6850914345207136916
 MonoBehaviour:
@@ -223,7 +224,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {x: 0, y: 0}
   look: {x: 0, y: 0}
-  jump: 0
   sprint: 0
   use: 0
   inventoryOpened: 0
@@ -245,9 +245,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pushLayers:
     serializedVersion: 2
-    m_Bits: 256
-  canPush: 0
-  strength: 1.1
+    m_Bits: 8448
+  canPush: 1
+  strength: 3
 --- !u!114 &3884804025199195881
 MonoBehaviour:
   m_ObjectHideFlags: 0

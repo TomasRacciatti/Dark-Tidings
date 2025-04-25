@@ -1,6 +1,6 @@
 
+using Characters.Player;
 using UnityEngine;
-using Inputs;
 using Interfaces;
 
 public class WeaponSystem : MonoBehaviour

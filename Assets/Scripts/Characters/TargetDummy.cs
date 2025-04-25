@@ -1,21 +1,22 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Patterns.ObjectPool;
 using TMPro;
 using UnityEngine;
 
-public class TargetDummy : Character
+namespace Characters
 {
-    [SerializeField] private GameObject _indicator;
-    
-    public override void TakeDamage(int damage)
+    public class TargetDummy : Character
     {
-        GameObject obj = ObjectPoolManager.instance.SpawnObject(_indicator, transform.position, transform.rotation, 5);
-        obj.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
-    }
+        [SerializeField] private GameObject _indicator;
     
-    protected override void Death()
-    {
-        //cannot death
+        public override void TakeDamage(int damage)
+        {
+            GameObject obj = ObjectPoolManager.instance.SpawnObject(_indicator, transform.position, transform.rotation, 5);
+            obj.GetComponentInChildren<TextMeshProUGUI>().text = damage.ToString();
+        }
+    
+        protected override void Death()
+        {
+            //cannot death
+        }
     }
 }

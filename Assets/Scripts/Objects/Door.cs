@@ -1,99 +1,124 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Interfaces;
-using Inventory;
 using UnityEngine;
+using Interfaces;
+using Inventory.Model;
 using Items;
 
-public class Door : MonoBehaviour, IInteractable
+namespace Objects
 {
-    [SerializeField] private Transform doorPivot;
-    [SerializeField] private float openAngle = -90f;
-    [SerializeField] private float timeAnim = 2f;
-    [SerializeField] private AnimationCurve openCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    [SerializeField] private bool isOpen = false;
-    [SerializeField] private bool isLocked = false;
-    [SerializeField] private ItemObject keyItem;
-
-    private Quaternion closedRotation;
-    private Quaternion openRotation;
-    private Coroutine currentCoroutine;
-
-    void Start()
+    public class Door : MonoBehaviour, IInteractable
     {
-        closedRotation = doorPivot.rotation;
-        openRotation = doorPivot.rotation * Quaternion.Euler(0f, openAngle, 0f);
-        doorPivot.rotation = isOpen ? openRotation : closedRotation;
-    }
+        [SerializeField] private float openedAngle = -120f;
+        [SerializeField] private float closedAngle = 0f;
+        //[SerializeField] private float timeAnim = 2f;
+        [SerializeField] private AnimationCurve openCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        [SerializeField] private bool isOpen = false;
+        [SerializeField] private bool isLocked = false;
+        [SerializeField] private ItemObject keyItem;
 
-    public void Interact(GameObject interactableObject)
-    {
-        if (isLocked)
+        private Quaternion closedRotation;
+        private Quaternion openRotation;
+        //private Coroutine currentCoroutine;
+        private HingeJoint hinge;
+
+        private void Awake()
         {
-            InventorySystem inventory = interactableObject.GetComponent<InventorySystem>();
-            if (inventory.HasItem(keyItem))
-            {
-                LockDoor(false);
-            }
-            else
-            {
-                if (currentCoroutine != null)
-                    StopCoroutine(currentCoroutine);
-
-                currentCoroutine = StartCoroutine(ForceDoor());
-                return;
-            }
+            hinge = GetComponent<HingeJoint>();
         }
         
-        isOpen = !isOpen;
-
-        if (currentCoroutine != null)
-            StopCoroutine(currentCoroutine);
-
-        currentCoroutine = StartCoroutine(RotateDoor());
-    }
-    
-    public void LockDoor(bool locked)
-    {
-        if (isOpen) return;
-        isLocked = locked;
-    }
-
-    private IEnumerator RotateDoor()
-    {
-        Quaternion startRotation = doorPivot.rotation;
-        Quaternion targetRotation = isOpen ? openRotation : closedRotation;
-
-        float time = 0f;
-        while (time < timeAnim)
+        void Start()
         {
-            time += Time.deltaTime;
-            float curveT = openCurve.Evaluate(time / timeAnim);
-            doorPivot.rotation = Quaternion.Lerp(startRotation, targetRotation, curveT);
-            yield return null;
+            closedRotation = transform.rotation;
+            openRotation = transform.rotation * Quaternion.Euler(0f, openedAngle, 0f);
+            
+            transform.rotation = isOpen ? openRotation : closedRotation;
+            
+            JointLimits limits = hinge.limits;
+            limits.min = openedAngle;
+            limits.max = closedAngle;
+            hinge.limits = limits;
+
+            JointSpring spring = hinge.spring;
+            spring.targetPosition = isOpen ? openedAngle : closedAngle;
+            hinge.spring = spring;
         }
 
-        doorPivot.rotation = targetRotation;
-        currentCoroutine = null;
-    }
-    
-    private IEnumerator ForceDoor()
-    {
-        float duration = 0.3f;
-        float magnitude = 2f;
-
-        Quaternion originalRotation = doorPivot.rotation;
-
-        float elapsed = 0f;
-        while (elapsed < duration)
+        public void Interact(GameObject interactableObject)
         {
-            elapsed += Time.deltaTime;
-            float shake = Mathf.Sin(elapsed * 40f) * magnitude;
-            doorPivot.localRotation = originalRotation * Quaternion.Euler(0f, shake, 0f);
-            yield return null;
+            /*if (isLocked)
+            {
+                InventorySystem inventory = interactableObject.GetComponent<InventorySystem>();
+                if (inventory.HasItem(keyItem))
+                {
+                    LockDoor(false);
+                }
+                else
+                {
+                    if (currentCoroutine != null)
+                        StopCoroutine(currentCoroutine);
+
+                    currentCoroutine = StartCoroutine(ForceDoor());
+                    return;
+                }
+            }*/
+        
+            isOpen = !isOpen;
+            JointSpring spring = hinge.spring;
+            spring.targetPosition = isOpen ? openedAngle : closedAngle;
+            hinge.spring = spring;
+            
+            
+
+            /*
+            if (currentCoroutine != null)
+                StopCoroutine(currentCoroutine);
+
+            currentCoroutine = StartCoroutine(RotateDoor());*/
+        }
+    
+        public void LockDoor(bool locked)
+        {
+            if (isOpen) return;
+            isLocked = locked;
         }
 
-        doorPivot.localRotation = originalRotation;
+        /*
+        private IEnumerator RotateDoor()
+        {
+            Quaternion startRotation = transform.rotation;
+            Quaternion targetRotation = isOpen ? openRotation : closedRotation;
+
+            float time = 0f;
+            while (time < timeAnim)
+            {
+                time += Time.deltaTime;
+                float curveT = openCurve.Evaluate(time / timeAnim);
+                transform.rotation = Quaternion.Lerp(startRotation, targetRotation, curveT);
+                yield return null;
+            }
+
+            transform.rotation = targetRotation;
+            currentCoroutine = null;
+        }
+    
+        private IEnumerator ForceDoor()
+        {
+            float duration = 0.3f;
+            float magnitude = 2f;
+
+            Quaternion originalRotation = transform.rotation;
+
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float shake = Mathf.Sin(elapsed * 40f) * magnitude;
+                transform.localRotation = originalRotation * Quaternion.Euler(0f, shake, 0f);
+                yield return null;
+            }
+
+            transform.localRotation = originalRotation;
+        }*/
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Interfaces;
 using Inventory;
+using Inventory.Model;
 using UnityEngine;
 
 public class ItemPrefab : MonoBehaviour, IInteractable
@@ -19,18 +20,19 @@ public class ItemPrefab : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        if (itemAmount.item == null || itemAmount.amount <= 0)
+        if (itemAmount.Item == null || itemAmount.Amount <= 0)
         {
             Destroy(gameObject);
+            return;
         }
         //assign mesh and material
-        if (itemAmount.item.mesh != null)
+        if (itemAmount.Item.GetMesh() != null)
         {
-            meshFilter.mesh = itemAmount.item.mesh;
+            meshFilter.mesh = itemAmount.Item.GetMesh();
         }
-        if (itemAmount.item.materials != null && itemAmount.item.materials.Length > 0)
+        if (itemAmount.Item.GetMaterials() != null && itemAmount.Item.GetMaterials().Length > 0)
         {
-            meshRenderer.materials = itemAmount.item.materials;
+            meshRenderer.materials = itemAmount.Item.GetMaterials();
         }
     }
 
@@ -38,7 +40,7 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     {
         if (interactableObject.TryGetComponent(out InventorySystem inventorySystem))
         {
-            itemAmount.RemoveAmount(itemAmount.amount - inventorySystem.AddItem(itemAmount.item, itemAmount.amount));
+            itemAmount.RemoveAmount(itemAmount.Amount - inventorySystem.AddItem(itemAmount.Item, itemAmount.Amount));
             if (itemAmount.IsEmpty)
             {
                 Destroy(gameObject);

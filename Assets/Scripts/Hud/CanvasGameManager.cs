@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Inventory;
+using Inventory.Controller;
 using UnityEngine;
 
 public class CanvasGameManager : MonoBehaviour

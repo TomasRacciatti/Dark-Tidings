@@ -1,4 +1,5 @@
 using Interfaces;
+using Inventory.Model;
 using UnityEngine;
 
 namespace Characters.Player
@@ -51,6 +52,8 @@ namespace Characters.Player
         private Character _character;
 
         public static PlayerController Instance;
+        
+        public FiniteInventory inventory;
 
         private void Awake()
         {
@@ -59,6 +62,7 @@ namespace Characters.Player
             _characterController = GetComponent<CharacterController>();
             _inputEvents = GetComponent<InputsEvents>();
             _playerView = GetComponent<PlayerView>();
+            inventory = GetComponent<FiniteInventory>();
         }
 
         private void Start()

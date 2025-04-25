@@ -1,11 +1,11 @@
+using System;
 using Inventory.View;
 using UnityEngine;
 
 namespace Inventory.Controller
 {
-    public class Toolbar : MonoBehaviour
+    public class Toolbar : InventoryView
     {
-        [SerializeField] private InventorySlot[] toolbarSlots;
         [SerializeField] private int selectedSlot = 0;
         [SerializeField] private GameObject slotSelector;
         
@@ -13,21 +13,23 @@ namespace Inventory.Controller
         {
             get
             {
-                if (toolbarSlots == null || toolbarSlots.Length == 0) return null;
-                if (selectedSlot < 0 || selectedSlot >= toolbarSlots.Length) return null;
-                return toolbarSlots[selectedSlot];
+                if (slots == null || slots.Length == 0) return null;
+                if (selectedSlot < 0 || selectedSlot >= slots.Length) return null;
+                return slots[selectedSlot];
             }
         }
-        
-        private void Start()
+
+        protected override void Awake() //no se ejecuta nose porque
         {
+            slotType = SlotType.Toolbar;
+            base.Awake();
             ChangeSelectedSlot(0);
         }
         
         public void ChangeSelectedSlot(int slot)
         {
             if (selectedSlot == slot) return;
-            if (slot >= toolbarSlots.Length) return;
+            if (slot >= slots.Length) return;
 
             selectedSlot = slot;
             slotSelector.transform.SetParent(SelectedSlot.transform, false);
@@ -37,19 +39,6 @@ namespace Inventory.Controller
         public InventoryItem GetSelectedItem()
         {
             return SelectedSlot.GetComponentInChildren<InventoryItem>();
-        }
-
-        public void EquipItem(ItemAmount itemAmount, int slot)
-        {
-            if (slot >= toolbarSlots.Length) return;
-            
-            InventoryItem inventoryItem = toolbarSlots[slot].GetComponentInChildren<InventoryItem>();
-            if (!inventoryItem)
-            {
-                GameObject newItem = Instantiate(InventoryManager.Instance.itemPrefab, toolbarSlots[slot].transform);
-                inventoryItem = newItem.GetComponent<InventoryItem>();
-            }
-            inventoryItem.SetItem(itemAmount.item, itemAmount.amount);
         }
     }
 }

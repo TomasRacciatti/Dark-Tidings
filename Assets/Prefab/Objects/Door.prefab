@@ -105,8 +105,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11566058, y: 2.2184608, z: 0.29999995}
-  m_Center: {x: 0.16714953, y: -0.00000009934107, z: 0}
+  m_Size: {x: 0.18140082, y: 2.2184608, z: 0.29999995}
+  m_Center: {x: 0.20001975, y: -0.00000009934107, z: -6.467455e-15}
 --- !u!65 &3468090128191663522
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -266,7 +266,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4885487747367066262}
   serializedVersion: 4
-  m_Mass: 15
+  m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -338,7 +338,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openedAngle: -120
   closedAngle: 0
-  timeAnim: 2
   openCurve:
     serializedVersion: 2
     m_Curve:

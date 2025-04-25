@@ -11,7 +11,7 @@ namespace Objects
     {
         [SerializeField] private float openedAngle = -120f;
         [SerializeField] private float closedAngle = 0f;
-        [SerializeField] private float timeAnim = 2f;
+        //[SerializeField] private float timeAnim = 2f;
         [SerializeField] private AnimationCurve openCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
         [SerializeField] private bool isOpen = false;
         [SerializeField] private bool isLocked = false;
@@ -19,12 +19,12 @@ namespace Objects
 
         private Quaternion closedRotation;
         private Quaternion openRotation;
-        private Coroutine currentCoroutine;
-        private HingeJoint hingeJoint;
+        //private Coroutine currentCoroutine;
+        private HingeJoint hinge;
 
         private void Awake()
         {
-            hingeJoint = GetComponent<HingeJoint>();
+            hinge = GetComponent<HingeJoint>();
         }
         
         void Start()
@@ -34,14 +34,14 @@ namespace Objects
             
             transform.rotation = isOpen ? openRotation : closedRotation;
             
-            JointLimits limits = hingeJoint.limits;
+            JointLimits limits = hinge.limits;
             limits.min = openedAngle;
             limits.max = closedAngle;
-            hingeJoint.limits = limits;
+            hinge.limits = limits;
 
-            JointSpring spring = hingeJoint.spring;
+            JointSpring spring = hinge.spring;
             spring.targetPosition = isOpen ? openedAngle : closedAngle;
-            hingeJoint.spring = spring;
+            hinge.spring = spring;
         }
 
         public void Interact(GameObject interactableObject)
@@ -64,9 +64,11 @@ namespace Objects
             }*/
         
             isOpen = !isOpen;
-            JointSpring spring = hingeJoint.spring;
+            JointSpring spring = hinge.spring;
             spring.targetPosition = isOpen ? openedAngle : closedAngle;
-            hingeJoint.spring = spring;
+            hinge.spring = spring;
+            
+            
 
             /*
             if (currentCoroutine != null)
@@ -81,6 +83,7 @@ namespace Objects
             isLocked = locked;
         }
 
+        /*
         private IEnumerator RotateDoor()
         {
             Quaternion startRotation = transform.rotation;
@@ -116,6 +119,6 @@ namespace Objects
             }
 
             transform.localRotation = originalRotation;
-        }
+        }*/
     }
 }

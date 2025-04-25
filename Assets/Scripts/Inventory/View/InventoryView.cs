@@ -1,23 +1,25 @@
-using Inventory.Controller;
 using UnityEngine;
 
 namespace Inventory.View
 {
     public class InventoryView : MonoBehaviour
     {
-        [SerializeField] private InventorySlot[] slots;
+        [SerializeField] protected InventorySlot[] slots;
+        [SerializeField] protected SlotType slotType = SlotType.Inventory;
+
+        protected virtual void Awake()
+        {
+            for (int i = 0; i < slots.Length; i++)
+            {
+                slots[i].SetSlotType(slotType, i);
+            }
+        }
 
         public void SetItem(int index, ItemAmount itemAmount)
         {
-            if (index < 0 || index >= slots.Length) return; //devuelve si no tiene slots
+            if (index < 0 || index >= slots.Length) return;
 
-            InventoryItem inventoryItem = slots[index].GetComponentInChildren<InventoryItem>();
-            if (!inventoryItem)
-            {
-                GameObject newItem = Instantiate(InventoryManager.Instance.itemPrefab, slots[index].transform);
-                inventoryItem = newItem.GetComponent<InventoryItem>();
-            }
-            inventoryItem.SetItem(itemAmount.item, itemAmount.amount);
+            slots[index].SetItem(itemAmount);
         }
     }
 }

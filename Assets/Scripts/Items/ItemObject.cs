@@ -2,29 +2,36 @@ using UnityEngine;
 
 namespace Items
 {
-    [CreateAssetMenu(menuName = "Custom/Item")]
+    [CreateAssetMenu(menuName = "Items/Default")]
     public class ItemObject : ScriptableObject
     {
-        public string itemName;
-        public Sprite image;
-        public string description = "ItemDescription";
-        public int stack = 10;
-        public ItemType type;
-        public Mesh mesh;
-        public Material[] materials;
-        
-        public virtual float GetDamage()
-        {
-            return 0f;
-        }
+        [SerializeField] private string itemName;
+        [SerializeField] private Sprite image;
+        [SerializeField, TextArea] private string description = "ItemDescription";
+        [SerializeField] private int stack = 10;
+        [SerializeField] private ItemType type;
+        [SerializeField] private Mesh mesh;
+        [SerializeField] private Material[] materials;
+
+        // Métodos virtuales para permitir override
+        public virtual string GetItemName() => itemName;
+        public virtual Sprite GetImage() => image;
+        public virtual string GetDescription() => description;
+        public virtual string GetFullDescription() => description;
+        public virtual int GetStack() => stack;
+        public virtual ItemType GetItemType() => type;
+        public virtual Mesh GetMesh() => mesh;
+        public virtual Material[] GetMaterials() => materials;
+        public override string ToString() => GetItemName();
     }
 
     public enum ItemType
     {
         Weapon,
         Tool,
+        Key,
         Armour,
-        Bullets,
+        Projectile,
         MatMetal,
         MatResidue,
         MatInfusion,

@@ -12,7 +12,7 @@ namespace Inventory.Model
         {
             ClearInventory(); //limpia e inicializa los slots, borrar esto despues
         }
-        
+
         public override int AddItem(ItemObject itemObject, int amount)
         {
             if (itemObject == null && amount <= 0) return 0;
@@ -22,7 +22,7 @@ namespace Inventory.Model
 
             return amount; // amount not added
         }
-        
+
         public override int RemoveItem(ItemObject itemObject, int amount)
         {
             if (itemObject == null && amount <= 0) return 0;
@@ -36,17 +36,54 @@ namespace Inventory.Model
         {
             return !items.Exists(item => item.IsEmpty);
         }
-        
+
         public override void ClearInventory()
         {
             items = Enumerable.Range(0, slotsAmount).Select(_ => new ItemAmount()).ToList();
         }
-        
+
         public override void ClearSlot(int i)
         {
             items[i] = new ItemAmount();
         }
-        
+
+        public bool SwapItems(int fromIndex, int toIndex)
+        {
+            if (fromIndex < 0 || fromIndex >= items.Count || toIndex < 0 || toIndex >= items.Count) return false;
+            if (fromIndex == toIndex) return false;
+
+            ItemAmount fromItem = items[fromIndex];
+            ItemAmount toItem = items[toIndex];
+
+            if (toItem.Item == fromItem.Item)
+            {
+                print(fromIndex + " to " + toIndex);
+                int remainingAmount = toItem.SetItem(fromItem.Item, fromItem.Amount + toItem.Amount);
+                items[toIndex] = toItem;
+                print(remainingAmount);
+
+                if (remainingAmount > 0)
+                {
+                    fromItem.SetAmount(remainingAmount);
+                    items[fromIndex] = fromItem;
+                }
+                else
+                {
+                    items[fromIndex].Clear();
+                }
+                
+                UpdateHud(fromIndex);
+                UpdateHud(toIndex);
+                return remainingAmount <= 0;
+            }
+
+            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
+            UpdateHud(fromIndex);
+            UpdateHud(toIndex);
+            return false;
+        }
+
+
         private int PlaceInEmptySlot(ItemObject itemObject, int amount)
         {
             for (int i = 0; i < items.Count; i++)
@@ -59,7 +96,7 @@ namespace Inventory.Model
                     items[i] = item;
 
                     UpdateHud(i);
-                    
+
                     if (amount <= 0)
                         return 0;
                 }

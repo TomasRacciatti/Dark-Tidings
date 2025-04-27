@@ -9,14 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0776dc754a4f1c44fb737d73397c3c76, type: 3}
-  m_Name: Key
+  m_Script: {fileID: 11500000, guid: 488d0faed5964797bc52684fabe34b02, type: 3}
+  m_Name: Crafting
   m_EditorClassIdentifier: 
-  itemName: 
-  image: {fileID: 21300000, guid: cf8ff6b1f64555f49a047bce1bbef351, type: 3}
-  description: ItemDescription
-  stack: 1
-  type: 2
-  equippable: 1
-  mesh: {fileID: 0}
-  materials: []

@@ -65,9 +65,9 @@ namespace Inventory.Model
 
         public abstract void ClearSlot(int i);
 
-        public ItemAmount[] GetItemsOfTypes(params ItemType[] types)
+        public ItemAmount[] GetItemsOfTypes(params Items.ItemType[] types)
         {
-            return items.Where(item => !item.IsEmpty && types.Contains(item.Item.GetItemType())).ToArray();
+            return items.Where(item => !item.IsEmpty && types.Contains(item.Item.GetItemType)).ToArray();
         }
 
         public void TransferSlotTo(InventorySystem otherInventory, int index)
@@ -80,7 +80,7 @@ namespace Inventory.Model
         public void SortItemsByType(ItemType type)
         {
             items = items.Where(item => !item.IsEmpty) // Filtra los ítems vacíos.
-                .OrderBy(item => item.Item.GetItemType()) // Ordena primero por ItemType
+                .OrderBy(item => item.Item.GetItemType) // Ordena primero por ItemType
                 .ThenBy(item => item.Item.GetItemName()) // Luego, ordena por nombre de ítem
                 .ToList();
             UpdateAllHud();
@@ -88,7 +88,7 @@ namespace Inventory.Model
 
         protected int StackItems(ItemObject itemObject, int amount)
         {
-            if (itemObject.GetStack() <= 1) return amount;
+            if (itemObject.GetStack <= 1) return amount;
 
             for (int i = 0; i < items.Count; i++)
             {

@@ -55,18 +55,43 @@ namespace Inventory.View
 
             InventorySlot fromSlot = fromItem.parentTransform.GetComponent<InventorySlot>();
             InventoryItem toItem = _inventoryItem;
-            
-            fromSlot.SetInventoryItem(toItem);
-            SetInventoryItem(fromItem);
-        }
-    }
 
-    public enum SlotType
-    {
-        Inventory,
-        Toolbar,
-        Backpack,
-        Armor,
-        Crafting
+            if (slotType == fromSlot.slotType)
+            {
+                fromSlot.SetInventoryItem(toItem);
+                SetInventoryItem(fromItem);
+                return;
+            }
+
+            if (slotType == CanvasGameManager.Instance.inventoryManager.toolbarSlotType &&
+                fromSlot.slotType == CanvasGameManager.Instance.inventoryManager.inventorySlotType)
+            {
+                // INVENTARIO -> TOOLBAR
+                if (!fromItem.itemAmount.Item.IsEquippable) return;
+
+                if (toItem == null)
+                {
+                    GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemPrefab, transform);
+                    _inventoryItem = newItem.GetComponent<InventoryItem>();
+                }
+
+                _inventoryItem.SetItem(fromItem.itemAmount.Item, fromItem.itemAmount.Amount, fromItem);
+                _inventoryItem.SetEquipable(slotIndex);
+                _inventoryItem.originalItem.SetEquipable(slotIndex);
+            }
+            else if (slotType == CanvasGameManager.Instance.inventoryManager.inventorySlotType &&
+                     fromSlot.slotType == CanvasGameManager.Instance.inventoryManager.toolbarSlotType)
+            {
+                // TOOLBAR -> INVENTARIO
+                fromItem.SetEquipable(-1);
+                if (fromItem.originalItem != null)
+                {
+                    fromItem.originalItem.SetEquipable(-1);
+                }
+
+                fromSlot.SetInventoryItem(toItem);
+                SetInventoryItem(fromItem);
+            }
+        }
     }
 }

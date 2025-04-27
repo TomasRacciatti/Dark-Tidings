@@ -21,7 +21,6 @@ namespace Inventory.Controller
 
         protected override void Awake() //no se ejecuta nose porque
         {
-            slotType = SlotType.Toolbar;
             base.Awake();
             ChangeSelectedSlot(0);
         }

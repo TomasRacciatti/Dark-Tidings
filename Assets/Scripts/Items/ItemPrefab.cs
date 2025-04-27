@@ -26,13 +26,13 @@ public class ItemPrefab : MonoBehaviour, IInteractable
             return;
         }
         //assign mesh and material
-        if (itemAmount.Item.GetMesh() != null)
+        if (itemAmount.Item.GetMesh != null)
         {
-            meshFilter.mesh = itemAmount.Item.GetMesh();
+            meshFilter.mesh = itemAmount.Item.GetMesh;
         }
-        if (itemAmount.Item.GetMaterials() != null && itemAmount.Item.GetMaterials().Length > 0)
+        if (itemAmount.Item.GetMaterials != null && itemAmount.Item.GetMaterials.Length > 0)
         {
-            meshRenderer.materials = itemAmount.Item.GetMaterials();
+            meshRenderer.materials = itemAmount.Item.GetMaterials;
         }
     }
 

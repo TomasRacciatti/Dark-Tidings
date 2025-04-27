@@ -19,8 +19,8 @@ namespace Inventory.Model
             UpdateAllHud();
         }
 
-        public abstract int AddItem(ItemObject itemObject, int amount);
-        public abstract int RemoveItem(ItemObject itemObject, int amount);
+        public abstract int AddItem(ItemAmount itemAmount);
+        public abstract int RemoveItem(ItemAmount itemAmount);
 
         protected void UpdateHud(int index)
         {
@@ -52,7 +52,7 @@ namespace Inventory.Model
 
             foreach (var item in items)
             {
-                if (!item.IsEmpty && item.Item == itemObject)
+                if (!item.IsEmpty && item.GetItemObject == itemObject)
                 {
                     totalAmount += item.Amount;
                 }
@@ -67,59 +67,58 @@ namespace Inventory.Model
 
         public ItemAmount[] GetItemsOfTypes(params Items.ItemType[] types)
         {
-            return items.Where(item => !item.IsEmpty && types.Contains(item.Item.GetItemType)).ToArray();
+            return items.Where(item => !item.IsEmpty && types.Contains(item.GetItemObject.ItemType)).ToArray();
         }
 
         public void TransferSlotTo(InventorySystem otherInventory, int index)
         {
             var item = items[index];
-            otherInventory.AddItem(item.Item, item.Amount);
+            otherInventory.AddItem(item);
             ClearSlot(index);
         }
 
         public void SortItemsByType(ItemType type)
         {
             items = items.Where(item => !item.IsEmpty) // Filtra los ítems vacíos.
-                .OrderBy(item => item.Item.GetItemType) // Ordena primero por ItemType
-                .ThenBy(item => item.Item.GetItemName()) // Luego, ordena por nombre de ítem
+                .OrderBy(item => item.GetItemObject.ItemType) // Ordena primero por ItemType
+                .ThenBy(item => item.GetItemObject.ItemName) // Luego, ordena por nombre de ítem
                 .ToList();
             UpdateAllHud();
         }
 
-        protected int StackItems(ItemObject itemObject, int amount)
+        protected int StackItems(ItemAmount itemAmount)
         {
-            if (itemObject.GetStack <= 1) return amount;
+            if (itemAmount.Item.Stack <= 1) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
 
-                if (item.CanStackWith(itemObject))
+                if (item.IsStackable(itemAmount))
                 {
-                    amount = item.AddAmount(amount);
+                    itemAmount.RemoveAmount(itemAmount.Amount - item.AddAmount(itemAmount.Amount));
                     items[i] = item;
-
                     UpdateHud(i);
 
-                    if (amount <= 0)
+                    if (itemAmount.Amount <= 0)
                         return 0;
                 }
             }
 
-            return amount;
+            return itemAmount.Amount;
         }
 
-        protected int RemoveItemsInternal(ItemObject itemObject, int amount, Action<int> onItemEmptied)
+        protected int RemoveItemsInternal(ItemAmount itemAmount, Action<int> onItemEmptied)
         {
-            if (itemObject == null || amount <= 0) return amount;
+            if (itemAmount.Item == null || itemAmount.Amount <= 0) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
 
-                if (!item.IsEmpty && item.Item == itemObject)
+                if (!item.IsEmpty && item.IsStackable(itemAmount))
                 {
-                    amount = item.RemoveAmount(amount);
+                    itemAmount.RemoveAmount(itemAmount.Amount - item.RemoveAmount(itemAmount.Amount));
 
                     if (item.IsEmpty)
                     {
@@ -132,11 +131,11 @@ namespace Inventory.Model
 
                     UpdateHud(i);
 
-                    if (amount <= 0) return 0;
+                    if (itemAmount.Amount <= 0) return 0;
                 }
             }
 
-            return amount;
+            return itemAmount.Amount;
         }
     }
 }

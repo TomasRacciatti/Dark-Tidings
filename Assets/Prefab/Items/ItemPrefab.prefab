@@ -132,8 +132,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemAmount:
-    item: {fileID: 11400000, guid: f180559814b276343ba1b8229670f142, type: 2}
-    amount: 1
+    _item:
+      _itemObject: {fileID: 11400000, guid: f180559814b276343ba1b8229670f142, type: 2}
+      _itemName: 
+      _description: 
+      _modifiers: []
+    _amount: 0
 --- !u!33 &4613333253710533035
 MeshFilter:
   m_ObjectHideFlags: 0

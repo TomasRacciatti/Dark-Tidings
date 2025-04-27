@@ -39,5 +39,19 @@ namespace Inventory.Controller
         {
             return SelectedSlot.GetComponentInChildren<InventoryItem>();
         }
+
+        public InventorySlot GetItemSlot(InventoryItem item)
+        {
+            foreach (InventorySlot slot in slots)
+            {
+                InventoryItem existingItem = slot.GetComponentInChildren<InventoryItem>();
+                if (existingItem != null && existingItem.originalItem == item.originalItem)
+                {
+                    return slot;
+                }
+            }
+            
+            return null;
+        }
     }
 }

@@ -33,10 +33,10 @@ namespace Inventory.View
             parentTransform = transform.parent;
         }
 
-        public void SetItem(ItemObject newItemObject, int amount, InventoryItem original = null)
+        public void SetItem(ItemAmount itemAmount, InventoryItem original = null)
         {
-            itemAmount.SetItem(newItemObject, amount);
-            image.sprite = itemAmount.Item.GetImage;
+            itemAmount.SetItem(itemAmount);
+            image.sprite = itemAmount.Item.Image;
             RefreshCount();
             ValidateEquipable();
             originalItem = original;
@@ -92,7 +92,7 @@ namespace Inventory.View
             image.raycastTarget = true;
             canvas.sortingOrder = 5;
 
-            if (parentTransform == transform.parent) //verifica que no es el mismo
+            if (parentTransform == transform.parent)
             {
                 transform.localPosition = Vector3.zero;
                 return;
@@ -101,24 +101,20 @@ namespace Inventory.View
             InventorySlot originalSlot = transform.parent.GetComponent<InventorySlot>();
             InventorySlot targetSlot = parentTransform.GetComponent<InventorySlot>();
 
-            InventoryItem toItem = targetSlot.GetComponentInChildren<InventoryItem>();
-
-            if (targetSlot == null) //verificar que el target no es nulo
+            if (targetSlot == null)
             {
                 transform.localPosition = Vector3.zero;
                 return;
             }
 
-            if (originalSlot.slotType == targetSlot.slotType)
-            {
-                int fromIndex = originalSlot.slotIndex;
-                int toIndex = targetSlot.slotIndex;
-                SetParent();
-                if (toItem) toItem.SetParent();
-                bool itemCleared = PlayerController.Instance.inventory.SwapItems(fromIndex, toIndex);
-                if (itemCleared) Destroy(gameObject);
-                return;
-            }
+            InventoryItem toItem = targetSlot.GetComponentInChildren<InventoryItem>();
+
+            if (HandleInventoryToInventory(originalSlot, targetSlot, toItem)) return;
+            if (HandleToolbarToToolbar(originalSlot, targetSlot, toItem)) return;
+            if (HandleToolbarToInventory(originalSlot, targetSlot, toItem)) return;
+            if (HandleInventoryToToolbar(originalSlot, targetSlot, toItem)) return;
+
+            transform.localPosition = Vector3.zero;
         }
 
 
@@ -127,7 +123,7 @@ namespace Inventory.View
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    Debug.Log("Clic izquierdo");/*
+                    Debug.Log("Clic izquierdo"); /*
                     if (itemAmount.Item.GetItemType == Items.ItemType2.Weapon)
                     {
                         //Toolbar.Instance.EquipItem(itemAmount, 0);
@@ -142,6 +138,96 @@ namespace Inventory.View
                     Debug.Log("Clic del botón del medio");
                     break;
             }
+        }
+
+        private bool HandleInventoryToInventory(InventorySlot originalSlot, InventorySlot targetSlot,
+            InventoryItem toItem)
+        {
+            if (originalSlot.slotType != CanvasGameManager.Instance.inventoryManager.inventorySlotType ||
+                targetSlot.slotType != CanvasGameManager.Instance.inventoryManager.inventorySlotType)
+                return false;
+
+            int fromIndex = originalSlot.slotIndex;
+            int toIndex = targetSlot.slotIndex;
+
+            SetParent();
+            if (toItem) toItem.SetParent();
+
+            bool itemCleared = PlayerController.Instance.inventory.SwapItems(fromIndex, toIndex);
+            if (itemCleared)
+                Destroy(gameObject);
+
+            return true;
+        }
+
+        private bool HandleToolbarToToolbar(InventorySlot originalSlot, InventorySlot targetSlot, InventoryItem toItem)
+        {
+            if (originalSlot.slotType != CanvasGameManager.Instance.inventoryManager.toolbarSlotType ||
+                targetSlot.slotType != CanvasGameManager.Instance.inventoryManager.toolbarSlotType)
+                return false;
+
+            SetParent();
+            SetEquipable(targetSlot.slotIndex);
+            if (originalItem != null)
+                originalItem.SetEquipable(targetSlot.slotIndex);
+
+            if (toItem)
+            {
+                toItem.SetParent();
+                toItem.SetEquipable(originalSlot.slotIndex);
+                if (toItem.originalItem != null)
+                    toItem.originalItem.SetEquipable(originalSlot.slotIndex);
+            }
+
+            return true;
+        }
+
+        private bool HandleToolbarToInventory(InventorySlot originalSlot, InventorySlot targetSlot,
+            InventoryItem toItem)
+        {
+            if (originalSlot.slotType != CanvasGameManager.Instance.inventoryManager.toolbarSlotType ||
+                targetSlot.slotType != CanvasGameManager.Instance.inventoryManager.inventorySlotType)
+                return false;
+
+            SetEquipable(-1);
+            if (originalItem != null)
+                originalItem.SetEquipable(-1);
+
+            SetParent();
+
+            return true;
+        }
+
+        private bool HandleInventoryToToolbar(InventorySlot originalSlot, InventorySlot targetSlot, InventoryItem toItem)
+        {
+            // Verificar si el originalSlot es un Inventario y el targetSlot es una Toolbar
+            if (originalSlot.slotType != CanvasGameManager.Instance.inventoryManager.inventorySlotType ||
+                targetSlot.slotType != CanvasGameManager.Instance.inventoryManager.toolbarSlotType)
+                return false;
+
+            // Buscar si el item ya existe en la Toolbar
+            InventorySlot existingSlot = CanvasGameManager.Instance.inventoryManager.toolbar.GetItemSlot(this);
+
+            print(existingSlot);
+            if (existingSlot != null)
+            {
+                // Si ya existe, mover el item a este slot en la Toolbar
+                SetParent();
+                existingSlot.SetInventoryItem(this);
+                SetEquipable(existingSlot.slotIndex);
+
+                // Vaciar el slot original en el Inventario
+                originalSlot.SetInventoryItem(null);
+
+                return true;
+            }
+
+            // Si no existe en la Toolbar, crear un nuevo item en el targetSlot
+            SetParent();
+            targetSlot.SetInventoryItem(this);
+            SetEquipable(targetSlot.slotIndex);
+
+            return true;
         }
     }
 }

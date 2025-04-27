@@ -1,3 +1,4 @@
+using Items;
 using UnityEngine;
 
 namespace Inventory.Controller
@@ -17,7 +18,7 @@ namespace Inventory.Controller
             }
             Instance = this;
         }
-
+/*
         public void Shoot()
         {
             if (!glock.gameObject.activeSelf) return;
@@ -27,6 +28,6 @@ namespace Inventory.Controller
         public void ActivateGlock()
         {
             glock.gameObject.SetActive(true);
-        }
+        }*/
     }
 }

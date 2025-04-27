@@ -18,14 +18,10 @@ namespace Inventory.View
 
         public void SetItem(ItemAmount itemAmount)
         {
-            if (itemAmount.Item == null || itemAmount.IsEmpty)
+            if (itemAmount.IsEmpty && _inventoryItem != null)
             {
-                if (_inventoryItem != null)
-                {
-                    Destroy(_inventoryItem.gameObject);
-                    _inventoryItem = null;
-                }
-
+                Destroy(_inventoryItem.gameObject);
+                _inventoryItem = null;
                 return;
             }
 
@@ -35,7 +31,7 @@ namespace Inventory.View
                 _inventoryItem = newItem.GetComponent<InventoryItem>();
             }
 
-            _inventoryItem.SetItem(itemAmount.Item, itemAmount.Amount);
+            _inventoryItem.SetItem(itemAmount);
         }
 
         public void SetInventoryItem(InventoryItem inventoryItem)
@@ -48,6 +44,7 @@ namespace Inventory.View
             }
         }
 
+
         public void OnDrop(PointerEventData eventData)
         {
             InventoryItem fromItem = eventData.pointerDrag.GetComponent<InventoryItem>();
@@ -56,6 +53,7 @@ namespace Inventory.View
             InventorySlot fromSlot = fromItem.parentTransform.GetComponent<InventorySlot>();
             InventoryItem toItem = _inventoryItem;
 
+            // Si ambos slots son del mismo tipo, solo intercambiamos los items
             if (slotType == fromSlot.slotType)
             {
                 fromSlot.SetInventoryItem(toItem);
@@ -63,11 +61,16 @@ namespace Inventory.View
                 return;
             }
 
+            // INVENTARIO -> TOOLBAR
             if (slotType == CanvasGameManager.Instance.inventoryManager.toolbarSlotType &&
                 fromSlot.slotType == CanvasGameManager.Instance.inventoryManager.inventorySlotType)
             {
-                // INVENTARIO -> TOOLBAR
                 if (!fromItem.itemAmount.Item.IsEquippable) return;
+
+                if (toItem != null && toItem.originalItem != null)
+                {
+                    toItem.originalItem.SetEquipable(-1);
+                }
 
                 if (toItem == null)
                 {
@@ -75,20 +78,23 @@ namespace Inventory.View
                     _inventoryItem = newItem.GetComponent<InventoryItem>();
                 }
 
-                _inventoryItem.SetItem(fromItem.itemAmount.Item, fromItem.itemAmount.Amount, fromItem);
+                _inventoryItem.SetItem(fromItem.itemAmount, fromItem);
                 _inventoryItem.SetEquipable(slotIndex);
                 _inventoryItem.originalItem.SetEquipable(slotIndex);
+
+                fromSlot.SetInventoryItem(null);
             }
+            // TOOLBAR -> INVENTARIO
             else if (slotType == CanvasGameManager.Instance.inventoryManager.inventorySlotType &&
                      fromSlot.slotType == CanvasGameManager.Instance.inventoryManager.toolbarSlotType)
             {
-                // TOOLBAR -> INVENTARIO
                 fromItem.SetEquipable(-1);
                 if (fromItem.originalItem != null)
                 {
                     fromItem.originalItem.SetEquipable(-1);
                 }
 
+                fromSlot.SetInventoryItem(null);
                 fromSlot.SetInventoryItem(toItem);
                 SetInventoryItem(fromItem);
             }

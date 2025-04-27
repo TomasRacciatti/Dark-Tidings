@@ -7,7 +7,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
-public abstract class Weapon : Item
+public abstract class Weapon : MonoBehaviour
 {
     [Header("Weapon")] [SerializeField] public string weaponName = "Weapon";
     [SerializeField] protected int _damage = 10;
@@ -56,7 +56,7 @@ public abstract class Weapon : Item
         //StartUsing();
     }
 
-    public override void StartUsing()
+    public virtual void StartUsing()
     {
         if (_isShooting || shootingCoroutine != null) return;
         _isShooting = true;
@@ -64,7 +64,7 @@ public abstract class Weapon : Item
         shootingCoroutine = StartCoroutine(ShootCoroutine());
     }
 
-    public override void StopUsing()
+    public virtual void StopUsing()
     {
         _isShooting = false;
         if (shootingCoroutine != null)
@@ -74,7 +74,7 @@ public abstract class Weapon : Item
         }
     }
     
-    public override void AlternativeUse()
+    public virtual void AlternativeUse()
     {
         StartCoroutine(Reload());
     }

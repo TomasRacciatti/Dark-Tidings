@@ -26,13 +26,13 @@ public class ItemPrefab : MonoBehaviour, IInteractable
             return;
         }
         //assign mesh and material
-        if (itemAmount.Item.GetMesh != null)
+        if (itemAmount.Item.Mesh != null)
         {
-            meshFilter.mesh = itemAmount.Item.GetMesh;
+            meshFilter.mesh = itemAmount.Item.Mesh;
         }
-        if (itemAmount.Item.GetMaterials != null && itemAmount.Item.GetMaterials.Length > 0)
+        if (itemAmount.Item.Materials != null && itemAmount.Item.Materials.Length > 0)
         {
-            meshRenderer.materials = itemAmount.Item.GetMaterials;
+            meshRenderer.materials = itemAmount.Item.Materials;
         }
     }
 
@@ -40,7 +40,7 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     {
         if (interactableObject.TryGetComponent(out InventorySystem inventorySystem))
         {
-            itemAmount.RemoveAmount(itemAmount.Amount - inventorySystem.AddItem(itemAmount.Item, itemAmount.Amount));
+            itemAmount.RemoveAmount(itemAmount.Amount - inventorySystem.AddItem(itemAmount));
             if (itemAmount.IsEmpty)
             {
                 Destroy(gameObject);

@@ -57,8 +57,10 @@ namespace Inventory.Model
 
             if (toItem.Item == fromItem.Item)
             {
+                print(fromIndex + " to " + toIndex);
                 int remainingAmount = toItem.SetItem(fromItem.Item, fromItem.Amount + toItem.Amount);
                 items[toIndex] = toItem;
+                print(remainingAmount);
 
                 if (remainingAmount > 0)
                 {
@@ -69,7 +71,7 @@ namespace Inventory.Model
                 {
                     items[fromIndex].Clear();
                 }
-
+                
                 UpdateHud(fromIndex);
                 UpdateHud(toIndex);
                 return remainingAmount <= 0;

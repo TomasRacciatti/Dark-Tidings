@@ -17,6 +17,5 @@ MonoBehaviour:
   description: ItemDescription
   stack: 1
   type: 2
-  equippable: 1
   mesh: {fileID: 0}
   materials: []

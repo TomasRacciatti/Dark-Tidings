@@ -14,9 +14,6 @@ namespace Inventory.Controller
         
         [SerializeField] private GameObject inventoryUI;
         [SerializeField] private GameObject backpackUI;
-        
-        [SerializeField] public SlotType inventorySlotType;
-        [SerializeField] public SlotType toolbarSlotType;
 
         public void ToggleInventory(bool active)
         {

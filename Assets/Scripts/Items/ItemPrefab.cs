@@ -11,9 +11,6 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     [SerializeField] private ItemAmount itemAmount;
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
-    
-    [SerializeField] private Transform interactionPoint;
-    public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
     private void Awake()
     {
@@ -29,13 +26,13 @@ public class ItemPrefab : MonoBehaviour, IInteractable
             return;
         }
         //assign mesh and material
-        if (itemAmount.Item.GetMesh != null)
+        if (itemAmount.Item.GetMesh() != null)
         {
-            meshFilter.mesh = itemAmount.Item.GetMesh;
+            meshFilter.mesh = itemAmount.Item.GetMesh();
         }
-        if (itemAmount.Item.GetMaterials != null && itemAmount.Item.GetMaterials.Length > 0)
+        if (itemAmount.Item.GetMaterials() != null && itemAmount.Item.GetMaterials().Length > 0)
         {
-            meshRenderer.materials = itemAmount.Item.GetMaterials;
+            meshRenderer.materials = itemAmount.Item.GetMaterials();
         }
     }
 

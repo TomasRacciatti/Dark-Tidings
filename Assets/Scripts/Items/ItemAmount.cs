@@ -19,8 +19,8 @@ namespace Inventory
         }
 
         public bool IsEmpty => _item == null;
-        public bool IsFull => _item != null && _amount >= _item.GetStack;
-        public int StackSpace => _item != null ? _item.GetStack - _amount : 0;
+        public bool IsFull => _item != null && _amount >= _item.GetStack();
+        public int StackSpace => _item != null ? _item.GetStack() - _amount : 0;
 
         public bool CanStackWith(ItemObject other)
         {
@@ -36,14 +36,14 @@ namespace Inventory
             }
 
             _item = newItem;
-            SetAmount(Mathf.Min(newAmount, _item.GetStack));
-            return Mathf.Max(0, newAmount - _item.GetStack);
+            SetAmount(Mathf.Min(newAmount, _item.GetStack()));
+            return Mathf.Max(0, newAmount - _item.GetStack());
         }
 
         public int SetAmount(int newAmount)
         {
             if (IsEmpty) return newAmount;
-            int clampedAmount = Mathf.Clamp(newAmount, 0, _item.GetStack);
+            int clampedAmount = Mathf.Clamp(newAmount, 0, _item.GetStack());
             _amount = clampedAmount;
             if (_amount <= 0) Clear();
             return newAmount - clampedAmount;

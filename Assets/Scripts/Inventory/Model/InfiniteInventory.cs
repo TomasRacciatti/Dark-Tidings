@@ -37,7 +37,7 @@ namespace Inventory.Model
         {
             while (amount > 0)
             {
-                int amountToAdd = Mathf.Min(amount, itemObject.GetStack);
+                int amountToAdd = Mathf.Min(amount, itemObject.GetStack());
                 amount -= amountToAdd;
                 items.Add(new ItemAmount(itemObject, amountToAdd));
                 UpdateHud(items.Count - 1);

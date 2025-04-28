@@ -12,11 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0776dc754a4f1c44fb737d73397c3c76, type: 3}
   m_Name: Shotgun
   m_EditorClassIdentifier: 
-  itemName: 
   image: {fileID: 0}
-  description: ItemDescription
   stack: 1
   type: 0
-  equippable: 1
-  mesh: {fileID: 0}
-  materials: []

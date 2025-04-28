@@ -11,6 +11,9 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     [SerializeField] private ItemAmount itemAmount;
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
+    
+    [SerializeField] private Transform interactionPoint;
+    public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
     private void Awake()
     {

@@ -6,15 +6,17 @@ using Interfaces;
 
 public class InteractionDetector : MonoBehaviour
 {
-    [SerializeField] private float detectionRange = 3f;
-    [SerializeField] private float directLookThreshold = 0.98f; // Si esta en 1, significa que esta mirando directo
+    [SerializeField] private float _detectionRange = 3f;
+    [SerializeField] private float _sphereRadius = 0.5f;
+    [SerializeField] private LayerMask _interactableLayerMask;
+    [SerializeField] private float _directLookThreshold = 0.98f; // Si esta en 1, significa que esta mirando directo
 
-    private Camera playerCamera;
-    private IInteractable currentInteractable;
+    private Camera _playerCamera;
+    private IInteractable _currentInteractable;
 
     private void Awake()
     {
-        playerCamera = GetComponent<Camera>();
+        _playerCamera = GetComponent<Camera>();
     }
 
     private void Update()
@@ -24,35 +26,53 @@ public class InteractionDetector : MonoBehaviour
 
     private void DetectInteractable()
     {
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        RaycastHit hit;
-        
-        if (Physics.Raycast(ray, out hit, detectionRange))
+        Ray ray = new Ray(_playerCamera.transform.position, _playerCamera.transform.forward);
+        RaycastHit[] hits = Physics.SphereCastAll(ray, _sphereRadius, _detectionRange, _interactableLayerMask);
+
+        List<IInteractable> foundInteractables = new List<IInteractable>();
+
+        foreach (var hit in hits)
         {
             if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
-                if (interactable != currentInteractable)
-                {
-                    currentInteractable = interactable;
-                }
-
-                InteractionUIManager.Instance.UpdateUI(interactable, CalculateAlignment(interactable));
-                return;
+                foundInteractables.Add(interactable);
             }
         }
-        
-        if (currentInteractable != null)
+
+        if (foundInteractables.Count > 0)
         {
-            currentInteractable = null;
-            InteractionUIManager.Instance.HideUI();
+            IInteractable bestInteractable = GetBestInteractable(foundInteractables);
+            InteractionUIManager.Instance.ShowInteractables(foundInteractables, bestInteractable);
+        }
+        else
+        {
+            InteractionUIManager.Instance.HideAll();
         }
     }
     
     
+    private IInteractable GetBestInteractable(List<IInteractable> interactables) // Helper function para solo ponerle la E al mejor
+    {
+        IInteractable best = null;
+        float bestAlignment = -1f;
+
+        foreach (var interactable in interactables)
+        {
+            float alignment = CalculateAlignment(interactable);
+            if (alignment > bestAlignment)
+            {
+                bestAlignment = alignment;
+                best = interactable;
+            }
+        }
+
+        return best;
+    }
+    
     private float CalculateAlignment(IInteractable interactable)
     {
-        Vector3 directionToTarget = (interactable.InteractionPoint.position - playerCamera.transform.position).normalized;
-        float dot = Vector3.Dot(playerCamera.transform.forward, directionToTarget);
-        return dot; // 1 = perfect alignment
+        Vector3 directionToTarget = (interactable.InteractionPoint.position - _playerCamera.transform.position).normalized;
+        float dot = Vector3.Dot(_playerCamera.transform.forward, directionToTarget);
+        return dot; 
     }
 }

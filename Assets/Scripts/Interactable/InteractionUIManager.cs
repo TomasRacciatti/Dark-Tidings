@@ -12,17 +12,17 @@ public class InteractionUIManager : MonoBehaviour
     public static InteractionUIManager Instance { get; private set; }
     
     [SerializeField] private Canvas _canvas;
-    [SerializeField] private Image _interactionIcon;
-    [SerializeField] private Image _interactionKey;
-    [SerializeField] private float _directLookThreshold = 0.98f;
-    [SerializeField] private float _interactionIconThreshold  = 0.75f;
+    [SerializeField] private InteractIconUI _iconPrefab;
+    [SerializeField] private int _poolSize = 10;
+    
+    private List<InteractIconUI> _iconPool = new List<InteractIconUI>();
+    private List<InteractIconUI> _activeIcons = new List<InteractIconUI>();
+    
+    //[SerializeField] private float _directLookThreshold = 0.98f;
 
     private Camera _mainCamera;
-    private IInteractable _currentTarget;
     
     [SerializeField] private InputActionReference _interactAction;
-    [SerializeField] private TextMeshProUGUI _interactionKeyText;
-    private char _defaultKey = 'E';
     
     private void Awake()
     {
@@ -35,71 +35,78 @@ public class InteractionUIManager : MonoBehaviour
         Instance = this;
         _mainCamera = Camera.main;
         
-        HideUI();
+        InitializePool();
     }
 
-    private void Update()
+    private void InitializePool()
     {
-        if (_currentTarget != null)
+        for (int i = 0; i < _poolSize; i++)
         {
-            UpdatePosition(_currentTarget.InteractionPoint);
+            var icon = Instantiate(_iconPrefab, _canvas.transform);
+            icon.gameObject.SetActive(false);
+            _iconPool.Add(icon);
         }
     }
     
-    public void UpdateUI(IInteractable interactable, float alignment)
+    public void ShowInteractables(List<IInteractable> interactables, IInteractable directInteractable)
     {
-        _currentTarget = interactable;
+        ClearIcons();
 
-        bool isDirectlyLooking = alignment >= _directLookThreshold;
-        bool isCloseLooking = alignment >= _interactionIconThreshold;
-
-        _interactionIcon.enabled = isCloseLooking && !isDirectlyLooking;
-        _interactionKey.enabled = isDirectlyLooking;
-
-        if (!isDirectlyLooking)
+        foreach (var interactable in interactables)
         {
-            _interactionKeyText.text = string.Empty;
-        }
-        else
-        {
-            _UpdateInteractionKeyUI();
-        }
+            InteractIconUI iconUI = GetIconFromPool();
+            iconUI.Initialize(interactable.InteractionPoint);
 
-        _interactionIcon.rectTransform.position = _mainCamera.WorldToScreenPoint(interactable.InteractionPoint.position);
-        _interactionKey.rectTransform.position = _mainCamera.WorldToScreenPoint(interactable.InteractionPoint.position);
+            if (interactable == directInteractable)
+            {
+                iconUI.ShowKey(GetInteractKeyText());
+            }
+
+            _activeIcons.Add(iconUI);
+        }
     }
     
-    
-    private void _UpdateInteractionKeyUI()
+    private InteractIconUI GetIconFromPool()
     {
-        if (_interactAction == null || _interactAction.action == null)
+        foreach (var icon in _iconPool)
         {
-            Debug.LogWarning("Interact Action is not assigned!");
-            return;
+            if (!icon.gameObject.activeSelf)
+            {
+                icon.gameObject.SetActive(true);
+                return icon;
+            }
         }
 
+        // Por si se me llega a acabar la pool
+        var newIcon = Instantiate(_iconPrefab, _canvas.transform);
+        _iconPool.Add(newIcon);
+        newIcon.gameObject.SetActive(true);
+        return newIcon;
+    }
+    
+    private void ClearIcons()
+    {
+        foreach (var icon in _activeIcons)
+        {
+            icon.Clear();
+        }
+        _activeIcons.Clear();
+    }
+    
+    private string GetInteractKeyText()
+    {
         if (_interactAction.action.bindings.Count > 0)
         {
             var binding = _interactAction.action.bindings[0];
-            _interactionKeyText.text = binding.ToDisplayString();
+            return binding.ToDisplayString();
         }
+
         else
-        {
-            Debug.LogWarning("Interact Action has no bindings!");
-        }
+            return "E";
     }
-
-    public void HideUI()
+    
+    public void HideAll()
     {
-        _interactionIcon.enabled = false;
-        _interactionKey.enabled = false;
-        _interactionKeyText.text = string.Empty;
-        _currentTarget = null;
-    }
-
-    private void UpdatePosition(Transform target)
-    {
-        Vector3 screenPos = _mainCamera.WorldToScreenPoint(target.position);
-        _interactionIcon.transform.position = screenPos;
+        ClearIcons();
     }
 }

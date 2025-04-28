@@ -21,6 +21,9 @@ namespace Objects
         private Quaternion openRotation;
         //private Coroutine currentCoroutine;
         private HingeJoint hinge;
+        
+        [SerializeField] private Transform interactionPoint;  // Me permite settear el lugar donde quiero que esten los pop ups. Si no modifico esto me va a agarrar el transform default
+        public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
         private void Awake()
         {

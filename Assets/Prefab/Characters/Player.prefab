@@ -713,6 +713,7 @@ GameObject:
   - component: {fileID: 7989146420741021367}
   - component: {fileID: 459318001777782821}
   - component: {fileID: 2266631027841123701}
+  - component: {fileID: 9154946380873123969}
   m_Layer: 9
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -729,7 +730,7 @@ Transform:
   m_GameObject: {fileID: 5777399186146976923}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.1730003, z: 3.5640001}
+  m_LocalPosition: {x: 0, y: 1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1001,6 +1002,20 @@ MonoBehaviour:
       enableFptlForForwardOpaque: 0
       enableBigTilePrepass: 0
       isFptlEnabled: 0
+--- !u!114 &9154946380873123969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5777399186146976923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1489c1b1cf0041478766ad81ca8d897, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRange: 3
+  directLookThreshold: 0.98
 --- !u!1 &6488043132820095169
 GameObject:
   m_ObjectHideFlags: 0

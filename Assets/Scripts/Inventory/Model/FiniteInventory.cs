@@ -55,10 +55,12 @@ namespace Inventory.Model
             ItemAmount fromItem = items[fromIndex];
             ItemAmount toItem = items[toIndex];
 
-            if (fromItem.IsStackable(toItem) || toItem.IsEmpty)
+            if (toItem.IsEmpty || fromItem.IsStackable(toItem))
             {
                 int remainingAmount = toItem.SetItem(fromItem);
                 items[toIndex] = toItem;
+                
+                print(remainingAmount);
 
                 if (remainingAmount > 0)
                 {
@@ -67,7 +69,7 @@ namespace Inventory.Model
                 }
                 else
                 {
-                    items[fromIndex].Clear();
+                    items[fromIndex] = new ItemAmount();
                 }
 
                 UpdateHud(fromIndex);

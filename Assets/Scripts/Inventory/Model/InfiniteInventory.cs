@@ -40,7 +40,9 @@ namespace Inventory.Model
             {
                 int amountToAdd = Mathf.Min(itemAmount.Amount, itemAmount.Item.Stack);
                 itemAmount.RemoveAmount(amountToAdd);
-                items.Add(new ItemAmount(itemAmount.Item.ItemObject, amountToAdd));
+                ItemAmount aaa = new ItemAmount();
+                aaa.SetItem(itemAmount);
+                items.Add(aaa);
 
                 // Actualiza el HUD del nuevo ítem
                 UpdateHud(items.Count - 1);

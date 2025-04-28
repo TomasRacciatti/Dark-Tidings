@@ -195,6 +195,7 @@ MonoBehaviour:
   _raycastLayers:
     serializedVersion: 2
     m_Bits: 32193
+  inventory: {fileID: 0}
 --- !u!114 &3118061232746742294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
-  view: {fileID: 0}
+  _view: {fileID: 0}
   slotsAmount: 12
 --- !u!114 &6850914345207136916
 MonoBehaviour:
@@ -504,7 +505,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0a5bf787c73ff42a5079c3d2382242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glock: {fileID: 3259032092556980537}
 --- !u!1 &4517119983749625894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1137,14 +1137,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4071651750175070012, guid: c16298a3e7fd03046871e8410538306f, type: 3}
   m_PrefabInstance: {fileID: 1355777882160403717}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &3259032092556980537 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4605731781666432060, guid: c16298a3e7fd03046871e8410538306f, type: 3}
-  m_PrefabInstance: {fileID: 1355777882160403717}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5a2814f43e82664e8f55a30dca65858, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

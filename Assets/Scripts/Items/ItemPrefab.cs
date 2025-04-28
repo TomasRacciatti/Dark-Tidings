@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using Interfaces;
 using Inventory;
 using Inventory.Model;
+using Items;
 using UnityEngine;
 
 public class ItemPrefab : MonoBehaviour, IInteractable
 {
-    [SerializeField] private ItemAmount itemAmount;
+    [SerializeField] private ItemObject itemObject;
+    [SerializeField] private int Amount;
+    
+    private ItemAmount itemAmount;
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
 
@@ -16,6 +20,12 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
+    }
+
+    private void Start()
+    {
+        itemAmount.SetOverflow(true);
+        itemAmount.SetItem(itemAmount);
     }
 
     private void OnEnable()

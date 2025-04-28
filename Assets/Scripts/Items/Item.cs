@@ -3,13 +3,13 @@ using UnityEngine;
 
 namespace Items
 {
-    [System.Serializable]
+    //[System.Serializable]
     public class Item
     {
-        [SerializeField] private ItemObject _itemObject; //for stack, mesh, materials, equipable, type
-        [SerializeField] private string _itemName;
-        [SerializeField] private string _description;
-        [SerializeField] private List<ItemModifier> _modifiers;
+        private ItemObject _itemObject; //for stack, mesh, materials, equipable, type
+        private string _itemName;
+        private string _description;
+        private List<ItemModifier> _modifiers;
 
         // Propiedades públicas
         public ItemObject ItemObject => _itemObject;
@@ -23,9 +23,24 @@ namespace Items
         public Mesh Mesh => _itemObject.Mesh;
         public Material[] Materials => _itemObject.Materials;
 
-        public void InitializeItem(ItemObject itemObject)
+        public Item()
         {
-            if (itemObject == null) return;
+            _itemObject = null;
+            _itemName = string.Empty;
+            _description = string.Empty;
+            _modifiers = new List<ItemModifier>();
+        }
+        
+        public Item(ItemObject itemObject)
+        {
+            if (itemObject == null)
+            {
+                _itemObject = null;
+                _itemName = string.Empty;
+                _description = string.Empty;
+                _modifiers = new List<ItemModifier>();
+                return;
+            }
 
             _itemObject = itemObject;
             _itemName = itemObject.ItemName;
@@ -35,7 +50,7 @@ namespace Items
 
         public bool IsStackable(Item item)
         {
-            return _itemObject == item.ItemObject && _itemName == item.ItemName && _description == item.Description;
+            return _itemObject == item.ItemObject && _itemName == item.ItemName && _description == item.Description && _modifiers == item.Modifiers;
         }
     }
 }

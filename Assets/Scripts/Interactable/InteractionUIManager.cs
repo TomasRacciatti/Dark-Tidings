@@ -22,7 +22,6 @@ public class InteractionUIManager : MonoBehaviour
     
     [SerializeField] private InputActionReference _interactAction;
     [SerializeField] private TextMeshProUGUI _interactionKeyText;
-    private char _defaultKey = 'E';
     
     private void Awake()
     {

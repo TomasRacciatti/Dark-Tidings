@@ -1014,7 +1014,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1489c1b1cf0041478766ad81ca8d897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionRange: 3
+  _sphereRadius: 0.5
+  _detectionRange: 3
+  _interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 12288
   directLookThreshold: 0.98
 --- !u!1 &6488043132820095169
 GameObject:

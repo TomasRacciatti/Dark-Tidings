@@ -6,15 +6,16 @@ using Interfaces;
 
 public class InteractionDetector : MonoBehaviour
 {
-    [SerializeField] private float detectionRange = 3f;
-    [SerializeField] private float directLookThreshold = 0.98f; // Si esta en 1, significa que esta mirando directo
+    [SerializeField] private float _sphereRadius = 0.75f;
+    [SerializeField] private float _detectionRange  = 3f;
+    [SerializeField] private LayerMask _interactableLayerMask;
 
-    private Camera playerCamera;
-    private IInteractable currentInteractable;
+    private Camera _playerCamera;
+    private IInteractable _currentInteractable;
 
     private void Awake()
     {
-        playerCamera = GetComponent<Camera>();
+        _playerCamera = GetComponent<Camera>();
     }
 
     private void Update()
@@ -24,16 +25,16 @@ public class InteractionDetector : MonoBehaviour
 
     private void DetectInteractable()
     {
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        Ray ray = new Ray(_playerCamera.transform.position, _playerCamera.transform.forward);
         RaycastHit hit;
         
-        if (Physics.Raycast(ray, out hit, detectionRange))
+        if (Physics.SphereCast(ray, _sphereRadius, out hit, _detectionRange, _interactableLayerMask))
         {
             if (hit.collider.TryGetComponent<IInteractable>(out var interactable))
             {
-                if (interactable != currentInteractable)
+                if (interactable != _currentInteractable)
                 {
-                    currentInteractable = interactable;
+                    _currentInteractable = interactable;
                 }
 
                 InteractionUIManager.Instance.UpdateUI(interactable, CalculateAlignment(interactable));
@@ -41,9 +42,9 @@ public class InteractionDetector : MonoBehaviour
             }
         }
         
-        if (currentInteractable != null)
+        if (_currentInteractable != null)
         {
-            currentInteractable = null;
+            _currentInteractable = null;
             InteractionUIManager.Instance.HideUI();
         }
     }
@@ -51,8 +52,8 @@ public class InteractionDetector : MonoBehaviour
     
     private float CalculateAlignment(IInteractable interactable)
     {
-        Vector3 directionToTarget = (interactable.InteractionPoint.position - playerCamera.transform.position).normalized;
-        float dot = Vector3.Dot(playerCamera.transform.forward, directionToTarget);
-        return dot; // 1 = perfect alignment
+        Vector3 directionToTarget = (interactable.InteractionPoint.position - _playerCamera.transform.position).normalized;
+        float dot = Vector3.Dot(_playerCamera.transform.forward, directionToTarget);
+        return dot;
     }
 }

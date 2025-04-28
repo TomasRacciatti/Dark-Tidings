@@ -10,24 +10,55 @@ public class InteractIconUI : MonoBehaviour
     [SerializeField] private Image _iconImage;
     [SerializeField] private Image _keyImage;
     [SerializeField] private TextMeshProUGUI _keyText;
+    [SerializeField] private Camera _mainCamera;
 
-    private Transform _target;
-    
+    private RectTransform _rectTransform;
+    [SerializeField] private Transform _target;
+
+
+    private void Awake()
+    {
+        _rectTransform = GetComponent<RectTransform>();
+    }
+
     public void Initialize(Transform target)
     {
         _target = target;
+        if (_mainCamera == null)
+            _mainCamera = Camera.main;
+        
+        Debug.Log($"Initialized icon with target: {_target?.name}");
+
         ShowIconOnly();
     }
 
     private void Update()
     {
+        Debug.Log("Running");
+
+
         if (_target == null)
-        {
-            gameObject.SetActive(false);
             return;
-        }
+
+        Debug.Log("Running2");
         
-        transform.position = Camera.main.WorldToScreenPoint(_target.position);
+        Vector3 screenPos = _mainCamera.WorldToScreenPoint(_target.position);
+
+        RectTransform canvasRect = _rectTransform.root.GetComponent<RectTransform>();
+        
+        Debug.Log($"Screen position of {_target.name}: {screenPos}");
+
+        if (screenPos.z > 0)
+        {
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                    canvasRect,
+                    screenPos,
+                    null,
+                    out Vector2 localPoint))
+            {
+                _rectTransform.anchoredPosition = localPoint;
+            }
+        }
     }
 
     public void ShowKey(string keyText)
@@ -37,14 +68,14 @@ public class InteractIconUI : MonoBehaviour
         _keyText.enabled = true;
         _keyText.text = keyText;
     }
-    
+
     public void ShowIconOnly()
     {
         _iconImage.enabled = true;
         _keyImage.enabled = false;
         _keyText.text = string.Empty;
     }
-    
+
     public void Clear()
     {
         _target = null;

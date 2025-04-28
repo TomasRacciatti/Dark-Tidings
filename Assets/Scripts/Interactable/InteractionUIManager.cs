@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Interfaces;
-using TMPro;
 using UnityEngine.InputSystem;
 
 public class InteractionUIManager : MonoBehaviour
@@ -17,8 +15,6 @@ public class InteractionUIManager : MonoBehaviour
     
     private List<InteractIconUI> _iconPool = new List<InteractIconUI>();
     private List<InteractIconUI> _activeIcons = new List<InteractIconUI>();
-    
-    //[SerializeField] private float _directLookThreshold = 0.98f;
 
     private Camera _mainCamera;
     
@@ -60,6 +56,10 @@ public class InteractionUIManager : MonoBehaviour
             if (interactable == directInteractable)
             {
                 iconUI.ShowKey(GetInteractKeyText());
+            }
+            else
+            {
+                iconUI.ShowIconOnly();
             }
 
             _activeIcons.Add(iconUI);

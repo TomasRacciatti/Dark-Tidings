@@ -66,7 +66,14 @@ public class InteractionDetector : MonoBehaviour
             }
         }
 
-        return best;
+        if (bestAlignment >= _directLookThreshold)
+        {
+            return best;
+        }
+        else
+        {
+            return null;
+        }
     }
     
     private float CalculateAlignment(IInteractable interactable)

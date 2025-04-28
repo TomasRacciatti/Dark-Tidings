@@ -1015,11 +1015,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _detectionRange: 3
-  _sphereRadius: 0.5
+  _sphereRadius: 0.75
   _interactableLayerMask:
     serializedVersion: 2
     m_Bits: 12288
-  _directLookThreshold: 0.98
+  _directLookThreshold: 0.99
 --- !u!1 &6488043132820095169
 GameObject:
   m_ObjectHideFlags: 0

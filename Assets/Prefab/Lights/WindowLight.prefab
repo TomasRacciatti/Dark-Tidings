@@ -231,7 +231,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeDistance: 15
-  _player: {fileID: 0}
+  _detectionOffset: {x: 0, y: 0, z: 0}
   _playerLayerMask:
     serializedVersion: 2
     m_Bits: 512
+  _player: {fileID: 0}
+  _fadeSpeed: 2

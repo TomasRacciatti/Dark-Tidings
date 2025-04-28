@@ -5,7 +5,7 @@ namespace Inventory.View
     public class InventoryView : MonoBehaviour
     {
         [SerializeField] protected InventorySlot[] slots;
-        [SerializeField] protected SlotType slotType = SlotType.Inventory;
+        [SerializeField] protected SlotType slotType;
 
         protected virtual void Awake()
         {

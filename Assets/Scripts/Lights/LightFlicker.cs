@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightFlicker : MonoBehaviour
+public class LightFlicker : Lights
 {
     public enum FlickerMode
     {
@@ -20,29 +20,26 @@ public class LightFlicker : MonoBehaviour
     private float[] _pattern = { 0.1f, 0.2f, 0.1f, 0.5f }; // on/off in sequence
 
     public bool IsLightOn { get; private set; } = true;
-
-    private Light _light;
+    
     private Coroutine _flickerRoutine;
-
-    private void Awake()
-    {
-        _light = GetComponent<Light>();
-        if (_light == null)
-        {
-            Debug.LogError($"[LightFlicker] No Light component found on {gameObject.name}.");
-            enabled = false;
-        }
-    }
-
-    private void OnEnable()
+    protected void OnEnable()
     {
         _flickerRoutine = StartCoroutine(FlickerRoutine());
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
+        base.OnDisable();
         if (_flickerRoutine != null)
+        {
             StopCoroutine(_flickerRoutine);
+            _flickerRoutine = null;
+        }
+    }
+    
+    protected override void UpdateLightBehavior()
+    {
+        _light.enabled = _isPlayerInRange && IsLightOn;
     }
 
     private IEnumerator FlickerRoutine()

@@ -18,6 +18,7 @@ namespace Inventory.View
 
         [HideInInspector] public ItemAmount itemAmount;
         [HideInInspector] public Transform parentTransform;
+        [HideInInspector] public InventoryItem originalItem;
         private Canvas canvas;
 
         private void Awake()
@@ -32,12 +33,13 @@ namespace Inventory.View
             parentTransform = transform.parent;
         }
 
-        public void SetItem(ItemObject newItemObject, int amount)
+        public void SetItem(ItemObject newItemObject, int amount, InventoryItem original = null)
         {
             itemAmount.SetItem(newItemObject, amount);
-            image.sprite = itemAmount.Item.GetImage();
+            image.sprite = itemAmount.Item.GetImage;
             RefreshCount();
             ValidateEquipable();
+            originalItem = original;
         }
 
         public void SetAmount(int amount)
@@ -48,25 +50,13 @@ namespace Inventory.View
 
         public void SetEquipable(int slot)
         {
-            if (slot != -1) equipableText.text = "E";
-            else equipableText.text = slot.ToString();
+            equipableText.text = slot == -1 ? "E" : (slot + 1).ToString();
         }
 
         private void ValidateEquipable()
         {
-            switch (itemAmount.Item.GetItemType())
-            {
-                case ItemType.Weapon:
-                case ItemType.Tool:
-                case ItemType.Key:
-                case ItemType.Consumable:
-                case ItemType.Throwable:
-                    isEquipable.SetActive(true);
-                    break;
-                default:
-                    isEquipable.SetActive(false);
-                    break;
-            }
+            if (itemAmount.Item.IsEquippable) isEquipable.SetActive(true);
+            else isEquipable.SetActive(false);
         }
 
         private void RefreshCount()
@@ -119,22 +109,15 @@ namespace Inventory.View
                 return;
             }
 
-            switch (originalSlot.slotType)
+            if (originalSlot.slotType == targetSlot.slotType)
             {
-                case SlotType.Inventory:
-                    switch (targetSlot.slotType)
-                    {
-                        case SlotType.Inventory:
-                            int fromIndex = originalSlot.slotIndex;
-                            int toIndex = targetSlot.slotIndex;
-                            SetParent();
-                            toItem.SetParent();
-                            bool itemCleared = PlayerController.Instance.inventory.SwapItems(fromIndex, toIndex);
-                            if (itemCleared) Destroy(gameObject);
-                            break;
-                    }
-
-                    break;
+                int fromIndex = originalSlot.slotIndex;
+                int toIndex = targetSlot.slotIndex;
+                SetParent();
+                if (toItem) toItem.SetParent();
+                bool itemCleared = PlayerController.Instance.inventory.SwapItems(fromIndex, toIndex);
+                if (itemCleared) Destroy(gameObject);
+                return;
             }
         }
 
@@ -144,12 +127,12 @@ namespace Inventory.View
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    Debug.Log("Clic izquierdo");
-                    if (itemAmount.Item.GetItemType() == ItemType.Weapon)
+                    Debug.Log("Clic izquierdo");/*
+                    if (itemAmount.Item.GetItemType == Items.ItemType2.Weapon)
                     {
                         //Toolbar.Instance.EquipItem(itemAmount, 0);
                         ItemsInHand.Instance.ActivateGlock();
-                    }
+                    }*/
 
                     break;
                 case PointerEventData.InputButton.Right:

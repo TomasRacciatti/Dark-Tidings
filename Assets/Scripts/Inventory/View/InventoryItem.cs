@@ -1,7 +1,3 @@
-using System;
-using Characters.Player;
-using Inventory.Controller;
-using Items;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -16,9 +12,8 @@ namespace Inventory.View
         [SerializeField] private GameObject isEquipable;
         [SerializeField] private TextMeshProUGUI equipableText;
 
-        [HideInInspector] public ItemAmount itemAmount;
-        [HideInInspector] public Transform parentTransform;
-        [HideInInspector] public InventoryItem originalItem;
+        /*[HideInInspector]*/ public ItemAmount itemAmount;
+        /*[HideInInspector]*/ public InventoryItem originalItem;
         private Canvas canvas;
 
         private void Awake()
@@ -30,13 +25,12 @@ namespace Inventory.View
         private void Start()
         {
             amountText.raycastTarget = false;
-            parentTransform = transform.parent;
         }
 
-        public void SetItem(ItemObject newItemObject, int amount, InventoryItem original = null)
+        public void SetItem(ItemAmount newItemAmount, InventoryItem original = null)
         {
-            itemAmount.SetItem(newItemObject, amount);
-            image.sprite = itemAmount.Item.GetImage;
+            itemAmount = newItemAmount;
+            image.sprite = itemAmount.ItemInstance.Image;
             RefreshCount();
             ValidateEquipable();
             originalItem = original;
@@ -52,10 +46,21 @@ namespace Inventory.View
         {
             equipableText.text = slot == -1 ? "E" : (slot + 1).ToString();
         }
+        
+        public int GetEquipableSlot()
+        {
+            if (equipableText.text == "E")
+                return -1;
+
+            if (int.TryParse(equipableText.text, out int value))
+                return value - 1;
+
+            return -1;
+        }
 
         private void ValidateEquipable()
         {
-            if (itemAmount.Item.IsEquippable) isEquipable.SetActive(true);
+            if (itemAmount.ItemInstance.IsEquippable) isEquipable.SetActive(true);
             else isEquipable.SetActive(false);
         }
 
@@ -65,18 +70,16 @@ namespace Inventory.View
             amountText.gameObject.SetActive(itemAmount.Amount > 1);
         }
 
-        public void SetParent()
+        public void SetParent(Transform parent)
         {
-            transform.SetParent(parentTransform);
+            transform.SetParent(parent, false);
             transform.localPosition = Vector3.zero;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            canvas.sortingOrder = 15;
             image.raycastTarget = false;
-            parentTransform = transform.parent;
-            transform.SetParent(parentTransform);
+            canvas.sortingOrder = 15;
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -91,43 +94,15 @@ namespace Inventory.View
         {
             image.raycastTarget = true;
             canvas.sortingOrder = 5;
-
-            if (parentTransform == transform.parent) //verifica que no es el mismo
-            {
-                transform.localPosition = Vector3.zero;
-                return;
-            }
-
-            InventorySlot originalSlot = transform.parent.GetComponent<InventorySlot>();
-            InventorySlot targetSlot = parentTransform.GetComponent<InventorySlot>();
-
-            InventoryItem toItem = targetSlot.GetComponentInChildren<InventoryItem>();
-
-            if (targetSlot == null) //verificar que el target no es nulo
-            {
-                transform.localPosition = Vector3.zero;
-                return;
-            }
-
-            if (originalSlot.slotType == targetSlot.slotType)
-            {
-                int fromIndex = originalSlot.slotIndex;
-                int toIndex = targetSlot.slotIndex;
-                SetParent();
-                if (toItem) toItem.SetParent();
-                bool itemCleared = PlayerController.Instance.inventory.SwapItems(fromIndex, toIndex);
-                if (itemCleared) Destroy(gameObject);
-                return;
-            }
+            transform.localPosition = Vector3.zero;
         }
-
-
+        
         public void OnPointerClick(PointerEventData eventData)
         {
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    Debug.Log("Clic izquierdo");/*
+                    Debug.Log("Clic izquierdo"); /*
                     if (itemAmount.Item.GetItemType == Items.ItemType2.Weapon)
                     {
                         //Toolbar.Instance.EquipItem(itemAmount, 0);

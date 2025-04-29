@@ -13,20 +13,20 @@ namespace Inventory.Model
             ClearInventory(); //limpia e inicializa los slots, borrar esto despues
         }
 
-        public override int AddItem(ItemObject itemObject, int amount)
+        public override int AddItem(ItemAmount itemAmount)
         {
-            if (itemObject == null && amount <= 0) return 0;
-            amount = StackItems(itemObject, amount);
-            if (amount <= 0) return amount;
-            amount = PlaceInEmptySlot(itemObject, amount);
+            if (itemAmount.IsEmpty) return 0;
+            itemAmount.RemoveAmount(itemAmount.Amount - StackItems(itemAmount));
+            if (itemAmount.IsEmpty) return 0;
+            itemAmount.RemoveAmount(itemAmount.Amount - PlaceInEmptySlot(itemAmount));
 
-            return amount; // amount not added
+            return itemAmount.Amount; // amount not added
         }
 
-        public override int RemoveItem(ItemObject itemObject, int amount)
+        public override int RemoveItem(ItemAmount itemAmount)
         {
-            if (itemObject == null && amount <= 0) return 0;
-            return RemoveItemsInternal(itemObject, amount, i =>
+            if (itemAmount.IsEmpty) return 0;
+            return RemoveItemsInternal(itemAmount, i =>
             {
                 items[i] = new ItemAmount(); // mantiene el slot vacío
             });
@@ -39,7 +39,7 @@ namespace Inventory.Model
 
         public override void ClearInventory()
         {
-            items = Enumerable.Range(0, slotsAmount).Select(_ => new ItemAmount()).ToList();
+            items = Enumerable.Range(0, slotsAmount).Select(_ => new ItemAmount(null, 0)).ToList();
         }
 
         public override void ClearSlot(int i)
@@ -55,9 +55,9 @@ namespace Inventory.Model
             ItemAmount fromItem = items[fromIndex];
             ItemAmount toItem = items[toIndex];
 
-            if (toItem.Item == fromItem.Item)
+            if (toItem.IsEmpty || fromItem.IsStackable(toItem))
             {
-                int remainingAmount = toItem.SetItem(fromItem.Item, fromItem.Amount + toItem.Amount);
+                int remainingAmount = toItem.SetItem(fromItem);
                 items[toIndex] = toItem;
 
                 if (remainingAmount > 0)
@@ -67,22 +67,22 @@ namespace Inventory.Model
                 }
                 else
                 {
-                    items[fromIndex].Clear();
+                    items[fromIndex] = new ItemAmount();
                 }
-
+/*
                 UpdateHud(fromIndex);
-                UpdateHud(toIndex);
+                UpdateHud(toIndex);*/
                 return remainingAmount <= 0;
             }
 
-            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
+            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);/*
             UpdateHud(fromIndex);
-            UpdateHud(toIndex);
+            UpdateHud(toIndex);*/
             return false;
         }
 
 
-        private int PlaceInEmptySlot(ItemObject itemObject, int amount)
+        private int PlaceInEmptySlot(ItemAmount itemAmount)
         {
             for (int i = 0; i < items.Count; i++)
             {
@@ -90,17 +90,17 @@ namespace Inventory.Model
 
                 if (item.IsEmpty)
                 {
-                    amount = item.SetItem(itemObject, amount);
+                    itemAmount.RemoveAmount(itemAmount.Amount - item.SetItem(itemAmount));
                     items[i] = item;
 
                     UpdateHud(i);
 
-                    if (amount <= 0)
+                    if (itemAmount.Amount <= 0)
                         return 0;
                 }
             }
 
-            return amount;
+            return itemAmount.Amount;
         }
     }
 }

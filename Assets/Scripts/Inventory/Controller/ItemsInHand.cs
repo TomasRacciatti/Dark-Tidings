@@ -1,3 +1,4 @@
+using Items;
 using UnityEngine;
 
 namespace Inventory.Controller
@@ -6,7 +7,7 @@ namespace Inventory.Controller
     {
         public static ItemsInHand Instance { get; private set; }
     
-        public Item glock;
+        public ItemInstance glock;
 
         private void Awake()
         {
@@ -17,7 +18,7 @@ namespace Inventory.Controller
             }
             Instance = this;
         }
-
+/*
         public void Shoot()
         {
             if (!glock.gameObject.activeSelf) return;
@@ -27,6 +28,6 @@ namespace Inventory.Controller
         public void ActivateGlock()
         {
             glock.gameObject.SetActive(true);
-        }
+        }*/
     }
 }

@@ -4,11 +4,15 @@ using System.Collections.Generic;
 using Interfaces;
 using Inventory;
 using Inventory.Model;
+using Items;
 using UnityEngine;
 
 public class ItemPrefab : MonoBehaviour, IInteractable
 {
-    [SerializeField] private ItemAmount itemAmount;
+    [SerializeField] private ItemObject itemObject;
+    [SerializeField] private int Amount;
+    
+    private ItemAmount itemAmount;
     private MeshFilter meshFilter;
     private MeshRenderer meshRenderer;
     
@@ -19,23 +23,24 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
+        itemAmount = new ItemAmount(itemObject, Amount, true);
     }
 
     private void OnEnable()
     {
-        if (itemAmount.Item == null || itemAmount.Amount <= 0)
+        if (itemAmount.ItemInstance == null || itemAmount.Amount <= 0)
         {
             Destroy(gameObject);
             return;
         }
         //assign mesh and material
-        if (itemAmount.Item.GetMesh != null)
+        if (itemAmount.ItemInstance.Mesh != null)
         {
-            meshFilter.mesh = itemAmount.Item.GetMesh;
+            meshFilter.mesh = itemAmount.ItemInstance.Mesh;
         }
-        if (itemAmount.Item.GetMaterials != null && itemAmount.Item.GetMaterials.Length > 0)
+        if (itemAmount.ItemInstance.Materials != null && itemAmount.ItemInstance.Materials.Length > 0)
         {
-            meshRenderer.materials = itemAmount.Item.GetMaterials;
+            meshRenderer.materials = itemAmount.ItemInstance.Materials;
         }
     }
 
@@ -43,7 +48,7 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     {
         if (interactableObject.TryGetComponent(out InventorySystem inventorySystem))
         {
-            itemAmount.RemoveAmount(itemAmount.Amount - inventorySystem.AddItem(itemAmount.Item, itemAmount.Amount));
+            itemAmount.RemoveAmount(itemAmount.Amount - inventorySystem.AddItem(itemAmount));
             if (itemAmount.IsEmpty)
             {
                 Destroy(gameObject);

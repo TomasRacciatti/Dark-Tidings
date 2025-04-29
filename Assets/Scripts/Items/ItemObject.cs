@@ -15,16 +15,14 @@ namespace Items
         [SerializeField] private Mesh mesh;
         [SerializeField] private Material[] materials;
 
-        // Métodos virtuales para permitir override
-        public virtual string GetItemName() => itemName;
-        public virtual Sprite GetImage => image;
-        public virtual string GetDescription => description;
-        public virtual string GetFullDescription() => description;
-        public virtual int GetStack => stack;
-        public virtual ItemType GetItemType => type;
-        public virtual bool IsEquippable => equippable;
-        public virtual Mesh GetMesh => mesh;
-        public virtual Material[] GetMaterials => materials;
-        public override string ToString() => GetItemName();
+        // Propiedades para acceder a los datos
+        public string ItemName => itemName;
+        public Sprite Image => image;
+        public string Description => description;
+        public int Stack => stack;
+        public ItemType ItemType => type;
+        public bool IsEquippable => equippable;
+        public Mesh Mesh => mesh;
+        public Material[] Materials => materials;
     }
 }

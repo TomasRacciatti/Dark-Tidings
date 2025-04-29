@@ -19,7 +19,7 @@ namespace Inventory.Controller
             }
         }
 
-        protected override void Awake() //no se ejecuta nose porque
+        protected override void Awake()
         {
             base.Awake();
             ChangeSelectedSlot(0);
@@ -38,6 +38,19 @@ namespace Inventory.Controller
         public InventoryItem GetSelectedItem()
         {
             return SelectedSlot.GetComponentInChildren<InventoryItem>();
+        }
+
+        public InventoryItem GetItem(InventoryItem item)
+        {
+            foreach (InventorySlot slot in slots)
+            {
+                InventoryItem existingItem = slot.GetComponentInChildren<InventoryItem>();
+                if (existingItem != null && existingItem.originalItem == item)
+                {
+                    return existingItem;
+                }
+            }
+            return null;
         }
     }
 }

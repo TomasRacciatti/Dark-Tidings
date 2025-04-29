@@ -8,7 +8,7 @@ namespace Inventory.Controller
     {
         [SerializeField] private int selectedSlot = 0;
         [SerializeField] private GameObject slotSelector;
-        
+
         public InventorySlot SelectedSlot
         {
             get
@@ -24,7 +24,7 @@ namespace Inventory.Controller
             base.Awake();
             ChangeSelectedSlot(0);
         }
-        
+
         public void ChangeSelectedSlot(int slot)
         {
             if (selectedSlot == slot) return;
@@ -33,8 +33,9 @@ namespace Inventory.Controller
             selectedSlot = slot;
             slotSelector.transform.SetParent(SelectedSlot.transform, false);
             slotSelector.transform.localPosition = Vector3.zero;
+            SetItemEquipped();
         }
-        
+
         public InventoryItem GetSelectedItem()
         {
             return SelectedSlot.GetComponentInChildren<InventoryItem>();
@@ -50,7 +51,14 @@ namespace Inventory.Controller
                     return existingItem;
                 }
             }
+
             return null;
+        }
+
+        public void SetItemEquipped()
+        {
+            InventoryItem item = SelectedSlot.GetComponentInChildren<InventoryItem>();
+            ItemsInHand.Instance.SetItemEquipped(item == null ? null : item.itemAmount.ItemInstance.ItemObject);
         }
     }
 }

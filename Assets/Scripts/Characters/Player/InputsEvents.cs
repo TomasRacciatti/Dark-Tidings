@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Inventory.Controller;
 
 namespace Characters.Player
 {
@@ -96,7 +97,7 @@ namespace Characters.Player
         public void StartUse(InputAction.CallbackContext context)
         {
             use = context.ReadValueAsButton();
-            //ItemsInHand.Instance.Shoot();
+            ItemsInHand.Instance.Use();
         }
 
         public void Interact(InputAction.CallbackContext context)

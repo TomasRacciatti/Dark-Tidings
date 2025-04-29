@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Characters.Player;
+using Inventory.Controller;
 
 namespace Inventory.View
 {
@@ -93,6 +94,7 @@ namespace Inventory.View
             toItem.SetItem(fromItem.itemAmount, fromItem);
             fromItem.SetEquipable(slotIndex);
             toItem.SetEquipable(slotIndex);
+            CanvasGameManager.Instance.inventoryManager.toolbar.SetItemEquipped();
             return true;
         }
 
@@ -111,6 +113,7 @@ namespace Inventory.View
                 toItem.SetEquipable(fromSlot.slotIndex);
                 toItem.originalItem.SetEquipable(slotIndex);
             }
+            CanvasGameManager.Instance.inventoryManager.toolbar.SetItemEquipped();
             return true;
         }
         
@@ -122,6 +125,10 @@ namespace Inventory.View
             
             fromItem.originalItem.SetEquipable(-1);
             Destroy(fromItem.gameObject);
+            if (CanvasGameManager.Instance.inventoryManager.toolbar.SelectedSlot.slotIndex == fromSlot.slotIndex)
+            {
+                ItemsInHand.Instance.SetItemEquipped(null);
+            }
             return true;
         }
     }

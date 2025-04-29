@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using Interfaces;
+using Items;
 using Patterns;
 using Patterns.ObjectPool;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(AudioSource))]
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : ItemEquippable
 {
     [Header("Weapon")] [SerializeField] public string weaponName = "Weapon";
     [SerializeField] protected int _damage = 10;
@@ -54,6 +55,11 @@ public abstract class Weapon : MonoBehaviour
         _timeBetweenShots = 1f / _firerate;
         _bullets = _magazineSize;
         //StartUsing();
+    }
+
+    public override void Interact()
+    {
+        StartUsing();
     }
 
     public virtual void StartUsing()

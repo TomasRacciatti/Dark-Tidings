@@ -97,7 +97,10 @@ namespace Characters.Player
         public void StartUse(InputAction.CallbackContext context)
         {
             use = context.ReadValueAsButton();
-            ItemsInHand.Instance.Use();
+            if (!inventoryOpened)
+            {
+                ItemsInHand.Instance.Use();
+            }
         }
 
         public void Interact(InputAction.CallbackContext context)

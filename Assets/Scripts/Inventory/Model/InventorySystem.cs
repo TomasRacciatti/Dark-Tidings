@@ -11,11 +11,9 @@ namespace Inventory.Model
     public abstract class InventorySystem : MonoBehaviour
     {
         [SerializeField] protected List<ItemAmount> items = new List<ItemAmount>();
-        [SerializeField] public InventoryView _view;
         
         private void Start()
         {
-            _view = CanvasGameManager.Instance.inventoryManager.inventoryView; //cambiar esto todo
             UpdateAllHud();
         }
 
@@ -24,7 +22,7 @@ namespace Inventory.Model
 
         protected void UpdateHud(int index)
         {
-            _view.SetItem(index, items[index]);
+            CanvasGameManager.Instance.inventoryManager.inventoryView.SetItem(index, items[index]);
         }
 
         protected void UpdateAllHud()
@@ -88,13 +86,13 @@ namespace Inventory.Model
 
         protected int StackItems(ItemAmount itemAmount)
         {
-            if (itemAmount.Item.Stack <= 1) return itemAmount.Amount;
+            if (itemAmount.ItemInstance.Stack <= 1) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
 
-                if (item.IsStackable(itemAmount))
+                if (!item.IsEmpty && itemAmount.IsStackable(item))
                 {
                     itemAmount.RemoveAmount(itemAmount.Amount - item.AddAmount(itemAmount.Amount));
                     items[i] = item;
@@ -110,7 +108,7 @@ namespace Inventory.Model
 
         protected int RemoveItemsInternal(ItemAmount itemAmount, Action<int> onItemEmptied)
         {
-            if (itemAmount.Item == null || itemAmount.Amount <= 0) return itemAmount.Amount;
+            if (itemAmount.ItemInstance == null || itemAmount.Amount <= 0) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {

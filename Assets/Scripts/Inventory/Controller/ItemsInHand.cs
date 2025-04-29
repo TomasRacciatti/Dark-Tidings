@@ -7,7 +7,7 @@ namespace Inventory.Controller
     {
         public static ItemsInHand Instance { get; private set; }
     
-        public Item glock;
+        public ItemInstance glock;
 
         private void Awake()
         {

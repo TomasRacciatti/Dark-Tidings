@@ -38,7 +38,7 @@ namespace Inventory.Model
         {
             while (!itemAmount.IsEmpty)
             {
-                int amountToAdd = Mathf.Min(itemAmount.Amount, itemAmount.Item.Stack);
+                int amountToAdd = Mathf.Min(itemAmount.Amount, itemAmount.ItemInstance.Stack);
                 itemAmount.RemoveAmount(amountToAdd);
                 ItemAmount aaa = new ItemAmount();
                 aaa.SetItem(itemAmount);

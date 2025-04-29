@@ -39,7 +39,7 @@ namespace Inventory.Model
 
         public override void ClearInventory()
         {
-            items = Enumerable.Range(0, slotsAmount).Select(_ => new ItemAmount()).ToList();
+            items = Enumerable.Range(0, slotsAmount).Select(_ => new ItemAmount(null, 0)).ToList();
         }
 
         public override void ClearSlot(int i)
@@ -59,8 +59,6 @@ namespace Inventory.Model
             {
                 int remainingAmount = toItem.SetItem(fromItem);
                 items[toIndex] = toItem;
-                
-                print(remainingAmount);
 
                 if (remainingAmount > 0)
                 {
@@ -71,15 +69,15 @@ namespace Inventory.Model
                 {
                     items[fromIndex] = new ItemAmount();
                 }
-
+/*
                 UpdateHud(fromIndex);
-                UpdateHud(toIndex);
+                UpdateHud(toIndex);*/
                 return remainingAmount <= 0;
             }
 
-            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
+            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);/*
             UpdateHud(fromIndex);
-            UpdateHud(toIndex);
+            UpdateHud(toIndex);*/
             return false;
         }
 

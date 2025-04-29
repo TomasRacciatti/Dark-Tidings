@@ -6,24 +6,24 @@ namespace Inventory
     [System.Serializable]
     public struct ItemAmount
     {
-        [SerializeField] private Item _item;
+        [SerializeField] private ItemInstance _itemInstance;
         [SerializeField] private int _amount;
         private bool _allowOverflow;
 
-        public Item Item => _item;
+        public ItemInstance ItemInstance => _itemInstance;
         public int Amount => _amount;
 
         public ItemAmount(ItemObject newItem = null, int newAmount = 0, bool allowOverflow = false)
         {
-            _item = new Item(newItem);
+            _itemInstance = new ItemInstance(newItem);
             _amount = newAmount;
             _allowOverflow = allowOverflow;
         }
         
-        public bool IsEmpty => _item.ItemObject == null;
-        public bool IsFull => _item.ItemObject != null && !_allowOverflow && _amount >= _item.Stack;
-        public int StackSpace => _item?.Stack - _amount ?? 0;
-        public ItemObject GetItemObject => _item.ItemObject;
+        public bool IsEmpty => _itemInstance == null ||_itemInstance.ItemObject == null;
+        public bool IsFull => _itemInstance != null && _itemInstance.ItemObject != null && !_allowOverflow && _amount >= _itemInstance.Stack;
+        public int Stack => _itemInstance.ItemObject != null ? _itemInstance.Stack : 0;
+        public ItemObject GetItemObject => _itemInstance.ItemObject;
 
         public void SetOverflow(bool allowOverflow = false)
         {
@@ -32,27 +32,22 @@ namespace Inventory
 
         public bool IsStackable(ItemAmount itemAmount)
         {
-            return !IsFull && _item.ItemObject != null && _item.IsStackable(itemAmount.Item);
+            return !IsFull && _itemInstance.ItemObject != null && _itemInstance.IsStackable(itemAmount.ItemInstance);
         }
 
         public int SetItem(ItemAmount itemAmount)
         {
-            if (itemAmount.IsEmpty)
-            {
-                Clear();
-                return 0;
-            }
-            _item = new Item(itemAmount.GetItemObject);
+            _itemInstance = new ItemInstance(itemAmount.GetItemObject);
 
-            _amount = _allowOverflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, _item.Stack);
-            return _allowOverflow ? 0 : Mathf.Max(0, itemAmount.Amount - _item.Stack);
+            _amount = _allowOverflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, _itemInstance.Stack);
+            return _allowOverflow ? 0 : Mathf.Max(0, itemAmount.Amount - _itemInstance.Stack);
         }
 
         public int SetAmount(int newAmount)
         {
             if (IsEmpty) return newAmount;
 
-            int clampedAmount = _allowOverflow ? Mathf.Max(0, newAmount) : Mathf.Clamp(newAmount, 0, _item.Stack);
+            int clampedAmount = _allowOverflow ? Mathf.Max(0, newAmount) : Mathf.Clamp(newAmount, 0, _itemInstance.Stack);
             _amount = clampedAmount;
 
             if (_amount <= 0) Clear();
@@ -73,13 +68,13 @@ namespace Inventory
 
         public void Clear()
         {
-            _item = new Item();
+            _itemInstance = new ItemInstance(null);
             _amount = 0;
         }
 
         public string ItemToString()
         {
-            return IsEmpty ? "Empty" : $"{_item.ItemName} x{_amount}";
+            return IsEmpty ? "Empty" : $"{_itemInstance.ItemName} x{_amount}";
         }
     }
 }

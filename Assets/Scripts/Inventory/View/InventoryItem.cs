@@ -12,9 +12,8 @@ namespace Inventory.View
         [SerializeField] private GameObject isEquipable;
         [SerializeField] private TextMeshProUGUI equipableText;
 
-        [HideInInspector] public ItemAmount itemAmount;
-        [HideInInspector] public Transform parentTransform;
-        [HideInInspector] public InventoryItem originalItem;
+        /*[HideInInspector]*/ public ItemAmount itemAmount;
+        /*[HideInInspector]*/ public InventoryItem originalItem;
         private Canvas canvas;
 
         private void Awake()
@@ -26,13 +25,12 @@ namespace Inventory.View
         private void Start()
         {
             amountText.raycastTarget = false;
-            parentTransform = transform.parent;
         }
 
         public void SetItem(ItemAmount newItemAmount, InventoryItem original = null)
         {
             itemAmount = newItemAmount;
-            image.sprite = itemAmount.Item.Image;
+            image.sprite = itemAmount.ItemInstance.Image;
             RefreshCount();
             ValidateEquipable();
             originalItem = original;
@@ -48,10 +46,21 @@ namespace Inventory.View
         {
             equipableText.text = slot == -1 ? "E" : (slot + 1).ToString();
         }
+        
+        public int GetEquipableSlot()
+        {
+            if (equipableText.text == "E")
+                return -1;
+
+            if (int.TryParse(equipableText.text, out int value))
+                return value - 1;
+
+            return -1;
+        }
 
         private void ValidateEquipable()
         {
-            if (itemAmount.Item.IsEquippable) isEquipable.SetActive(true);
+            if (itemAmount.ItemInstance.IsEquippable) isEquipable.SetActive(true);
             else isEquipable.SetActive(false);
         }
 
@@ -61,18 +70,16 @@ namespace Inventory.View
             amountText.gameObject.SetActive(itemAmount.Amount > 1);
         }
 
-        public void SetParent()
+        public void SetParent(Transform parent)
         {
-            transform.SetParent(parentTransform);
+            transform.SetParent(parent, false);
             transform.localPosition = Vector3.zero;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            canvas.sortingOrder = 15;
             image.raycastTarget = false;
-            parentTransform = transform.parent;
-            transform.SetParent(parentTransform);
+            canvas.sortingOrder = 15;
         }
 
         public void OnDrag(PointerEventData eventData)

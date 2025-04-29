@@ -20,29 +20,24 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
-    }
-
-    private void Start()
-    {
-        itemAmount.SetOverflow(true);
-        itemAmount.SetItem(itemAmount);
+        itemAmount = new ItemAmount(itemObject, Amount, true);
     }
 
     private void OnEnable()
     {
-        if (itemAmount.Item == null || itemAmount.Amount <= 0)
+        if (itemAmount.ItemInstance == null || itemAmount.Amount <= 0)
         {
             Destroy(gameObject);
             return;
         }
         //assign mesh and material
-        if (itemAmount.Item.Mesh != null)
+        if (itemAmount.ItemInstance.Mesh != null)
         {
-            meshFilter.mesh = itemAmount.Item.Mesh;
+            meshFilter.mesh = itemAmount.ItemInstance.Mesh;
         }
-        if (itemAmount.Item.Materials != null && itemAmount.Item.Materials.Length > 0)
+        if (itemAmount.ItemInstance.Materials != null && itemAmount.ItemInstance.Materials.Length > 0)
         {
-            meshRenderer.materials = itemAmount.Item.Materials;
+            meshRenderer.materials = itemAmount.ItemInstance.Materials;
         }
     }
 

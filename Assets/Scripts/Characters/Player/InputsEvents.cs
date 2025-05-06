@@ -9,12 +9,19 @@ namespace Characters.Player
         private InputActions inputActions;
         private PlayerController _playerController;
 
-        [Header("Character Input Values")] public Vector2 movement;
-        public Vector2 look;
-        public bool sprint;
-        public bool use;
-        public bool inventoryOpened;
-        public bool toggleBackpack;
+        private Vector2 movement;
+        private Vector2 look;
+        private bool sprint;
+        private bool use;
+        private bool inventoryOpened;
+        private bool toggleBackpack;
+        
+        public Vector2 GetMovement => inventoryOpened ? Vector2.zero : movement;
+        public Vector2 GetLook => inventoryOpened ? Vector2.zero : look;
+        public bool IsSprinting => sprint;
+        public bool GetUse => use;
+        public bool GetInventoryOpened => inventoryOpened;
+        public bool GetToggleBackpack => toggleBackpack;
 
         [Header("Movement Settings")] public bool analogMovement;
 

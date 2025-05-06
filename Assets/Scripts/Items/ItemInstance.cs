@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 namespace Items
@@ -33,7 +34,7 @@ namespace Items
             _modifiers = new List<ItemObject>();
         }
         
-        public ItemInstance(ItemObject itemObject)
+        public ItemInstance(ItemObject itemObject, List<ItemObject> modifiers)
         {
             if (itemObject == null)
             {
@@ -47,7 +48,11 @@ namespace Items
             _itemObject = itemObject;
             _itemName = itemObject.ItemName;
             _description = itemObject.Description;
-            _modifiers = new List<ItemObject>();
+            _modifiers = modifiers;
+            foreach (var modifier in _modifiers)
+            {
+                _itemName = modifier.ModifierName + " " + _itemName;
+            }
         }
 
         public bool IsStackable(ItemInstance itemInstance)
@@ -66,6 +71,12 @@ namespace Items
             }
     
             return true;
+        }
+
+        public void AddModifier(ItemObject itemObject)
+        {
+            _modifiers.Add(itemObject);
+            _itemName = itemObject.ModifierName + " " + _itemName;
         }
     }
 }

@@ -116,12 +116,12 @@ namespace Characters.Player
 
         private void CameraRotation()
         {
-            if (_inputEvents.look.sqrMagnitude >= _threshold && !_inputEvents.inventoryOpened)
+            if (_inputEvents.GetLook.sqrMagnitude >= _threshold)
             {
                 float deltaTimeMultiplier = 1.0f; //arreglar para mando
 
-                _cinemachineTargetYaw += _inputEvents.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _inputEvents.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _inputEvents.GetLook.x * deltaTimeMultiplier;
+                _cinemachineTargetPitch += _inputEvents.GetLook.y * deltaTimeMultiplier;
             }
 
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
@@ -135,9 +135,9 @@ namespace Characters.Player
 
         private void HorizontalMovement()
         {
-            float speed = _inputEvents.sprint ? 2 * _character.speed : _character.speed;
+            float speed = _inputEvents.IsSprinting ? 2 * _character.speed : _character.speed;
 
-            if (_inputEvents.movement == Vector2.zero) speed = 0.0f;
+            if (_inputEvents.GetMovement == Vector2.zero) speed = 0.0f;
 
             float currentHorizontalSpeed =
                 new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
@@ -166,7 +166,7 @@ namespace Characters.Player
             cameraRight.y = 0;
             cameraRight.Normalize();
 
-            Vector3 inputDirection = cameraForward * _inputEvents.movement.y + cameraRight * _inputEvents.movement.x;
+            Vector3 inputDirection = cameraForward * _inputEvents.GetMovement.y + cameraRight * _inputEvents.GetMovement.x;
 
             if (inputDirection.sqrMagnitude > 1f)
             {

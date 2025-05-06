@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 namespace Inventory.View
 {
-    public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+    public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI amountText;
         [SerializeField] private GameObject isEquipable;
         [SerializeField] private TextMeshProUGUI equipableText;
+        [SerializeField] private TextMeshProUGUI tooltipText;
 
         /*[HideInInspector]*/ public ItemAmount itemAmount;
         /*[HideInInspector]*/ public InventoryItem originalItem;
@@ -76,6 +77,11 @@ namespace Inventory.View
             transform.localPosition = Vector3.zero;
         }
 
+        public void SetRaycast(bool value)
+        {
+            image.raycastTarget = value;
+        }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             image.raycastTarget = false;
@@ -116,6 +122,23 @@ namespace Inventory.View
                 case PointerEventData.InputButton.Middle:
                     Debug.Log("Clic del botón del medio");
                     break;
+            }
+        }
+        
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (tooltipText != null)
+            {
+                tooltipText.text = itemAmount.ItemInstance.ItemName;
+                tooltipText.gameObject.SetActive(true);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (tooltipText != null)
+            {
+                tooltipText.gameObject.SetActive(false);
             }
         }
     }

@@ -35,7 +35,7 @@ public class WeaponSystem : MonoBehaviour
         UpdatePrecisionAngle();
         
         // Handle shooting input
-        if (_inputEvents != null && _inputEvents.use)
+        if (_inputEvents != null) // && _inputEvents.use
         {
             Shoot();
         }

@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0776dc754a4f1c44fb737d73397c3c76, type: 3}
   m_Name: CopperOre
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Copper Ore
   image: {fileID: 21300000, guid: d5f2f625c729be344a595edb08b0f7ab, type: 3}
   description: ItemDescription
+  modifierName: Copper
   stack: 10
   type: {fileID: 11400000, guid: c82398f0766eb254ea5dce9ca06c1c8e, type: 2}
   equippable: 0

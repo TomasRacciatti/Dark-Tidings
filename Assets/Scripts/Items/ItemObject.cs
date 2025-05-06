@@ -9,6 +9,7 @@ namespace Items
         [SerializeField] private string itemName;
         [SerializeField] private Sprite image;
         [SerializeField, TextArea] private string description = "ItemDescription";
+        [SerializeField] private string modifierName;
         [SerializeField] private int stack = 10;
         [SerializeField] private ItemType type;
         [SerializeField] private bool equippable;
@@ -19,6 +20,7 @@ namespace Items
         public string ItemName => itemName;
         public Sprite Image => image;
         public string Description => description;
+        public string ModifierName => modifierName;
         public int Stack => stack;
         public ItemType ItemType => type;
         public bool IsEquippable => equippable;

@@ -8,5 +8,4 @@ using Items;
 public class ClueType : ScriptableObject
 {
     [SerializeField] private ItemObject tool;
-
 }

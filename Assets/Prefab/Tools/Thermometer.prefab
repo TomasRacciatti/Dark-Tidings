@@ -153,6 +153,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemObject: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
+  clueLayerMask:
+    serializedVersion: 2
+    m_Bits: 32768
+  screen: {fileID: 4508854210370717815}
+  defaultMaterial: {fileID: 2100000, guid: 046d63d2ab45d4a268ad613744852fc9, type: 2}
+  highMaterial: {fileID: 2100000, guid: d059325868484fa4ba2ba6091682a8bf, type: 2}
+  lowMaterial: {fileID: 2100000, guid: 0eca4808192dee44dae5918d0d6a463b, type: 2}
+  negativeMaterial: {fileID: 2100000, guid: a74090b66e43d154e97107beae0ffce9, type: 2}
 --- !u!1 &6394018305517521743
 GameObject:
   m_ObjectHideFlags: 0

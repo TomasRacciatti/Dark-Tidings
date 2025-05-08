@@ -7,6 +7,9 @@ public class ThermometerClue : ClueType
 {
     [SerializeField] private int _minTemperature;
     [SerializeField] private int _maxTemperature;
-    
-    
+
+    public float GetTemperature()
+    {
+        return Random.Range((float)_minTemperature, _maxTemperature);
+    }
 }

@@ -57,7 +57,7 @@ public abstract class Weapon : ItemEquippable
         //StartUsing();
     }
 
-    public override void Interact()
+    public override void Use()
     {
         StartUsing();
     }

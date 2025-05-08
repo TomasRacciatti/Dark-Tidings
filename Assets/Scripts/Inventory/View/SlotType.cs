@@ -2,7 +2,7 @@
 
 namespace Inventory.View
 {
-    [CreateAssetMenu(menuName = "Inventory/SlotType")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Inventory/SlotType")]
     public class SlotType : ScriptableObject
     {
         

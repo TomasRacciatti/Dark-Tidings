@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New BackpackStats", menuName = "Inventory/BackpackStats")]
+[CreateAssetMenu(fileName = "New BackpackStats", menuName = "ScriptableObject/Inventory/BackpackStats")]
 public class BackpackStats : ScriptableObject
 {
     [Header("Debuff Stats")]

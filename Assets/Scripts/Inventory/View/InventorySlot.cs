@@ -33,7 +33,7 @@ namespace Inventory.View
 
             if (item == null)
             {
-                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemPrefab, transform);
+                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemSlotPrefab, transform);
                 item = newItem.GetComponent<InventoryItem>();
             }
 
@@ -115,7 +115,7 @@ namespace Inventory.View
 
             if (toItem == null)
             {
-                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemPrefab, transform);
+                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemSlotPrefab, transform);
                 toItem = newItem.GetComponent<InventoryItem>();
             }
 

@@ -37,7 +37,7 @@ namespace Inventory
 
             if (item == null)
             {
-                GameObject itemobject = Instantiate(CanvasGameManager.Instance.inventoryManager.itemPrefab, _slots[_selectedSlot].transform);
+                GameObject itemobject = Instantiate(CanvasGameManager.Instance.inventoryManager.itemSlotPrefab, _slots[_selectedSlot].transform);
                 item = itemobject.GetComponent<InventoryItem>();
                 item.SetRaycast(false);
             }

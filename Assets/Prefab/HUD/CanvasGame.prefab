@@ -1713,7 +1713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 300b5ae22d0ba9440bdc6fc223112e82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemPrefab: {fileID: 6071862886307314409, guid: 7ff0fa7b3952a07458029e98113e2e1d, type: 3}
+  itemSlotPrefab: {fileID: 6071862886307314409, guid: 7ff0fa7b3952a07458029e98113e2e1d, type: 3}
   toolbar: {fileID: 2487880813125322247}
   inventoryView: {fileID: 3646676206495391724}
   inventoryUI: {fileID: 5207417777823613495}

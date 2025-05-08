@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Characters.Player;
 using Inventory.Controller;
+using Items;
+using UnityEngine.Events;
 
 namespace Inventory.View
 {
-    public class InventorySlot : MonoBehaviour, IDropHandler
+    public class InventorySlot : MonoBehaviour, IDropHandler, IPointerClickHandler
     {
         public SlotType slotType;
         public int slotIndex;
+        public UnityEvent onClickAction;
 
         public void SetSlotType(SlotType type, int index)
         {
@@ -30,11 +33,36 @@ namespace Inventory.View
 
             if (item == null)
             {
-                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemPrefab, transform);
+                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemSlotPrefab, transform);
                 item = newItem.GetComponent<InventoryItem>();
             }
 
             item.SetItem(itemAmount);
+        }
+
+        public ItemAmount GetItemAmount()
+        {
+            InventoryItem item = GetComponentInChildren<InventoryItem>();
+            if (item == null)
+            {
+                return new ItemAmount();
+            }
+            return item.itemAmount;
+        }
+
+        public ItemObject GetItemObject()
+        {
+            InventoryItem item = GetComponentInChildren<InventoryItem>();
+            if (item == null)
+            {
+                return null;
+            }
+            return GetItemAmount().GetItemObject;
+        }
+        
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            onClickAction?.Invoke();
         }
 
         public void OnDrop(PointerEventData eventData)
@@ -87,7 +115,7 @@ namespace Inventory.View
 
             if (toItem == null)
             {
-                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemPrefab, transform);
+                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemSlotPrefab, transform);
                 toItem = newItem.GetComponent<InventoryItem>();
             }
 
@@ -111,7 +139,7 @@ namespace Inventory.View
             {
                 toItem.SetParent(fromSlot.transform);
                 toItem.SetEquipable(fromSlot.slotIndex);
-                toItem.originalItem.SetEquipable(slotIndex);
+                toItem.originalItem.SetEquipable(fromSlot.slotIndex);
             }
             CanvasGameManager.Instance.inventoryManager.toolbar.SetItemEquipped();
             return true;

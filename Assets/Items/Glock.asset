@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0776dc754a4f1c44fb737d73397c3c76, type: 3}
   m_Name: Glock
   m_EditorClassIdentifier: 
-  itemName: 
+  itemName: Glock
   image: {fileID: 21300000, guid: b67b289d9195e0d42ae87b0cd6c342a3, type: 3}
   description: ItemDescription
   stack: 1
-  type: 0
+  type: {fileID: 0}
   equippable: 1
   mesh: {fileID: 0}
   materials: []

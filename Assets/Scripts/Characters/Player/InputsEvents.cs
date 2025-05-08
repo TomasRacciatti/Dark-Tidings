@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Controller;
@@ -9,22 +10,29 @@ namespace Characters.Player
         private InputActions inputActions;
         private PlayerController _playerController;
 
-        [Header("Character Input Values")] public Vector2 movement;
-        public Vector2 look;
-        public bool sprint;
-        public bool use;
-        public bool inventoryOpened;
-        public bool toggleBackpack;
-
-        [Header("Movement Settings")] public bool analogMovement;
-
-        [Header("Mouse Cursor Settings")] public bool cursorLocked = true;
-        public bool cursorInputForLook = true;
+        private Vector2 movement;
+        private Vector2 look;
+        private bool sprint;
+        private bool use;
+        private bool inventoryOpened;
+        private bool toggleBackpack;
+        
+        public Vector2 GetMovement => inventoryOpened ? Vector2.zero : movement;
+        public Vector2 GetLook => inventoryOpened ? Vector2.zero : look;
+        public bool IsSprinting => sprint;
+        public bool GetUse => use;
+        public bool GetInventoryOpened => inventoryOpened;
+        public bool GetToggleBackpack => toggleBackpack;
 
         private void Awake()
         {
             inputActions = new InputActions();
             _playerController = GetComponent<PlayerController>();
+        }
+
+        private void Start()
+        {
+            SetCursorVisibility(false);
         }
 
         private void OnEnable()
@@ -116,13 +124,14 @@ namespace Characters.Player
         public void ToggleInventory(InputAction.CallbackContext context)
         {
             inventoryOpened = !inventoryOpened;
-            CanvasGameManager.Instance.inventoryManager.ToggleInventory(inventoryOpened);
+            CanvasGameManager.Instance.inventoryManager.SetActiveInventory(inventoryOpened);
+            SetCursorVisibility(inventoryOpened);
         }
 
         public void ToggleBackpack(InputAction.CallbackContext context)
         {
             toggleBackpack = !toggleBackpack;
-            CanvasGameManager.Instance.inventoryManager.ToggleBackpack(toggleBackpack);
+            //CanvasGameManager.Instance.inventoryManager.ToggleBackpack(toggleBackpack);
         }
 
         public void SelectToolbar1(InputAction.CallbackContext context) => SelectToolbar(0);
@@ -135,14 +144,18 @@ namespace Characters.Player
             CanvasGameManager.Instance.inventoryManager.toolbar.ChangeSelectedSlot(index);
         }
 
-        private void OnApplicationFocus(bool hasFocus)
+        private void SetCursorVisibility(bool visible)
         {
-            SetCursorState(cursorLocked);
-        }
-
-        private void SetCursorState(bool newState)
-        {
-            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+            if (visible)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
         }
     }
 }

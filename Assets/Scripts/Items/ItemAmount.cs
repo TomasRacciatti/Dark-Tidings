@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using Items;
 
@@ -15,7 +16,7 @@ namespace Inventory
 
         public ItemAmount(ItemObject newItem = null, int newAmount = 0, bool allowOverflow = false)
         {
-            _itemInstance = new ItemInstance(newItem);
+            _itemInstance = new ItemInstance(newItem, new List<ItemObject>());
             _amount = newAmount;
             _allowOverflow = allowOverflow;
         }
@@ -37,7 +38,7 @@ namespace Inventory
 
         public int SetItem(ItemAmount itemAmount)
         {
-            _itemInstance = new ItemInstance(itemAmount.GetItemObject);
+            _itemInstance = new ItemInstance(itemAmount.GetItemObject, itemAmount.ItemInstance.Modifiers);
 
             _amount = _allowOverflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, _itemInstance.Stack);
             return _allowOverflow ? 0 : Mathf.Max(0, itemAmount.Amount - _itemInstance.Stack);
@@ -68,8 +69,13 @@ namespace Inventory
 
         public void Clear()
         {
-            _itemInstance = new ItemInstance(null);
+            _itemInstance = new ItemInstance(null, new List<ItemObject>());
             _amount = 0;
+        }
+
+        public void AddModifier(ItemObject itemObject)
+        {
+            _itemInstance.AddModifier(itemObject);
         }
 
         public string ItemToString()

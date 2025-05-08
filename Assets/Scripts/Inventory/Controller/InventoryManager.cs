@@ -1,12 +1,13 @@
 using Inventory.Model;
 using Inventory.View;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Inventory.Controller
 {
     public class InventoryManager : MonoBehaviour
     {
-        [SerializeField] public GameObject itemPrefab;
+        [SerializeField] public GameObject itemSlotPrefab;
         
         //Slots
         [SerializeField] public Toolbar toolbar;
@@ -18,26 +19,14 @@ namespace Inventory.Controller
         [SerializeField] public SlotType inventorySlotType;
         [SerializeField] public SlotType toolbarSlotType;
 
-        public void ToggleInventory(bool active)
+        public void SetActiveInventory(bool active)
         {
             inventoryUI.gameObject.SetActive(active);
-            if (active)
-            {
-                // Mostrar y liberar el cursor
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                // Ocultar y bloquear el cursor
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
         }
-        
+        /*
         public void ToggleBackpack(bool active)
         {
             backpackUI.gameObject.SetActive(active);
-        }
+        }*/
     }
 }

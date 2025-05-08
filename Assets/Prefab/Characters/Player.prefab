@@ -223,15 +223,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0d60936e35741b439bb8c4efd0adb6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movement: {x: 0, y: 0}
-  look: {x: 0, y: 0}
-  sprint: 0
-  use: 0
-  inventoryOpened: 0
-  toggleBackpack: 0
-  analogMovement: 0
-  cursorLocked: 1
-  cursorInputForLook: 1
 --- !u!114 &6598456043702126084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -597,6 +588,7 @@ Transform:
   m_Children:
   - {fileID: 3049457554922455609}
   - {fileID: 6308733507450712926}
+  - {fileID: 3363407840937758769}
   m_Father: {fileID: 7645581628950374267}
   m_LocalEulerAnglesHint: {x: 0, y: -90.609, z: 0}
 --- !u!114 &3659915384827362448
@@ -614,6 +606,7 @@ MonoBehaviour:
   items:
   - {fileID: 3259032092556980537}
   - {fileID: 8245072399728306948}
+  selectedItem: {fileID: 0}
 --- !u!1 &4517119983749625894
 GameObject:
   m_ObjectHideFlags: 0
@@ -1570,3 +1563,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7a8f69161fc4ec68046bd17d2ccece6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &7420127488029011110
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3447135883986483060}
+    m_Modifications:
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6076981128630292790, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_Name
+      value: Thermometer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+--- !u!4 &3363407840937758769 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+  m_PrefabInstance: {fileID: 7420127488029011110}
+  m_PrefabAsset: {fileID: 0}

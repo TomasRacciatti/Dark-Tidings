@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Thermometer : Tools
 {
+    private float temperature;
     
     public override void Use()
     {
         
     }
+    
+    
 }

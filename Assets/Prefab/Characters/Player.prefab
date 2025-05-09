@@ -606,6 +606,7 @@ MonoBehaviour:
   items:
   - {fileID: 3259032092556980537}
   - {fileID: 8245072399728306948}
+  - {fileID: 1141383532856888412}
   selectedItem: {fileID: 0}
 --- !u!1 &4517119983749625894
 GameObject:
@@ -1615,11 +1616,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Thermometer
       objectReference: {fileID: 0}
+    - target: {fileID: 6076981128630292790, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+--- !u!114 &1141383532856888412 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7579158936670888186, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+  m_PrefabInstance: {fileID: 7420127488029011110}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd738953527804fb7e23a8ab447918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &3363407840937758769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5211983355801730199, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}

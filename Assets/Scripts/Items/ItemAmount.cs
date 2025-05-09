@@ -14,17 +14,17 @@ namespace Inventory
         public ItemInstance ItemInstance => _itemInstance;
         public int Amount => _amount;
 
-        public ItemAmount(ItemObject newItem = null, int newAmount = 0, bool allowOverflow = false)
+        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, bool allowOverflow = false)
         {
-            _itemInstance = new ItemInstance(newItem, new List<ItemObject>());
+            _itemInstance = new ItemInstance(newSoItem, new List<SO_Item>());
             _amount = newAmount;
             _allowOverflow = allowOverflow;
         }
         
-        public bool IsEmpty => _itemInstance == null ||_itemInstance.ItemObject == null;
-        public bool IsFull => _itemInstance != null && _itemInstance.ItemObject != null && !_allowOverflow && _amount >= _itemInstance.Stack;
-        public int Stack => _itemInstance.ItemObject != null ? _itemInstance.Stack : 0;
-        public ItemObject GetItemObject => _itemInstance.ItemObject;
+        public bool IsEmpty => _itemInstance == null ||_itemInstance.SoItem == null;
+        public bool IsFull => _itemInstance != null && _itemInstance.SoItem != null && !_allowOverflow && _amount >= _itemInstance.Stack;
+        public int Stack => _itemInstance.SoItem != null ? _itemInstance.Stack : 0;
+        public SO_Item GetSoItem => _itemInstance.SoItem;
 
         public void SetOverflow(bool allowOverflow = false)
         {
@@ -33,12 +33,12 @@ namespace Inventory
 
         public bool IsStackable(ItemAmount itemAmount)
         {
-            return !IsFull && _itemInstance.ItemObject != null && _itemInstance.IsStackable(itemAmount.ItemInstance);
+            return !IsFull && _itemInstance.SoItem != null && _itemInstance.IsStackable(itemAmount.ItemInstance);
         }
 
         public int SetItem(ItemAmount itemAmount)
         {
-            _itemInstance = new ItemInstance(itemAmount.GetItemObject, itemAmount.ItemInstance.Modifiers);
+            _itemInstance = new ItemInstance(itemAmount.GetSoItem, itemAmount.ItemInstance.Modifiers);
 
             _amount = _allowOverflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, _itemInstance.Stack);
             return _allowOverflow ? 0 : Mathf.Max(0, itemAmount.Amount - _itemInstance.Stack);
@@ -69,13 +69,13 @@ namespace Inventory
 
         public void Clear()
         {
-            _itemInstance = new ItemInstance(null, new List<ItemObject>());
+            _itemInstance = new ItemInstance(null, new List<SO_Item>());
             _amount = 0;
         }
 
-        public void AddModifier(ItemObject itemObject)
+        public void AddModifier(SO_Item soItem)
         {
-            _itemInstance.AddModifier(itemObject);
+            _itemInstance.AddModifier(soItem);
         }
 
         public string ItemToString()

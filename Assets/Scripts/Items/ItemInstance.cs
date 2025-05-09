@@ -1,52 +1,53 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Items
 {
     [System.Serializable]
     public class ItemInstance
     {
-        [SerializeField] private ItemObject _itemObject; //for stack, mesh, materials, equipable, type
+        [SerializeField] private SO_Item soItem; //for stack, mesh, materials, equipable, type
         [SerializeField] private string _itemName;
         [SerializeField] private string _description;
-        [SerializeField] private List<ItemObject> _modifiers;
+        [SerializeField] private List<SO_Item> _modifiers;
 
         // Propiedades públicas
-        public ItemObject ItemObject => _itemObject;
+        public SO_Item SoItem => soItem;
         public string ItemName => _itemName;
-        public Sprite Image => _itemObject.Image;
+        public Sprite Image => soItem.Image;
         public string Description => _description;
-        public List<ItemObject> Modifiers => _modifiers;
-        public int Stack => _itemObject.Stack;
-        public ItemType ItemType => _itemObject.ItemType;
-        public bool IsEquippable => _itemObject.IsEquippable;
-        public Mesh Mesh => _itemObject.Mesh;
-        public Material[] Materials => _itemObject.Materials;
+        public List<SO_Item> Modifiers => _modifiers;
+        public int Stack => soItem.Stack;
+        public ItemType ItemType => soItem.ItemType;
+        public bool IsEquippable => soItem.IsEquippable;
+        public Mesh Mesh => soItem.Mesh;
+        public Material[] Materials => soItem.Materials;
         
-        public bool IsEmpty => _itemObject == null;
+        public bool IsEmpty => soItem == null;
 
         public ItemInstance()
         {
-            _itemObject = null;
+            soItem = null;
             _itemName = string.Empty;
             _description = string.Empty;
-            _modifiers = new List<ItemObject>();
+            _modifiers = new List<SO_Item>();
         }
         
-        public ItemInstance(ItemObject itemObject, List<ItemObject> modifiers)
+        public ItemInstance(SO_Item soItem, List<SO_Item> modifiers)
         {
-            if (itemObject == null)
+            if (soItem == null)
             {
-                _itemObject = null;
+                this.soItem = null;
                 _itemName = string.Empty;
                 _description = string.Empty;
-                _modifiers = new List<ItemObject>();
+                _modifiers = new List<SO_Item>();
                 return;
             }
 
-            _itemObject = itemObject;
-            _itemName = itemObject.ItemName;
-            _description = itemObject.Description;
+            this.soItem = soItem;
+            _itemName = soItem.ItemName;
+            _description = soItem.Description;
             _modifiers = modifiers;
             foreach (var modifier in _modifiers)
             {
@@ -57,7 +58,7 @@ namespace Items
         public bool IsStackable(ItemInstance itemInstance)
         {
             if (itemInstance == null) return false;
-            if (_itemObject != itemInstance.ItemObject) return false;
+            if (soItem != itemInstance.SoItem) return false;
             if (_itemName != itemInstance.ItemName) return false;
             if (_description != itemInstance.Description) return false;
 
@@ -72,10 +73,10 @@ namespace Items
             return true;
         }
 
-        public void AddModifier(ItemObject itemObject)
+        public void AddModifier(SO_Item soItem)
         {
-            _modifiers.Add(itemObject);
-            _itemName = itemObject.ModifierName + " " + _itemName;
+            _modifiers.Add(soItem);
+            _itemName = soItem.ModifierName + " " + _itemName;
         }
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using Interfaces;
 using Inventory.Model;
 using Items;
+using UnityEngine.Serialization;
 
 namespace Objects
 {
@@ -15,7 +16,7 @@ namespace Objects
         [SerializeField] private AnimationCurve openCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
         [SerializeField] private bool isOpen = false;
         [SerializeField] private bool isLocked = false;
-        [SerializeField] private ItemObject keyItem;
+        [FormerlySerializedAs("keyItem")] [SerializeField] private SO_Item keySoItem;
 
         private Quaternion closedRotation;
         private Quaternion openRotation;

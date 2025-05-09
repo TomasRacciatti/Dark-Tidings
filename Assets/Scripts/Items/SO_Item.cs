@@ -3,8 +3,8 @@ using UnityEngine.Serialization;
 
 namespace Items
 {
-    [CreateAssetMenu(menuName = "ScriptableObject/Items/Default")]
-    public class ItemObject : ScriptableObject
+    [CreateAssetMenu(menuName = "ScriptableObject/Items/Item")]
+    public class SO_Item : ScriptableObject
     {
         [SerializeField] private string itemName;
         [SerializeField] private Sprite image;

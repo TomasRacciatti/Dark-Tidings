@@ -28,12 +28,13 @@ namespace Inventory.View
                 {
                     Destroy(item.gameObject);
                 }
+
                 return;
             }
 
             if (item == null)
             {
-                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemSlotPrefab, transform);
+                GameObject newItem = Instantiate(CanvasManager.Instance.inventoryManager.itemSlotPrefab, transform);
                 item = newItem.GetComponent<InventoryItem>();
             }
 
@@ -47,19 +48,21 @@ namespace Inventory.View
             {
                 return new ItemAmount();
             }
+
             return item.itemAmount;
         }
 
-        public ItemObject GetItemObject()
+        public SO_Item GetItemObject()
         {
             InventoryItem item = GetComponentInChildren<InventoryItem>();
             if (item == null)
             {
                 return null;
             }
-            return GetItemAmount().GetItemObject;
+
+            return GetItemAmount().GetSoItem;
         }
-        
+
         public void OnPointerClick(PointerEventData eventData)
         {
             onClickAction?.Invoke();
@@ -85,8 +88,8 @@ namespace Inventory.View
 
         private bool HandleInventoryToInventory(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
         {
-            if (fromSlot.slotType != CanvasGameManager.Instance.inventoryManager.inventorySlotType ||
-                slotType != CanvasGameManager.Instance.inventoryManager.inventorySlotType)
+            if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.inventorySlotType ||
+                slotType != CanvasManager.Instance.inventoryManager.inventorySlotType)
                 return false;
 
             fromItem.SetParent(transform);
@@ -94,44 +97,49 @@ namespace Inventory.View
             {
                 toItem.SetParent(fromSlot.transform);
             }
+
             PlayerController.Instance.inventory.SwapItems(fromSlot.slotIndex, slotIndex);
             return true;
         }
 
         private bool HandleInventoryToToolbar(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
         {
-            if (fromSlot.slotType != CanvasGameManager.Instance.inventoryManager.inventorySlotType ||
-                slotType != CanvasGameManager.Instance.inventoryManager.toolbarSlotType)
+            if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.inventorySlotType ||
+                slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType)
                 return false;
 
             if (!fromItem.itemAmount.ItemInstance.IsEquippable) return true;
-            
+
+            Toolbar toolbar = PlayerCharacter.Instance.GetComponent<Toolbar>();
+            toolbar.SetIndex(slotIndex, fromSlot.slotIndex);
+
+
             if (toItem != null && fromItem == toItem.originalItem) return true;
-            
+
             if (toItem != null) toItem.originalItem.SetEquipable(-1);
 
-            InventoryItem existingItem = CanvasGameManager.Instance.inventoryManager.toolbar.GetItem(fromItem);
+            InventoryItem existingItem = CanvasManager.Instance.inventoryManager.toolbarUI.GetItem(fromItem);
             if (existingItem != null) Destroy(existingItem.gameObject);
 
             if (toItem == null)
             {
-                GameObject newItem = Instantiate(CanvasGameManager.Instance.inventoryManager.itemSlotPrefab, transform);
+                GameObject newItem = Instantiate(CanvasManager.Instance.inventoryManager.itemSlotPrefab, transform);
                 toItem = newItem.GetComponent<InventoryItem>();
             }
 
             toItem.SetItem(fromItem.itemAmount, fromItem);
             fromItem.SetEquipable(slotIndex);
             toItem.SetEquipable(slotIndex);
-            CanvasGameManager.Instance.inventoryManager.toolbar.SetItemEquipped();
+            CanvasManager.Instance.inventoryManager.toolbarUI.SetItemEquipped();
             return true;
         }
 
         private bool HandleToolbarToToolbar(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
         {
-            if (fromSlot.slotType != CanvasGameManager.Instance.inventoryManager.toolbarSlotType ||
-                slotType != CanvasGameManager.Instance.inventoryManager.toolbarSlotType)
+            if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType ||
+                slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType)
                 return false;
-            
+
             fromItem.SetParent(transform);
             fromItem.SetEquipable(slotIndex);
             fromItem.originalItem.SetEquipable(slotIndex);
@@ -141,22 +149,24 @@ namespace Inventory.View
                 toItem.SetEquipable(fromSlot.slotIndex);
                 toItem.originalItem.SetEquipable(fromSlot.slotIndex);
             }
-            CanvasGameManager.Instance.inventoryManager.toolbar.SetItemEquipped();
+
+            CanvasManager.Instance.inventoryManager.toolbarUI.SetItemEquipped();
             return true;
         }
-        
+
         private bool HandleToolbarToInventory(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
         {
-            if (fromSlot.slotType != CanvasGameManager.Instance.inventoryManager.toolbarSlotType ||
-                slotType != CanvasGameManager.Instance.inventoryManager.inventorySlotType)
+            if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType ||
+                slotType != CanvasManager.Instance.inventoryManager.inventorySlotType)
                 return false;
-            
+
             fromItem.originalItem.SetEquipable(-1);
             Destroy(fromItem.gameObject);
-            if (CanvasGameManager.Instance.inventoryManager.toolbar.SelectedSlot.slotIndex == fromSlot.slotIndex)
+            if (CanvasManager.Instance.inventoryManager.toolbarUI.SelectedSlot.slotIndex == fromSlot.slotIndex)
             {
                 ItemsInHand.Instance.SetItemEquipped(null);
             }
+
             return true;
         }
     }

@@ -124,7 +124,7 @@ namespace Characters.Player
         public void ToggleInventory(InputAction.CallbackContext context)
         {
             inventoryOpened = !inventoryOpened;
-            CanvasGameManager.Instance.inventoryManager.SetActiveInventory(inventoryOpened);
+            CanvasManager.Instance.inventoryManager.SetActiveInventory(inventoryOpened);
             SetCursorVisibility(inventoryOpened);
         }
 
@@ -141,7 +141,7 @@ namespace Characters.Player
 
         private void SelectToolbar(int index)
         {
-            CanvasGameManager.Instance.inventoryManager.toolbar.ChangeSelectedSlot(index);
+            CanvasManager.Instance.inventoryManager.toolbarUI.ChangeSelectedSlot(index);
         }
 
         private void SetCursorVisibility(bool visible)

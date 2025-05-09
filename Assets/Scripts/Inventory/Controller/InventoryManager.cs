@@ -10,7 +10,7 @@ namespace Inventory.Controller
         [SerializeField] public GameObject itemSlotPrefab;
         
         //Slots
-        [SerializeField] public Toolbar toolbar;
+        [SerializeField] public ToolbarUI toolbarUI;
         [SerializeField] public InventoryView inventoryView;
         
         [SerializeField] private GameObject inventoryUI;

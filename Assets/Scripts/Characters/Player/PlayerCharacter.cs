@@ -16,7 +16,7 @@ namespace Characters.Player
         
         protected override void Death()
         {
-            CanvasGameManager.Instance.LostUI.gameObject.SetActive(true);
+            CanvasManager.Instance.LostUI.gameObject.SetActive(true);
         }
     }
 }

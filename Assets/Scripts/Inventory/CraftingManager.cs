@@ -5,6 +5,7 @@ using Characters.Player;
 using Inventory.View;
 using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Inventory
 {
@@ -14,7 +15,7 @@ namespace Inventory
         [SerializeField] private int _selectedSlot = 0;
         [SerializeField] private InventorySlot _craftedSlot;
         [SerializeField] private GameObject slotSelector;
-        [SerializeField] private ItemObject bulletObject;
+        [SerializeField] private SO_Item bullet;
 
         private void Awake()
         {
@@ -37,7 +38,7 @@ namespace Inventory
 
             if (item == null)
             {
-                GameObject itemobject = Instantiate(CanvasGameManager.Instance.inventoryManager.itemSlotPrefab, _slots[_selectedSlot].transform);
+                GameObject itemobject = Instantiate(CanvasManager.Instance.inventoryManager.itemSlotPrefab, _slots[_selectedSlot].transform);
                 item = itemobject.GetComponent<InventoryItem>();
                 item.SetRaycast(false);
             }
@@ -63,7 +64,7 @@ namespace Inventory
 
         private void UpdateCrafting()
         {
-            ItemAmount bullet = new ItemAmount(bulletObject, 1);
+            ItemAmount bullet = new ItemAmount(this.bullet, 1);
             if (_slots[0].GetItemObject() != null && _slots[1].GetItemObject() != null)
             {
                 if (_slots[2].GetItemObject() != null)

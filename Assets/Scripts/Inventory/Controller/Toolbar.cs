@@ -1,64 +1,78 @@
-using System;
-using Inventory.View;
+﻿using Inventory.Model;
 using UnityEngine;
 
 namespace Inventory.Controller
 {
-    public class Toolbar : InventoryView
+    public class Toolbar : MonoBehaviour
     {
         [SerializeField] private int selectedSlot = 0;
-        [SerializeField] private GameObject slotSelector;
+        [SerializeField] private int[] inventoryIndexes;
+        [SerializeField] private int slotCount = 4;
 
-        public InventorySlot SelectedSlot
+        private InventorySystem inventorySystem;
+
+        public int GetSelectedSlot => inventoryIndexes[selectedSlot];
+        public int GetSlotIndex(int slot) => inventoryIndexes[slot];
+
+        private void Awake()
         {
-            get
+            inventorySystem = GetComponentInParent<InventorySystem>();
+            ClearSlots();
+        }
+
+        private void ClearSlots()
+        {
+            inventoryIndexes = new int[slotCount];
+            for (int i = 0; i < inventoryIndexes.Length; i++)
             {
-                if (slots == null || slots.Length == 0) return null;
-                if (selectedSlot < 0 || selectedSlot >= slots.Length) return null;
-                return slots[selectedSlot];
+                inventoryIndexes[i] = -1;
             }
         }
-
-        protected override void Awake()
+        
+        public void SetIndex(int toolbarSlotIndex, int inventoryIndex)
         {
-            base.Awake();
-            ChangeSelectedSlot(0);
-        }
+            if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
 
-        public void ChangeSelectedSlot(int slot)
-        {
-            if (selectedSlot == slot) return;
-            if (slot >= slots.Length) return;
-
-            selectedSlot = slot;
-            slotSelector.transform.SetParent(SelectedSlot.transform, false);
-            slotSelector.transform.localPosition = Vector3.zero;
-            SetItemEquipped();
-        }
-
-        public InventoryItem GetSelectedItem()
-        {
-            return SelectedSlot.GetComponentInChildren<InventoryItem>();
-        }
-
-        public InventoryItem GetItem(InventoryItem item)
-        {
-            foreach (InventorySlot slot in slots)
+            if (inventoryIndex == -1)
             {
-                InventoryItem existingItem = slot.GetComponentInChildren<InventoryItem>();
-                if (existingItem != null && existingItem.originalItem == item)
+                inventoryIndexes[toolbarSlotIndex] = inventoryIndex;
+                SetUI();
+                return;
+            }
+            
+            for (int i = 0; i < inventoryIndexes.Length; i++)
+            {
+                if (i != toolbarSlotIndex && inventoryIndexes[i] == inventoryIndex)
                 {
-                    return existingItem;
+                    inventoryIndexes[i] = -1;
+                    SetUI();
+                    break;
                 }
             }
 
-            return null;
+            inventoryIndexes[toolbarSlotIndex] = inventoryIndex;
+            SetUI();
         }
 
-        public void SetItemEquipped()
+        private void SetUI()
         {
-            InventoryItem item = SelectedSlot.GetComponentInChildren<InventoryItem>();
-            ItemsInHand.Instance.SetItemEquipped(item == null ? null : item.itemAmount.ItemInstance.ItemObject);
+            //todo logica de ui
         }
+
+        public void SetSelectedSlot(int toolbarSlotIndex)
+        {
+            if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
+            
+            selectedSlot = toolbarSlotIndex;
+        }
+
+        /*public void SwapSlots(int indexA, int indexB)
+        {
+            if (indexA < 0 || indexA >= inventoryIndexes.Length) return;
+            if (indexB < 0 || indexB >= inventoryIndexes.Length) return;
+            if (indexA == indexB) return;
+
+            (inventoryIndexes[indexA], inventoryIndexes[indexB]) = (inventoryIndexes[indexB], inventoryIndexes[indexA]);
+        }*/
     }
 }

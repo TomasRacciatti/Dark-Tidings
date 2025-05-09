@@ -22,7 +22,7 @@ namespace Inventory.Model
 
         protected void UpdateHud(int index)
         {
-            CanvasGameManager.Instance.inventoryManager.inventoryView.SetItem(index, items[index]);
+            CanvasManager.Instance.inventoryManager.inventoryView.SetItem(index, items[index]);
         }
 
         protected void UpdateAllHud()
@@ -33,24 +33,24 @@ namespace Inventory.Model
             }
         }
 
-        public bool HasItem(ItemObject itemObject)
+        public bool HasItem(SO_Item soItem)
         {
-            return HasItemAmount(itemObject, 1);
+            return HasItemAmount(soItem, 1);
         }
 
-        public bool HasItemAmount(ItemObject itemObject, int requiredAmount)
+        public bool HasItemAmount(SO_Item soItem, int requiredAmount)
         {
-            return GetItemAmount(itemObject) > requiredAmount;
+            return GetItemAmount(soItem) > requiredAmount;
         }
 
-        public int GetItemAmount(ItemObject itemObject)
+        public int GetItemAmount(SO_Item soItem)
         {
-            if (itemObject == null) return 0;
+            if (soItem == null) return 0;
             int totalAmount = 0;
 
             foreach (var item in items)
             {
-                if (!item.IsEmpty && item.GetItemObject == itemObject)
+                if (!item.IsEmpty && item.GetSoItem == soItem)
                 {
                     totalAmount += item.Amount;
                 }
@@ -65,7 +65,7 @@ namespace Inventory.Model
 
         public ItemAmount[] GetItemsOfTypes(params Items.ItemType[] types)
         {
-            return items.Where(item => !item.IsEmpty && types.Contains(item.GetItemObject.ItemType)).ToArray();
+            return items.Where(item => !item.IsEmpty && types.Contains(item.GetSoItem.ItemType)).ToArray();
         }
 
         public void TransferSlotTo(InventorySystem otherInventory, int index)
@@ -78,8 +78,8 @@ namespace Inventory.Model
         public void SortItemsByType(ItemType type)
         {
             items = items.Where(item => !item.IsEmpty) // Filtra los ítems vacíos.
-                .OrderBy(item => item.GetItemObject.ItemType) // Ordena primero por ItemType
-                .ThenBy(item => item.GetItemObject.ItemName) // Luego, ordena por nombre de ítem
+                .OrderBy(item => item.GetSoItem.ItemType) // Ordena primero por ItemType
+                .ThenBy(item => item.GetSoItem.ItemName) // Luego, ordena por nombre de ítem
                 .ToList();
             UpdateAllHud();
         }

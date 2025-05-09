@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 3045273275966605672}
   - component: {fileID: 3336382331427055496}
   - component: {fileID: 3118061232746742294}
+  - component: {fileID: 5782085653001925886}
   - component: {fileID: 6850914345207136916}
   - component: {fileID: 6598456043702126084}
   - component: {fileID: 3884804025199195881}
@@ -211,6 +212,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items: []
   slotsAmount: 12
+--- !u!114 &5782085653001925886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001346312214755217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0f65e6de9344e9932d6ca38c32881a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectedSlot: 0
+  inventoryIndexes: 
+  slotCount: 4
 --- !u!114 &6850914345207136916
 MonoBehaviour:
   m_ObjectHideFlags: 0

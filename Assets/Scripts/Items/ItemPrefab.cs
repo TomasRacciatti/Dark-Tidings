@@ -6,10 +6,11 @@ using Inventory;
 using Inventory.Model;
 using Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ItemPrefab : MonoBehaviour, IInteractable
 {
-    [SerializeField] private ItemObject itemObject;
+    [SerializeField] private SO_Item soItem;
     [SerializeField] private int Amount;
     
     private ItemAmount itemAmount;
@@ -23,7 +24,7 @@ public class ItemPrefab : MonoBehaviour, IInteractable
     {
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
-        itemAmount = new ItemAmount(itemObject, Amount, true);
+        itemAmount = new ItemAmount(soItem, Amount, true);
     }
 
     private void OnEnable()

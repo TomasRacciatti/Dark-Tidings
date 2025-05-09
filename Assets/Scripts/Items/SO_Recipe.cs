@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Items
 {
     [CreateAssetMenu(fileName = "NewRecipe", menuName = "ScriptableObject/Items/Crafting/Recipe")]
-    public class CraftingRecipe : ScriptableObject
+    public class SO_Recipe : ScriptableObject
     {
         [System.Serializable]
         public class Ingredient

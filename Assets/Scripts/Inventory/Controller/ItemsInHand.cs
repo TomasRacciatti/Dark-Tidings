@@ -32,7 +32,7 @@ namespace Inventory.Controller
             }
         }
 
-        public void SetItemEquipped(ItemObject itemObject = null)
+        public void SetItemEquipped(SO_Item soItem = null)
         {
             if (selectedItem != null)
             {
@@ -41,7 +41,7 @@ namespace Inventory.Controller
 
             foreach (var item in items)
             {
-                bool shouldBeActive = item.itemObject == itemObject;
+                bool shouldBeActive = item.soItem == soItem;
                 item.gameObject.SetActive(shouldBeActive);
 
                 if (shouldBeActive)

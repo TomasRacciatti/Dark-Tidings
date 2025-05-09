@@ -3,7 +3,7 @@ using UnityEngine.Serialization;
 
 namespace Items
 {
-    [CreateAssetMenu(menuName = "Items/Default")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Items/Default")]
     public class ItemObject : ScriptableObject
     {
         [SerializeField] private string itemName;

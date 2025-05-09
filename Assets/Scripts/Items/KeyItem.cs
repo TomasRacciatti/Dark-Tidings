@@ -2,7 +2,7 @@
 {
     public class KeyItem : ItemEquippable
     {
-        public override void Interact()
+        public override void Use()
         {
             print("key");
         }

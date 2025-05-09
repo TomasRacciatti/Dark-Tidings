@@ -28,7 +28,7 @@ namespace Inventory.Controller
         {
             if (selectedItem != null)
             {
-                selectedItem.Interact();
+                selectedItem.Use();
             }
         }
 

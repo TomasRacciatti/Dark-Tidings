@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Items
 {
-    [CreateAssetMenu(menuName = "Items/ItemType")]
+    [CreateAssetMenu(menuName = "ScriptableObject/Items/ItemType")]
     public class ItemType : ScriptableObject
     {
         

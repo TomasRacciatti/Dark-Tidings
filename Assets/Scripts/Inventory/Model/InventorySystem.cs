@@ -18,6 +18,7 @@ namespace Inventory.Model
         }
 
         public abstract int AddItem(ItemAmount itemAmount);
+        protected abstract int AddMoreItem(ItemAmount itemAmount);
         public abstract int RemoveItem(ItemAmount itemAmount);
 
         protected void UpdateHud(int index)
@@ -134,6 +135,40 @@ namespace Inventory.Model
             }
 
             return itemAmount.Amount;
+        }
+        
+        public bool SwapItems(int fromIndex, int toIndex)
+        {
+            if (fromIndex < 0 || fromIndex >= items.Count || toIndex < 0 || toIndex >= items.Count) return false;
+            if (fromIndex == toIndex) return false;
+
+            ItemAmount fromItem = items[fromIndex];
+            ItemAmount toItem = items[toIndex];
+
+            if (toItem.IsEmpty || fromItem.IsStackable(toItem))
+            {
+                int remainingAmount = toItem.SetItem(fromItem);
+                items[toIndex] = toItem;
+
+                if (remainingAmount > 0)
+                {
+                    fromItem.SetAmount(remainingAmount);
+                    items[fromIndex] = fromItem;
+                }
+                else
+                {
+                    items[fromIndex] = new ItemAmount();
+                }
+/*
+                UpdateHud(fromIndex);
+                UpdateHud(toIndex);*/
+                return remainingAmount <= 0;
+            }
+
+            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);/*
+            UpdateHud(fromIndex);
+            UpdateHud(toIndex);*/
+            return false;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Inventory.Model
             if (itemAmount.IsEmpty) return itemAmount.Amount;
             itemAmount.RemoveAmount(itemAmount.Amount - StackItems(itemAmount));
             if (itemAmount.IsEmpty) return itemAmount.Amount;
-            AddNewItemStacks(itemAmount);
+            AddMoreItem(itemAmount);
             return 0;
         }
         
@@ -34,7 +34,7 @@ namespace Inventory.Model
             items.RemoveAt(i);
         }
         
-        private void AddNewItemStacks(ItemAmount itemAmount)
+        protected override int AddMoreItem(ItemAmount itemAmount)
         {
             while (!itemAmount.IsEmpty)
             {
@@ -47,6 +47,7 @@ namespace Inventory.Model
                 // Actualiza el HUD del nuevo ítem
                 UpdateHud(items.Count - 1);
             }
+            return itemAmount.Amount;
         }
     }
 }

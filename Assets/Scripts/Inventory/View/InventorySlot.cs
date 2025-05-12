@@ -102,7 +102,7 @@ namespace Inventory.View
             return true;
         }
 
-        private bool HandleInventoryToToolbar(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
+        private bool HandleInventoryToToolbar(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem) //todo sacar el to item y hacerlo por toolbar esto
         {
             if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.inventorySlotType ||
                 slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType)

@@ -1,11 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using Objects.Clues;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-public class Thermometer : Tools
+public class Thermometer : Tool
 {
     private float temperature = 25;
     public LayerMask clueLayerMask;
@@ -30,8 +29,8 @@ public class Thermometer : Tools
             Clue clue = hit.GetComponent<Clue>();
             if (clue != null)
             {
-                ClueType type = clue.GetClueProvided;
-                if (type is ThermometerClue tempClue)
+                SO_Clue type = clue.GetClueProvided;
+                if (type is SO_ThermClue tempClue)
                 {
                     temperature = Mathf.Lerp(temperature, tempClue.GetTemperature(), Time.deltaTime);
                     SetMaterial();

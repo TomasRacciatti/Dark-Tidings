@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Items;
 using UnityEngine;
 
-public abstract class Tools : ItemEquippable
+public abstract class Tool : ItemEquippable
 {
     
 

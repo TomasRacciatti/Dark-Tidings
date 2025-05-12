@@ -1,34 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Items;
+using UnityEngine.Serialization;
 
-public class Clue : MonoBehaviour
+namespace Objects.Clues
 {
-    [SerializeField] private ClueType _clueProvided;
-    /*[SerializeField] private float _clueRange = 10f;
-    [SerializeField] private Vector3 _detectionOffset = Vector3.zero;*/
-
-    public ClueType GetClueProvided => _clueProvided;
-    //public float GetClueRange => _clueRange;
-
-/*
-    private void OnDrawGizmosSelected()
+    public class Clue : MonoBehaviour
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position + _detectionOffset, _clueRange);
+        [SerializeField] private SO_Clue _clueProvided;
 
-#if UNITY_EDITOR
-        UnityEditor.Handles.color = Color.cyan;
-        UnityEditor.Handles.DrawLine(transform.position, transform.position + _detectionOffset);
-        UnityEditor.Handles.SphereHandleCap(
-            0,
-            transform.position + _detectionOffset,
-            Quaternion.identity,
-            0.2f,
-            EventType.Repaint
-        );
-#endif
-    }*/
+        public SO_Clue GetClueProvided => _clueProvided;
+    }
 }

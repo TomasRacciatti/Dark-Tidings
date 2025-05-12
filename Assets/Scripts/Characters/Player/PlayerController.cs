@@ -17,7 +17,8 @@ namespace Characters.Player
         [SerializeField] private float GroundedOffset = -0.41f;
         [SerializeField] private LayerMask GroundLayers;
 
-        [HideInInspector] public bool Grounded = true;
+        private bool _grounded = true;
+        public bool Grounded => _grounded;
 
         [Header("Cinemachine")] [SerializeField]
         private GameObject CinemachineCameraTarget;
@@ -86,19 +87,19 @@ namespace Characters.Player
 
         private void GroundedCheck()
         {
-            bool wasGrounded = Grounded;
+            bool wasGrounded = _grounded;
 
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
                 transform.position.z);
-            Grounded = Physics.CheckSphere(spherePosition, _characterController.radius, GroundLayers,
+            _grounded = Physics.CheckSphere(spherePosition, _characterController.radius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
-            if (!wasGrounded && Grounded)
+            if (!wasGrounded && _grounded)
             {
                 _playerView.Landed();
             }
 
-            _playerView.SetGrounded(Grounded);
+            _playerView.SetGrounded(_grounded);
         }
 
         private void CeilingCheck()
@@ -184,7 +185,7 @@ namespace Characters.Player
 
         private void VerticalMovement()
         {
-            if (Grounded)
+            if (_grounded)
             {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
@@ -210,7 +211,7 @@ namespace Characters.Player
                 }
             }
 
-            _playerView.SetVerticalSpeed(Grounded ? 0 : _verticalVelocity);
+            _playerView.SetVerticalSpeed(_grounded ? 0 : _verticalVelocity);
 
             //Gravity
             if (_verticalVelocity < _terminalVelocity)
@@ -221,7 +222,7 @@ namespace Characters.Player
 
         public void Jump()
         {
-            if (!Grounded) return;
+            if (!_grounded) return;
             _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
             _playerView.Jumped();
         }

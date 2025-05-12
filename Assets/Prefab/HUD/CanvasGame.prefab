@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22a806e5d5b272d4baa264e8dc2af185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   inventoryManager: {fileID: 6990469705079620153}
   LostUI: {fileID: 3867825798343917475}
 --- !u!1 &497310288458693066
@@ -778,7 +779,7 @@ MonoBehaviour:
   _selectedSlot: 0
   _craftedSlot: {fileID: 2268536441377697976}
   slotSelector: {fileID: 1139360180388418837}
-  bulletObject: {fileID: 11400000, guid: 9b38c3c183286334aba2424cf2745161, type: 2}
+  bullet: {fileID: 0}
 --- !u!1 &2948260151970531715
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,7 +1715,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemSlotPrefab: {fileID: 6071862886307314409, guid: 7ff0fa7b3952a07458029e98113e2e1d, type: 3}
-  toolbar: {fileID: 2487880813125322247}
+  toolbarUI: {fileID: 2487880813125322247}
   inventoryView: {fileID: 3646676206495391724}
   inventoryUI: {fileID: 5207417777823613495}
   backpackUI: {fileID: 8548863065753332833}
@@ -2533,6 +2534,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -50
       objectReference: {fileID: 0}
+    - target: {fileID: 4992716381367645217, guid: 20c1a76da878d734faf0c8b31317d4e3, type: 3}
+      propertyPath: soItem
+      value: 
+      objectReference: {fileID: 11400000, guid: f180559814b276343ba1b8229670f142, type: 2}
     - target: {fileID: 4992716381367645217, guid: 20c1a76da878d734faf0c8b31317d4e3, type: 3}
       propertyPath: itemObject
       value: 
@@ -4637,6 +4642,10 @@ PrefabInstance:
       value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4992716381367645217, guid: 20c1a76da878d734faf0c8b31317d4e3, type: 3}
+      propertyPath: soItem
+      value: 
+      objectReference: {fileID: 11400000, guid: b5543f93e168a7740937eccb294dd822, type: 2}
+    - target: {fileID: 4992716381367645217, guid: 20c1a76da878d734faf0c8b31317d4e3, type: 3}
       propertyPath: itemObject
       value: 
       objectReference: {fileID: 11400000, guid: b5543f93e168a7740937eccb294dd822, type: 2}
@@ -6014,6 +6023,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -50
       objectReference: {fileID: 0}
+    - target: {fileID: 4992716381367645217, guid: 20c1a76da878d734faf0c8b31317d4e3, type: 3}
+      propertyPath: soItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 1d86efae8de79d14f8be294b5c3e2df5, type: 2}
     - target: {fileID: 4992716381367645217, guid: 20c1a76da878d734faf0c8b31317d4e3, type: 3}
       propertyPath: craftingManager
       value: 
@@ -9562,6 +9575,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -50
       objectReference: {fileID: 0}
+    - target: {fileID: 4992716381367645217, guid: 20c1a76da878d734faf0c8b31317d4e3, type: 3}
+      propertyPath: soItem
+      value: 
+      objectReference: {fileID: 11400000, guid: b37e7bc7fbcb07c44b57f3c00fbdb626, type: 2}
     - target: {fileID: 4992716381367645217, guid: 20c1a76da878d734faf0c8b31317d4e3, type: 3}
       propertyPath: itemObject
       value: 

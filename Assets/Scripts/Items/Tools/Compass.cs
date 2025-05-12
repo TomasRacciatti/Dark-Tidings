@@ -91,7 +91,7 @@ namespace Items.Tools
             Vector3 jitter = GetJitter(strength);
             Vector3 jitteredDirection = (localNorth + jitter).normalized;
 
-            RotateNeedle(jitteredDirection, normalRotationSpeed * 2f); // puede girar más rápido
+            RotateNeedle(jitteredDirection, normalRotationSpeed * 2.5f);
         }
 
         private void UpdateSpin()
@@ -101,10 +101,10 @@ namespace Items.Tools
 
         private Vector3 GetFlatNorth()
         {
-            Vector3 worldNorth = Vector3.forward;
-            Vector3 localNorth = baseTransform.InverseTransformDirection(worldNorth);
-            localNorth.y = 0f;
-            return localNorth.normalized;
+            Vector3 worldNorth = new Vector3(0f, 0f, 1f);
+            Vector3 projectedNorth = Vector3.ProjectOnPlane(worldNorth, baseTransform.up);
+            Vector3 localNorth = baseTransform.InverseTransformDirection(projectedNorth.normalized);
+            return new Vector3(localNorth.x, 0f, localNorth.z).normalized;
         }
 
         private Vector3 GetJitter(float strength)

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Inventory.View;
+using Inventory.Controller;
 using Items;
 using UnityEngine;
 
@@ -11,6 +11,7 @@ namespace Inventory.Model
     public abstract class InventorySystem : MonoBehaviour
     {
         [SerializeField] protected List<ItemAmount> items = new List<ItemAmount>();
+        [SerializeField] private Toolbar toolbar;
         
         private void Start()
         {
@@ -144,30 +145,46 @@ namespace Inventory.Model
 
             ItemAmount fromItem = items[fromIndex];
             ItemAmount toItem = items[toIndex];
+            
+            int fromToolbar = toolbar.GetIndex(fromIndex);
+            int toToolbar = toolbar.GetIndex(toIndex);
 
             if (toItem.IsEmpty || fromItem.IsStackable(toItem))
             {
                 int remainingAmount = toItem.SetItem(fromItem);
                 items[toIndex] = toItem;
-
+                if (toolbar != null)
+                {
+                    toolbar.SetIndex(fromToolbar, toIndex);
+                }
+                
                 if (remainingAmount > 0)
                 {
                     fromItem.SetAmount(remainingAmount);
                     items[fromIndex] = fromItem;
+                    if (toolbar != null)
+                    {
+                        toolbar.SetIndex(toToolbar, fromIndex);
+                    }
                 }
                 else
                 {
-                    items[fromIndex] = new ItemAmount();
+                    ClearSlot(fromIndex);
+                    if (toolbar != null)
+                    {
+                        toolbar.SetIndex(toToolbar, -1);
+                    }
                 }
-/*
-                UpdateHud(fromIndex);
-                UpdateHud(toIndex);*/
                 return remainingAmount <= 0;
             }
-
-            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);/*
-            UpdateHud(fromIndex);
-            UpdateHud(toIndex);*/
+            
+            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
+            if (toolbar != null)
+            {
+                toolbar.SetIndex(fromToolbar, toIndex);
+                toolbar.SetIndex(toToolbar, fromIndex);
+            }
+            
             return false;
         }
     }

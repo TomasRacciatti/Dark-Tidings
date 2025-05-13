@@ -28,6 +28,18 @@ namespace Inventory.Controller
                 inventoryIndexes[i] = -1;
             }
         }
+
+        public int GetIndex(int inventoryIndex)
+        {
+            for (int i = 0; i < inventoryIndexes.Length; i++)
+            {
+                if (inventoryIndex == inventoryIndexes[i])
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
         
         public void SetIndex(int toolbarSlotIndex, int inventoryIndex)
         {
@@ -66,13 +78,9 @@ namespace Inventory.Controller
             selectedSlot = toolbarSlotIndex;
         }
 
-        /*public void SwapSlots(int indexA, int indexB)
+        public void SwapIndexes(int fromSlot, int toSlot)
         {
-            if (indexA < 0 || indexA >= inventoryIndexes.Length) return;
-            if (indexB < 0 || indexB >= inventoryIndexes.Length) return;
-            if (indexA == indexB) return;
-
-            (inventoryIndexes[indexA], inventoryIndexes[indexB]) = (inventoryIndexes[indexB], inventoryIndexes[indexA]);
-        }*/
+            (inventoryIndexes[fromSlot], inventoryIndexes[toSlot]) = (inventoryIndexes[toSlot], inventoryIndexes[fromSlot]);
+        }
     }
 }

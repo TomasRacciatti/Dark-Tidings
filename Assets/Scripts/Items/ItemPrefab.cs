@@ -22,6 +22,11 @@ public class ItemPrefab : MonoBehaviour, IInteractable
 
     private void Awake()
     {
+        if (soItem == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         meshFilter = GetComponent<MeshFilter>();
         meshRenderer = GetComponent<MeshRenderer>();
         itemAmount = new ItemAmount(soItem, Amount, true);

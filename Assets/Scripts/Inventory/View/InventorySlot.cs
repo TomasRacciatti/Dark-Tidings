@@ -149,6 +149,8 @@ namespace Inventory.View
                 toItem.SetEquipable(fromSlot.slotIndex);
                 toItem.originalItem.SetEquipable(fromSlot.slotIndex);
             }
+            Toolbar toolbar = PlayerCharacter.Instance.GetComponent<Toolbar>();
+            toolbar.SwapIndexes(slotIndex, fromSlot.slotIndex);
 
             CanvasManager.Instance.inventoryManager.toolbarUI.SetItemEquipped();
             return true;
@@ -159,6 +161,9 @@ namespace Inventory.View
             if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType ||
                 slotType != CanvasManager.Instance.inventoryManager.inventorySlotType)
                 return false;
+            
+            Toolbar toolbar = PlayerCharacter.Instance.GetComponent<Toolbar>();
+            toolbar.SetIndex(toolbar.GetIndex(fromSlot.slotIndex), -1);
 
             fromItem.originalItem.SetEquipable(-1);
             Destroy(fromItem.gameObject);

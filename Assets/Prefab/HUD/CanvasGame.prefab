@@ -779,7 +779,7 @@ MonoBehaviour:
   _selectedSlot: 0
   _craftedSlot: {fileID: 2268536441377697976}
   slotSelector: {fileID: 1139360180388418837}
-  bullet: {fileID: 0}
+  bullet: {fileID: 11400000, guid: 9b38c3c183286334aba2424cf2745161, type: 2}
 --- !u!1 &2948260151970531715
 GameObject:
   m_ObjectHideFlags: 0

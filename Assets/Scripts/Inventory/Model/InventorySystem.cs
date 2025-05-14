@@ -35,6 +35,13 @@ namespace Inventory.Model
             }
         }
 
+        public ItemAmount GetIndexItem(int slot)
+        {
+            if (slot < 0 || slot >= items.Count) return new ItemAmount();
+            
+            return items[slot];
+        }
+
         public bool HasItem(SO_Item soItem)
         {
             return HasItemAmount(soItem, 1);

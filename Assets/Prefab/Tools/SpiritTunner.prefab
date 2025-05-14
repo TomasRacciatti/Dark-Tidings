@@ -262,4 +262,4 @@ MonoBehaviour:
     m_Bits: 32768
   screen: {fileID: 2879438269961055047}
   defaultMaterial: {fileID: -3661639628750336703, guid: 7e0223e1d3e1733499accfa5ebffb67e, type: 3}
-  detectionMaterial: {fileID: 2100000, guid: 797df3c00c1bd344d9a8bb353724115c, type: 2}
+  detectionMaterial: {fileID: 2100000, guid: d059325868484fa4ba2ba6091682a8bf, type: 2}

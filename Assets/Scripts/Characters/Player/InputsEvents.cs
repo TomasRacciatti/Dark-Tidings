@@ -24,10 +24,13 @@ namespace Characters.Player
         public bool GetInventoryOpened => inventoryOpened;
         public bool GetToggleBackpack => toggleBackpack;
 
+        private Toolbar _toolbar;
+
         private void Awake()
         {
             inputActions = new InputActions();
             _playerController = GetComponent<PlayerController>();
+            _toolbar = GetComponentInChildren<Toolbar>();
         }
 
         private void Start()
@@ -142,6 +145,7 @@ namespace Characters.Player
         private void SelectToolbar(int index)
         {
             CanvasManager.Instance.inventoryManager.toolbarUI.ChangeSelectedSlot(index);
+            _toolbar.SetSelectedSlot(index);
         }
 
         private void SetCursorVisibility(bool visible)

@@ -12,6 +12,7 @@ namespace Inventory
         private bool _allowOverflow;
 
         public ItemInstance ItemInstance => _itemInstance;
+        public SO_Item Item => !IsEmpty ? _itemInstance.SoItem : null;
         public int Amount => _amount;
 
         public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, bool allowOverflow = false)

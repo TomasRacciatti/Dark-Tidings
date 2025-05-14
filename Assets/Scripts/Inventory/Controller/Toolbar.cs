@@ -9,10 +9,18 @@ namespace Inventory.Controller
         [SerializeField] private int[] inventoryIndexes;
         [SerializeField] private int slotCount = 4;
 
-        private InventorySystem inventorySystem;
+        [SerializeField] private InventorySystem inventorySystem;
+        
+        public InventorySystem InventorySystem => inventorySystem;
 
         public int GetSelectedSlot => inventoryIndexes[selectedSlot];
         public int GetSlotIndex(int slot) => inventoryIndexes[slot];
+
+        public ItemAmount GetSlotItem()
+        {
+            if (GetSelectedSlot == -1) return new ItemAmount();
+            return inventorySystem.GetIndexItem(GetSelectedSlot);
+        }
 
         private void Awake()
         {

@@ -10,25 +10,18 @@ namespace Objects
 {
     public class Door : MonoBehaviour, IInteractable
     {
-        [SerializeField] private float openedAngle = -120f;
-
+        [Header("Options")] [SerializeField] private float openedAngle = -120f;
         [SerializeField] private float closedAngle = 0f;
-
-        //[SerializeField] private float timeAnim = 2f;
-        [SerializeField] private AnimationCurve openCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
         [SerializeField] private bool isOpen = false;
         [SerializeField] private bool isLocked = false;
         [SerializeField] private SO_Item keyItem;
 
+        [SerializeField] private Transform interactionPoint;
+        
         private Quaternion closedRotation;
         private Quaternion openRotation;
-
-        //private Coroutine currentCoroutine;
         private HingeJoint hinge;
-
-        [SerializeField] private Transform
-            interactionPoint; // Me permite settear el lugar donde quiero que esten los pop ups. Si no modifico esto me va a agarrar el transform default
-
+        
         public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
         private void Awake()
@@ -40,14 +33,12 @@ namespace Objects
         {
             closedRotation = transform.rotation;
             openRotation = transform.rotation * Quaternion.Euler(0f, openedAngle, 0f);
-
+            transform.rotation = isOpen ? openRotation : closedRotation;
             Setup();
         }
 
         private void Setup()
         {
-            transform.rotation = isOpen ? openRotation : closedRotation;
-            
             JointLimits limits = hinge.limits;
             limits.min = !isLocked ? openedAngle : closedAngle;
             limits.max = closedAngle;
@@ -65,7 +56,7 @@ namespace Objects
                 ToggleDoor();
                 return;
             }
-            
+
             Toolbar toolbar = interactableObject.GetComponent<Toolbar>();
             if (toolbar.GetSlotItem().Item == keyItem)
             {
@@ -78,7 +69,7 @@ namespace Objects
                 StartCoroutine(ForceDoor());
                 return;
             }
-            
+
             ToggleDoor();
         }
 
@@ -94,6 +85,7 @@ namespace Objects
         {
             if (isOpen) return;
             isLocked = locked;
+            Setup();
         }
 
         private IEnumerator ForceDoor()
@@ -104,7 +96,7 @@ namespace Objects
             Quaternion originalRotation = transform.rotation;
 
             float elapsed = 0f;
-            while (elapsed < duration)
+            while (elapsed < duration && !isOpen)
             {
                 elapsed += Time.deltaTime;
                 float shake = Mathf.Sin(elapsed * 40f) * magnitude;

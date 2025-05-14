@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2995521703071833243}
   - component: {fileID: 3468090128191663522}
   - component: {fileID: 586604325876482070}
+  - component: {fileID: 7149608501757020801}
   m_Layer: 14
   m_Name: frame
   m_TagString: Untagged
@@ -105,8 +106,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.18140082, y: 2.2184608, z: 0.29999995}
-  m_Center: {x: 0.20001975, y: -0.00000009934107, z: -6.467455e-15}
+  m_Size: {x: 0.10580573, y: 2.2184608, z: 0.29999995}
+  m_Center: {x: 0.1622222, y: -0.00000009934107, z: 0}
 --- !u!65 &3468090128191663522
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -126,8 +127,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.11375139, y: 2.2184608, z: 0.29999995}
-  m_Center: {x: 1.3201431, y: -0.00000009934107, z: 0}
+  m_Size: {x: 0.106409684, y: 2.2184608, z: 0.29999995}
+  m_Center: {x: 1.3238142, y: -0.00000009934107, z: 0}
 --- !u!65 &586604325876482070
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -149,6 +150,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.267692, y: 0.14402151, z: 0.29999995}
   m_Center: {x: 0.7431643, y: 1.0372204, z: 0}
+--- !u!65 &7149608501757020801
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1075876654544102475}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.08656204, y: 2.2184608, z: 0.09}
+  m_Center: {x: 0.25394785, y: -0.00000009934107, z: 0}
 --- !u!1 &4885487747367066262
 GameObject:
   m_ObjectHideFlags: 0
@@ -339,30 +361,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openedAngle: -120
   closedAngle: 0
-  openCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   isOpen: 0
   isLocked: 0
   keyItem: {fileID: 11400000, guid: 77367ca7c480d744880ea706eef0c73c, type: 2}
@@ -508,7 +506,7 @@ Transform:
   m_GameObject: {fileID: 7668562261589769539}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.854, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -60,7 +60,10 @@ namespace Objects
             Toolbar toolbar = interactableObject.GetComponent<Toolbar>();
             if (toolbar.GetSlotItem().Item == keyItem)
             {
-                LockDoor(!isLocked);
+                if (Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)) <= 5f)
+                {
+                    LockDoor(!isLocked);
+                }
                 return;
             }
 

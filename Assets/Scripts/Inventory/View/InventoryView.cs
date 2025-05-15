@@ -1,3 +1,4 @@
+using Items.Base;
 using UnityEngine;
 
 namespace Inventory.View

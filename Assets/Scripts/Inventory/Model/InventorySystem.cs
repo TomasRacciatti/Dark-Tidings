@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Inventory.Controller;
-using Items;
+using Items.Base;
 using UnityEngine;
 
 namespace Inventory.Model
@@ -72,7 +72,7 @@ namespace Inventory.Model
 
         public abstract void ClearSlot(int i);
 
-        public ItemAmount[] GetItemsOfTypes(params Items.ItemType[] types)
+        public ItemAmount[] GetItemsOfTypes(params ItemType[] types)
         {
             return items.Where(item => !item.IsEmpty && types.Contains(item.GetSoItem.ItemType)).ToArray();
         }

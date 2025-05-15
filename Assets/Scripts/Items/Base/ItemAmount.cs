@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Items;
 
-namespace Inventory
+namespace Items.Base
 {
     [System.Serializable]
     public struct ItemAmount

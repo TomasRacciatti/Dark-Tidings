@@ -1,8 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Items
+namespace Items.Base
 {
     [System.Serializable]
     public class ItemInstance

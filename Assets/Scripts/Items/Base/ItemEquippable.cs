@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Items
+namespace Items.Base
 {
     public abstract class ItemEquippable : MonoBehaviour
     {

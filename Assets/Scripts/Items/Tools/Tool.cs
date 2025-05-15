@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using Items;
-using UnityEngine;
+using Items.Base;
 
-public abstract class Tool : ItemEquippable
+namespace Items.Tools
 {
-    
-
+    public abstract class Tool : ItemEquippable
+    {
+        
+    }
 }

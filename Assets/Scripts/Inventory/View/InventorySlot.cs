@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Characters.Player;
 using Inventory.Controller;
-using Items;
+using Items.Base;
 using UnityEngine.Events;
 
 namespace Inventory.View

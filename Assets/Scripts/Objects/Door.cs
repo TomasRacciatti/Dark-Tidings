@@ -5,6 +5,7 @@ using Interfaces;
 using Inventory.Controller;
 using Inventory.Model;
 using Items;
+using Items.Base;
 
 namespace Objects
 {

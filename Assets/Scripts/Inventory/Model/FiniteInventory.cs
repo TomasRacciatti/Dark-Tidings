@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Linq;
-using Items;
+using Items.Base;
 
 namespace Inventory.Model
 {

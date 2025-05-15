@@ -1,11 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Characters.Player;
 using Inventory.View;
-using Items;
+using Items.Base;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Inventory
 {

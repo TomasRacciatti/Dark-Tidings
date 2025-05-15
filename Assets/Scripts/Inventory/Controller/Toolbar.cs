@@ -1,4 +1,5 @@
 ﻿using Inventory.Model;
+using Items.Base;
 using UnityEngine;
 
 namespace Inventory.Controller

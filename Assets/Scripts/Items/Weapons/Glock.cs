@@ -1,17 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Glock : Weapon
+namespace Items.Weapons
 {
-    public Glock()
+    public class Glock : Weapon
     {
-        weaponName = "Glock";
-    }
+        public Glock()
+        {
+            weaponName = "Glock";
+        }
 
-    protected override void Shoot()
-    {
-        base.Shoot();
-        CreateRay(_firePoint.right);
+        protected override void Shoot()
+        {
+            base.Shoot();
+            CreateRay(_firePoint.right);
+        }
     }
 }

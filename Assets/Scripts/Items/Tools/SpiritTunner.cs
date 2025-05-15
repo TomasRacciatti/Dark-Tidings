@@ -1,49 +1,50 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Objects.Clues;
+using UnityEngine;
 
-public class SpiritTunner : Tool
+namespace Items.Tools
 {
-    public LayerMask clueLayerMask;
+    public class SpiritTunner : Tool
+    {
+        public LayerMask clueLayerMask;
     
     
-    [SerializeField] private MeshRenderer screen;
-    [SerializeField] private Material defaultMaterial;
-    [SerializeField] private Material detectionMaterial;
+        [SerializeField] private MeshRenderer screen;
+        [SerializeField] private Material defaultMaterial;
+        [SerializeField] private Material detectionMaterial;
     
-    public override void Use()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        SetClue();
-    }
-
-    private void SetClue()
-    {
-        int cantClues = 0;
-        
-        Collider[] hits = Physics.OverlapSphere(transform.position,1, clueLayerMask);
-        foreach (var hit in hits)
+        public override void Use()
         {
-            Clue clue = hit.GetComponent<Clue>();
-            if (clue != null)
+        
+        }
+
+        // Update is called once per frame
+        void Update()
+        {
+            SetClue();
+        }
+
+        private void SetClue()
+        {
+            int cantClues = 0;
+        
+            Collider[] hits = Physics.OverlapSphere(transform.position,1, clueLayerMask);
+            foreach (var hit in hits)
             {
-                cantClues++;
+                Clue clue = hit.GetComponent<Clue>();
+                if (clue != null)
+                {
+                    cantClues++;
+                }
             }
-        }
 
-        if (cantClues > 0)
-        {
-            screen.material = detectionMaterial;
-        }
-        else
-        {
-            screen.material = defaultMaterial;
+            if (cantClues > 0)
+            {
+                screen.material = detectionMaterial;
+            }
+            else
+            {
+                screen.material = defaultMaterial;
+            }
         }
     }
 }

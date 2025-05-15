@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0776dc754a4f1c44fb737d73397c3c76, type: 3}
   m_Name: SpiritTunner
   m_EditorClassIdentifier: 
-  itemName: SpiritTunner
+  itemName: Spirit Tunner
   image: {fileID: 21300000, guid: 31444f81d9c429042b178f2a7190c23b, type: 3}
   description: Tells Clues
   modifierName: 

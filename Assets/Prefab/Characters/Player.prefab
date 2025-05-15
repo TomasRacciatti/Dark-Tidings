@@ -149,7 +149,7 @@ CharacterController:
   m_Height: 1.8
   m_Radius: 0.5
   m_SlopeLimit: 45
-  m_StepOffset: 0.25
+  m_StepOffset: 0.38
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   JumpHeight: 1
-  Gravity: -9.8
+  Gravity: -15
   FallTimeout: 1
   SpeedChangeRate: 10
   GroundedOffset: -0.41
@@ -227,6 +227,7 @@ MonoBehaviour:
   selectedSlot: 0
   inventoryIndexes: 
   slotCount: 4
+  inventorySystem: {fileID: 0}
 --- !u!114 &6850914345207136916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -741,7 +742,7 @@ Transform:
   m_GameObject: {fileID: 5777399186146976923}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7, z: 0}
+  m_LocalPosition: {x: 0, y: 1.7000002, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

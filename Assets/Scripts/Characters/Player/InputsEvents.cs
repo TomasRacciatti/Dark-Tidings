@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Controller;
+using Managers;
 
 namespace Characters.Player
 {
@@ -17,8 +18,8 @@ namespace Characters.Player
         private bool inventoryOpened;
         private bool toggleBackpack;
         
-        public Vector2 GetMovement => inventoryOpened ? Vector2.zero : movement;
-        public Vector2 GetLook => inventoryOpened ? Vector2.zero : look;
+        public Vector2 GetMovement => !inventoryOpened && !GameManager.Paused ? movement: Vector2.zero;
+        public Vector2 GetLook => !inventoryOpened && !GameManager.Paused ? look : Vector2.zero;
         public bool IsSprinting => sprint;
         public bool GetUse => use;
         public bool GetInventoryOpened => inventoryOpened;
@@ -57,6 +58,7 @@ namespace Characters.Player
             inputActions.Player.Toolbar2.performed += SelectToolbar2;
             inputActions.Player.Toolbar3.performed += SelectToolbar3;
             inputActions.Player.Toolbar4.performed += SelectToolbar4;
+            inputActions.Player.TogglePaused.performed += Pause;
             inputActions.Enable();
         }
 
@@ -80,6 +82,7 @@ namespace Characters.Player
             inputActions.Player.Toolbar2.performed -= SelectToolbar2;
             inputActions.Player.Toolbar3.performed -= SelectToolbar3;
             inputActions.Player.Toolbar4.performed -= SelectToolbar4;
+            inputActions.Player.TogglePaused.performed -= Pause;
         }
 
         public void Movement(InputAction.CallbackContext context)
@@ -94,7 +97,7 @@ namespace Characters.Player
 
         public void Jump(InputAction.CallbackContext context)
         {
-            if (context.ReadValueAsButton())
+            if (!GameManager.Paused && context.ReadValueAsButton())
             {
                 _playerController.Jump();
             }
@@ -108,7 +111,7 @@ namespace Characters.Player
         public void StartUse(InputAction.CallbackContext context)
         {
             use = context.ReadValueAsButton();
-            if (!inventoryOpened)
+            if (!inventoryOpened && !GameManager.Paused)
             {
                 ItemsInHand.Instance.Use();
             }
@@ -116,7 +119,10 @@ namespace Characters.Player
 
         public void Interact(InputAction.CallbackContext context)
         {
-            _playerController.Interact();
+            if (!GameManager.Paused)
+            {
+                _playerController.Interact();
+            }
         }
 
         public void StopUse(InputAction.CallbackContext context)
@@ -126,9 +132,12 @@ namespace Characters.Player
 
         public void ToggleInventory(InputAction.CallbackContext context)
         {
-            inventoryOpened = !inventoryOpened;
-            CanvasManager.Instance.inventoryManager.SetActiveInventory(inventoryOpened);
-            SetCursorVisibility(inventoryOpened);
+            if (!GameManager.Paused)
+            {
+                inventoryOpened = !inventoryOpened;
+                CanvasManager.Instance.inventoryManager.SetActiveInventory(inventoryOpened);
+                SetCursorVisibility(inventoryOpened);
+            }
         }
 
         public void ToggleBackpack(InputAction.CallbackContext context)
@@ -144,11 +153,10 @@ namespace Characters.Player
 
         private void SelectToolbar(int index)
         {
-            CanvasManager.Instance.inventoryManager.toolbarUI.ChangeSelectedSlot(index);
             _toolbar.SetSelectedSlot(index);
         }
 
-        private void SetCursorVisibility(bool visible)
+        private void SetCursorVisibility(bool visible = false)
         {
             if (visible)
             {
@@ -160,6 +168,12 @@ namespace Characters.Player
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
+        }
+
+        public void Pause(InputAction.CallbackContext context)
+        {
+            GameManager.TogglePause();
+            SetCursorVisibility(GameManager.Paused);
         }
     }
 }

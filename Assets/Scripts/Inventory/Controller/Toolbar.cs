@@ -84,6 +84,7 @@ namespace Inventory.Controller
             if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
             
             selectedSlot = toolbarSlotIndex;
+            CanvasManager.Instance.inventoryManager.toolbarUI.ChangeSelectedSlot(selectedSlot);
         }
 
         public void SwapIndexes(int fromSlot, int toSlot)

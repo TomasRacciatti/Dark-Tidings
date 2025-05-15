@@ -13,6 +13,7 @@ public class CanvasManager : MonoBehaviour
     [SerializeField] public PlayerController player;
     [SerializeField] public InventoryManager inventoryManager;
     [SerializeField] public TextMeshProUGUI LostUI;
+    [SerializeField] public PausedMenu PauseMenu;
 
     private void Awake()
     {

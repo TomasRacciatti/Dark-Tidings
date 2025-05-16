@@ -1,8 +1,7 @@
-using System;
-using Inventory.View;
+using Inventory.Controller;
 using UnityEngine;
 
-namespace Inventory.Controller
+namespace Inventory.View
 {
     public class ToolbarUI : InventoryView
     {

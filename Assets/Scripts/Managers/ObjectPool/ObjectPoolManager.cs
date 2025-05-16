@@ -25,7 +25,8 @@ namespace Patterns.ObjectPool
 
         private void Start()
         {
-            InitialSpawns();
+            //InitialSpawns();
+            StartCoroutine(InitialSpawnsAsync());
         }
 
         private PooledObjectInfo NewPool(string poolName)
@@ -66,6 +67,33 @@ namespace Patterns.ObjectPool
                 {
                     NewObject(obj.prefab, Vector3.zero, Quaternion.identity);
                 }
+            }
+        }
+
+        private IEnumerator InitialSpawnsAsync()
+        {
+            const float maxFrameTime = 0.005f;
+
+            var stopwatch = new System.Diagnostics.Stopwatch();
+
+            foreach (var obj in initialObjects)
+            {
+                stopwatch.Reset();
+                stopwatch.Start();
+
+                for (int i = 0; i < obj.initialSpawn; i++)
+                {
+                    NewObject(obj.prefab, Vector3.zero, Quaternion.identity);
+                    
+                    if (stopwatch.Elapsed.TotalSeconds >= maxFrameTime)
+                    {
+                        stopwatch.Reset();
+                        yield return null;
+                        stopwatch.Start();
+                    }
+                }
+
+                stopwatch.Stop();
             }
         }
 

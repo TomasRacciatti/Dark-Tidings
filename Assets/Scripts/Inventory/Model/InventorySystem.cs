@@ -16,7 +16,7 @@ namespace Inventory.Model
         
         private void Start()
         {
-            UpdateAllHud();
+            StartCoroutine(UpdateAllHudAsync());
         }
 
         public abstract int AddItem(ItemAmount itemAmount);
@@ -236,6 +236,44 @@ namespace Inventory.Model
                 if (!item.IsEmpty && item.GetSoItem.ItemType == type)
                     yield return item;
             }
+        }
+        
+        public bool TryCraft(Dictionary<SO_Item, int> requiredItems, ItemAmount itemCrafted)
+        {
+            foreach (var requirement in requiredItems)
+            {
+                if (!HasItemAmount(requirement.Key, requirement.Value))
+                {
+                    return false;
+                }
+            }
+            
+            foreach (var requirement in requiredItems)
+            {
+                int amountToRemove = requirement.Value;
+
+                for (int i = 0; i < items.Count && amountToRemove > 0; i++)
+                {
+                    var item = items[i];
+                    if (!item.IsEmpty && item.GetSoItem == requirement.Key)
+                    {
+                        int removed = item.RemoveAmount(amountToRemove);
+                        amountToRemove -= removed;
+
+                        if (item.IsEmpty)
+                        {
+                            ClearSlot(i);
+                        }
+                        else
+                        {
+                            items[i] = item;
+                            UpdateHud(i);
+                        }
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

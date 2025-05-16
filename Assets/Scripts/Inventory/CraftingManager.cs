@@ -109,6 +109,12 @@ namespace Inventory
             {
                 return;
             }
+            var slotData = new[] {
+                new { Item = _slots[0].GetItemObject(), Index = 0 },
+                new { Item = _slots[1].GetItemObject(), Index = 1 },
+                new { Item = _slots[2].GetItemObject(), Index = 2 }
+            };
+            
             PlayerController.Instance.inventory.AddItem(_craftedSlot.GetItemAmount());
         }
     }

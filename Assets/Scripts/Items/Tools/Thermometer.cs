@@ -1,16 +1,16 @@
 using Objects.Clues;
 using UnityEngine;
+using Interfaces;
 
 namespace Items.Tools
 {
     public class Thermometer : Tool
     {
-        private float temperature = 25;
+        private float _temperature = 15;
         public LayerMask clueLayerMask;
 
         [SerializeField] private MeshRenderer screen;
-    
-        [SerializeField] private Material defaultMaterial;
+
         [SerializeField] private Material highMaterial;
         [SerializeField] private Material lowMaterial;
         [SerializeField] private Material negativeMaterial;
@@ -22,43 +22,36 @@ namespace Items.Tools
 
         private void Update()
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position,1, clueLayerMask);
+            Collider[] hits = Physics.OverlapSphere(transform.position, 1, clueLayerMask);
             foreach (var hit in hits)
             {
                 Clue clue = hit.GetComponent<Clue>();
-                if (clue != null)
+                if (clue)
                 {
                     SO_Clue type = clue.GetClueProvided;
                     if (type is SO_ThermClue tempClue)
                     {
-                        temperature = Mathf.Lerp(temperature, tempClue.GetTemperature(), Time.deltaTime);
+                        var (minTemp, maxTemp) = tempClue.GetValue;
+                        float targetTemp = Random.Range(minTemp, maxTemp);
+                        _temperature = Mathf.Lerp(_temperature, targetTemp, Time.deltaTime);
                         SetMaterial();
                         return;
                     }
                 }
             }
-            temperature = Mathf.Lerp(temperature, 25, Time.deltaTime);
+
+            _temperature = Mathf.Lerp(_temperature, 15f, Time.deltaTime);
             SetMaterial();
         }
 
         private void SetMaterial()
         {
-            if (temperature >= 20)
+            screen.material = _temperature switch
             {
-                screen.material = defaultMaterial;
-            }
-            else if (temperature >= 10)
-            {
-                screen.material = highMaterial;
-            }
-            else if (temperature >= 0)
-            {
-                screen.material = lowMaterial;
-            }
-            else
-            {
-                screen.material = negativeMaterial;
-            }
+                >= 10 => highMaterial,
+                >= 0 => lowMaterial,
+                _ => negativeMaterial
+            };
         }
     }
 }

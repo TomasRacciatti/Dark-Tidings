@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Inventory.Controller;
@@ -34,6 +35,25 @@ namespace Inventory.Model
                 UpdateHud(i);
             }
         }
+        
+        public IEnumerator UpdateAllHudAsync(float maxTimePerFrame = 0.01f)
+        {
+            var stopwatch = new System.Diagnostics.Stopwatch();
+            stopwatch.Start();
+
+            for (int i = 0; i < items.Count; i++)
+            {
+                UpdateHud(i);
+
+                if (stopwatch.Elapsed.TotalSeconds > maxTimePerFrame)
+                {
+                    stopwatch.Restart();
+                    yield return null; // Espera al siguiente frame
+                }
+            }
+
+            stopwatch.Stop();
+        }
 
         public ItemAmount GetIndexItem(int slot)
         {
@@ -55,17 +75,10 @@ namespace Inventory.Model
         public int GetItemAmount(SO_Item soItem)
         {
             if (soItem == null) return 0;
-            int totalAmount = 0;
 
-            foreach (var item in items)
-            {
-                if (!item.IsEmpty && item.GetSoItem == soItem)
-                {
-                    totalAmount += item.Amount;
-                }
-            }
-
-            return totalAmount;
+            return items
+                .Where(item => !item.IsEmpty && item.GetSoItem == soItem)
+                .Sum(item => item.Amount);
         }
 
         public abstract void ClearInventory();
@@ -76,19 +89,40 @@ namespace Inventory.Model
         {
             return items.Where(item => !item.IsEmpty && types.Contains(item.GetSoItem.ItemType)).ToArray();
         }
+        
+        public Dictionary<SO_Item, int> GetAmountByItem()
+        {
+            return items
+                .Where(item => !item.IsEmpty)
+                .Aggregate(
+                    new Dictionary<SO_Item, int>(),
+                    (acc, item) =>
+                    {
+                        var soItem = item.GetSoItem;
+                        acc.TryAdd(soItem, 0);
 
-        public void TransferSlotTo(InventorySystem otherInventory, int index)
+                        acc[soItem] += item.Amount;
+                        return acc;
+                    });
+        }
+
+        public (int transferred, int remaining) TransferItemTo(InventorySystem otherInventory, int index)
         {
             var item = items[index];
-            otherInventory.AddItem(item);
-            ClearSlot(index);
+            int remaining = otherInventory.AddItem(item);
+            int transferred = item.Amount - remaining;
+
+            item.RemoveAmount(transferred);
+            items[index] = item;
+
+            return (transferred, remaining);
         }
 
         public void SortItemsByType(ItemType type)
         {
-            items = items.Where(item => !item.IsEmpty) // Filtra los ítems vacíos.
-                .OrderBy(item => item.GetSoItem.ItemType) // Ordena primero por ItemType
-                .ThenBy(item => item.GetSoItem.ItemName) // Luego, ordena por nombre de ítem
+            items = items.Where(item => !item.IsEmpty)
+                .OrderBy(item => item.GetSoItem.ItemType)
+                .ThenBy(item => item.GetSoItem.ItemName)
                 .ToList();
             UpdateAllHud();
         }
@@ -193,6 +227,15 @@ namespace Inventory.Model
             }
             
             return false;
+        }
+        
+        public IEnumerable<ItemAmount> GetItemsByType(ItemType type)
+        {
+            foreach (var item in items)
+            {
+                if (!item.IsEmpty && item.GetSoItem.ItemType == type)
+                    yield return item;
+            }
         }
     }
 }

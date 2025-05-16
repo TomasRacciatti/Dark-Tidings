@@ -8,9 +8,6 @@ namespace Objects.Clues
         [SerializeField] private int _minTemperature;
         [SerializeField] private int _maxTemperature;
 
-        public float GetTemperature()
-        {
-            return Random.Range((float)_minTemperature, _maxTemperature);
-        }
+        public (int, int) GetValue => (_minTemperature, _maxTemperature);
     }
 }

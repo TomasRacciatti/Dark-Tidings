@@ -1,5 +1,6 @@
 using UnityEngine;
 using Objects.Clues;
+using Interfaces;
 
 namespace Items.Tools
 {
@@ -26,6 +27,7 @@ namespace Items.Tools
         [Header("Crazy Spin Mode")] [SerializeField]
         private float spinSpeed = 360f; // degrees per second
 
+        
         private float jitterTimer;
 
         public override void Use()
@@ -45,8 +47,7 @@ namespace Items.Tools
                     SO_Clue type = clue.GetClueProvided;
                     if (type is SO_CompassClue compassClue)
                     {
-                        mode = compassClue.CompassMode;
-                        foundClue = true;
+                        mode = compassClue.GetValue;
                         break;
                     }
                 }

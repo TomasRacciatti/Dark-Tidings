@@ -38,7 +38,7 @@ namespace Items.Base
 
         public int SetItem(ItemAmount itemAmount)
         {
-            _itemInstance = new ItemInstance(itemAmount.GetSoItem, itemAmount.ItemInstance.Modifiers);
+            _itemInstance = itemAmount.ItemInstance;
 
             _amount = _allowOverflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, _itemInstance.Stack);
             return _allowOverflow ? 0 : Mathf.Max(0, itemAmount.Amount - _itemInstance.Stack);

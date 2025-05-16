@@ -60,19 +60,33 @@ namespace Inventory
 
         private void UpdateCrafting()
         {
+            var slotData = new[] {
+                new { Item = _slots[0].GetItemObject(), Index = 0 },
+                new { Item = _slots[1].GetItemObject(), Index = 1 },
+                new { Item = _slots[2].GetItemObject(), Index = 2 }
+            };
+
             ItemAmount bullet = new ItemAmount(this.bullet, 1);
-            if (_slots[0].GetItemObject() != null && _slots[1].GetItemObject() != null)
+            
+            if (slotData[0].Item != null && slotData[1].Item != null)
             {
-                if (_slots[2].GetItemObject() != null)
+                if (slotData[2].Item != null)
                 {
-                    bullet.AddModifier(_slots[2].GetItemObject());
-                    _craftedSlot.SetItem(bullet);
+                    if (slotData[2].Item != slotData[1].Item && slotData[2].Item != slotData[0].Item)
+                    {
+                        bullet.AddModifier(slotData[2].Item);
+                        _craftedSlot.SetItem(bullet);
+                    }
+                    else
+                    {
+                        _craftedSlot.SetItem(new ItemAmount(null, 0));
+                    }
                 }
                 else
                 {
-                    if (_slots[0].GetItemObject() == _slots[1].GetItemObject() != _slots[2].GetItemObject())
+                    if (slotData[0].Item == slotData[1].Item)
                     {
-                        bullet.AddModifier(_slots[0].GetItemObject());
+                        bullet.AddModifier(slotData[0].Item);
                         _craftedSlot.SetItem(bullet);
                     }
                     else
@@ -86,6 +100,7 @@ namespace Inventory
                 _craftedSlot.SetItem(new ItemAmount(null, 0));
             }
         }
+
 
         public void CraftItem()
         {

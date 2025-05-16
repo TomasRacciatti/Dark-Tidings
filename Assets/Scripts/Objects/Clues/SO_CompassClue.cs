@@ -7,6 +7,7 @@ namespace Objects.Clues
     public class SO_CompassClue : SO_Clue
     {
         [SerializeField] private CompassMode compassMode;
-        public CompassMode CompassMode => compassMode;
+
+        public CompassMode GetValue => compassMode;
     }
 }

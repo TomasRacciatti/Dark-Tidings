@@ -34,11 +34,6 @@ namespace Characters.Player
             _toolbar = GetComponentInChildren<Toolbar>();
         }
 
-        private void Start()
-        {
-            SetCursorVisibility(false);
-        }
-
         private void OnEnable()
         {
             inputActions.Player.Movement.performed += Movement;
@@ -135,8 +130,8 @@ namespace Characters.Player
             if (!GameManager.Paused)
             {
                 inventoryOpened = !inventoryOpened;
-                CanvasManager.Instance.inventoryManager.SetActiveInventory(inventoryOpened);
-                SetCursorVisibility(inventoryOpened);
+                GameManager.Canvas.inventoryManager.SetActiveInventory(inventoryOpened);
+                GameManager.SetCursorVisibility(inventoryOpened);
             }
         }
 
@@ -156,24 +151,9 @@ namespace Characters.Player
             _toolbar.SetSelectedSlot(index);
         }
 
-        private void SetCursorVisibility(bool visible = false)
-        {
-            if (visible)
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
-
         public void Pause(InputAction.CallbackContext context)
         {
             GameManager.TogglePause();
-            SetCursorVisibility(GameManager.Paused);
         }
     }
 }

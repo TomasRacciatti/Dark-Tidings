@@ -1,3 +1,5 @@
+using Managers;
+
 namespace Characters.Player
 {
     public class PlayerCharacter : Character
@@ -16,7 +18,7 @@ namespace Characters.Player
         
         protected override void Death()
         {
-            CanvasManager.Instance.LostUI.gameObject.SetActive(true);
+            GameManager.Canvas.LostUI.gameObject.SetActive(true);
         }
     }
 }

@@ -1,27 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using Characters.Player;
-using Inventory;
 using Inventory.Controller;
 using TMPro;
 using UnityEngine;
 
-public class CanvasManager : MonoBehaviour
+namespace Hud
 {
-    [HideInInspector] public static CanvasManager Instance { get; private set; }
-
-    [SerializeField] public PlayerController player;
-    [SerializeField] public InventoryManager inventoryManager;
-    [SerializeField] public TextMeshProUGUI LostUI;
-    [SerializeField] public PausedMenu PauseMenu;
-
-    private void Awake()
+    public class CanvasManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject); // Previene duplicados
-            return;
-        }
-        Instance = this;
+        [SerializeField] public InventoryManager inventoryManager;
+        [SerializeField] public TextMeshProUGUI LostUI;
+        [SerializeField] public PausedMenu PauseMenu;
     }
 }

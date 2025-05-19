@@ -1,5 +1,7 @@
-﻿using Inventory.Model;
+﻿using System;
+using Inventory.Model;
 using Items.Base;
+using Managers;
 using UnityEngine;
 
 namespace Inventory.Controller
@@ -9,8 +11,9 @@ namespace Inventory.Controller
         [SerializeField] private int selectedSlot = 0;
         [SerializeField] private int[] inventoryIndexes;
         [SerializeField] private int slotCount = 4;
-
         [SerializeField] private InventorySystem inventorySystem;
+        
+        public event Action<int> OnSelectedSlotChanged;
         
         public InventorySystem InventorySystem => inventorySystem;
 
@@ -25,17 +28,22 @@ namespace Inventory.Controller
 
         private void Awake()
         {
-            inventorySystem = GetComponentInParent<InventorySystem>();
+            if (inventorySystem == null)
+            {
+                inventorySystem = GetComponentInParent<InventorySystem>();
+            }
+            InitializeSlots();
+        }
+
+        private void InitializeSlots()
+        {
+            inventoryIndexes = new int[slotCount];
             ClearSlots();
         }
 
         private void ClearSlots()
         {
-            inventoryIndexes = new int[slotCount];
-            for (int i = 0; i < inventoryIndexes.Length; i++)
-            {
-                inventoryIndexes[i] = -1;
-            }
+            Array.Fill(inventoryIndexes, -1);
         }
 
         public int GetIndex(int inventoryIndex)
@@ -54,23 +62,22 @@ namespace Inventory.Controller
         {
             if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
 
-            if (inventoryIndex == -1)
-            {
-                inventoryIndexes[toolbarSlotIndex] = inventoryIndex;
-                SetUI();
-                return;
-            }
+            ItemAmount item = inventorySystem.GetIndexItem(inventoryIndex);
+            if (!item.ItemInstance.IsEquippable) return;
             
-            for (int i = 0; i < inventoryIndexes.Length; i++)
+            if (inventoryIndex != -1)
             {
-                if (i != toolbarSlotIndex && inventoryIndexes[i] == inventoryIndex)
+                for (int i = 0; i < inventoryIndexes.Length; i++)
                 {
-                    inventoryIndexes[i] = -1;
-                    SetUI();
-                    break;
+                    if (i != toolbarSlotIndex && inventoryIndexes[i] == inventoryIndex)
+                    {
+                        inventoryIndexes[i] = -1;
+                        SetUI();
+                        break;
+                    }
                 }
             }
-
+            
             inventoryIndexes[toolbarSlotIndex] = inventoryIndex;
             SetUI();
         }
@@ -85,7 +92,7 @@ namespace Inventory.Controller
             if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
             
             selectedSlot = toolbarSlotIndex;
-            CanvasManager.Instance.inventoryManager.toolbarUI.ChangeSelectedSlot(selectedSlot);
+            GameManager.Canvas.inventoryManager.toolbarView.ChangeSelectedSlot(selectedSlot);
         }
 
         public void SwapIndexes(int fromSlot, int toSlot)

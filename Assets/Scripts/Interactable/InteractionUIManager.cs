@@ -33,7 +33,10 @@ public class InteractionUIManager : MonoBehaviour
         
         Instance = this;
         _mainCamera = Camera.main;
-        
+    }
+
+    private void Start()
+    {
         HideUI();
     }
 

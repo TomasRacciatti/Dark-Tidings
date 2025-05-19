@@ -48,6 +48,7 @@ namespace Items.Tools
                     if (type is SO_CompassClue compassClue)
                     {
                         mode = compassClue.GetValue;
+                        foundClue = true;
                         break;
                     }
                 }

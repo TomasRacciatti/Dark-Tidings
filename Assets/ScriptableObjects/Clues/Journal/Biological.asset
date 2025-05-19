@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f841c01499848194fb738ecfbcf2cc87, type: 3}
-  m_Name: CompClueSpin
+  m_Script: {fileID: 11500000, guid: 7287ecbb5a3a0684e82a39c2a10da43b, type: 3}
+  m_Name: Biological
   m_EditorClassIdentifier: 
-  tool: {fileID: 11400000, guid: f270ec18bac589d47a714ff514e0ded2, type: 2}
-  compassMode: 1
+  clueTypeName: Biological reaction
+  clue: []

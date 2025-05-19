@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f841c01499848194fb738ecfbcf2cc87, type: 3}
-  m_Name: CompClueShake
+  m_Script: {fileID: 11500000, guid: 0097e2d9561e7f04899bd4d2c3475c59, type: 3}
+  m_Name: TempHigh
   m_EditorClassIdentifier: 
-  tool: {fileID: 11400000, guid: f270ec18bac589d47a714ff514e0ded2, type: 2}
-  compassMode: 2
+  tool: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
+  value: "> 35 \xB0C"
+  result: 'Potential Weakness:
+
+    Iron - Copper'
+  _minTemperature: 35
+  _maxTemperature: 45

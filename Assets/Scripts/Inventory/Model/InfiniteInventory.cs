@@ -9,9 +9,9 @@ namespace Inventory.Model
         public override int AddItem(ItemAmount itemAmount)
         {
             if (itemAmount.IsEmpty) return itemAmount.Amount;
-            itemAmount.RemoveAmount(itemAmount.Amount - StackItems(itemAmount));
+            itemAmount.SetAmount(StackItems(itemAmount));
             if (itemAmount.IsEmpty) return itemAmount.Amount;
-            AddMoreItem(itemAmount);
+            AddItemEmptySlot(itemAmount);
             return 0;
         }
         
@@ -20,7 +20,7 @@ namespace Inventory.Model
             return RemoveItemsInternal(itemAmount, i =>
             {
                 ClearSlot(i);
-                i--;
+                return true;
             });
         }
         
@@ -34,18 +34,15 @@ namespace Inventory.Model
             items.RemoveAt(i);
         }
         
-        protected override int AddMoreItem(ItemAmount itemAmount)
+        protected override int AddItemEmptySlot(ItemAmount itemAmount)
         {
             while (!itemAmount.IsEmpty)
             {
-                int amountToAdd = Mathf.Min(itemAmount.Amount, itemAmount.ItemInstance.Stack);
-                itemAmount.RemoveAmount(amountToAdd);
-                ItemAmount aaa = new ItemAmount();
-                aaa.SetItem(itemAmount);
-                items.Add(aaa);
-
-                // Actualiza el HUD del nuevo ítem
-                UpdateHud(items.Count - 1);
+                ItemAmount newItem = new ItemAmount();
+                itemAmount.SetAmount(newItem.SetItem(itemAmount));
+                items.Add(newItem);
+                
+                UpdateItem(items.Count - 1);
             }
             return itemAmount.Amount;
         }

@@ -109,13 +109,7 @@ namespace Inventory.View
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    Debug.Log("Clic izquierdo"); /*
-                    if (itemAmount.Item.GetItemType == Items.ItemType2.Weapon)
-                    {
-                        //Toolbar.Instance.EquipItem(itemAmount, 0);
-                        ItemsInHand.Instance.ActivateGlock();
-                    }*/
-
+                    Debug.Log("Clic izquierdo");
                     break;
                 case PointerEventData.InputButton.Right:
                     Debug.Log("Clic derecho");

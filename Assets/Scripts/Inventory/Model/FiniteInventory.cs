@@ -10,15 +10,23 @@ namespace Inventory.Model
 
         private void Awake()
         {
-            ClearInventory(); //limpia e inicializa los slots, borrar esto despues
+            InitializeSlots(); //limpia e inicializa los slots, borrar esto despues
+        }
+        
+        private void InitializeSlots()
+        {
+            items = Enumerable.Range(0, slotsAmount)
+                .Select(_ => new ItemAmount())
+                .ToList();
+            UpdateInventory();
         }
 
         public override int AddItem(ItemAmount itemAmount)
         {
             if (itemAmount.IsEmpty) return 0;
-            itemAmount.RemoveAmount(itemAmount.Amount - StackItems(itemAmount));
+            itemAmount.SetAmount(StackItems(itemAmount));
             if (itemAmount.IsEmpty) return 0;
-            itemAmount.RemoveAmount(itemAmount.Amount - AddMoreItem(itemAmount));
+            itemAmount.SetAmount(AddItemEmptySlot(itemAmount));
 
             return itemAmount.Amount; // amount not added
         }
@@ -28,7 +36,8 @@ namespace Inventory.Model
             if (itemAmount.IsEmpty) return 0;
             return RemoveItemsInternal(itemAmount, i =>
             {
-                items[i] = new ItemAmount(); // mantiene el slot vacío
+                items[i] = new ItemAmount();
+                return false;
             });
         }
 
@@ -39,7 +48,12 @@ namespace Inventory.Model
 
         public override void ClearInventory()
         {
-            items = Enumerable.Range(0, slotsAmount).Select(_ => new ItemAmount(null, 0)).ToList();
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i] = new ItemAmount();
+                //UpdateItem(i);
+            }
+            UpdateInventory();
         }
 
         public override void ClearSlot(int i)
@@ -47,7 +61,7 @@ namespace Inventory.Model
             items[i] = new ItemAmount();
         }
         
-        protected override int AddMoreItem(ItemAmount itemAmount)
+        protected override int AddItemEmptySlot(ItemAmount itemAmount)
         {
             for (int i = 0; i < items.Count; i++)
             {
@@ -55,10 +69,10 @@ namespace Inventory.Model
 
                 if (item.IsEmpty)
                 {
-                    itemAmount.RemoveAmount(itemAmount.Amount - item.SetItem(itemAmount));
+                    itemAmount.SetAmount(item.SetItem(itemAmount));
                     items[i] = item;
 
-                    UpdateHud(i);
+                    UpdateItem(i);
 
                     if (itemAmount.Amount <= 0)
                         return 0;

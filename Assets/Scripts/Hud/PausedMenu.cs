@@ -1,18 +1,18 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using Managers;
+using UnityEngine;
 
-public class PausedMenu : MonoBehaviour
+namespace Hud
 {
-    private void Resume()
+    public class PausedMenu : MonoBehaviour
     {
-        GameManager.Pause(false);
-    }
+        public void Resume()
+        {
+            GameManager.Pause(false);
+        }
     
-    public void QuitGame()
-    {
-        GameManager.QuitGame();
+        public void QuitGame()
+        {
+            GameManager.QuitGame();
+        }
     }
 }

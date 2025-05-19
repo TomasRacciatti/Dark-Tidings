@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Interfaces;
 using Inventory.Controller;
 using Items.Base;
 using UnityEngine;
@@ -13,52 +14,27 @@ namespace Inventory.Model
     {
         [SerializeField] protected List<ItemAmount> items = new List<ItemAmount>();
         [SerializeField] private Toolbar toolbar;
-        
-        private void Start()
-        {
-            StartCoroutine(UpdateAllHudAsync());
-        }
+        public event Action<int, ItemAmount> OnItemUpdated;
+        public event Action OnInventoryUpdated;
 
         public abstract int AddItem(ItemAmount itemAmount);
-        protected abstract int AddMoreItem(ItemAmount itemAmount);
+        protected abstract int AddItemEmptySlot(ItemAmount itemAmount);
         public abstract int RemoveItem(ItemAmount itemAmount);
 
-        protected void UpdateHud(int index)
+        protected void UpdateItem(int index)
         {
-            CanvasManager.Instance.inventoryManager.inventoryView.SetItem(index, items[index]);
-        }
-
-        protected void UpdateAllHud()
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                UpdateHud(i);
-            }
+            OnItemUpdated?.Invoke(index, items[index]);
         }
         
-        public IEnumerator UpdateAllHudAsync(float maxTimePerFrame = 0.01f)
+        protected void UpdateInventory()
         {
-            var stopwatch = new System.Diagnostics.Stopwatch();
-            stopwatch.Start();
-
-            for (int i = 0; i < items.Count; i++)
-            {
-                UpdateHud(i);
-
-                if (stopwatch.Elapsed.TotalSeconds > maxTimePerFrame)
-                {
-                    stopwatch.Restart();
-                    yield return null; // Espera al siguiente frame
-                }
-            }
-
-            stopwatch.Stop();
+            OnInventoryUpdated?.Invoke();
         }
 
         public ItemAmount GetIndexItem(int slot)
         {
             if (slot < 0 || slot >= items.Count) return new ItemAmount();
-            
+
             return items[slot];
         }
 
@@ -69,7 +45,7 @@ namespace Inventory.Model
 
         public bool HasItemAmount(SO_Item soItem, int requiredAmount)
         {
-            return GetItemAmount(soItem) > requiredAmount;
+            return GetItemAmount(soItem) >= requiredAmount;
         }
 
         public int GetItemAmount(SO_Item soItem)
@@ -89,7 +65,7 @@ namespace Inventory.Model
         {
             return items.Where(item => !item.IsEmpty && types.Contains(item.GetSoItem.ItemType)).ToArray();
         }
-        
+
         public Dictionary<SO_Item, int> GetAmountByItem()
         {
             return items
@@ -117,15 +93,16 @@ namespace Inventory.Model
 
             return (transferred, remaining);
         }
-
+/*
         public void SortItemsByType(ItemType type)
         {
             items = items.Where(item => !item.IsEmpty)
                 .OrderBy(item => item.GetSoItem.ItemType)
                 .ThenBy(item => item.GetSoItem.ItemName)
                 .ToList();
-            UpdateAllHud();
-        }
+            //asegurarme que sea del mismo size
+            //actualizar hud
+        }*/
 
         protected int StackItems(ItemAmount itemAmount)
         {
@@ -137,9 +114,9 @@ namespace Inventory.Model
 
                 if (!item.IsEmpty && itemAmount.IsStackable(item))
                 {
-                    itemAmount.RemoveAmount(itemAmount.Amount - item.AddAmount(itemAmount.Amount));
+                    itemAmount.SetAmount(item.AddAmount(itemAmount.Amount));
                     items[i] = item;
-                    UpdateHud(i);
+                    UpdateItem(i);
 
                     if (itemAmount.Amount <= 0)
                         return 0;
@@ -149,7 +126,7 @@ namespace Inventory.Model
             return itemAmount.Amount;
         }
 
-        protected int RemoveItemsInternal(ItemAmount itemAmount, Action<int> onItemEmptied)
+        protected int RemoveItemsInternal(ItemAmount itemAmount, Func<int, bool> onItemEmptied)
         {
             if (itemAmount.ItemInstance == null || itemAmount.Amount <= 0) return itemAmount.Amount;
 
@@ -159,26 +136,29 @@ namespace Inventory.Model
 
                 if (!item.IsEmpty && item.IsStackable(itemAmount))
                 {
-                    itemAmount.RemoveAmount(itemAmount.Amount - item.RemoveAmount(itemAmount.Amount));
+                    itemAmount.SetAmount(item.RemoveAmount(itemAmount.Amount));
 
                     if (item.IsEmpty)
                     {
-                        onItemEmptied(i);
+                        bool removed = onItemEmptied(i);
+                        if (removed)
+                        {
+                            i--;
+                        }
                     }
                     else
                     {
                         items[i] = item;
                     }
 
-                    UpdateHud(i);
-
+                    UpdateItem(i);
                     if (itemAmount.Amount <= 0) return 0;
                 }
             }
 
             return itemAmount.Amount;
         }
-        
+
         public bool SwapItems(int fromIndex, int toIndex)
         {
             if (fromIndex < 0 || fromIndex >= items.Count || toIndex < 0 || toIndex >= items.Count) return false;
@@ -186,7 +166,7 @@ namespace Inventory.Model
 
             ItemAmount fromItem = items[fromIndex];
             ItemAmount toItem = items[toIndex];
-            
+
             int fromToolbar = toolbar.GetIndex(fromIndex);
             int toToolbar = toolbar.GetIndex(toIndex);
 
@@ -198,7 +178,7 @@ namespace Inventory.Model
                 {
                     toolbar.SetIndex(fromToolbar, toIndex);
                 }
-                
+
                 if (remainingAmount > 0)
                 {
                     fromItem.SetAmount(remainingAmount);
@@ -216,19 +196,20 @@ namespace Inventory.Model
                         toolbar.SetIndex(toToolbar, -1);
                     }
                 }
+
                 return remainingAmount <= 0;
             }
-            
+
             (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
             if (toolbar != null)
             {
                 toolbar.SetIndex(fromToolbar, toIndex);
                 toolbar.SetIndex(toToolbar, fromIndex);
             }
-            
+
             return false;
         }
-        
+/*
         public IEnumerable<ItemAmount> GetItemsByType(ItemType type)
         {
             foreach (var item in items)
@@ -237,7 +218,7 @@ namespace Inventory.Model
                     yield return item;
             }
         }
-        
+
         public bool TryCraft(Dictionary<SO_Item, int> requiredItems, ItemAmount itemCrafted)
         {
             foreach (var requirement in requiredItems)
@@ -247,7 +228,7 @@ namespace Inventory.Model
                     return false;
                 }
             }
-            
+
             foreach (var requirement in requiredItems)
             {
                 int amountToRemove = requirement.Value;
@@ -267,13 +248,13 @@ namespace Inventory.Model
                         else
                         {
                             items[i] = item;
-                            UpdateHud(i);
+                            UpdateItem(i);
                         }
                     }
                 }
             }
 
             return true;
-        }
+        }*/
     }
 }

@@ -1,6 +1,7 @@
 using Characters.Player;
 using Inventory.View;
 using Items.Base;
+using Managers;
 using UnityEngine;
 
 namespace Inventory
@@ -34,7 +35,7 @@ namespace Inventory
 
             if (item == null)
             {
-                GameObject itemobject = Instantiate(CanvasManager.Instance.inventoryManager.itemSlotPrefab, _slots[_selectedSlot].transform);
+                GameObject itemobject = Instantiate(GameManager.Canvas.inventoryManager.itemSlotPrefab, _slots[_selectedSlot].transform);
                 item = itemobject.GetComponent<InventoryItem>();
                 item.SetRaycast(false);
             }
@@ -115,7 +116,7 @@ namespace Inventory
                 new { Item = _slots[2].GetItemObject(), Index = 2 }
             };
             
-            PlayerController.Instance.inventory.AddItem(_craftedSlot.GetItemAmount());
+            GameManager.Player.inventory.AddItem(_craftedSlot.GetItemAmount());
         }
     }
 }

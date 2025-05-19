@@ -51,14 +51,11 @@ namespace Characters.Player
         private const float _threshold = 0.01f;
 
         private Character _character;
-
-        public static PlayerController Instance;
         
         public FiniteInventory inventory;
-
+        
         private void Awake()
         {
-            Instance = this;
             _character = GetComponent<Character>();
             _characterController = GetComponent<CharacterController>();
             _inputEvents = GetComponent<InputsEvents>();

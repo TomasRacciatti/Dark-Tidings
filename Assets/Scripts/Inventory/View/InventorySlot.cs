@@ -3,6 +3,7 @@ using UnityEngine.EventSystems;
 using Characters.Player;
 using Inventory.Controller;
 using Items.Base;
+using Managers;
 using UnityEngine.Events;
 
 namespace Inventory.View
@@ -34,7 +35,7 @@ namespace Inventory.View
 
             if (item == null)
             {
-                GameObject newItem = Instantiate(CanvasManager.Instance.inventoryManager.itemSlotPrefab, transform);
+                GameObject newItem = Instantiate(GameManager.Canvas.inventoryManager.itemSlotPrefab, transform);
                 item = newItem.GetComponent<InventoryItem>();
             }
 
@@ -88,8 +89,8 @@ namespace Inventory.View
 
         private bool HandleInventoryToInventory(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
         {
-            if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.inventorySlotType ||
-                slotType != CanvasManager.Instance.inventoryManager.inventorySlotType)
+            if (fromSlot.slotType != GameManager.Canvas.inventoryManager.inventorySlotType ||
+                slotType != GameManager.Canvas.inventoryManager.inventorySlotType)
                 return false;
 
             fromItem.SetParent(transform);
@@ -98,14 +99,14 @@ namespace Inventory.View
                 toItem.SetParent(fromSlot.transform);
             }
 
-            PlayerController.Instance.inventory.SwapItems(fromSlot.slotIndex, slotIndex);
+            GameManager.Player.inventory.SwapItems(fromSlot.slotIndex, slotIndex);
             return true;
         }
 
         private bool HandleInventoryToToolbar(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem) //todo sacar el to item y hacerlo por toolbar esto
         {
-            if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.inventorySlotType ||
-                slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType)
+            if (fromSlot.slotType != GameManager.Canvas.inventoryManager.inventorySlotType ||
+                slotType != GameManager.Canvas.inventoryManager.toolbarSlotType)
                 return false;
 
             if (!fromItem.itemAmount.ItemInstance.IsEquippable) return true;
@@ -118,26 +119,26 @@ namespace Inventory.View
 
             if (toItem != null) toItem.originalItem.SetEquipable(-1);
 
-            InventoryItem existingItem = CanvasManager.Instance.inventoryManager.toolbarUI.GetItem(fromItem);
+            InventoryItem existingItem = GameManager.Canvas.inventoryManager.toolbarView.GetItem(fromItem);
             if (existingItem != null) Destroy(existingItem.gameObject);
 
             if (toItem == null)
             {
-                GameObject newItem = Instantiate(CanvasManager.Instance.inventoryManager.itemSlotPrefab, transform);
+                GameObject newItem = Instantiate(GameManager.Canvas.inventoryManager.itemSlotPrefab, transform);
                 toItem = newItem.GetComponent<InventoryItem>();
             }
 
             toItem.SetItem(fromItem.itemAmount, fromItem);
             fromItem.SetEquipable(slotIndex);
             toItem.SetEquipable(slotIndex);
-            CanvasManager.Instance.inventoryManager.toolbarUI.SetItemEquipped();
+            GameManager.Canvas.inventoryManager.toolbarView.SetItemEquipped();
             return true;
         }
 
         private bool HandleToolbarToToolbar(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
         {
-            if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType ||
-                slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType)
+            if (fromSlot.slotType != GameManager.Canvas.inventoryManager.toolbarSlotType ||
+                slotType != GameManager.Canvas.inventoryManager.toolbarSlotType)
                 return false;
 
             fromItem.SetParent(transform);
@@ -152,14 +153,14 @@ namespace Inventory.View
             Toolbar toolbar = PlayerCharacter.Instance.GetComponent<Toolbar>();
             toolbar.SwapIndexes(slotIndex, fromSlot.slotIndex);
 
-            CanvasManager.Instance.inventoryManager.toolbarUI.SetItemEquipped();
+            GameManager.Canvas.inventoryManager.toolbarView.SetItemEquipped();
             return true;
         }
 
         private bool HandleToolbarToInventory(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
         {
-            if (fromSlot.slotType != CanvasManager.Instance.inventoryManager.toolbarSlotType ||
-                slotType != CanvasManager.Instance.inventoryManager.inventorySlotType)
+            if (fromSlot.slotType != GameManager.Canvas.inventoryManager.toolbarSlotType ||
+                slotType != GameManager.Canvas.inventoryManager.inventorySlotType)
                 return false;
             
             Toolbar toolbar = PlayerCharacter.Instance.GetComponent<Toolbar>();
@@ -167,7 +168,7 @@ namespace Inventory.View
 
             fromItem.originalItem.SetEquipable(-1);
             Destroy(fromItem.gameObject);
-            if (CanvasManager.Instance.inventoryManager.toolbarUI.SelectedSlot.slotIndex == fromSlot.slotIndex)
+            if (GameManager.Canvas.inventoryManager.toolbarView.SelectedSlot.slotIndex == fromSlot.slotIndex)
             {
                 ItemsInHand.Instance.SetItemEquipped(null);
             }

@@ -9,13 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0097e2d9561e7f04899bd4d2c3475c59, type: 3}
-  m_Name: TempClueNegative
+  m_Script: {fileID: 11500000, guid: 7287ecbb5a3a0684e82a39c2a10da43b, type: 3}
+  m_Name: Compass
   m_EditorClassIdentifier: 
-  tool: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
-  value: Negative
-  result: 'Potential Weakness:
-
-    Iron - Silver'
-  _minTemperature: -10
-  _maxTemperature: 0
+  clueTypeName: Compass Reaction
+  clue:
+  - {fileID: 11400000, guid: 005121b6087f54b41be7ed3b1cc769f9, type: 2}
+  - {fileID: 11400000, guid: 04cb29590be7e704da63094999c40056, type: 2}

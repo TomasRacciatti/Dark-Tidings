@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0097e2d9561e7f04899bd4d2c3475c59, type: 3}
-  m_Name: TempClueNegative
+  m_Name: TempClueMid
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
-  value: Negative
+  value: "5 - 15 \xB0C"
   result: 'Potential Weakness:
 
-    Iron - Silver'
-  _minTemperature: -10
-  _maxTemperature: 0
+    Salt - Ash'
+  _minTemperature: 5
+  _maxTemperature: 15

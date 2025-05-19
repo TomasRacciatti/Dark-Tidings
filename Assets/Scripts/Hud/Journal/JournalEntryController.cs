@@ -25,7 +25,7 @@ public class JournalEntryController : MonoBehaviour
 
     void ChangeIndex(int delta)
     {
-        var count = clueData.clue.Count;
+        var count = clueData.clue.Length;
         currentIndex = (currentIndex + delta + count) % count;
         RefreshUI();
     }

@@ -14,10 +14,9 @@ public class ClueTypeData : ScriptableObject
         [TextArea] public string descriptionText;
     }
     */
-    
+
     //public List<ClueOption> options;
 
-    public string clueTypeName;          
-    public List<SO_Clue> clue;
-    
+    public string clueTypeName;
+    public SO_Clue[] clue;
 }

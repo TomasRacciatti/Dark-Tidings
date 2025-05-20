@@ -28,10 +28,10 @@ namespace Characters
             
 
             // Mostrar indicador
-            GameObject obj = Instantiate(_indicator, transform.position + Vector3.up * 1, Quaternion.identity);
+            GameObject obj = ObjectPoolManager.Instance.SpawnObject(_indicator, transform.position + Vector3.up * 1, Quaternion.identity);
             var text = obj.GetComponentInChildren<TextMeshProUGUI>();
             text.text = $"Damage: {damage}\nModifiers: {modifierNames}";
-            Destroy(obj,5);
+            //Destroy(obj,5);
         }
     
         protected override void Death()

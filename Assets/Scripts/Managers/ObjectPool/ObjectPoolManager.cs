@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Managers.ObjectPool;
 using UnityEngine;
 
 namespace Patterns.ObjectPool
@@ -10,6 +11,7 @@ namespace Patterns.ObjectPool
         [SerializeField] private List<Spawn> initialObjects;
         public List<PooledObjectInfo> objectPools = new List<PooledObjectInfo>();
         public static ObjectPoolManager Instance;
+        private Dictionary<GameObject, Coroutine> returnCoroutines = new Dictionary<GameObject, Coroutine>();
 
         [Serializable]
         private struct Spawn
@@ -49,12 +51,15 @@ namespace Patterns.ObjectPool
             return pool;
         }
 
-        private GameObject NewObject(GameObject prefab, Vector3 position, Quaternion rotation)
+        private GameObject NewObject(GameObject prefab, Vector3 position, Quaternion rotation, bool enqueue = true)
         {
             GameObject spawneableObject = Instantiate(prefab, position, rotation);
             PooledObjectInfo pool = GetPool(prefab.name);
-            pool.inactiveObjects.Enqueue(spawneableObject);
-            spawneableObject.SetActive(false);
+            if (enqueue)
+            {
+                pool.inactiveObjects.Enqueue(spawneableObject);
+                spawneableObject.SetActive(false);
+            }
             spawneableObject.transform.SetParent(pool.folder.transform, false);
             return spawneableObject;
         }
@@ -99,21 +104,20 @@ namespace Patterns.ObjectPool
 
         public GameObject SpawnObject(GameObject prefab, Vector3 position, Quaternion rotation)
         {
-            // Find the pool corresponding to the prefab
             PooledObjectInfo pool = GetPool(prefab.name);
         
             GameObject spawneableObject;
 
-            if (pool.inactiveObjects.Count > 0) // If the pool has inactive objects
+            if (pool.inactiveObjects.Count > 0)
             {
-                spawneableObject = pool.inactiveObjects.Dequeue(); // Get the first object in the queue
+                spawneableObject = pool.inactiveObjects.Dequeue();
                 spawneableObject.transform.position = position;
                 spawneableObject.transform.rotation = rotation;
                 spawneableObject.SetActive(true);
             }
-            else // If no inactive objects exist, create a new one
+            else
             {
-                spawneableObject = NewObject(prefab, position, rotation);
+                spawneableObject = NewObject(prefab, position, rotation, false);
             }
             return spawneableObject;
         }
@@ -128,23 +132,33 @@ namespace Patterns.ObjectPool
 
         public void ReturnObjectToPool(GameObject obj)
         {
+            if (returnCoroutines.TryGetValue(obj, out Coroutine running))
+            {
+                StopCoroutine(running);
+                returnCoroutines.Remove(obj);
+            }
+            
             string objName = obj.name.Replace("(Clone)", "").Trim();
 
             PooledObjectInfo pool = GetPool(objName);
 
             obj.SetActive(false);
-            pool.inactiveObjects.Enqueue(obj); // Add the object back to the queue
+            pool.inactiveObjects.Enqueue(obj);
         }
 
         //Sobrecarga con tiempo de vida establecido
         public void ReturnObjectToPool(GameObject obj, float delay)
         {
-            StartCoroutine(ReturnObjectWithDelay(obj, delay));
+            if (returnCoroutines.ContainsKey(obj)) return;
+
+            Coroutine routine = StartCoroutine(ReturnObjectWithDelay(obj, delay));
+            returnCoroutines[obj] = routine;
         }
 
         private IEnumerator ReturnObjectWithDelay(GameObject obj, float delay)
         {
             yield return new WaitForSeconds(delay);
+            returnCoroutines.Remove(obj);
             ReturnObjectToPool(obj);
         }
     }

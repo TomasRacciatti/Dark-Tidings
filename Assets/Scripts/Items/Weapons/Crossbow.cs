@@ -38,7 +38,7 @@ namespace Items.Weapons
                 return;
             }*/
             
-            GameObject boltInstance = Instantiate(_boltPrefab, _firePoint.position, _firePoint.rotation);
+            GameObject boltInstance = ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, _firePoint.rotation, 10f);
             boltInstance.GetComponent<Bolt>().SetModifiers(_boltType.Modifiers);
             Debug.Log("Fired: " + _boltType.ItemName);
         }

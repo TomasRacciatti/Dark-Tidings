@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Interfaces;
 using Items.Base;
+using Patterns.ObjectPool;
 using UnityEngine;
 
 namespace Items
@@ -21,14 +22,18 @@ namespace Items
         
         private Rigidbody rb;
         private bool _impacted = false;
+        private Transform _parent;
         
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            _parent = transform.parent;
         }
 
         private void OnEnable()
         {
+            transform.parent = _parent;
+            _impacted = false;
             rb.isKinematic = false;
             rb.velocity = transform.forward * force;
         }
@@ -55,7 +60,7 @@ namespace Items
                 
                 rb.isKinematic = true;
                 transform.SetParent(other.transform);
-                Destroy(gameObject, 10f);
+                //Destroy(gameObject, 10f);
                 _impacted = true;
             }
         }

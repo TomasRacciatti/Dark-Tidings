@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Patterns.ObjectPool
+namespace Managers.ObjectPool
 {
     public class PooledObjectInfo
     {

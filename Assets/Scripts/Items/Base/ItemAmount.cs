@@ -8,7 +8,7 @@ namespace Items.Base
     public class ItemAmount
     {
         [SerializeField] private int amount;
-        [SerializeField] private SO_Item soItem; //for stack, mesh, materials, equipable, type
+        [SerializeField] private SO_Item soItem;
         [SerializeField] private List<ItemAmount> modifiers;
         private bool _overflow;
         

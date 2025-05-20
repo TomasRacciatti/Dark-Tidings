@@ -106,7 +106,7 @@ namespace Inventory.Model
 
         protected int StackItems(ItemAmount itemAmount)
         {
-            if (itemAmount.ItemInstance.Stack <= 1) return itemAmount.Amount;
+            if (itemAmount.SoItem.Stack <= 1) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -128,7 +128,7 @@ namespace Inventory.Model
 
         protected int RemoveItemsInternal(ItemAmount itemAmount, Func<int, bool> onItemEmptied)
         {
-            if (itemAmount.ItemInstance == null || itemAmount.Amount <= 0) return itemAmount.Amount;
+            if (itemAmount == null || itemAmount.Amount <= 0) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {

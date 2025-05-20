@@ -75,7 +75,7 @@ namespace Inventory
                 {
                     if (slotData[2].Item != slotData[1].Item && slotData[2].Item != slotData[0].Item)
                     {
-                        bullet.AddModifier(slotData[2].Item);
+                        //bullet.AddModifier(slotData[2].Item);
                         _craftedSlot.SetItem(bullet);
                     }
                     else
@@ -87,7 +87,7 @@ namespace Inventory
                 {
                     if (slotData[0].Item == slotData[1].Item)
                     {
-                        bullet.AddModifier(slotData[0].Item);
+                        //bullet.AddModifier(slotData[0].Item);
                         _craftedSlot.SetItem(bullet);
                     }
                     else

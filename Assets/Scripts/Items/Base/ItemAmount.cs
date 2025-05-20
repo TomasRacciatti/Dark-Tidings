@@ -26,8 +26,8 @@ namespace Items.Base
             _overflow = overflow;
         }
         
-        public bool IsEmpty => itemInstance == null || itemInstance.SoItem == null;
-        public bool IsFull => itemInstance != null && itemInstance.SoItem != null && !_overflow && amount >= itemInstance.SoItem.Stack;
+        public bool IsEmpty => itemInstance.SoItem == null;
+        public bool IsFull => itemInstance.SoItem != null && !_overflow && amount >= Stack;
         public int Stack => itemInstance.SoItem != null ? itemInstance.SoItem.Stack : 0;
         public SO_Item GetSoItem => itemInstance.SoItem;
 

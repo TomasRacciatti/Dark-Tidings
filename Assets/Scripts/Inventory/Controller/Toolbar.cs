@@ -60,8 +60,6 @@ namespace Inventory.Controller
         
         public void SetIndex(int toolbarSlotIndex, int inventoryIndex)
         {
-            print(toolbarSlotIndex + " : " + inventoryIndex);
-            
             if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
             
             if (inventoryIndex != -1)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Characters;
 using Characters.Player;
+using Managers;
 using Patterns;
 using UnityEngine;
 using UnityEngine.AI;
@@ -26,7 +27,7 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
-        target = PlayerCharacter.Instance.transform;
+        target = GameManager.Player.transform;
     }
 
     private void Update()
@@ -44,7 +45,7 @@ public class EnemyController : MonoBehaviour
         
         if (distanceToTarget <= attackRange && _cooldown.IsReady)
         {
-            PlayerCharacter.Instance.TakeDamage(25);
+            GameManager.Player.GetComponent<Character>().TakeDamage(25); //esta re mal esto
             _cooldown.StartCooldown(1);
         }
     }

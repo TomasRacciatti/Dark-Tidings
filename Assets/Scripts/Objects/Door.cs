@@ -19,35 +19,42 @@ namespace Objects
 
         [SerializeField] private Transform interactionPoint;
         
-        private Quaternion closedRotation;
-        private Quaternion openRotation;
-        private HingeJoint hinge;
+        [SerializeField] private AudioClip openSound;
+        [SerializeField] private AudioClip closeSound;
+        [SerializeField] private AudioClip forcedSound;
+        [SerializeField] private AudioClip lockedSound;
+        
+        private Quaternion _closedRotation;
+        private Quaternion _openRotation;
+        private HingeJoint _hinge;
+        private AudioSource _audioSource;
         
         public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
         private void Awake()
         {
-            hinge = GetComponent<HingeJoint>();
+            _hinge = GetComponent<HingeJoint>();
+            _audioSource = GetComponent<AudioSource>();
         }
 
         void Start()
         {
-            closedRotation = transform.rotation;
-            openRotation = transform.rotation * Quaternion.Euler(0f, openedAngle, 0f);
-            transform.rotation = isOpen ? openRotation : closedRotation;
+            _closedRotation = transform.rotation;
+            _openRotation = transform.rotation * Quaternion.Euler(0f, openedAngle, 0f);
+            transform.rotation = isOpen ? _openRotation : _closedRotation;
             Setup();
         }
 
         private void Setup()
         {
-            JointLimits limits = hinge.limits;
+            JointLimits limits = _hinge.limits;
             limits.min = !isLocked ? openedAngle : closedAngle;
             limits.max = closedAngle;
-            hinge.limits = limits;
+            _hinge.limits = limits;
 
-            JointSpring spring = hinge.spring;
+            JointSpring spring = _hinge.spring;
             spring.targetPosition = !isLocked ? isOpen ? openedAngle : closedAngle : closedAngle;
-            hinge.spring = spring;
+            _hinge.spring = spring;
         }
 
         public void Interact(GameObject interactableObject)
@@ -80,15 +87,17 @@ namespace Objects
         private void ToggleDoor()
         {
             isOpen = !isOpen;
-            JointSpring spring = hinge.spring;
+            _audioSource.PlayOneShot(isOpen ? openSound : closeSound);
+            JointSpring spring = _hinge.spring;
             spring.targetPosition = isOpen ? openedAngle : closedAngle;
-            hinge.spring = spring;
+            _hinge.spring = spring;
         }
 
         private void LockDoor(bool locked)
         {
             if (isOpen) return;
             isLocked = locked;
+            _audioSource.PlayOneShot(lockedSound);
             Setup();
         }
 
@@ -96,7 +105,8 @@ namespace Objects
         {
             float duration = 0.5f;
             float magnitude = 2f;
-
+            _audioSource.PlayOneShot(forcedSound);
+            
             Quaternion originalRotation = transform.rotation;
 
             float elapsed = 0f;

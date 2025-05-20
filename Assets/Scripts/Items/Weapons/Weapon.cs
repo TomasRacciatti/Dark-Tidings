@@ -145,7 +145,7 @@ namespace Items.Weapons
 
         protected void CreateRay(Vector3 direction)
         {
-            GameObject trail = ObjectPoolManager.instance.SpawnObject(_trailRenderer, _firePoint.position, Quaternion.LookRotation(direction));
+            GameObject trail = ObjectPoolManager.Instance.SpawnObject(_trailRenderer, _firePoint.position, Quaternion.LookRotation(direction));
             if (trail.TryGetComponent<BulletRay>(out var bulletRay))
             {
                 bulletRay.speed = _trailSpeed;
@@ -166,7 +166,7 @@ namespace Items.Weapons
                 hitPoint = _firePoint.position + direction * 1000;
             }
         
-            ObjectPoolManager.instance.ReturnObjectToPool(trail,Vector3.Distance(_firePoint.position, hitPoint)/_trailSpeed);
+            ObjectPoolManager.Instance.ReturnObjectToPool(trail,Vector3.Distance(_firePoint.position, hitPoint)/_trailSpeed);
         }
     
         private void PlayShootEffects()

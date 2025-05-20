@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8614300931109342550}
   - component: {fileID: 3280939701631498655}
   - component: {fileID: 1099915947994796851}
-  m_Layer: 9
+  m_Layer: 1
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5211983355801730199}
   - component: {fileID: 7579158936670888186}
-  m_Layer: 9
+  m_Layer: 1
   m_Name: Thermometer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 32768
   screen: {fileID: 4508854210370717815}
-  defaultMaterial: {fileID: 2100000, guid: 046d63d2ab45d4a268ad613744852fc9, type: 2}
   highMaterial: {fileID: 2100000, guid: d059325868484fa4ba2ba6091682a8bf, type: 2}
   lowMaterial: {fileID: 2100000, guid: 0eca4808192dee44dae5918d0d6a463b, type: 2}
   negativeMaterial: {fileID: 2100000, guid: a74090b66e43d154e97107beae0ffce9, type: 2}
@@ -173,7 +172,7 @@ GameObject:
   - component: {fileID: 5569825308977842132}
   - component: {fileID: 2196608652754217922}
   - component: {fileID: 7271066364180222539}
-  m_Layer: 9
+  m_Layer: 1
   m_Name: Body2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -278,7 +277,7 @@ GameObject:
   - component: {fileID: 1344572164600239410}
   - component: {fileID: 4508854210370717815}
   - component: {fileID: 9120415507504483992}
-  m_Layer: 9
+  m_Layer: 1
   m_Name: Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}

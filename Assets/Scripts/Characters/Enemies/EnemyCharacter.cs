@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EnemyCharacter : Character
 {
+    
+    
     protected override void Death()
     {
         gameObject.SetActive(false);

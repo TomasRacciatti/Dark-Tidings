@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7156376149166626211}
-  m_Layer: 9
+  m_Layer: 1
   m_Name: Rotator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 2041973786214362973}
   - component: {fileID: 497722177215134068}
   - component: {fileID: 2148963915455284757}
-  m_Layer: 9
+  m_Layer: 1
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 9145832097897774702}
   - component: {fileID: 2856826830826397855}
   - component: {fileID: 3606228552291831687}
-  m_Layer: 9
+  m_Layer: 1
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ GameObject:
   m_Component:
   - component: {fileID: 784638909439449398}
   - component: {fileID: 5697434649707072630}
-  m_Layer: 9
+  m_Layer: 1
   m_Name: Compass
   m_TagString: Untagged
   m_Icon: {fileID: 0}

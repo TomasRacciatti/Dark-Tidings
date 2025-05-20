@@ -9,7 +9,7 @@ namespace Patterns.ObjectPool
     {
         [SerializeField] private List<Spawn> initialObjects;
         public List<PooledObjectInfo> objectPools = new List<PooledObjectInfo>();
-        public static ObjectPoolManager instance;
+        public static ObjectPoolManager Instance;
 
         [Serializable]
         private struct Spawn
@@ -20,7 +20,7 @@ namespace Patterns.ObjectPool
 
         private void Awake()
         {
-            instance = this;
+            Instance = this;
         }
 
         private void Start()

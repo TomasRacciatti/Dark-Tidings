@@ -10,7 +10,8 @@ namespace Items
     public class Bolt : MonoBehaviour
     {
         [SerializeField] private List<SO_Item> _modifiers = new();
-    
+        [SerializeField] private LayerMask _layerMask;
+
         List<SO_Item> Modifiers => _modifiers;
 
         public void SetModifiers(List<SO_Item> modifiers)
@@ -19,15 +20,18 @@ namespace Items
         }
 
         public float force = 50;
-        
+
         private Rigidbody rb;
         private bool _impacted = false;
         private Transform _parent;
-        
+        private CapsuleCollider _collider;
+        private Vector3 _lastPosition;
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             _parent = transform.parent;
+            _collider = GetComponent<CapsuleCollider>();
         }
 
         private void OnEnable()
@@ -36,33 +40,49 @@ namespace Items
             _impacted = false;
             rb.isKinematic = false;
             rb.velocity = transform.forward * force;
+            _lastPosition = transform.position;
         }
-        
+
         private void FixedUpdate()
         {
-            if (!_impacted && rb.velocity.sqrMagnitude > 0.01f)
+            if (_impacted) return;
+            
+            Vector3 currentPosition = transform.position;
+            Vector3 direction = currentPosition - _lastPosition;
+            float distance = rb.velocity.magnitude * Time.fixedDeltaTime;
+
+            if (distance > 0f)
+            {
+                if (Physics.SphereCast(transform.position, _collider.radius, transform.forward, out RaycastHit hit, _collider.height, _layerMask))
+                {
+                    Impact(hit);
+                }
+            }
+
+            _lastPosition = transform.position;
+
+            if (rb.velocity.sqrMagnitude > 0.01f)
             {
                 transform.forward = rb.velocity.normalized;
             }
         }
-
-        private void OnTriggerEnter(Collider other)
+        
+        private void Impact(RaycastHit hit)
         {
-            if (!_impacted)
+            if (_impacted) return;
+
+            Debug.Log("Flecha impactó con: " + hit.collider.gameObject.name + "con Raycast");
+
+            var health = hit.collider.GetComponent<IDamageable>();
+            if (health != null)
             {
-                Debug.Log("Flecha impactó con: " + other.gameObject.name);
-                
-                var health = other.gameObject.GetComponent<IDamageable>();
-                if (health != null)
-                {
-                    health.TakeDamage(10, Modifiers);
-                }
-                
-                rb.isKinematic = true;
-                transform.SetParent(other.transform);
-                //Destroy(gameObject, 10f);
-                _impacted = true;
+                health.TakeDamage(10, Modifiers);
             }
+
+            rb.isKinematic = true;
+            transform.position = hit.point - transform.forward * _collider.height / 3;
+            transform.SetParent(hit.collider.transform);
+            _impacted = true;
         }
     }
 }

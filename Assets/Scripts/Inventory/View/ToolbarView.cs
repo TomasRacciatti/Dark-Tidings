@@ -52,7 +52,7 @@ namespace Inventory.View
         public void SetItemEquipped()
         {
             InventoryItem item = SelectedSlot.GetComponentInChildren<InventoryItem>();
-            ItemsInHand.Instance.SetItemEquipped(item == null ? null : item.itemAmount.ItemInstance.SoItem);
+            ItemsInHand.Instance.SetItemEquipped(item == null ? null : item.itemAmount.SoItem);
         }
     }
 }

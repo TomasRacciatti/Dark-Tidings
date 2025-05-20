@@ -29,13 +29,13 @@ namespace Items.Base
                 return;
             }
             //assign mesh and material
-            if (itemAmount.ItemInstance.SoItem.Mesh != null)
+            if (itemAmount.SoItem.Mesh != null)
             {
-                _meshFilter.mesh = itemAmount.ItemInstance.SoItem.Mesh;
+                _meshFilter.mesh = itemAmount.SoItem.Mesh;
             }
-            if (itemAmount.ItemInstance.SoItem.Materials != null && itemAmount.ItemInstance.SoItem.Materials.Length > 0)
+            if (itemAmount.SoItem.Materials != null && itemAmount.SoItem.Materials.Length > 0)
             {
-                _meshRenderer.materials = itemAmount.ItemInstance.SoItem.Materials;
+                _meshRenderer.materials = itemAmount.SoItem.Materials;
             }
         }
 

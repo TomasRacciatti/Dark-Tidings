@@ -69,6 +69,12 @@ namespace Managers
             }
         }
 
+        public static void Restart()
+        {
+            Pause(false);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
         public static void TogglePause()
         {
             Paused = !Paused;

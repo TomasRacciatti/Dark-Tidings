@@ -25,7 +25,7 @@ namespace Inventory.View
         {
             if (ammoUI != null)
             {
-                if (itemAmount.ItemInstance != null && itemAmount.ItemInstance.SoItem != null && itemAmount.ItemInstance.SoItem.AmmoType != null)
+                if (itemAmount != null && itemAmount.SoItem != null && itemAmount.SoItem.AmmoType != null)
                 {
                     ammoUI.SetActive(true);
                 }
@@ -126,7 +126,7 @@ namespace Inventory.View
                 slotType != GameManager.Canvas.inventoryManager.toolbarSlotType)
                 return false;
 
-            if (!fromItem.itemAmount.ItemInstance.SoItem.IsEquippable) return true;
+            if (!fromItem.itemAmount.SoItem.IsEquippable) return true;
 
             Toolbar toolbar = GameManager.Player.GetComponent<Toolbar>();
             toolbar.SetIndex(slotIndex, fromSlot.slotIndex);

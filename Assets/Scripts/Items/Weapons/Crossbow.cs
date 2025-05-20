@@ -10,16 +10,16 @@ namespace Items.Weapons
         [SerializeField] private Transform _firePoint;
         [SerializeField] private SO_Item _bolt;
 
-        private ItemInstance _boltType = new();
-        private ItemInstance _boltRequired1 = new();
-        private ItemInstance _boltRequired2 = new();
+        private ItemAmount _boltType = new();
+        private ItemAmount _boltRequired1 = new();
+        private ItemAmount _boltRequired2 = new();
 
         public override void Use()
         {
             Fire();
         }
 
-        private void Load(ItemInstance boltType)
+        private void Load(ItemAmount boltType)
         {
             if (boltType.SoItem == null || boltType.Modifiers == null)
             {

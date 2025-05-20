@@ -9,6 +9,11 @@ namespace Hud
         {
             GameManager.Pause(false);
         }
+        
+        public void Restart()
+        {
+            GameManager.Restart();
+        }
     
         public void QuitGame()
         {

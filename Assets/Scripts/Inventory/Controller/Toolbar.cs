@@ -67,7 +67,7 @@ namespace Inventory.Controller
             if (inventoryIndex != -1)
             {
                 ItemAmount item = inventorySystem.GetIndexItem(inventoryIndex);
-                if (!item.ItemInstance.IsEquippable) return;
+                if (!item.ItemInstance.SoItem.IsEquippable) return;
                 for (int i = 0; i < inventoryIndexes.Length; i++)
                 {
                     if (i != toolbarSlotIndex && inventoryIndexes[i] == inventoryIndex)

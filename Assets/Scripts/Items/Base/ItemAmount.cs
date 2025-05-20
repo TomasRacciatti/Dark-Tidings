@@ -1,86 +1,92 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items.Base
 {
-    [System.Serializable]
-    public struct ItemAmount
+    [Serializable]
+    public class ItemAmount : IEquatable<ItemAmount>
     {
-        [SerializeField] private ItemInstance _itemInstance;
-        [SerializeField] private int _amount;
-        private bool _allowOverflow;
+        [SerializeField] private int amount;
+        [SerializeField] private ItemInstance itemInstance;
+        private bool _overflow;
 
-        public ItemInstance ItemInstance => _itemInstance;
-        public SO_Item Item => !IsEmpty ? _itemInstance.SoItem : null;
-        public int Amount => _amount;
-
-        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, bool allowOverflow = false)
+        public ItemInstance ItemInstance => itemInstance;
+        public SO_Item Item => !IsEmpty ? itemInstance.SoItem : null;
+        public int Amount => amount;
+        public void SetOverflow(bool overflow = false)
         {
-            _itemInstance = new ItemInstance(newSoItem, new List<SO_Item>());
-            _amount = newAmount;
-            _allowOverflow = allowOverflow;
+            _overflow = overflow;
+        }
+
+        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, List<ItemAmount> itemAmount = null, bool overflow = false)
+        {
+            itemInstance = new ItemInstance(newSoItem, itemAmount ?? new List<ItemAmount>());
+            amount = newAmount;
+            _overflow = overflow;
         }
         
-        public bool IsEmpty => _itemInstance == null ||_itemInstance.SoItem == null;
-        public bool IsFull => _itemInstance != null && _itemInstance.SoItem != null && !_allowOverflow && _amount >= _itemInstance.Stack;
-        public int Stack => _itemInstance.SoItem != null ? _itemInstance.Stack : 0;
-        public SO_Item GetSoItem => _itemInstance.SoItem;
+        public bool IsEmpty => itemInstance == null || itemInstance.SoItem == null;
+        public bool IsFull => itemInstance != null && itemInstance.SoItem != null && !_overflow && amount >= itemInstance.SoItem.Stack;
+        public int Stack => itemInstance.SoItem != null ? itemInstance.SoItem.Stack : 0;
+        public SO_Item GetSoItem => itemInstance.SoItem;
 
-        public void SetOverflow(bool allowOverflow = false)
-        {
-            _allowOverflow = allowOverflow;
-        }
 
         public bool IsStackable(ItemAmount itemAmount)
         {
-            return !IsFull && _itemInstance.SoItem != null && _itemInstance.IsStackable(itemAmount.ItemInstance);
+            return !IsFull && itemInstance.SoItem != null && itemInstance.IsStackable(itemAmount.ItemInstance);
         }
 
         public int SetItem(ItemAmount itemAmount)
         {
-            _itemInstance = itemAmount.ItemInstance;
+            itemInstance = itemAmount.ItemInstance;
 
-            _amount = _allowOverflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, _itemInstance.Stack);
-            return _allowOverflow ? 0 : Mathf.Max(0, itemAmount.Amount - _itemInstance.Stack);
+            SetAmount(_overflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, itemInstance.SoItem.Stack));
+            return _overflow ? 0 : Mathf.Max(0, itemAmount.Amount - itemInstance.SoItem.Stack);
         }
-
+        
         public int SetAmount(int newAmount)
         {
             if (IsEmpty) return newAmount;
 
-            int clampedAmount = _allowOverflow ? Mathf.Max(0, newAmount) : Mathf.Clamp(newAmount, 0, _itemInstance.Stack);
-            _amount = clampedAmount;
+            int clampedAmount = _overflow ? Mathf.Max(0, newAmount) : Mathf.Clamp(newAmount, 0, itemInstance.SoItem.Stack);
+            amount = clampedAmount;
 
-            if (_amount <= 0) Clear();
-            return _allowOverflow ? 0 : newAmount - clampedAmount;
+            if (amount <= 0) Clear();
+            return _overflow ? 0 : newAmount - clampedAmount;
         }
-
+        
         public int AddAmount(int amountToAdd)
         {
             if (IsEmpty || amountToAdd <= 0) return amountToAdd;
-            return SetAmount(_amount + amountToAdd);
+            return SetAmount(amount + amountToAdd);
         }
 
         public int RemoveAmount(int amountToRemove)
         {
             if (IsEmpty || amountToRemove <= 0) return amountToRemove;
-            return SetAmount(_amount - amountToRemove);
+            return SetAmount(amount - amountToRemove);
         }
 
         public void Clear()
         {
-            _itemInstance = new ItemInstance(null, new List<SO_Item>());
-            _amount = 0;
+            itemInstance = new ItemInstance(null, new List<ItemAmount>());
+            amount = 0;
         }
 
-        public void AddModifier(SO_Item soItem)
+        public void AddModifier(ItemAmount itemAmount)
         {
-            _itemInstance.AddModifier(soItem);
+            //itemInstance.AddModifier(itemAmount);
         }
 
         public string ItemToString()
         {
-            return IsEmpty ? "Empty" : $"{_itemInstance.ItemName} x{_amount}";
+            return IsEmpty ? "Empty" : $"{itemInstance.ItemName} x{amount}";
+        }
+
+        public bool Equals(ItemAmount other)
+        {
+            return Equals(itemInstance, other.itemInstance) && amount == other.amount && _overflow == other._overflow;
         }
     }
 }

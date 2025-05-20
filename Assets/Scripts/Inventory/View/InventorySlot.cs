@@ -25,15 +25,12 @@ namespace Inventory.View
         {
             if (ammoUI != null)
             {
-                Debug.Log("a2");
                 if (itemAmount.ItemInstance != null && itemAmount.ItemInstance.SoItem != null && itemAmount.ItemInstance.SoItem.AmmoType != null)
                 {
-                    Debug.Log("a3");
                     ammoUI.SetActive(true);
                 }
                 else
                 {
-                    Debug.Log("a4");
                     ammoUI.SetActive(false);
                 }
             }
@@ -57,7 +54,6 @@ namespace Inventory.View
                 GameObject newItem = Instantiate(GameManager.Canvas.inventoryManager.itemSlotPrefab, transform);
                 item = newItem.GetComponent<InventoryItem>();
             }
-            Debug.Log(slotType + " " +slotIndex);
             item.SetItem(itemAmount, fromItem);
 
             CheckExtraUI(itemAmount);
@@ -130,7 +126,7 @@ namespace Inventory.View
                 slotType != GameManager.Canvas.inventoryManager.toolbarSlotType)
                 return false;
 
-            if (!fromItem.itemAmount.ItemInstance.IsEquippable) return true;
+            if (!fromItem.itemAmount.ItemInstance.SoItem.IsEquippable) return true;
 
             Toolbar toolbar = GameManager.Player.GetComponent<Toolbar>();
             toolbar.SetIndex(slotIndex, fromSlot.slotIndex);

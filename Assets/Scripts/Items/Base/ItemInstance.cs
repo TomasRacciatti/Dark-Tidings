@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Items.Base
 {
@@ -7,75 +8,94 @@ namespace Items.Base
     public class ItemInstance
     {
         [SerializeField] private SO_Item soItem; //for stack, mesh, materials, equipable, type
-        [SerializeField] private string _itemName;
-        [SerializeField] private string _description;
-        [SerializeField] private List<SO_Item> _modifiers;
+        [SerializeField] private List<ItemAmount> modifiers;
+        
+        private string _itemName;
+        private string _description;
 
         // Propiedades públicas
         public SO_Item SoItem => soItem;
         public string ItemName => _itemName;
-        public Sprite Image => soItem.Image;
         public string Description => _description;
-        public List<SO_Item> Modifiers => _modifiers;
-        public int Stack => soItem.Stack;
-        public ItemType ItemType => soItem.ItemType;
-        public bool IsEquippable => soItem.IsEquippable;
-        public Mesh Mesh => soItem.Mesh;
-        public Material[] Materials => soItem.Materials;
-        
-        public bool IsEmpty => soItem == null;
+        public List<ItemAmount> Modifiers => modifiers ??= new List<ItemAmount>();
 
-        public ItemInstance()
+        public ItemInstance(SO_Item soItem = null, List<ItemAmount> modifiers = null)
         {
-            soItem = null;
-            _itemName = string.Empty;
-            _description = string.Empty;
-            _modifiers = new List<SO_Item>();
-        }
-        
-        public ItemInstance(SO_Item soItem, List<SO_Item> modifiers)
-        {
+            this.soItem = soItem;
+
             if (soItem == null)
             {
-                this.soItem = null;
                 _itemName = string.Empty;
                 _description = string.Empty;
-                _modifiers = new List<SO_Item>();
+                this.modifiers = new List<ItemAmount>();
                 return;
             }
 
-            this.soItem = soItem;
-            _itemName = soItem.ItemName;
-            _description = soItem.Description;
-            _modifiers = modifiers;
-            foreach (var modifier in _modifiers)
-            {
-                _itemName = modifier.ModifierName + " " + _itemName;
-            }
+            this.modifiers = modifiers != null ? new List<ItemAmount>(modifiers) : new List<ItemAmount>();
+
+            SetItemNameAndDescription();
         }
 
-        public bool IsStackable(ItemInstance itemInstance)
+        public bool IsStackable(ItemInstance other)
         {
-            if (itemInstance == null) return false;
-            if (soItem != itemInstance.SoItem) return false;
-            if (_itemName != itemInstance.ItemName) return false;
-            if (_description != itemInstance.Description) return false;
+            if (other == null || soItem != other.soItem) return false;
 
-            // Comparar modificadores por contenido
-            if (_modifiers.Count != itemInstance.Modifiers.Count) return false;
-            for (int i = 0; i < _modifiers.Count; i++)
-            {
-                if (!_modifiers[i].Equals(itemInstance.Modifiers[i]))
-                    return false;
-            }
-    
-            return true;
+            if (modifiers.Count != other.modifiers.Count) return false;
+
+            var thisSet = new HashSet<ItemAmount>(modifiers);
+            var otherSet = new HashSet<ItemAmount>(other.modifiers);
+
+            return thisSet.SetEquals(otherSet);
         }
 
-        public void AddModifier(SO_Item soItem)
+        public void AddModifier(ItemAmount itemAmount)
         {
-            _modifiers.Add(soItem);
-            _itemName = soItem.ModifierName + " " + _itemName;
+            if (itemAmount?.ItemInstance == null) return;
+            
+            if (modifiers.Contains(itemAmount)) return;
+
+            var newPriority = itemAmount.ItemInstance.SoItem.ModifierPriority;
+
+            int index = modifiers.FindIndex(m => 
+                m.ItemInstance.SoItem.ModifierPriority > newPriority
+            );
+
+            if (index >= 0)
+                modifiers.Insert(index, itemAmount);
+            else
+                modifiers.Add(itemAmount);
+
+            SetItemNameAndDescription();
+        }
+
+        private void SetItemNameAndDescription()
+        {
+            if (soItem == null)
+            {
+                _itemName = string.Empty;
+                _description = string.Empty;
+                return;
+            }
+
+            string baseName = soItem.ItemName;
+            foreach (var modifier in modifiers)
+            {
+                baseName = modifier.ItemInstance.soItem.ModifierName + " " + baseName;
+            }
+
+            _itemName = baseName;
+
+            string desc = soItem.Description;
+            if (modifiers != null && modifiers.Count > 0)
+            {
+                desc += "\nMade of:";
+                foreach (var modifier in modifiers)
+                {
+                    desc += "\n- " + modifier.ItemInstance.soItem.ItemName;
+                }
+            }
+
+            _description = desc;
         }
     }
 }

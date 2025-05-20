@@ -106,7 +106,7 @@ namespace Inventory.Model
 
         protected int StackItems(ItemAmount itemAmount)
         {
-            if (itemAmount.ItemInstance.Stack <= 1) return itemAmount.Amount;
+            if (itemAmount.ItemInstance.SoItem.Stack <= 1) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {

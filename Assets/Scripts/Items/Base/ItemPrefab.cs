@@ -1,48 +1,41 @@
+using System;
 using Interfaces;
 using Inventory.Model;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Items.Base
 {
     public class ItemPrefab : MonoBehaviour, IInteractable
     {
-        [SerializeField] private SO_Item soItem;
-        [SerializeField] private int Amount;
-    
-        private ItemAmount itemAmount;
-        private MeshFilter meshFilter;
-        private MeshRenderer meshRenderer;
+        [SerializeField] private ItemAmount itemAmount;
+        private MeshFilter _meshFilter;
+        private MeshRenderer _meshRenderer;
     
         [SerializeField] private Transform interactionPoint;
         public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
         private void Awake()
         {
-            if (soItem == null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            meshFilter = GetComponent<MeshFilter>();
-            meshRenderer = GetComponent<MeshRenderer>();
-            itemAmount = new ItemAmount(soItem, Amount, true);
+            _meshFilter = GetComponent<MeshFilter>();
+            _meshRenderer = GetComponent<MeshRenderer>();
         }
 
         private void OnEnable()
         {
-            if (itemAmount.ItemInstance == null || itemAmount.Amount <= 0)
+            if (itemAmount.IsEmpty)
             {
                 Destroy(gameObject);
                 return;
             }
             //assign mesh and material
-            if (itemAmount.ItemInstance.Mesh != null)
+            if (itemAmount.ItemInstance.SoItem.Mesh != null)
             {
-                meshFilter.mesh = itemAmount.ItemInstance.Mesh;
+                _meshFilter.mesh = itemAmount.ItemInstance.SoItem.Mesh;
             }
-            if (itemAmount.ItemInstance.Materials != null && itemAmount.ItemInstance.Materials.Length > 0)
+            if (itemAmount.ItemInstance.SoItem.Materials != null && itemAmount.ItemInstance.SoItem.Materials.Length > 0)
             {
-                meshRenderer.materials = itemAmount.ItemInstance.Materials;
+                _meshRenderer.materials = itemAmount.ItemInstance.SoItem.Materials;
             }
         }
 

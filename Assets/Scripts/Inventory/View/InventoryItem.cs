@@ -32,7 +32,7 @@ namespace Inventory.View
         public void SetItem(ItemAmount newItemAmount, InventoryItem original = null)
         {
             itemAmount = newItemAmount;
-            image.sprite = itemAmount.ItemInstance.Image;
+            image.sprite = itemAmount.ItemInstance.SoItem.Image;
             RefreshCount();
             ValidateEquipable();
             originalItem = original;
@@ -62,7 +62,7 @@ namespace Inventory.View
 
         private void ValidateEquipable()
         {
-            if (itemAmount.ItemInstance.IsEquippable) isEquipable.SetActive(true);
+            if (itemAmount.ItemInstance.SoItem.IsEquippable) isEquipable.SetActive(true);
             else isEquipable.SetActive(false);
         }
 

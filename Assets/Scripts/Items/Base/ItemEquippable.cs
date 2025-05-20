@@ -6,5 +6,7 @@ namespace Items.Base
     {
         [SerializeField] public SO_Item soItem;
         public abstract void Use();
+        
+        
     }
 }

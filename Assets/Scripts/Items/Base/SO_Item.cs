@@ -12,6 +12,7 @@ namespace Items.Base
         [SerializeField] private int stack = 10;
         [SerializeField] private ItemType type;
         [SerializeField] private bool equippable;
+        [SerializeField] private SO_Item ammoType;
         [SerializeField] private Mesh mesh;
         [SerializeField] private Material[] materials;
 
@@ -23,6 +24,7 @@ namespace Items.Base
         public int Stack => stack;
         public ItemType ItemType => type;
         public bool IsEquippable => equippable;
+        public SO_Item AmmoType => ammoType;
         public Mesh Mesh => mesh;
         public Material[] Materials => materials;
     }

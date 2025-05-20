@@ -13,6 +13,7 @@ namespace Inventory.View
         public SlotType slotType;
         public int slotIndex;
         public UnityEvent onClickAction;
+        public GameObject ammoUI;
 
         public void SetSlotType(SlotType type, int index)
         {
@@ -20,7 +21,25 @@ namespace Inventory.View
             slotIndex = index;
         }
 
-        public void SetItem(ItemAmount itemAmount)
+        public void CheckExtraUI(ItemAmount itemAmount)
+        {
+            if (ammoUI != null)
+            {
+                Debug.Log("a2");
+                if (itemAmount.ItemInstance != null && itemAmount.ItemInstance.SoItem != null && itemAmount.ItemInstance.SoItem.AmmoType != null)
+                {
+                    Debug.Log("a3");
+                    ammoUI.SetActive(true);
+                }
+                else
+                {
+                    Debug.Log("a4");
+                    ammoUI.SetActive(false);
+                }
+            }
+        }
+
+        public void SetItem(ItemAmount itemAmount, InventoryItem fromItem = null)
         {
             InventoryItem item = GetComponentInChildren<InventoryItem>();
             if (itemAmount.IsEmpty)
@@ -38,8 +57,10 @@ namespace Inventory.View
                 GameObject newItem = Instantiate(GameManager.Canvas.inventoryManager.itemSlotPrefab, transform);
                 item = newItem.GetComponent<InventoryItem>();
             }
+            Debug.Log(slotType + " " +slotIndex);
+            item.SetItem(itemAmount, fromItem);
 
-            item.SetItem(itemAmount);
+            CheckExtraUI(itemAmount);
         }
 
         public ItemAmount GetItemAmount()
@@ -120,7 +141,12 @@ namespace Inventory.View
             if (toItem != null) toItem.originalItem.SetEquipable(-1);
 
             InventoryItem existingItem = GameManager.Canvas.inventoryManager.toolbarView.GetItem(fromItem);
-            if (existingItem != null) Destroy(existingItem.gameObject);
+            
+            if (existingItem != null)
+            {
+                existingItem.GetComponentInParent<InventorySlot>().CheckExtraUI(new ItemAmount());
+                Destroy(existingItem.gameObject);
+            }
 
             if (toItem == null)
             {
@@ -128,7 +154,7 @@ namespace Inventory.View
                 toItem = newItem.GetComponent<InventoryItem>();
             }
 
-            toItem.SetItem(fromItem.itemAmount, fromItem);
+            SetItem(fromItem.itemAmount, fromItem);
             fromItem.SetEquipable(slotIndex);
             toItem.SetEquipable(slotIndex);
             GameManager.Canvas.inventoryManager.toolbarView.SetItemEquipped();
@@ -144,11 +170,17 @@ namespace Inventory.View
             fromItem.SetParent(transform);
             fromItem.SetEquipable(slotIndex);
             fromItem.originalItem.SetEquipable(slotIndex);
+            CheckExtraUI(fromItem.itemAmount);
             if (toItem)
             {
+                fromSlot.CheckExtraUI(toItem.itemAmount);
                 toItem.SetParent(fromSlot.transform);
                 toItem.SetEquipable(fromSlot.slotIndex);
                 toItem.originalItem.SetEquipable(fromSlot.slotIndex);
+            }
+            else
+            {
+                fromSlot.CheckExtraUI(new ItemAmount());
             }
             Toolbar toolbar = GameManager.Player.GetComponent<Toolbar>();
             toolbar.SwapIndexes(slotIndex, fromSlot.slotIndex);
@@ -167,6 +199,7 @@ namespace Inventory.View
             toolbar.SetIndex(toolbar.GetIndex(fromSlot.slotIndex), -1);
 
             fromItem.originalItem.SetEquipable(-1);
+            fromSlot.CheckExtraUI(new ItemAmount());
             Destroy(fromItem.gameObject);
             if (GameManager.Canvas.inventoryManager.toolbarView.SelectedSlot.slotIndex == fromSlot.slotIndex)
             {

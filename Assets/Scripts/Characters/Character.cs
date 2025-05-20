@@ -30,11 +30,11 @@ namespace Characters
                 {
                     if (weaknesses.Contains(modifier))
                     {
-                        finalDamage *= 1.5f;
+                        finalDamage *= 2.5f;
                     }
                     else if (strengths.Contains(modifier))
                     {
-                        finalDamage *= 0.5f;
+                        finalDamage *= 0.2f;
                     }
                 }
             }

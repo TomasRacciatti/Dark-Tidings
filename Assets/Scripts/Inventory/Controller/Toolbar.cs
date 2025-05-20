@@ -60,13 +60,14 @@ namespace Inventory.Controller
         
         public void SetIndex(int toolbarSlotIndex, int inventoryIndex)
         {
+            print(toolbarSlotIndex + " : " + inventoryIndex);
+            
             if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
-
-            ItemAmount item = inventorySystem.GetIndexItem(inventoryIndex);
-            if (!item.ItemInstance.IsEquippable) return;
             
             if (inventoryIndex != -1)
             {
+                ItemAmount item = inventorySystem.GetIndexItem(inventoryIndex);
+                if (!item.ItemInstance.IsEquippable) return;
                 for (int i = 0; i < inventoryIndexes.Length; i++)
                 {
                     if (i != toolbarSlotIndex && inventoryIndexes[i] == inventoryIndex)

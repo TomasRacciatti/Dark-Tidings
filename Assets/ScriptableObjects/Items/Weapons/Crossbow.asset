@@ -19,5 +19,6 @@ MonoBehaviour:
   stack: 1
   type: {fileID: 11400000, guid: 1a1ec36dcc4a0be4a956f7aec8eb212b, type: 2}
   equippable: 1
+  ammoType: {fileID: 11400000, guid: 9b38c3c183286334aba2424cf2745161, type: 2}
   mesh: {fileID: 0}
   materials: []

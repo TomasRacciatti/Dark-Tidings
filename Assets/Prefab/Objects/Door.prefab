@@ -362,6 +362,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openedAngle: -120
   closedAngle: 0
+  lockedAngle: -5
   isOpen: 0
   isLocked: 0
   keyItem: {fileID: 11400000, guid: 77367ca7c480d744880ea706eef0c73c, type: 2}

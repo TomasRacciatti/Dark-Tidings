@@ -13,6 +13,7 @@ namespace Objects
     {
         [Header("Options")] [SerializeField] private float openedAngle = -120f;
         [SerializeField] private float closedAngle = 0f;
+        [SerializeField] private float lockedAngle = -5f;
         [SerializeField] private bool isOpen = false;
         [SerializeField] private bool isLocked = false;
         [SerializeField] private SO_Item keyItem;
@@ -50,7 +51,7 @@ namespace Objects
         private void Setup()
         {
             JointLimits limits = _hinge.limits;
-            limits.min = !isLocked ? openedAngle : closedAngle;
+            limits.min = !isLocked ? openedAngle : lockedAngle;
             limits.max = closedAngle;
             _hinge.limits = limits;
 
@@ -105,27 +106,43 @@ namespace Objects
 
         private IEnumerator ForceDoor()
         {
-            float duration = 0.5f;
-            float magnitude = 2f;
             _audioSource.PlayOneShot(forcedSound);
-            
-            Quaternion originalRotation = transform.rotation;
+
+            JointLimits limits = _hinge.limits;
+            limits.min = lockedAngle;
+            limits.max = closedAngle;
+            _hinge.limits = limits;
+
+            JointSpring spring = _hinge.spring;
+            var force = spring.spring;
+            spring.spring = 500;
 
             float elapsed = 0f;
+            float duration = 1.2f;
+
             while (elapsed < duration && !isOpen)
             {
                 elapsed += Time.deltaTime;
-                float shake = Mathf.Sin(elapsed * 40f) * magnitude;
-                transform.localRotation = originalRotation * Quaternion.Euler(0f, shake, 0f);
+
+                float shake = Mathf.Sin(elapsed * 5000f) * lockedAngle;
+                float target = Mathf.Clamp(closedAngle + shake, closedAngle, lockedAngle);
+
+                spring.targetPosition = target;
+                _hinge.spring = spring;
+
                 yield return null;
             }
-
-            transform.localRotation = originalRotation;
+            
+            spring.targetPosition = closedAngle;
+            spring.spring = force;
+            _hinge.spring = spring;
+            Setup();
         }
-
+        
         public void OnPushed(Vector3 pushDirection, float strength)
         {
             if (_rigidbody == null) return;
+            if (isLocked) return;
 
             StartCoroutine(PlayIfMoved());
         }

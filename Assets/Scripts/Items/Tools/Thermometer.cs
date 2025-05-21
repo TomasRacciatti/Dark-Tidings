@@ -19,7 +19,7 @@ namespace Items.Tools
         
         private float _temperature = 25;
         private float _targetTemperature = 25;
-        private Cooldown _cooldown = new();
+        private readonly Cooldown _cooldown = new();
 
         private void OnEnable()
         {
@@ -33,7 +33,11 @@ namespace Items.Tools
 
         private void Update()
         {
-            print("Temp" + _temperature + " Target: " + _targetTemperature);
+            CheckTemperature();
+        }
+
+        private void CheckTemperature()
+        {
             Collider[] hits = Physics.OverlapSphere(transform.position, 1, clueLayerMask);
             foreach (var hit in hits)
             {

@@ -12,7 +12,10 @@ namespace Objects.Clues
 
         private void OnEnable()
         {
-            
+            if (_clueProvided.Default)
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void OnDisable()

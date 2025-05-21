@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: TempDefault
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
+  isDefault: 1
   value: No Reaction
   result: No info...
   _minTemperature: 20

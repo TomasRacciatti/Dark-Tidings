@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: CompDefault
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: f270ec18bac589d47a714ff514e0ded2, type: 2}
+  isDefault: 1
   value: No Reaction
   result: No Info...
   compassMode: 0

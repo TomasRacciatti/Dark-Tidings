@@ -1751,17 +1751,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crossbow
       objectReference: {fileID: 0}
+    - target: {fileID: 4776498118628300235, guid: ace082a077df8ff4b90862c87f0816ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5228353479462233569, guid: ace082a077df8ff4b90862c87f0816ef, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.068
       objectReference: {fileID: 0}
     - target: {fileID: 5228353479462233569, guid: ace082a077df8ff4b90862c87f0816ef, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.037
       objectReference: {fileID: 0}
     - target: {fileID: 5228353479462233569, guid: ace082a077df8ff4b90862c87f0816ef, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.004
       objectReference: {fileID: 0}
     - target: {fileID: 5228353479462233569, guid: ace082a077df8ff4b90862c87f0816ef, type: 3}
       propertyPath: m_LocalRotation.w

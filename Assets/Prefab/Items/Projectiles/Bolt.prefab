@@ -51,7 +51,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 26049
-  force: 20
+  force: 50
 --- !u!136 &1095582539407874200
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -25,7 +25,6 @@ namespace Items
         private bool _impacted = false;
         private Transform _parent;
         private CapsuleCollider _collider;
-        private Vector3 _lastPosition;
 
         private void Awake()
         {
@@ -40,33 +39,23 @@ namespace Items
             _impacted = false;
             rb.isKinematic = false;
             rb.velocity = transform.forward * force;
-            _lastPosition = transform.position;
         }
 
         private void FixedUpdate()
         {
             if (_impacted) return;
             
-            Vector3 currentPosition = transform.position;
-            Vector3 direction = currentPosition - _lastPosition;
-            float distance = rb.velocity.magnitude * Time.fixedDeltaTime;
-
-            if (distance > 0f)
-            {
-                if (Physics.SphereCast(transform.position, _collider.radius, transform.forward, out RaycastHit hit, _collider.height, _layerMask))
-                {
-                    Impact(hit);
-                }
-            }
-
-            _lastPosition = transform.position;
-
             if (rb.velocity.sqrMagnitude > 0.01f)
             {
                 transform.forward = rb.velocity.normalized;
             }
+
+            var origin = transform.position - transform.forward * _collider.height / 2;
+            var distance = rb.velocity.magnitude * Time.fixedDeltaTime;
+            if (Physics.SphereCast(origin, _collider.radius, transform.forward, out RaycastHit hit, distance,
+                    _layerMask)) Impact(hit);
         }
-        
+
         private void Impact(RaycastHit hit)
         {
             if (_impacted) return;

@@ -27,26 +27,42 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(ExecuteNextFrame());
+    }
+    
+    private IEnumerator ExecuteNextFrame()
+    {
+        yield return null;
+        SetTarget();
+    }
+
+    private void SetTarget()
+    {
         target = GameManager.Player.transform;
     }
 
     private void Update()
     {
-        float distanceToTarget = Vector3.Distance(transform.position, target.position);
+        if (target)
+        {
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-        if (distanceToTarget <= chaseRange)
-        {
-            agent.SetDestination(target.position);
-        }
-        else
-        {
-            agent.ResetPath();
-        }
-        
-        if (distanceToTarget <= attackRange && _cooldown.IsReady)
-        {
-            GameManager.Player.GetComponent<Character>().TakeDamage(25); //esta re mal esto
-            _cooldown.StartCooldown(1);
+            if (distanceToTarget <= chaseRange)
+            {
+                agent.SetDestination(target.position);
+            }
+            else
+            {
+                agent.ResetPath();
+            }
+
+            if (distanceToTarget <= attackRange && _cooldown.IsReady)
+            {
+                GameManager.Player.GetComponent<Character>().TakeDamage(25); //esta re mal esto
+                _cooldown.StartCooldown(1);
+            }
         }
     }
+    
+    
 }

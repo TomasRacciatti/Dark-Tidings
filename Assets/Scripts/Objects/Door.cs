@@ -9,7 +9,7 @@ using Items.Base;
 
 namespace Objects
 {
-    public class Door : MonoBehaviour, IInteractable
+    public class Door : MonoBehaviour, IInteractable, IPushable
     {
         [Header("Options")] [SerializeField] private float openedAngle = -120f;
         [SerializeField] private float closedAngle = 0f;
@@ -27,14 +27,16 @@ namespace Objects
         private Quaternion _closedRotation;
         private Quaternion _openRotation;
         private HingeJoint _hinge;
+        private Rigidbody _rigidbody;
         private AudioSource _audioSource;
-        
+
         public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
         private void Awake()
         {
             _hinge = GetComponent<HingeJoint>();
             _audioSource = GetComponent<AudioSource>();
+            _rigidbody = GetComponent<Rigidbody>();
         }
 
         void Start()
@@ -119,6 +121,23 @@ namespace Objects
             }
 
             transform.localRotation = originalRotation;
+        }
+
+        public void OnPushed(Vector3 pushDirection, float strength)
+        {
+            if (_rigidbody == null) return;
+
+            StartCoroutine(PlayIfMoved());
+        }
+        
+        private IEnumerator PlayIfMoved()
+        {
+            yield return new WaitForFixedUpdate();
+
+            if (_rigidbody.angularVelocity.magnitude > 0.1f && !_audioSource.isPlaying)
+            {
+                _audioSource.PlayOneShot(openSound);
+            }
         }
     }
 }

@@ -23,6 +23,10 @@ namespace Managers
         private void Awake()
         {
             InstantiateInstance();
+        }
+
+        private void Start()
+        {
             Instantiate(eventSystemPrefab);
             if (SceneManager.GetActiveScene().name != "MainMenu")
             {

@@ -30,6 +30,7 @@ namespace Objects
         private HingeJoint _hinge;
         private Rigidbody _rigidbody;
         private AudioSource _audioSource;
+        private float _hingeForce;
 
         public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
@@ -38,6 +39,7 @@ namespace Objects
             _hinge = GetComponent<HingeJoint>();
             _audioSource = GetComponent<AudioSource>();
             _rigidbody = GetComponent<Rigidbody>();
+            _hingeForce = _hinge.spring.spring;
         }
 
         void Start()
@@ -134,7 +136,7 @@ namespace Objects
             }
             
             spring.targetPosition = closedAngle;
-            spring.spring = force;
+            spring.spring = _hingeForce;
             _hinge.spring = spring;
             Setup();
         }

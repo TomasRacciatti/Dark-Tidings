@@ -134,7 +134,7 @@ namespace Patterns.ObjectPool
             string objName = obj.name.Replace("(Clone)", "").Trim();
 
             PooledObjectInfo pool = GetPool(objName);
-            obj.transform.SetParent(pool.folder.transform, false);
+            obj.transform.SetParent(pool.folder.transform);
             
             obj.SetActive(false);
             pool.inactiveObjects.Enqueue(obj);

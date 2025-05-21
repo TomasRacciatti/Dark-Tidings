@@ -11,7 +11,6 @@ namespace Patterns.ObjectPool
         [SerializeField] private List<Spawn> initialObjects;
         public List<PooledObjectInfo> objectPools = new List<PooledObjectInfo>();
         public static ObjectPoolManager Instance;
-        private Dictionary<GameObject, Coroutine> returnCoroutines = new Dictionary<GameObject, Coroutine>();
 
         [Serializable]
         private struct Spawn
@@ -132,12 +131,6 @@ namespace Patterns.ObjectPool
 
         public void ReturnObjectToPool(GameObject obj)
         {
-            if (returnCoroutines.TryGetValue(obj, out Coroutine running))
-            {
-                StopCoroutine(running);
-                returnCoroutines.Remove(obj);
-            }
-            
             string objName = obj.name.Replace("(Clone)", "").Trim();
 
             PooledObjectInfo pool = GetPool(objName);
@@ -149,16 +142,12 @@ namespace Patterns.ObjectPool
         //Sobrecarga con tiempo de vida establecido
         public void ReturnObjectToPool(GameObject obj, float delay)
         {
-            if (returnCoroutines.ContainsKey(obj)) return;
-
             Coroutine routine = StartCoroutine(ReturnObjectWithDelay(obj, delay));
-            returnCoroutines[obj] = routine;
         }
 
         private IEnumerator ReturnObjectWithDelay(GameObject obj, float delay)
         {
             yield return new WaitForSeconds(delay);
-            returnCoroutines.Remove(obj);
             ReturnObjectToPool(obj);
         }
     }

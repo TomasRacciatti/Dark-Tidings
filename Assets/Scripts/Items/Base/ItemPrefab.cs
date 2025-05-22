@@ -29,11 +29,12 @@ namespace Items.Base
                 return;
             }
             //assign mesh and material
+            
             if (itemAmount.SoItem.Mesh != null)
             {
                 _meshFilter.mesh = itemAmount.SoItem.Mesh;
             }
-            if (itemAmount.SoItem.Materials != null && itemAmount.SoItem.Materials.Length > 0)
+            if (itemAmount.SoItem.Materials is { Length: > 0 })
             {
                 _meshRenderer.materials = itemAmount.SoItem.Materials;
             }

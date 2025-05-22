@@ -78,7 +78,7 @@ namespace Inventory.View
                 return null;
             }
 
-            return GetItemAmount().GetSoItem;
+            return GetItemAmount().SoItem;
         }
 
         public void OnPointerClick(PointerEventData eventData)

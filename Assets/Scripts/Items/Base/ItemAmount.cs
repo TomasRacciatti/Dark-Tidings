@@ -11,23 +11,15 @@ namespace Items.Base
         [SerializeField] private SO_Item soItem;
         [SerializeField] private List<ItemAmount> modifiers;
         private bool _overflow;
-        
-        public SO_Item Item => !IsEmpty ? soItem : null;
-        public int Amount => amount;
-        
         private string _itemName;
         private string _description;
         
+        public int Amount => amount;
         public SO_Item SoItem => soItem;
+        public List<ItemAmount> Modifiers => modifiers ??= new List<ItemAmount>();
         public string ItemName => _itemName;
         public string Description => _description;
-        public List<ItemAmount> Modifiers => modifiers ??= new List<ItemAmount>();
         
-        public void SetOverflow(bool overflow = false)
-        {
-            _overflow = overflow;
-        }
-
         public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, List<ItemAmount> modifiers = null, bool overflow = false)
         {
             soItem = newSoItem;
@@ -36,21 +28,25 @@ namespace Items.Base
             this.modifiers = modifiers ?? new List<ItemAmount>();
         }
         
-        public bool IsEmpty => SoItem == null;
-        public bool IsFull => SoItem != null && !_overflow && amount >= Stack;
-        public int Stack => SoItem != null ? SoItem.Stack : 0;
-        public SO_Item GetSoItem => SoItem;
+        public void SetOverflow(bool overflow = false)
+        {
+            _overflow = overflow;
+        }
+        
+        public bool IsEmpty => soItem == null;
+        public bool IsFull => soItem != null && !_overflow && amount >= Stack;
+        public int Stack => soItem != null ? soItem.Stack : 0;
 
         public bool IsStackable(ItemAmount other)
         {
-            if (other == null || this.IsFull || other.IsFull) return false;
+            if (other == null || IsFull || other.IsFull) return false;
 
-            if (this.soItem != other.soItem) return false;
+            if (soItem != other.soItem) return false;
 
-            if (this.modifiers.Count != other.modifiers.Count) return false;
+            if (Modifiers.Count != other.Modifiers.Count) return false;
             
-            var thisSet = new HashSet<ItemAmount>(this.modifiers);
-            var otherSet = new HashSet<ItemAmount>(other.modifiers);
+            var thisSet = new HashSet<ItemAmount>(Modifiers);
+            var otherSet = new HashSet<ItemAmount>(other.Modifiers);
 
             return thisSet.SetEquals(otherSet);
         }
@@ -58,6 +54,7 @@ namespace Items.Base
         public int SetItem(ItemAmount itemAmount)
         {
             soItem = itemAmount.SoItem;
+            SetItemNameAndDescription();
 
             SetAmount(_overflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, SoItem.Stack));
             return _overflow ? 0 : Mathf.Max(0, itemAmount.Amount - SoItem.Stack);
@@ -141,11 +138,6 @@ namespace Items.Base
             }
 
             _description = desc;
-        }
-
-        public bool Equals(ItemAmount other)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -61,40 +61,21 @@ namespace Inventory
 
         private void UpdateCrafting()
         {
-            var slotData = new[] {
-                new { Item = _slots[0].GetItemObject(), Index = 0 },
-                new { Item = _slots[1].GetItemObject(), Index = 1 },
-                new { Item = _slots[2].GetItemObject(), Index = 2 }
-            };
+            var item0 = _slots[0].GetItemObject();
+            var item1 = _slots[1].GetItemObject();
+            var item2 = _slots[2].GetItemObject();
 
-            ItemAmount bullet = new ItemAmount(this.bullet, 1);
-            
-            if (slotData[0].Item != null && slotData[1].Item != null)
+            // Condición base: ambos ítems existen y son iguales
+            bool baseValid = item0 != null && item1 != null && item0 == item1;
+
+            // Condición modificador válido: item2 es null o distinto del base
+            bool modifierValid = item2 == null || item2 != item0;
+
+            if (baseValid && modifierValid)
             {
-                if (slotData[2].Item != null)
-                {
-                    if (slotData[2].Item != slotData[1].Item && slotData[2].Item != slotData[0].Item)
-                    {
-                        //bullet.AddModifier(slotData[2].Item);
-                        _craftedSlot.SetItem(bullet);
-                    }
-                    else
-                    {
-                        _craftedSlot.SetItem(new ItemAmount(null, 0));
-                    }
-                }
-                else
-                {
-                    if (slotData[0].Item == slotData[1].Item)
-                    {
-                        //bullet.AddModifier(slotData[0].Item);
-                        _craftedSlot.SetItem(bullet);
-                    }
-                    else
-                    {
-                        _craftedSlot.SetItem(new ItemAmount(null, 0));
-                    }
-                }
+                var bullet = new ItemAmount(this.bullet, 5);
+                bullet.AddModifier(new ItemAmount(item2 != null ? item2 : item0, 1));
+                _craftedSlot.SetItem(bullet);
             }
             else
             {

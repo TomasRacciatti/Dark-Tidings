@@ -53,7 +53,7 @@ namespace Inventory.Model
             if (soItem == null) return 0;
 
             return items
-                .Where(item => !item.IsEmpty && item.GetSoItem == soItem)
+                .Where(item => !item.IsEmpty && item.SoItem == soItem)
                 .Sum(item => item.Amount);
         }
 
@@ -63,7 +63,7 @@ namespace Inventory.Model
 
         public ItemAmount[] GetItemsOfTypes(params ItemType[] types)
         {
-            return items.Where(item => !item.IsEmpty && types.Contains(item.GetSoItem.ItemType)).ToArray();
+            return items.Where(item => !item.IsEmpty && types.Contains(item.SoItem.ItemType)).ToArray();
         }
 
         public Dictionary<SO_Item, int> GetAmountByItem()
@@ -74,7 +74,7 @@ namespace Inventory.Model
                     new Dictionary<SO_Item, int>(),
                     (acc, item) =>
                     {
-                        var soItem = item.GetSoItem;
+                        var soItem = item.SoItem;
                         acc.TryAdd(soItem, 0);
 
                         acc[soItem] += item.Amount;

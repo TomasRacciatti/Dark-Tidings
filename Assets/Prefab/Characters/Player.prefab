@@ -258,7 +258,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8448
   canPush: 1
-  strength: 3
+  strength: 4.92
 --- !u!114 &3884804025199195881
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ namespace Objects
         [Header("Options")] [SerializeField] private float openedAngle = 120f;
         [SerializeField] private float closedAngle = 0f;
         [SerializeField] private float lockedAngle = 3f;
-        [SerializeField] private float lockedfrecuencia = 500f;
         [SerializeField] private bool isOpen = false;
         [SerializeField] private bool isLocked = false;
         [SerializeField] private SO_Item keyItem;
@@ -128,7 +127,7 @@ namespace Objects
             {
                 elapsed += Time.deltaTime;
 
-                float shake = Mathf.Sin(elapsed * lockedfrecuencia) * lockedAngle;
+                float shake = Mathf.Sin(elapsed * 25) * lockedAngle;
                 float target = Mathf.Clamp(closedAngle + shake, -lockedAngle, lockedAngle);
 
                 spring.targetPosition = target;

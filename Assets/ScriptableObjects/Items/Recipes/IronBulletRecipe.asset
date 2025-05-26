@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f6d5beadeb14aeeb8abfefd2e5fc98a, type: 3}
+  m_Name: IronBulletRecipe
+  m_EditorClassIdentifier: 
+  ingredients:
+  - _itemInstance:
+      _itemObject: {fileID: 11400000, guid: 1d86efae8de79d14f8be294b5c3e2df5, type: 2}
+      _itemName: 
+      _image: {fileID: 0}
+      _description: 
+      _modifiers: []
+    _amount: 1
+  - _itemInstance:
+      _itemObject: {fileID: 11400000, guid: 1d86efae8de79d14f8be294b5c3e2df5, type: 2}
+      _itemName: 
+      _image: {fileID: 0}
+      _description: 
+      _modifiers: []
+    _amount: 1
+  resultItem:
+    _itemInstance:
+      _itemObject: {fileID: 11400000, guid: 9b38c3c183286334aba2424cf2745161, type: 2}
+      _itemName: Iron Bullet
+      _image: {fileID: 21300000, guid: 1a1b35661da6a2b4c8a5dee78142123b, type: 3}
+      _description: 
+      _modifiers:
+      - {fileID: 11400000, guid: 1d86efae8de79d14f8be294b5c3e2df5, type: 2}
+    _amount: 5

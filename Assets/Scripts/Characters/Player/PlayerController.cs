@@ -17,7 +17,8 @@ namespace Characters.Player
         [SerializeField] private float GroundedOffset = -0.41f;
         [SerializeField] private LayerMask GroundLayers;
 
-        [HideInInspector] public bool Grounded = true;
+        private bool _grounded = true;
+        public bool Grounded => _grounded;
 
         [Header("Cinemachine")] [SerializeField]
         private GameObject CinemachineCameraTarget;
@@ -50,14 +51,11 @@ namespace Characters.Player
         private const float _threshold = 0.01f;
 
         private Character _character;
-
-        public static PlayerController Instance;
         
         public FiniteInventory inventory;
-
+        
         private void Awake()
         {
-            Instance = this;
             _character = GetComponent<Character>();
             _characterController = GetComponent<CharacterController>();
             _inputEvents = GetComponent<InputsEvents>();
@@ -86,19 +84,19 @@ namespace Characters.Player
 
         private void GroundedCheck()
         {
-            bool wasGrounded = Grounded;
+            bool wasGrounded = _grounded;
 
             Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
                 transform.position.z);
-            Grounded = Physics.CheckSphere(spherePosition, _characterController.radius, GroundLayers,
+            _grounded = Physics.CheckSphere(spherePosition, _characterController.radius, GroundLayers,
                 QueryTriggerInteraction.Ignore);
 
-            if (!wasGrounded && Grounded)
+            if (!wasGrounded && _grounded)
             {
                 _playerView.Landed();
             }
 
-            _playerView.SetGrounded(Grounded);
+            _playerView.SetGrounded(_grounded);
         }
 
         private void CeilingCheck()
@@ -116,12 +114,12 @@ namespace Characters.Player
 
         private void CameraRotation()
         {
-            if (_inputEvents.look.sqrMagnitude >= _threshold && !_inputEvents.inventoryOpened)
+            if (_inputEvents.GetLook.sqrMagnitude >= _threshold)
             {
                 float deltaTimeMultiplier = 1.0f; //arreglar para mando
 
-                _cinemachineTargetYaw += _inputEvents.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _inputEvents.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _inputEvents.GetLook.x * deltaTimeMultiplier;
+                _cinemachineTargetPitch += _inputEvents.GetLook.y * deltaTimeMultiplier;
             }
 
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
@@ -135,9 +133,9 @@ namespace Characters.Player
 
         private void HorizontalMovement()
         {
-            float speed = _inputEvents.sprint ? 2 * _character.speed : _character.speed;
+            float speed = _inputEvents.IsSprinting ? 2 * _character.speed : _character.speed;
 
-            if (_inputEvents.movement == Vector2.zero) speed = 0.0f;
+            if (_inputEvents.GetMovement == Vector2.zero) speed = 0.0f;
 
             float currentHorizontalSpeed =
                 new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
@@ -166,7 +164,7 @@ namespace Characters.Player
             cameraRight.y = 0;
             cameraRight.Normalize();
 
-            Vector3 inputDirection = cameraForward * _inputEvents.movement.y + cameraRight * _inputEvents.movement.x;
+            Vector3 inputDirection = cameraForward * _inputEvents.GetMovement.y + cameraRight * _inputEvents.GetMovement.x;
 
             if (inputDirection.sqrMagnitude > 1f)
             {
@@ -184,7 +182,7 @@ namespace Characters.Player
 
         private void VerticalMovement()
         {
-            if (Grounded)
+            if (_grounded)
             {
                 // reset the fall timeout timer
                 _fallTimeoutDelta = FallTimeout;
@@ -210,7 +208,7 @@ namespace Characters.Player
                 }
             }
 
-            _playerView.SetVerticalSpeed(Grounded ? 0 : _verticalVelocity);
+            _playerView.SetVerticalSpeed(_grounded ? 0 : _verticalVelocity);
 
             //Gravity
             if (_verticalVelocity < _terminalVelocity)
@@ -221,7 +219,7 @@ namespace Characters.Player
 
         public void Jump()
         {
-            if (!Grounded) return;
+            if (!_grounded) return;
             _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
             _playerView.Jumped();
         }

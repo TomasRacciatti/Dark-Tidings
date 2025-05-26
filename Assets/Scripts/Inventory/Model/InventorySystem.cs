@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Inventory.View;
-using Items;
+using Interfaces;
+using Inventory.Controller;
+using Items.Base;
 using UnityEngine;
 
 namespace Inventory.Model
@@ -11,54 +13,48 @@ namespace Inventory.Model
     public abstract class InventorySystem : MonoBehaviour
     {
         [SerializeField] protected List<ItemAmount> items = new List<ItemAmount>();
-        [SerializeField] public InventoryView _view;
+        [SerializeField] private Toolbar toolbar;
+        public event Action<int, ItemAmount> OnItemUpdated;
+        public event Action OnInventoryUpdated;
+
+        public abstract int AddItem(ItemAmount itemAmount);
+        protected abstract int AddItemEmptySlot(ItemAmount itemAmount);
+        public abstract int RemoveItem(ItemAmount itemAmount);
+
+        protected void UpdateItem(int index)
+        {
+            OnItemUpdated?.Invoke(index, items[index]);
+        }
         
-        private void Start()
+        protected void UpdateInventory()
         {
-            _view = CanvasGameManager.Instance.inventoryManager.inventoryView; //cambiar esto todo
-            UpdateAllHud();
+            OnInventoryUpdated?.Invoke();
         }
 
-        public abstract int AddItem(ItemObject itemObject, int amount);
-        public abstract int RemoveItem(ItemObject itemObject, int amount);
-
-        protected void UpdateHud(int index)
+        public ItemAmount GetIndexItem(int slot)
         {
-            _view.SetItem(index, items[index]);
+            if (slot < 0 || slot >= items.Count) return new ItemAmount();
+
+            return items[slot];
         }
 
-        protected void UpdateAllHud()
+        public bool HasItem(SO_Item soItem)
         {
-            for (int i = 0; i < items.Count; i++)
-            {
-                UpdateHud(i);
-            }
+            return HasItemAmount(soItem, 1);
         }
 
-        public bool HasItem(ItemObject itemObject)
+        public bool HasItemAmount(SO_Item soItem, int requiredAmount)
         {
-            return HasItemAmount(itemObject, 1);
+            return GetItemAmount(soItem) >= requiredAmount;
         }
 
-        public bool HasItemAmount(ItemObject itemObject, int requiredAmount)
+        public int GetItemAmount(SO_Item soItem)
         {
-            return GetItemAmount(itemObject) > requiredAmount;
-        }
+            if (soItem == null) return 0;
 
-        public int GetItemAmount(ItemObject itemObject)
-        {
-            if (itemObject == null) return 0;
-            int totalAmount = 0;
-
-            foreach (var item in items)
-            {
-                if (!item.IsEmpty && item.Item == itemObject)
-                {
-                    totalAmount += item.Amount;
-                }
-            }
-
-            return totalAmount;
+            return items
+                .Where(item => !item.IsEmpty && item.SoItem == soItem)
+                .Sum(item => item.Amount);
         }
 
         public abstract void ClearInventory();
@@ -67,76 +63,198 @@ namespace Inventory.Model
 
         public ItemAmount[] GetItemsOfTypes(params ItemType[] types)
         {
-            return items.Where(item => !item.IsEmpty && types.Contains(item.Item.GetItemType())).ToArray();
+            return items.Where(item => !item.IsEmpty && types.Contains(item.SoItem.ItemType)).ToArray();
         }
 
-        public void TransferSlotTo(InventorySystem otherInventory, int index)
+        public Dictionary<SO_Item, int> GetAmountByItem()
+        {
+            return items
+                .Where(item => !item.IsEmpty)
+                .Aggregate(
+                    new Dictionary<SO_Item, int>(),
+                    (acc, item) =>
+                    {
+                        var soItem = item.SoItem;
+                        acc.TryAdd(soItem, 0);
+
+                        acc[soItem] += item.Amount;
+                        return acc;
+                    });
+        }
+
+        public (int transferred, int remaining) TransferItemTo(InventorySystem otherInventory, int index)
         {
             var item = items[index];
-            otherInventory.AddItem(item.Item, item.Amount);
-            ClearSlot(index);
-        }
+            int remaining = otherInventory.AddItem(item);
+            int transferred = item.Amount - remaining;
 
+            item.RemoveAmount(transferred);
+            items[index] = item;
+
+            return (transferred, remaining);
+        }
+/*
         public void SortItemsByType(ItemType type)
         {
-            items = items.Where(item => !item.IsEmpty) // Filtra los ítems vacíos.
-                .OrderBy(item => item.Item.GetItemType()) // Ordena primero por ItemType
-                .ThenBy(item => item.Item.GetItemName()) // Luego, ordena por nombre de ítem
+            items = items.Where(item => !item.IsEmpty)
+                .OrderBy(item => item.GetSoItem.ItemType)
+                .ThenBy(item => item.GetSoItem.ItemName)
                 .ToList();
-            UpdateAllHud();
-        }
+            //asegurarme que sea del mismo size
+            //actualizar hud
+        }*/
 
-        protected int StackItems(ItemObject itemObject, int amount)
+        protected int StackItems(ItemAmount itemAmount)
         {
-            if (itemObject.GetStack() <= 1) return amount;
+            if (itemAmount.SoItem.Stack <= 1) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
 
-                if (item.CanStackWith(itemObject))
+                if (!item.IsEmpty && itemAmount.IsStackable(item))
                 {
-                    amount = item.AddAmount(amount);
+                    itemAmount.SetAmount(item.AddAmount(itemAmount.Amount));
                     items[i] = item;
+                    UpdateItem(i);
 
-                    UpdateHud(i);
-
-                    if (amount <= 0)
+                    if (itemAmount.Amount <= 0)
                         return 0;
                 }
             }
 
-            return amount;
+            return itemAmount.Amount;
         }
 
-        protected int RemoveItemsInternal(ItemObject itemObject, int amount, Action<int> onItemEmptied)
+        protected int RemoveItemsInternal(ItemAmount itemAmount, Func<int, bool> onItemEmptied)
         {
-            if (itemObject == null || amount <= 0) return amount;
+            if (itemAmount == null || itemAmount.Amount <= 0) return itemAmount.Amount;
 
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
 
-                if (!item.IsEmpty && item.Item == itemObject)
+                if (!item.IsEmpty && item.IsStackable(itemAmount))
                 {
-                    amount = item.RemoveAmount(amount);
+                    itemAmount.SetAmount(item.RemoveAmount(itemAmount.Amount));
 
                     if (item.IsEmpty)
                     {
-                        onItemEmptied(i);
+                        bool removed = onItemEmptied(i);
+                        if (removed)
+                        {
+                            i--;
+                        }
                     }
                     else
                     {
                         items[i] = item;
                     }
 
-                    UpdateHud(i);
-
-                    if (amount <= 0) return 0;
+                    UpdateItem(i);
+                    if (itemAmount.Amount <= 0) return 0;
                 }
             }
 
-            return amount;
+            return itemAmount.Amount;
         }
+
+        public bool SwapItems(int fromIndex, int toIndex)
+        {
+            if (fromIndex < 0 || fromIndex >= items.Count || toIndex < 0 || toIndex >= items.Count) return false;
+            if (fromIndex == toIndex) return false;
+
+            ItemAmount fromItem = items[fromIndex];
+            ItemAmount toItem = items[toIndex];
+
+            int fromToolbar = toolbar.GetIndex(fromIndex);
+            int toToolbar = toolbar.GetIndex(toIndex);
+
+            if (toItem.IsEmpty || fromItem.IsStackable(toItem))
+            {
+                int remainingAmount = toItem.SetItem(fromItem);
+                items[toIndex] = toItem;
+                if (toolbar != null)
+                {
+                    toolbar.SetIndex(fromToolbar, toIndex);
+                }
+
+                if (remainingAmount > 0)
+                {
+                    fromItem.SetAmount(remainingAmount);
+                    items[fromIndex] = fromItem;
+                    if (toolbar != null)
+                    {
+                        toolbar.SetIndex(toToolbar, fromIndex);
+                    }
+                }
+                else
+                {
+                    ClearSlot(fromIndex);
+                    if (toolbar != null)
+                    {
+                        toolbar.SetIndex(toToolbar, -1);
+                    }
+                }
+
+                return remainingAmount <= 0;
+            }
+
+            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
+            if (toolbar != null)
+            {
+                toolbar.SetIndex(fromToolbar, toIndex);
+                toolbar.SetIndex(toToolbar, fromIndex);
+            }
+
+            return false;
+        }
+/*
+        public IEnumerable<ItemAmount> GetItemsByType(ItemType type)
+        {
+            foreach (var item in items)
+            {
+                if (!item.IsEmpty && item.GetSoItem.ItemType == type)
+                    yield return item;
+            }
+        }
+
+        public bool TryCraft(Dictionary<SO_Item, int> requiredItems, ItemAmount itemCrafted)
+        {
+            foreach (var requirement in requiredItems)
+            {
+                if (!HasItemAmount(requirement.Key, requirement.Value))
+                {
+                    return false;
+                }
+            }
+
+            foreach (var requirement in requiredItems)
+            {
+                int amountToRemove = requirement.Value;
+
+                for (int i = 0; i < items.Count && amountToRemove > 0; i++)
+                {
+                    var item = items[i];
+                    if (!item.IsEmpty && item.GetSoItem == requirement.Key)
+                    {
+                        int removed = item.RemoveAmount(amountToRemove);
+                        amountToRemove -= removed;
+
+                        if (item.IsEmpty)
+                        {
+                            ClearSlot(i);
+                        }
+                        else
+                        {
+                            items[i] = item;
+                            UpdateItem(i);
+                        }
+                    }
+                }
+            }
+
+            return true;
+        }*/
     }
 }

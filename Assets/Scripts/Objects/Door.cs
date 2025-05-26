@@ -2,123 +2,162 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Interfaces;
-using Inventory.Model;
-using Items;
+using Inventory.Controller;
+using Items.Base;
 
 namespace Objects
 {
-    public class Door : MonoBehaviour, IInteractable
+    public class Door : MonoBehaviour, IInteractable, IPushable
     {
-        [SerializeField] private float openedAngle = -120f;
+        [Header("Options")] [SerializeField] private float openedAngle = 120f;
         [SerializeField] private float closedAngle = 0f;
-        //[SerializeField] private float timeAnim = 2f;
-        [SerializeField] private AnimationCurve openCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+        [SerializeField] private float lockedAngle = 3f;
         [SerializeField] private bool isOpen = false;
         [SerializeField] private bool isLocked = false;
-        [SerializeField] private ItemObject keyItem;
+        [SerializeField] private SO_Item keyItem;
 
-        private Quaternion closedRotation;
-        private Quaternion openRotation;
-        //private Coroutine currentCoroutine;
-        private HingeJoint hinge;
+        [SerializeField] private Transform interactionPoint;
+        [SerializeField] private GameObject noExploit;
+        
+        [SerializeField] private AudioClip openSound;
+        [SerializeField] private AudioClip closeSound;
+        [SerializeField] private AudioClip forcedSound;
+        [SerializeField] private AudioClip lockedSound;
+        
+        private HingeJoint _hinge;
+        private Rigidbody _rigidbody;
+        private AudioSource _audioSource;
+        private float _hingeForce;
+        private float _lastOpenedAngle;
+
+        public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
 
         private void Awake()
         {
-            hinge = GetComponent<HingeJoint>();
+            _hinge = GetComponent<HingeJoint>();
+            _audioSource = GetComponent<AudioSource>();
+            _rigidbody = GetComponent<Rigidbody>();
+            _hingeForce = _hinge.spring.spring;
+            _lastOpenedAngle = -openedAngle;
         }
-        
+
         void Start()
         {
-            closedRotation = transform.rotation;
-            openRotation = transform.rotation * Quaternion.Euler(0f, openedAngle, 0f);
-            
-            transform.rotation = isOpen ? openRotation : closedRotation;
-            
-            JointLimits limits = hinge.limits;
-            limits.min = openedAngle;
-            limits.max = closedAngle;
-            hinge.limits = limits;
+            transform.rotation = isOpen ? transform.rotation * Quaternion.Euler(0f, _lastOpenedAngle, 0f) : transform.rotation;
+            noExploit.SetActive(isLocked);
+            Setup();
+        }
 
-            JointSpring spring = hinge.spring;
-            spring.targetPosition = isOpen ? openedAngle : closedAngle;
-            hinge.spring = spring;
+        private void Setup()
+        {
+            JointLimits limits = _hinge.limits;
+            limits.min = !isLocked ? -openedAngle : -lockedAngle;
+            limits.max = !isLocked ? openedAngle : lockedAngle;
+            _hinge.limits = limits;
+
+            JointSpring spring = _hinge.spring;
+            spring.targetPosition = isLocked || !isOpen ? closedAngle : _lastOpenedAngle;
+            _hinge.spring = spring;
         }
 
         public void Interact(GameObject interactableObject)
         {
-            /*if (isLocked)
+            if (isOpen)
             {
-                InventorySystem inventory = interactableObject.GetComponent<InventorySystem>();
-                if (inventory.HasItem(keyItem))
+                ToggleDoor();
+                return;
+            }
+
+            Toolbar toolbar = interactableObject.GetComponent<Toolbar>();
+            if (toolbar.GetSlotItem().SoItem == keyItem)
+            {
+                if (Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)) <= 5f)
                 {
-                    LockDoor(false);
+                    LockDoor(!isLocked);
                 }
-                else
-                {
-                    if (currentCoroutine != null)
-                        StopCoroutine(currentCoroutine);
+                return;
+            }
 
-                    currentCoroutine = StartCoroutine(ForceDoor());
-                    return;
-                }
-            }*/
-        
-            isOpen = !isOpen;
-            JointSpring spring = hinge.spring;
-            spring.targetPosition = isOpen ? openedAngle : closedAngle;
-            hinge.spring = spring;
+            if (isLocked)
+            {
+                StartCoroutine(ForceDoor());
+                return;
+            }
             
-            
+            Vector3 directionToPlayer = (interactableObject.transform.position - transform.position).normalized;
+            float dot = Vector3.Dot(transform.forward, directionToPlayer);
+            _lastOpenedAngle = dot >= 0 ? openedAngle : -openedAngle;
 
-            /*
-            if (currentCoroutine != null)
-                StopCoroutine(currentCoroutine);
-
-            currentCoroutine = StartCoroutine(RotateDoor());*/
+            ToggleDoor();
         }
-    
-        public void LockDoor(bool locked)
+
+        private void ToggleDoor()
+        {
+            isOpen = !isOpen;
+            _audioSource.PlayOneShot(isOpen ? openSound : closeSound);
+            Setup();
+        }
+
+        private void LockDoor(bool locked)
         {
             if (isOpen) return;
             isLocked = locked;
+            noExploit.SetActive(isLocked);
+            _audioSource.PlayOneShot(lockedSound);
+            Setup();
         }
 
-        /*
-        private IEnumerator RotateDoor()
-        {
-            Quaternion startRotation = transform.rotation;
-            Quaternion targetRotation = isOpen ? openRotation : closedRotation;
-
-            float time = 0f;
-            while (time < timeAnim)
-            {
-                time += Time.deltaTime;
-                float curveT = openCurve.Evaluate(time / timeAnim);
-                transform.rotation = Quaternion.Lerp(startRotation, targetRotation, curveT);
-                yield return null;
-            }
-
-            transform.rotation = targetRotation;
-            currentCoroutine = null;
-        }
-    
         private IEnumerator ForceDoor()
         {
-            float duration = 0.3f;
-            float magnitude = 2f;
+            _audioSource.PlayOneShot(forcedSound);
 
-            Quaternion originalRotation = transform.rotation;
+            JointLimits limits = _hinge.limits;
+            limits.min = -lockedAngle;
+            limits.max = lockedAngle;
+            _hinge.limits = limits;
+
+            JointSpring spring = _hinge.spring;
+            var force = spring.spring;
+            spring.spring = 5000;
 
             float elapsed = 0f;
-            while (elapsed < duration)
+            float duration = 1.2f;
+
+            while (elapsed < duration && !isOpen)
             {
                 elapsed += Time.deltaTime;
-                float shake = Mathf.Sin(elapsed * 40f) * magnitude;
-                transform.localRotation = originalRotation * Quaternion.Euler(0f, shake, 0f);
+
+                float shake = Mathf.Sin(elapsed * 25) * lockedAngle;
+                float target = Mathf.Clamp(closedAngle + shake, -lockedAngle, lockedAngle);
+
+                spring.targetPosition = target;
+                _hinge.spring = spring;
+
                 yield return null;
             }
+            
+            spring.targetPosition = closedAngle;
+            spring.spring = _hingeForce;
+            _hinge.spring = spring;
+            Setup();
+        }
+        
+        public void OnPushed(Vector3 pushDirection, float strength)
+        {
+            if (_rigidbody == null) return;
+            if (isLocked) return;
 
-            transform.localRotation = originalRotation;
-        }*/
+            StartCoroutine(PlayIfMoved());
+        }
+        
+        private IEnumerator PlayIfMoved()
+        {
+            yield return new WaitForFixedUpdate();
+
+            if (_rigidbody.angularVelocity.magnitude > 0.1f && !_audioSource.isPlaying)
+            {
+                _audioSource.PlayOneShot(openSound);
+            }
+        }
     }
 }

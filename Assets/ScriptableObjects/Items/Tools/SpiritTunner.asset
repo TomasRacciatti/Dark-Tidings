@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0776dc754a4f1c44fb737d73397c3c76, type: 3}
+  m_Name: SpiritTunner
+  m_EditorClassIdentifier: 
+  itemName: Spirit Tunner
+  image: {fileID: 21300000, guid: 31444f81d9c429042b178f2a7190c23b, type: 3}
+  description: Tells Clues
+  modifierName: 
+  stack: 1
+  type: {fileID: 11400000, guid: fe6dba5fb3d37f143badbbdf0e61ab98, type: 2}
+  equippable: 1
+  mesh: {fileID: 0}
+  materials: []

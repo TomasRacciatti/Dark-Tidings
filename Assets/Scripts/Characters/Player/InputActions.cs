@@ -143,6 +143,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TogglePaused"",
+                    ""type"": ""Button"",
+                    ""id"": ""83afd3ca-2fce-485a-8450-25470e00ca94"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -358,7 +367,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""91efe65c-7f55-4236-8696-c6f628afe565"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -374,6 +383,28 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3f0b0ea4-f46b-4745-aafb-fd957abe4caf"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePaused"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9409986f-9a13-4269-88e3-c466f34256f6"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePaused"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -445,6 +476,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
         m_Player_ToggleInventory = m_Player.FindAction("ToggleInventory", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_TogglePaused = m_Player.FindAction("TogglePaused", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -524,6 +556,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Flashlight;
     private readonly InputAction m_Player_ToggleInventory;
     private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_TogglePaused;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -541,6 +574,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
         public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @TogglePaused => m_Wrapper.m_Player_TogglePaused;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -589,6 +623,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
+            @TogglePaused.started += instance.OnTogglePaused;
+            @TogglePaused.performed += instance.OnTogglePaused;
+            @TogglePaused.canceled += instance.OnTogglePaused;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -632,6 +669,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
+            @TogglePaused.started -= instance.OnTogglePaused;
+            @TogglePaused.performed -= instance.OnTogglePaused;
+            @TogglePaused.canceled -= instance.OnTogglePaused;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -700,5 +740,6 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnFlashlight(InputAction.CallbackContext context);
         void OnToggleInventory(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
+        void OnTogglePaused(InputAction.CallbackContext context);
     }
 }

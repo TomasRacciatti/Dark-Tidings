@@ -1,12 +1,19 @@
+using System;
+using System.Collections.Generic;
+using Items;
+using Items.Base;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Inventory.Controller
 {
     public class ItemsInHand : MonoBehaviour
     {
         public static ItemsInHand Instance { get; private set; }
-    
-        public Item glock;
+
+        [SerializeField] private List<ItemEquippable> items;
+
+        public ItemEquippable selectedItem;
 
         private void Awake()
         {
@@ -18,15 +25,47 @@ namespace Inventory.Controller
             Instance = this;
         }
 
-        public void Shoot()
+        private void Start()
         {
-            if (!glock.gameObject.activeSelf) return;
-            glock.StartUsing();
+            ItemEquippable[] equippables = GetComponentsInChildren<ItemEquippable>(includeInactive: true);
+
+            // Si quieres solo los hijos (y no el objeto actual), puedes filtrarlos:
+            items = new List<ItemEquippable>();
+            foreach (var item in equippables)
+            {
+                if (item.gameObject != this.gameObject)
+                    items.Add(item);
+            }
         }
 
-        public void ActivateGlock()
+        public void Use()
         {
-            glock.gameObject.SetActive(true);
+            if (selectedItem != null)
+            {
+                selectedItem.Use();
+            }
+        }
+
+        public void SetItemEquipped(SO_Item soItem = null)
+        {
+            if (selectedItem != null)
+            {
+                selectedItem.gameObject.SetActive(false);
+            }
+
+            foreach (var item in items)
+            {
+                bool shouldBeActive = item.soItem == soItem;
+                item.gameObject.SetActive(shouldBeActive);
+
+                if (shouldBeActive)
+                {
+                    selectedItem = item;
+                    return;
+                }
+            }
+
+            selectedItem = null;
         }
     }
 }

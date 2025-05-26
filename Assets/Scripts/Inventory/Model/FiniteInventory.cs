@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Linq;
-using Items;
+using Items.Base;
 
 namespace Inventory.Model
 {
@@ -10,25 +10,34 @@ namespace Inventory.Model
 
         private void Awake()
         {
-            ClearInventory(); //limpia e inicializa los slots, borrar esto despues
+            InitializeSlots(); //limpia e inicializa los slots, borrar esto despues
+        }
+        
+        private void InitializeSlots()
+        {
+            items = Enumerable.Range(0, slotsAmount)
+                .Select(_ => new ItemAmount())
+                .ToList();
+            UpdateInventory();
         }
 
-        public override int AddItem(ItemObject itemObject, int amount)
+        public override int AddItem(ItemAmount itemAmount)
         {
-            if (itemObject == null && amount <= 0) return 0;
-            amount = StackItems(itemObject, amount);
-            if (amount <= 0) return amount;
-            amount = PlaceInEmptySlot(itemObject, amount);
+            if (itemAmount.IsEmpty) return 0;
+            itemAmount.SetAmount(StackItems(itemAmount));
+            if (itemAmount.IsEmpty) return 0;
+            itemAmount.SetAmount(AddItemEmptySlot(itemAmount));
 
-            return amount; // amount not added
+            return itemAmount.Amount; // amount not added
         }
 
-        public override int RemoveItem(ItemObject itemObject, int amount)
+        public override int RemoveItem(ItemAmount itemAmount)
         {
-            if (itemObject == null && amount <= 0) return 0;
-            return RemoveItemsInternal(itemObject, amount, i =>
+            if (itemAmount.IsEmpty) return 0;
+            return RemoveItemsInternal(itemAmount, i =>
             {
-                items[i] = new ItemAmount(); // mantiene el slot vacío
+                items[i] = new ItemAmount();
+                return false;
             });
         }
 
@@ -39,52 +48,20 @@ namespace Inventory.Model
 
         public override void ClearInventory()
         {
-            items = Enumerable.Range(0, slotsAmount).Select(_ => new ItemAmount()).ToList();
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i] = new ItemAmount();
+                //UpdateItem(i);
+            }
+            UpdateInventory();
         }
 
         public override void ClearSlot(int i)
         {
             items[i] = new ItemAmount();
         }
-
-        public bool SwapItems(int fromIndex, int toIndex)
-        {
-            if (fromIndex < 0 || fromIndex >= items.Count || toIndex < 0 || toIndex >= items.Count) return false;
-            if (fromIndex == toIndex) return false;
-
-            ItemAmount fromItem = items[fromIndex];
-            ItemAmount toItem = items[toIndex];
-
-            if (toItem.Item == fromItem.Item)
-            {
-                print(fromIndex + " to " + toIndex);
-                int remainingAmount = toItem.SetItem(fromItem.Item, fromItem.Amount + toItem.Amount);
-                items[toIndex] = toItem;
-                print(remainingAmount);
-
-                if (remainingAmount > 0)
-                {
-                    fromItem.SetAmount(remainingAmount);
-                    items[fromIndex] = fromItem;
-                }
-                else
-                {
-                    items[fromIndex].Clear();
-                }
-                
-                UpdateHud(fromIndex);
-                UpdateHud(toIndex);
-                return remainingAmount <= 0;
-            }
-
-            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
-            UpdateHud(fromIndex);
-            UpdateHud(toIndex);
-            return false;
-        }
-
-
-        private int PlaceInEmptySlot(ItemObject itemObject, int amount)
+        
+        protected override int AddItemEmptySlot(ItemAmount itemAmount)
         {
             for (int i = 0; i < items.Count; i++)
             {
@@ -92,17 +69,17 @@ namespace Inventory.Model
 
                 if (item.IsEmpty)
                 {
-                    amount = item.SetItem(itemObject, amount);
+                    itemAmount.SetAmount(item.SetItem(itemAmount));
                     items[i] = item;
 
-                    UpdateHud(i);
+                    UpdateItem(i);
 
-                    if (amount <= 0)
+                    if (itemAmount.Amount <= 0)
                         return 0;
                 }
             }
 
-            return amount;
+            return itemAmount.Amount;
         }
     }
 }

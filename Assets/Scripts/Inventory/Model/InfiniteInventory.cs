@@ -1,25 +1,26 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Items;
+using Items.Base;
 
 namespace Inventory.Model
 {
     public class InfiniteInventory : InventorySystem
     {
-        public override int AddItem(ItemObject itemObject, int amount)
+        public override int AddItem(ItemAmount itemAmount)
         {
-            amount = StackItems(itemObject, amount);
-            AddNewItemStacks(itemObject, amount);
-            
+            if (itemAmount.IsEmpty) return itemAmount.Amount;
+            itemAmount.SetAmount(StackItems(itemAmount));
+            if (itemAmount.IsEmpty) return itemAmount.Amount;
+            AddItemEmptySlot(itemAmount);
             return 0;
         }
         
-        public override int RemoveItem(ItemObject itemObject, int amount)
+        public override int RemoveItem(ItemAmount itemAmount)
         {
-            return RemoveItemsInternal(itemObject, amount, i =>
+            return RemoveItemsInternal(itemAmount, i =>
             {
                 ClearSlot(i);
-                i--;
+                return true;
             });
         }
         
@@ -33,15 +34,17 @@ namespace Inventory.Model
             items.RemoveAt(i);
         }
         
-        private void AddNewItemStacks(ItemObject itemObject, int amount)
+        protected override int AddItemEmptySlot(ItemAmount itemAmount)
         {
-            while (amount > 0)
+            while (!itemAmount.IsEmpty)
             {
-                int amountToAdd = Mathf.Min(amount, itemObject.GetStack());
-                amount -= amountToAdd;
-                items.Add(new ItemAmount(itemObject, amountToAdd));
-                UpdateHud(items.Count - 1);
+                ItemAmount newItem = new ItemAmount();
+                itemAmount.SetAmount(newItem.SetItem(itemAmount));
+                items.Add(newItem);
+                
+                UpdateItem(items.Count - 1);
             }
+            return itemAmount.Amount;
         }
     }
 }

@@ -1,7 +1,4 @@
-using System;
-using Characters.Player;
-using Inventory.Controller;
-using Items;
+using Items.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,15 +6,16 @@ using UnityEngine.UI;
 
 namespace Inventory.View
 {
-    public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+    public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI amountText;
         [SerializeField] private GameObject isEquipable;
         [SerializeField] private TextMeshProUGUI equipableText;
+        [SerializeField] private TextMeshProUGUI tooltipText;
 
-        [HideInInspector] public ItemAmount itemAmount;
-        [HideInInspector] public Transform parentTransform;
+        /*[HideInInspector]*/ public ItemAmount itemAmount;
+        /*[HideInInspector]*/ public InventoryItem originalItem;
         private Canvas canvas;
 
         private void Awake()
@@ -29,15 +27,15 @@ namespace Inventory.View
         private void Start()
         {
             amountText.raycastTarget = false;
-            parentTransform = transform.parent;
         }
 
-        public void SetItem(ItemObject newItemObject, int amount)
+        public void SetItem(ItemAmount newItemAmount, InventoryItem original = null)
         {
-            itemAmount.SetItem(newItemObject, amount);
-            image.sprite = itemAmount.Item.GetImage();
+            itemAmount = newItemAmount;
+            image.sprite = itemAmount.SoItem.Image;
             RefreshCount();
             ValidateEquipable();
+            originalItem = original;
         }
 
         public void SetAmount(int amount)
@@ -48,25 +46,24 @@ namespace Inventory.View
 
         public void SetEquipable(int slot)
         {
-            if (slot != -1) equipableText.text = "E";
-            else equipableText.text = slot.ToString();
+            equipableText.text = slot == -1 ? "E" : (slot + 1).ToString();
+        }
+        
+        public int GetEquipableSlot()
+        {
+            if (equipableText.text == "E")
+                return -1;
+
+            if (int.TryParse(equipableText.text, out int value))
+                return value - 1;
+
+            return -1;
         }
 
         private void ValidateEquipable()
         {
-            switch (itemAmount.Item.GetItemType())
-            {
-                case ItemType.Weapon:
-                case ItemType.Tool:
-                case ItemType.Key:
-                case ItemType.Consumable:
-                case ItemType.Throwable:
-                    isEquipable.SetActive(true);
-                    break;
-                default:
-                    isEquipable.SetActive(false);
-                    break;
-            }
+            if (itemAmount.SoItem.IsEquippable) isEquipable.SetActive(true);
+            else isEquipable.SetActive(false);
         }
 
         private void RefreshCount()
@@ -75,18 +72,21 @@ namespace Inventory.View
             amountText.gameObject.SetActive(itemAmount.Amount > 1);
         }
 
-        public void SetParent()
+        public void SetParent(Transform parent)
         {
-            transform.SetParent(parentTransform);
+            transform.SetParent(parent, false);
             transform.localPosition = Vector3.zero;
+        }
+
+        public void SetRaycast(bool value)
+        {
+            image.raycastTarget = value;
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            canvas.sortingOrder = 15;
             image.raycastTarget = false;
-            parentTransform = transform.parent;
-            transform.SetParent(parentTransform);
+            canvas.sortingOrder = 15;
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -101,56 +101,15 @@ namespace Inventory.View
         {
             image.raycastTarget = true;
             canvas.sortingOrder = 5;
-
-            if (parentTransform == transform.parent) //verifica que no es el mismo
-            {
-                transform.localPosition = Vector3.zero;
-                return;
-            }
-
-            InventorySlot originalSlot = transform.parent.GetComponent<InventorySlot>();
-            InventorySlot targetSlot = parentTransform.GetComponent<InventorySlot>();
-
-            InventoryItem toItem = targetSlot.GetComponentInChildren<InventoryItem>();
-
-            if (targetSlot == null) //verificar que el target no es nulo
-            {
-                transform.localPosition = Vector3.zero;
-                return;
-            }
-
-            switch (originalSlot.slotType)
-            {
-                case SlotType.Inventory:
-                    switch (targetSlot.slotType)
-                    {
-                        case SlotType.Inventory:
-                            int fromIndex = originalSlot.slotIndex;
-                            int toIndex = targetSlot.slotIndex;
-                            SetParent();
-                            toItem.SetParent();
-                            bool itemCleared = PlayerController.Instance.inventory.SwapItems(fromIndex, toIndex);
-                            if (itemCleared) Destroy(gameObject);
-                            break;
-                    }
-
-                    break;
-            }
+            transform.localPosition = Vector3.zero;
         }
-
-
+        
         public void OnPointerClick(PointerEventData eventData)
         {
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
                     Debug.Log("Clic izquierdo");
-                    if (itemAmount.Item.GetItemType() == ItemType.Weapon)
-                    {
-                        //Toolbar.Instance.EquipItem(itemAmount, 0);
-                        ItemsInHand.Instance.ActivateGlock();
-                    }
-
                     break;
                 case PointerEventData.InputButton.Right:
                     Debug.Log("Clic derecho");
@@ -158,6 +117,23 @@ namespace Inventory.View
                 case PointerEventData.InputButton.Middle:
                     Debug.Log("Clic del botón del medio");
                     break;
+            }
+        }
+        
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (tooltipText != null)
+            {
+                tooltipText.text = itemAmount.ItemName;
+                tooltipText.gameObject.SetActive(true);
+            }
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (tooltipText != null)
+            {
+                tooltipText.gameObject.SetActive(false);
             }
         }
     }

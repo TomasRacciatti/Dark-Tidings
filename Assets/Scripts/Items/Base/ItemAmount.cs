@@ -9,23 +9,23 @@ namespace Items.Base
     {
         [SerializeField] private int amount;
         [SerializeField] private SO_Item soItem;
-        [SerializeField] private List<ItemAmount> modifiers;
+        private LinkedList<ItemAmount> modifiers;
         private bool _overflow;
         private string _itemName;
         private string _description;
         
         public int Amount => amount;
         public SO_Item SoItem => soItem;
-        public List<ItemAmount> Modifiers => modifiers ??= new List<ItemAmount>();
+        public LinkedList<ItemAmount> Modifiers => modifiers ??= new LinkedList<ItemAmount>();
         public string ItemName => _itemName;
         public string Description => _description;
         
-        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, List<ItemAmount> modifiers = null, bool overflow = false)
+        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, LinkedList<ItemAmount> modifiers = null, bool overflow = false)
         {
             soItem = newSoItem;
             amount = newAmount;
             _overflow = overflow;
-            this.modifiers = modifiers ?? new List<ItemAmount>();
+            this.modifiers = modifiers ?? new LinkedList<ItemAmount>();
         }
         
         public void SetOverflow(bool overflow = false)
@@ -87,26 +87,30 @@ namespace Items.Base
         {
             soItem = null;
             amount = 0;
-            modifiers = new List<ItemAmount>();
+            modifiers = new LinkedList<ItemAmount>();
         }
 
         public void AddModifier(ItemAmount itemAmount)
         {
             if (IsEmpty) return;
-            
+
             if (modifiers.Contains(itemAmount)) return;
 
             var newPriority = itemAmount.SoItem.ModifierPriority;
-
-            int index = modifiers.FindIndex(m => 
-                m.SoItem.ModifierPriority > newPriority
-            );
-
-            if (index >= 0)
-                modifiers.Insert(index, itemAmount);
-            else
-                modifiers.Add(itemAmount);
-
+            
+            var current = modifiers.First;
+            while (current != null)
+            {
+                if (current.Value.SoItem.ModifierPriority > newPriority)
+                {
+                    modifiers.AddBefore(current, itemAmount);
+                    SetItemNameAndDescription();
+                    return;
+                }
+                current = current.Next;
+            }
+            
+            modifiers.AddLast(itemAmount);
             SetItemNameAndDescription();
         }
 

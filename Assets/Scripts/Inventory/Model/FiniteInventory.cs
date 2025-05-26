@@ -58,7 +58,7 @@ namespace Inventory.Model
 
         public override void ClearSlot(int i)
         {
-            items[i] = new ItemAmount();
+            items[i].Clear();
         }
         
         protected override int AddItemEmptySlot(ItemAmount itemAmount)

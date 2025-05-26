@@ -97,7 +97,8 @@ namespace Inventory
                 new { Item = _slots[2].GetItemObject(), Index = 2 }
             };
             
-            GameManager.Player.inventory.AddItem(_craftedSlot.GetItemAmount());
+            GameManager.Player.inventory.AddItem(item);
+            UpdateCrafting();
         }
     }
 }

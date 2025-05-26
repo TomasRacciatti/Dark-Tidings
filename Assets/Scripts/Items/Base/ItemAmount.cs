@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Items.Base
@@ -44,19 +45,16 @@ namespace Items.Base
             if (soItem != other.soItem) return false;
 
             if (Modifiers.Count != other.Modifiers.Count) return false;
-            
-            var thisSet = new HashSet<ItemAmount>(Modifiers);
-            var otherSet = new HashSet<ItemAmount>(other.Modifiers);
 
-            return thisSet.SetEquals(otherSet);
+            return Modifiers.All(mod => other.Modifiers.Any(m => m.soItem == mod.soItem));
         }
 
         public int SetItem(ItemAmount itemAmount)
         {
             soItem = itemAmount.SoItem;
-            SetItemNameAndDescription();
-
             SetAmount(_overflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, SoItem.Stack));
+            modifiers = itemAmount.Modifiers;
+            SetItemNameAndDescription();
             return _overflow ? 0 : Mathf.Max(0, itemAmount.Amount - SoItem.Stack);
         }
         

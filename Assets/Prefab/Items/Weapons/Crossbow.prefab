@@ -130,9 +130,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soItem: {fileID: 11400000, guid: a78f19209f57c034aba4c96ca0ee54ca, type: 2}
+  itemAmount:
+    amount: 0
+    soItem: {fileID: 0}
   _boltPrefab: {fileID: 4230044271195595435, guid: 6036d6fb2898faa4b89d6929164b2863, type: 3}
   _firePoint: {fileID: 1372719568629952100}
-  _bolt: {fileID: 0}
+  _bolt: {fileID: 11400000, guid: 9b38c3c183286334aba2424cf2745161, type: 2}
 --- !u!1 &7298261683466032265
 GameObject:
   m_ObjectHideFlags: 0

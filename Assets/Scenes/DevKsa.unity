@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2156.6243, g: 2260.0764, b: 3281.8247, a: 1}
+  m_IndirectSpecularColor: {r: 2157.9377, g: 2261.3127, b: 3282.9653, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2119,8 +2119,10 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   speed: 3
-  strengths: []
-  weaknesses: []
+  strengths:
+  - {fileID: 11400000, guid: 1d86efae8de79d14f8be294b5c3e2df5, type: 2}
+  weaknesses:
+  - {fileID: 11400000, guid: b37e7bc7fbcb07c44b57f3c00fbdb626, type: 2}
   _indicator: {fileID: 729880556340233814, guid: 3a53da9084d780346b65b0e3f2eb0104, type: 3}
 --- !u!1001 &2145243408
 PrefabInstance:

@@ -16,7 +16,6 @@ namespace Inventory.Model
 
         public List<ItemAmount> GetAllItems => new(items);
 
-
         private List<IInventoryObserver> _observers = new();
 
         public abstract int AddItem(ItemAmount itemAmount);
@@ -51,6 +50,15 @@ namespace Inventory.Model
             if (slot < 0 || slot >= items.Count) return new ItemAmount();
 
             return items[slot];
+        }
+
+        public ItemAmount GetItem(SO_Item soItem)
+        {
+            foreach (var item in items)
+            {
+                if (item.SoItem == soItem) return new ItemAmount(item);
+            }
+            return new ItemAmount();
         }
 
         public bool HasItem(SO_Item soItem)

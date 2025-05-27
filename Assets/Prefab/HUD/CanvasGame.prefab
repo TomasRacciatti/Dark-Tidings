@@ -4776,6 +4776,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InteractionUI
       objectReference: {fileID: 0}
+    - target: {fileID: 5620035533796672007, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7993223683949840646, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4855,6 +4859,14 @@ PrefabInstance:
     - target: {fileID: 7993223683949840646, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188297824436485723, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188297824436485723, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

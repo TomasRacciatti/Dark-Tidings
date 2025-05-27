@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clueTypeName: Compass Reaction
   clue:
+  - {fileID: 11400000, guid: fb9b1d64790424f40a306567770e1662, type: 2}
   - {fileID: 11400000, guid: 005121b6087f54b41be7ed3b1cc769f9, type: 2}
   - {fileID: 11400000, guid: 04cb29590be7e704da63094999c40056, type: 2}
+  - {fileID: 11400000, guid: b60be23f9b5e8e445a66c83754c7b773, type: 2}
+  - {fileID: 11400000, guid: 66e0a3457079f904ab49e77fbe529138, type: 2}

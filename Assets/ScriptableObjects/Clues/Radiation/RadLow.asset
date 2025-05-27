@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: a8dabc892158ee24b9835e770cb3ad21, type: 2}
   isDefault: 0
-  value: Flip
-  result: 'Potential Strength:
+  value: 1 - 10
+  result: 'Potential Weakness:
 
-    Alcohol - Blood'
+    Ash - Salt'
   compassMode: 1

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0776dc754a4f1c44fb737d73397c3c76, type: 3}
   m_Name: MotionSensor
   m_EditorClassIdentifier: 
-  itemName: Air Quality Sensor
+  itemName: Motion Sensor
   image: {fileID: 0}
-  description: Meassures Air Quality
+  description: Can be placed to detect supernatural movement
   modifierName: 
   modifierPriority: 0
   stack: 1

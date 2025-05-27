@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: a8dabc892158ee24b9835e770cb3ad21, type: 2}
   isDefault: 0
-  value: Shake
-  result: 'Potential Weakness:
+  value: 10 - 40
+  result: 'Potential Strength:
 
-    Copper - Silver'
+    Blood - Holy Water'
   compassMode: 2

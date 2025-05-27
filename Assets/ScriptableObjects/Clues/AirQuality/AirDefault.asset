@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tool: {fileID: 0}
   isDefault: 1
-  value: Default
+  value: No Reaction
   result: No Info...

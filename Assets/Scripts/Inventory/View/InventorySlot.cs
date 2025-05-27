@@ -116,8 +116,9 @@ namespace Inventory.View
             {
                 toItem.SetParent(fromSlot.transform);
             }
-
+            
             GameManager.Player.inventory.SwapItems(fromSlot.slotIndex, slotIndex);
+            
             return true;
         }
 

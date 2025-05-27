@@ -145,7 +145,9 @@ namespace Inventory.Model
                 {
                     ClearSlot(fromIndex);
                     if (toolbar != null) toolbar.SetIndex(toToolbar, -1);
-                }
+                }/*
+                UpdateItemUI(fromIndex);
+                UpdateItemUI(toIndex);*/
 
                 return remainingAmount <= 0;
             }
@@ -156,7 +158,10 @@ namespace Inventory.Model
                 toolbar.SetIndex(fromToolbar, toIndex);
                 toolbar.SetIndex(toToolbar, fromIndex);
             }
-
+/*
+            UpdateItemUI(fromIndex);
+            UpdateItemUI(toIndex);
+*/
             return false;
         }
 

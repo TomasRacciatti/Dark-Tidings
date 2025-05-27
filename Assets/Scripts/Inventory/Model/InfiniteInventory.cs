@@ -42,7 +42,7 @@ namespace Inventory.Model
                 itemAmount.SetAmount(newItem.SetItem(itemAmount));
                 items.Add(newItem);
                 
-                UpdateItemUI(items.Count - 1);
+                UpdateItem(items.Count - 1);
             }
             return itemAmount.Amount;
         }

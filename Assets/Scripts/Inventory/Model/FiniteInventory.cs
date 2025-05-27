@@ -18,7 +18,7 @@ namespace Inventory.Model
             items = Enumerable.Range(0, slotsAmount)
                 .Select(_ => new ItemAmount())
                 .ToList();
-            UpdateInventoryUI();
+            UpdateInventory();
         }
 
         public override int AddItem(ItemAmount itemAmount)
@@ -53,12 +53,12 @@ namespace Inventory.Model
                 items[i] = new ItemAmount();
                 //UpdateItem(i);
             }
-            UpdateInventoryUI();
+            UpdateInventory();
         }
 
         public override void ClearSlot(int i)
         {
-            items[i].Clear();
+            items[i] = new ItemAmount();
         }
         
         protected override int AddItemEmptySlot(ItemAmount itemAmount)
@@ -72,8 +72,7 @@ namespace Inventory.Model
                     itemAmount.SetAmount(item.SetItem(itemAmount));
                     items[i] = item;
 
-                    print("2");
-                    UpdateItemUI(i);
+                    UpdateItem(i);
 
                     if (itemAmount.Amount <= 0)
                         return 0;

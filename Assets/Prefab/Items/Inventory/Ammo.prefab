@@ -49,10 +49,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SlotInventory
       objectReference: {fileID: 0}
-    - target: {fileID: 2281002550930501387, guid: 8cd78d2893a539c41b2ac02a6a7b5b0a, type: 3}
-      propertyPath: slotType
-      value: 
-      objectReference: {fileID: 11400000, guid: ee64b15fa4c75184ea3413e89026b6cc, type: 2}
     - target: {fileID: 8425866515470878406, guid: 8cd78d2893a539c41b2ac02a6a7b5b0a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -154,14 +150,6 @@ PrefabInstance:
     - target: {fileID: 1170758889567794504, guid: 8cd78d2893a539c41b2ac02a6a7b5b0a, type: 3}
       propertyPath: m_Name
       value: SlotInventory (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2281002550930501387, guid: 8cd78d2893a539c41b2ac02a6a7b5b0a, type: 3}
-      propertyPath: slotType
-      value: 
-      objectReference: {fileID: 11400000, guid: ee64b15fa4c75184ea3413e89026b6cc, type: 2}
-    - target: {fileID: 2281002550930501387, guid: 8cd78d2893a539c41b2ac02a6a7b5b0a, type: 3}
-      propertyPath: slotIndex
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8425866515470878406, guid: 8cd78d2893a539c41b2ac02a6a7b5b0a, type: 3}
       propertyPath: m_Pivot.x

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Items.Base
@@ -10,33 +9,25 @@ namespace Items.Base
     {
         [SerializeField] private int amount;
         [SerializeField] private SO_Item soItem;
-        private LinkedList<ItemAmount> modifiers;
+        [SerializeField] private List<ItemAmount> modifiers;
         private bool _overflow;
         private string _itemName;
         private string _description;
         
         public int Amount => amount;
         public SO_Item SoItem => soItem;
-        public LinkedList<ItemAmount> Modifiers => modifiers ??= new LinkedList<ItemAmount>();
-        public bool Overflow => _overflow;
+        public List<ItemAmount> Modifiers => modifiers ??= new List<ItemAmount>();
         public string ItemName => _itemName;
         public string Description => _description;
         
-        public ItemAmount(ItemAmount newItemAmount)
-        {
-            soItem = newItemAmount.SoItem;
-            amount = newItemAmount.Amount;
-            modifiers = newItemAmount.Modifiers;
-        }
-        
-        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, LinkedList<ItemAmount> modifiers = null, bool overflow = false)
+        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, List<ItemAmount> modifiers = null, bool overflow = false)
         {
             soItem = newSoItem;
             amount = newAmount;
             _overflow = overflow;
-            this.modifiers = modifiers ?? new LinkedList<ItemAmount>();
+            this.modifiers = modifiers ?? new List<ItemAmount>();
         }
-
+        
         public void SetOverflow(bool overflow = false)
         {
             _overflow = overflow;
@@ -53,16 +44,19 @@ namespace Items.Base
             if (soItem != other.soItem) return false;
 
             if (Modifiers.Count != other.Modifiers.Count) return false;
+            
+            var thisSet = new HashSet<ItemAmount>(Modifiers);
+            var otherSet = new HashSet<ItemAmount>(other.Modifiers);
 
-            return Modifiers.All(mod => other.Modifiers.Any(m => m.soItem == mod.soItem));
+            return thisSet.SetEquals(otherSet);
         }
 
         public int SetItem(ItemAmount itemAmount)
         {
             soItem = itemAmount.SoItem;
-            SetAmount(_overflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, SoItem.Stack));
-            modifiers = itemAmount.Modifiers;
             SetItemNameAndDescription();
+
+            SetAmount(_overflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, SoItem.Stack));
             return _overflow ? 0 : Mathf.Max(0, itemAmount.Amount - SoItem.Stack);
         }
         
@@ -88,43 +82,31 @@ namespace Items.Base
             if (IsEmpty || amountToRemove <= 0) return amountToRemove;
             return SetAmount(amount - amountToRemove);
         }
-        /*
-        public int RemoveAmount(int amountToRemove)
-        {
-            if (IsEmpty || amountToRemove <= 0) return amountToRemove;
-            int removed = Mathf.Min(amount, this.Amount);
-            SetAmount(amount - amountToRemove);
-            return removed;
-        }*/
 
         public void Clear()
         {
             soItem = null;
             amount = 0;
-            modifiers = new LinkedList<ItemAmount>();
+            modifiers = new List<ItemAmount>();
         }
 
         public void AddModifier(ItemAmount itemAmount)
         {
             if (IsEmpty) return;
-
+            
             if (modifiers.Contains(itemAmount)) return;
 
             var newPriority = itemAmount.SoItem.ModifierPriority;
-            
-            var current = modifiers.First;
-            while (current != null)
-            {
-                if (current.Value.SoItem.ModifierPriority > newPriority)
-                {
-                    modifiers.AddBefore(current, itemAmount);
-                    SetItemNameAndDescription();
-                    return;
-                }
-                current = current.Next;
-            }
-            
-            modifiers.AddLast(itemAmount);
+
+            int index = modifiers.FindIndex(m => 
+                m.SoItem.ModifierPriority > newPriority
+            );
+
+            if (index >= 0)
+                modifiers.Insert(index, itemAmount);
+            else
+                modifiers.Add(itemAmount);
+
             SetItemNameAndDescription();
         }
 

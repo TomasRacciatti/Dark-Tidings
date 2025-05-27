@@ -36,7 +36,7 @@ namespace Inventory.View
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                ItemUpdated(i, _inventory.GetItem(i));
+                ItemUpdated(i, _inventory.GetIndexItem(i));
             }
         }
         
@@ -70,7 +70,7 @@ namespace Inventory.View
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                ItemUpdated(i, _inventory.GetItem(i));
+                ItemUpdated(i, _inventory.GetIndexItem(i));
             }
         }
     }

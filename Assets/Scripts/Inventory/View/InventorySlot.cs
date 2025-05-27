@@ -21,7 +21,7 @@ namespace Inventory.View
             slotIndex = index;
         }
 
-        public void CheckExtraUI(ItemAmount itemAmount)
+        private void CheckExtraUI(ItemAmount itemAmount)
         {
             if (ammoUI != null)
             {
@@ -102,6 +102,7 @@ namespace Inventory.View
             if (HandleInventoryToToolbar(fromSlot, fromItem, toItem)) return;
             if (HandleToolbarToToolbar(fromSlot, fromItem, toItem)) return;
             if (HandleToolbarToInventory(fromSlot, fromItem, toItem)) return;
+            //if (HandleInventoryToAmmo(fromSlot, fromItem, toItem)) return;
         }
 
         private bool HandleInventoryToInventory(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
@@ -204,5 +205,21 @@ namespace Inventory.View
 
             return true;
         }
+        /*
+        private bool HandleInventoryToAmmo(InventorySlot fromSlot, InventoryItem fromItem, InventoryItem toItem)
+        {
+            if (fromSlot.slotType != GameManager.Canvas.inventoryManager.inventorySlotType ||
+                slotType != GameManager.Canvas.inventoryManager.inventorySlotType)
+                return false;
+
+            fromItem.SetParent(transform);
+            if (toItem)
+            {
+                toItem.SetParent(fromSlot.transform);
+            }
+
+            GameManager.Player.inventory.SwapItems(fromSlot.slotIndex, slotIndex);
+            return true;
+        }*/
     }
 }

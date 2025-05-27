@@ -18,8 +18,16 @@ namespace Items.Base
         public int Amount => amount;
         public SO_Item SoItem => soItem;
         public LinkedList<ItemAmount> Modifiers => modifiers ??= new LinkedList<ItemAmount>();
+        public bool Overflow => _overflow;
         public string ItemName => _itemName;
         public string Description => _description;
+        
+        public ItemAmount(ItemAmount newItemAmount)
+        {
+            soItem = newItemAmount.SoItem;
+            amount = newItemAmount.Amount;
+            modifiers = newItemAmount.Modifiers;
+        }
         
         public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, LinkedList<ItemAmount> modifiers = null, bool overflow = false)
         {
@@ -28,7 +36,7 @@ namespace Items.Base
             _overflow = overflow;
             this.modifiers = modifiers ?? new LinkedList<ItemAmount>();
         }
-        
+
         public void SetOverflow(bool overflow = false)
         {
             _overflow = overflow;
@@ -80,6 +88,14 @@ namespace Items.Base
             if (IsEmpty || amountToRemove <= 0) return amountToRemove;
             return SetAmount(amount - amountToRemove);
         }
+        /*
+        public int RemoveAmount(int amountToRemove)
+        {
+            if (IsEmpty || amountToRemove <= 0) return amountToRemove;
+            int removed = Mathf.Min(amount, this.Amount);
+            SetAmount(amount - amountToRemove);
+            return removed;
+        }*/
 
         public void Clear()
         {

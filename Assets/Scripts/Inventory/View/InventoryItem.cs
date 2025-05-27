@@ -1,3 +1,4 @@
+using System;
 using Items.Base;
 using TMPro;
 using UnityEngine;
@@ -27,6 +28,14 @@ namespace Inventory.View
         private void Start()
         {
             amountText.raycastTarget = false;
+        }
+
+        private void OnDisable()
+        {
+            if (tooltipText != null)
+            {
+                tooltipText.gameObject.SetActive(false);
+            }
         }
 
         public void SetItem(ItemAmount newItemAmount, InventoryItem original = null)

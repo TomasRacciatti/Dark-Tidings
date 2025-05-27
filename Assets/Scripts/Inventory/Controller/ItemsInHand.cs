@@ -28,13 +28,11 @@ namespace Inventory.Controller
         private void Start()
         {
             ItemEquippable[] equippables = GetComponentsInChildren<ItemEquippable>(includeInactive: true);
-
-            // Si quieres solo los hijos (y no el objeto actual), puedes filtrarlos:
+            
             items = new List<ItemEquippable>();
             foreach (var item in equippables)
             {
-                if (item.gameObject != this.gameObject)
-                    items.Add(item);
+                items.Add(item);
             }
         }
 

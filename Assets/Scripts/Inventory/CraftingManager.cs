@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using Characters.Player;
+using Inventory.Model;
 using Inventory.View;
 using Items.Base;
 using Managers;
@@ -82,22 +85,46 @@ namespace Inventory
                 _craftedSlot.SetItem(new ItemAmount(null, 0));
             }
         }
-
-
+        
         public void CraftItem()
         {
-            ItemAmount item = _craftedSlot.GetItemAmount();
-            if (item.IsEmpty)
+            StartCoroutine(CraftCoroutine());
+        }
+
+        
+        private IEnumerator CraftCoroutine()
+        {
+            InventorySystem inventorySystem = GameManager.Player.inventory;
+
+            List<ItemAmount> requiredItems = new List<ItemAmount>();
+            for (int i = 0; i < _slots.Length; i++)
             {
-                return;
+                var item = _slots[i].GetItemAmount();
+                if (!item.IsEmpty)
+                {
+                    requiredItems.Add(item);
+                }
             }
-            var slotData = new[] {
-                new { Item = _slots[0].GetItemObject(), Index = 0 },
-                new { Item = _slots[1].GetItemObject(), Index = 1 },
-                new { Item = _slots[2].GetItemObject(), Index = 2 }
-            };
+
+            requiredItems = InventorySystem.StackItemAmounts(requiredItems);
+
+            List<ItemAmount> missingItems = inventorySystem.ConsumeItems(requiredItems);
+            if (missingItems.Count > 0) yield break;
+
+            foreach (var required in requiredItems)
+            {
+                inventorySystem.RemoveItem(new ItemAmount(required.SoItem, required.Amount));
+            }
             
-            GameManager.Player.inventory.AddItem(_craftedSlot.GetItemAmount());
+            yield return null;
+
+            ItemAmount craftedItem = _craftedSlot.GetItemAmount();
+            if (!craftedItem.IsEmpty)
+            {
+                inventorySystem.AddItem(craftedItem);
+            }
+
+            UpdateCrafting();
         }
     }
 }

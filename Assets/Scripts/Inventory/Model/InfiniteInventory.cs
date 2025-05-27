@@ -41,8 +41,8 @@ namespace Inventory.Model
                 ItemAmount newItem = new ItemAmount();
                 itemAmount.SetAmount(newItem.SetItem(itemAmount));
                 items.Add(newItem);
-                
-                UpdateItemUI(items.Count - 1);
+
+                NotifyItemChanged(items.Count - 1);
             }
             return itemAmount.Amount;
         }

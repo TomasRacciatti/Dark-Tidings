@@ -3,11 +3,12 @@ using Items.Base;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Inventory.View
 {
-    public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+    public class ItemUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private Image image;
         [SerializeField] private TextMeshProUGUI amountText;
@@ -16,13 +17,13 @@ namespace Inventory.View
         [SerializeField] private TextMeshProUGUI tooltipText;
 
         /*[HideInInspector]*/ public ItemAmount itemAmount;
-        /*[HideInInspector]*/ public InventoryItem originalItem;
-        private Canvas canvas;
+        /*[HideInInspector]*/ public ItemUI originalItemUI;
+        private Canvas _canvas;
 
         private void Awake()
         {
-            canvas = GetComponent<Canvas>();
-            canvas.sortingOrder = 5;
+            _canvas = GetComponent<Canvas>();
+            _canvas.sortingOrder = 5;
         }
 
         private void Start()
@@ -38,13 +39,13 @@ namespace Inventory.View
             }
         }
 
-        public void SetItem(ItemAmount newItemAmount, InventoryItem original = null)
+        public void SetItem(ItemAmount newItemAmount , ItemUI originalItem = null)
         {
             itemAmount = newItemAmount;
             image.sprite = itemAmount.SoItem.Image;
+            originalItemUI = originalItem;
             RefreshCount();
             ValidateEquipable();
-            originalItem = original;
         }
 
         public void SetAmount(int amount)
@@ -95,7 +96,7 @@ namespace Inventory.View
         public void OnBeginDrag(PointerEventData eventData)
         {
             image.raycastTarget = false;
-            canvas.sortingOrder = 15;
+            _canvas.sortingOrder = 15;
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -109,7 +110,7 @@ namespace Inventory.View
         public void OnEndDrag(PointerEventData eventData)
         {
             image.raycastTarget = true;
-            canvas.sortingOrder = 5;
+            _canvas.sortingOrder = 5;
             transform.localPosition = Vector3.zero;
         }
         

@@ -3,12 +3,12 @@ using UnityEngine;
 
 namespace Inventory.View
 {
-    public class ToolbarView : InventoryView
+    public class ToolbarUI : InventoryUI
     {
         [SerializeField] private int selectedSlot = 0;
         [SerializeField] private GameObject slotSelector;
 
-        public InventorySlot SelectedSlot
+        public SlotUI SelectedSlotUI
         {
             get
             {
@@ -30,19 +30,19 @@ namespace Inventory.View
             if (slot >= slots.Length) return;
 
             selectedSlot = slot;
-            slotSelector.transform.SetParent(SelectedSlot.transform, false);
+            slotSelector.transform.SetParent(SelectedSlotUI.transform, false);
             slotSelector.transform.localPosition = Vector3.zero;
             SetItemEquipped();
         }
 
-        public InventoryItem GetItem(InventoryItem item)
+        public ItemUI GetItem(ItemUI itemUI)
         {
-            foreach (InventorySlot slot in slots)
+            foreach (SlotUI slot in slots)
             {
-                InventoryItem existingItem = slot.GetComponentInChildren<InventoryItem>();
-                if (existingItem != null && existingItem.originalItem == item)
+                ItemUI existingItemUI = slot.GetComponentInChildren<ItemUI>();
+                if (existingItemUI != null && existingItemUI.originalItemUI == itemUI)
                 {
-                    return existingItem;
+                    return existingItemUI;
                 }
             }
 
@@ -51,8 +51,8 @@ namespace Inventory.View
 
         public void SetItemEquipped()
         {
-            InventoryItem item = SelectedSlot.GetComponentInChildren<InventoryItem>();
-            ItemsInHand.Instance.SetItemEquipped(item == null ? null : item.itemAmount.SoItem);
+            ItemUI itemUI = SelectedSlotUI.GetComponentInChildren<ItemUI>();
+            ItemsInHand.Instance.SetItemEquipped(itemUI == null ? null : itemUI.itemAmount.SoItem);
         }
     }
 }

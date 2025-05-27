@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Inventory.Model;
 using Items.Base;
 using Managers;
+using Patterns;
 using Patterns.ObjectPool;
 using UnityEngine;
 
@@ -16,6 +17,7 @@ namespace Items.Weapons
         private ItemAmount _boltType = new();
         private ItemAmount _boltRequired1 = new();
         private ItemAmount _boltRequired2 = new();
+        private Cooldown _cooldown = new();
 
         public override void Use()
         {
@@ -40,16 +42,20 @@ namespace Items.Weapons
                 Debug.LogWarning("No bolt loaded!");
                 return;
             }*/
-            InventorySystem inventorySystem = GameManager.Player.inventory;
-            ItemAmount bolt = inventorySystem.GetItem(_bolt);
+            if (_cooldown.IsReady)
+            {
+                InventorySystem inventorySystem = GameManager.Player.inventory;
+                ItemAmount bolt = inventorySystem.GetItem(_bolt);
             
-            if (bolt.IsEmpty) return;
+                if (bolt.IsEmpty) return;
             
-            inventorySystem.RemoveItem(new ItemAmount(bolt.SoItem, 1, bolt.Modifiers));
+                inventorySystem.RemoveItem(new ItemAmount(bolt.SoItem, 1, bolt.Modifiers));
             
-            GameObject boltInstance = ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, _firePoint.rotation, 10f);
-            boltInstance.GetComponent<Bolt>().SetModifiers(bolt.Modifiers);
-            Debug.Log("Fired: " + _boltType.ItemName);
+                GameObject boltInstance = ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, _firePoint.rotation, 10f);
+                boltInstance.GetComponent<Bolt>().SetModifiers(bolt.Modifiers);
+                Debug.Log("Fired: " + _boltType.ItemName);
+                _cooldown.StartCooldown(1);
+            }
         }
     }
 }

@@ -88,14 +88,6 @@ namespace Items.Base
             if (IsEmpty || amountToRemove <= 0) return amountToRemove;
             return SetAmount(amount - amountToRemove);
         }
-        /*
-        public int RemoveAmount(int amountToRemove)
-        {
-            if (IsEmpty || amountToRemove <= 0) return amountToRemove;
-            int removed = Mathf.Min(amount, this.Amount);
-            SetAmount(amount - amountToRemove);
-            return removed;
-        }*/
 
         public void Clear()
         {

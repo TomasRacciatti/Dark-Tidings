@@ -19,6 +19,7 @@ namespace Inventory.Controller
         
         [SerializeField] public SlotType inventorySlotType;
         [SerializeField] public SlotType toolbarSlotType;
+        [SerializeField] public SlotType ammoSlotType;
         
         private void Start()
         {

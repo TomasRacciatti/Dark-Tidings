@@ -71,8 +71,7 @@ namespace Inventory.Model
                 {
                     itemAmount.SetAmount(item.SetItem(itemAmount));
                     items[i] = item;
-
-                    print("2");
+                    
                     UpdateItemUI(i);
 
                     if (itemAmount.Amount <= 0)

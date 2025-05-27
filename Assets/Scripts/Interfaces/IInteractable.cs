@@ -5,5 +5,7 @@ namespace Interfaces
     public interface IInteractable
     {
         public void Interact(GameObject interactableObject);
+        
+        public Transform InteractionPoint { get; }
     }
 }

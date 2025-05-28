@@ -93,6 +93,7 @@ GameObject:
   m_Component:
   - component: {fileID: 207080688314781052}
   - component: {fileID: 3316981248478867314}
+  - component: {fileID: 3289149576505281624}
   - component: {fileID: 3045273275966605672}
   - component: {fileID: 3336382331427055496}
   - component: {fileID: 3118061232746742294}
@@ -147,12 +148,25 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.8
-  m_Radius: 0.5
+  m_Radius: 0.3
   m_SlopeLimit: 45
   m_StepOffset: 0.38
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &3289149576505281624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2001346312214755217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489d85c05c6deea408133c647a62e145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!114 &3045273275966605672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,8 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4111e313540abb74497f9d50e8135d92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
   speed: 4
   strengths: []
   weaknesses: []
@@ -182,23 +194,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3df6c540c9f30a4887f05084d47c734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpHeight: 1
-  Gravity: -15
-  FallTimeout: 1
-  SpeedChangeRate: 10
-  GroundedOffset: -0.41
-  GroundLayers:
+  speed: 3
+  jumpHeight: 1.2
+  gravity: -9.8
+  fallTimeout: 0.15
+  speedChangeRate: 10
+  groundedOffset: -0.21
+  groundLayers:
     serializedVersion: 2
-    m_Bits: 16833
-  CinemachineCameraTarget: {fileID: 9055658549706281260}
-  TopClamp: 89
-  BottomClamp: -89
-  CameraAngleOverride: 0
-  _mainCamera: {fileID: 5777399186146976923}
-  _raycastLayers:
+    m_Bits: 193
+  cinemachineCameraTarget: {fileID: 9055658549706281260}
+  topClamp: 89.9
+  bottomClamp: -89.9
+  cameraAngleOverride: 0
+  mainCamera: {fileID: 8075703907256398125}
+  raycastLayers:
     serializedVersion: 2
-    m_Bits: 32193
+    m_Bits: 32192
   inventory: {fileID: 0}
+  toolbar: {fileID: 0}
 --- !u!114 &3118061232746742294
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,8 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
-  toolbar: {fileID: 5782085653001925886}
-  slotsAmount: 12
+  slotsAmount: 26
 --- !u!114 &5782085653001925886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,7 +271,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8448
   canPush: 1
-  strength: 4.92
+  strength: 5
 --- !u!114 &3884804025199195881
 MonoBehaviour:
   m_ObjectHideFlags: 0

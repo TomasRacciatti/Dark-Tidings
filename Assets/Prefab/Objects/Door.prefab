@@ -363,7 +363,6 @@ MonoBehaviour:
   openedAngle: 120
   closedAngle: 0
   lockedAngle: 4
-  lockedfrecuencia: 500
   isOpen: 0
   isLocked: 0
   keyItem: {fileID: 11400000, guid: 77367ca7c480d744880ea706eef0c73c, type: 2}
@@ -562,7 +561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3703561393660540519}
   - component: {fileID: 8435322231836658799}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: noExploit
   m_TagString: Untagged
   m_Icon: {fileID: 0}

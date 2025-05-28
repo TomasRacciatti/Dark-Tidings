@@ -8,89 +8,88 @@ namespace Characters.Player
 {
     public class InputsEvents : MonoBehaviour
     {
-        private InputActions inputActions;
+        private InputActions _inputActions;
         private PlayerController _playerController;
 
-        private Vector2 movement;
-        private Vector2 look;
-        private bool sprint;
-        private bool use;
-        private bool inventoryOpened;
-        private bool toggleBackpack;
+        private Vector2 _movement;
+        private Vector2 _look;
+        private bool _sprint;
+        private bool _use;
+        private bool _inventoryOpened;
+        private bool _toggleBackpack;
         
-        public Vector2 GetMovement => !inventoryOpened && !GameManager.Paused ? movement: Vector2.zero;
-        public Vector2 GetLook => !inventoryOpened && !GameManager.Paused ? look : Vector2.zero;
-        public bool IsSprinting => sprint;
-        public bool GetUse => use;
-        public bool GetInventoryOpened => inventoryOpened;
-        public bool GetToggleBackpack => toggleBackpack;
+        public Vector2 GetMovement => !_inventoryOpened && !GameManager.Paused ? _movement: Vector2.zero;
+        public Vector2 GetLook => !_inventoryOpened && !GameManager.Paused ? _look : Vector2.zero;
+        public bool IsSprinting => _sprint;
+        public bool IsUsing => _use;
+        public bool InventoryOpened => _inventoryOpened;
 
         private Toolbar _toolbar;
 
         private void Awake()
         {
-            inputActions = new InputActions();
+            _inputActions = new InputActions();
             _playerController = GetComponent<PlayerController>();
-            _toolbar = GetComponentInChildren<Toolbar>();
+            _toolbar = GetComponent<Toolbar>();
         }
 
         private void OnEnable()
         {
-            inputActions.Player.Movement.performed += Movement;
-            inputActions.Player.Movement.canceled += Movement;
-            inputActions.Player.Look.performed += Look;
-            inputActions.Player.Look.canceled += Look;
-            inputActions.Player.Jump.performed += Jump;
-            inputActions.Player.Jump.canceled += Jump;
-            inputActions.Player.Sprint.performed += Sprint;
-            inputActions.Player.Sprint.canceled += Sprint;
-            inputActions.Player.Use.performed += StartUse;
-            inputActions.Player.Use.canceled += StopUse;
-            inputActions.Player.Interact.performed += Interact;
-            inputActions.Player.ToggleInventory.performed += ToggleInventory;
-            inputActions.Player.ToggleBackpack.performed += ToggleBackpack;
-            inputActions.Player.Toolbar1.performed += SelectToolbar1;
-            inputActions.Player.Toolbar2.performed += SelectToolbar2;
-            inputActions.Player.Toolbar3.performed += SelectToolbar3;
-            inputActions.Player.Toolbar4.performed += SelectToolbar4;
-            inputActions.Player.TogglePaused.performed += Pause;
-            inputActions.Enable();
+            _inputActions.Player.Movement.performed += Movement;
+            _inputActions.Player.Movement.canceled += Movement;
+            _inputActions.Player.Look.performed += Look;
+            _inputActions.Player.Look.canceled += Look;
+            _inputActions.Player.Jump.performed += Jump;
+            _inputActions.Player.Jump.canceled += Jump;
+            _inputActions.Player.Sprint.performed += Sprint;
+            _inputActions.Player.Sprint.canceled += Sprint;
+            _inputActions.Player.Use.performed += StartUse;
+            _inputActions.Player.Use.canceled += StopUse;
+            _inputActions.Player.Interact.performed += Interact;
+            _inputActions.Player.Inventory.performed += Inventory;
+            _inputActions.Player.Journal.performed += Journal;
+            _inputActions.Player.Toolbar1.performed += SelectToolbar1;
+            _inputActions.Player.Toolbar2.performed += SelectToolbar2;
+            _inputActions.Player.Toolbar3.performed += SelectToolbar3;
+            _inputActions.Player.Toolbar4.performed += SelectToolbar4;
+            _inputActions.Player.Pause.performed += Pause;
+            _inputActions.Enable();
         }
 
         private void OnDisable() //fijarme al final si esto esta igual q arriba con -
         {
-            inputActions.Disable();
-            inputActions.Player.Movement.performed -= Movement;
-            inputActions.Player.Movement.canceled -= Movement;
-            inputActions.Player.Look.performed -= Look;
-            inputActions.Player.Look.canceled -= Look;
-            inputActions.Player.Jump.performed -= Jump;
-            inputActions.Player.Jump.canceled -= Jump;
-            inputActions.Player.Sprint.performed -= Sprint;
-            inputActions.Player.Sprint.canceled -= Sprint;
-            inputActions.Player.Use.performed -= StartUse;
-            inputActions.Player.Use.canceled -= StopUse;
-            inputActions.Player.Interact.performed -= Interact;
-            inputActions.Player.ToggleInventory.performed -= ToggleInventory;
-            inputActions.Player.ToggleBackpack.performed -= ToggleBackpack;
-            inputActions.Player.Toolbar1.performed -= SelectToolbar1;
-            inputActions.Player.Toolbar2.performed -= SelectToolbar2;
-            inputActions.Player.Toolbar3.performed -= SelectToolbar3;
-            inputActions.Player.Toolbar4.performed -= SelectToolbar4;
-            inputActions.Player.TogglePaused.performed -= Pause;
+            _inputActions.Disable();
+            _inputActions.Player.Movement.performed -= Movement;
+            _inputActions.Player.Movement.canceled -= Movement;
+            _inputActions.Player.Look.performed -= Look;
+            _inputActions.Player.Look.canceled -= Look;
+            _inputActions.Player.Jump.performed -= Jump;
+            _inputActions.Player.Jump.canceled -= Jump;
+            _inputActions.Player.Sprint.performed -= Sprint;
+            _inputActions.Player.Sprint.canceled -= Sprint;
+            _inputActions.Player.Use.performed -= StartUse;
+            _inputActions.Player.Use.canceled -= StopUse;
+            _inputActions.Player.Interact.performed -= Interact;
+            _inputActions.Player.Inventory.performed -= Inventory;
+            _inputActions.Player.Journal.performed -= Journal;
+            _inputActions.Player.Toolbar1.performed -= SelectToolbar1;
+            _inputActions.Player.Toolbar2.performed -= SelectToolbar2;
+            _inputActions.Player.Toolbar3.performed -= SelectToolbar3;
+            _inputActions.Player.Toolbar4.performed -= SelectToolbar4;
+            _inputActions.Player.Pause.performed -= Pause;
         }
 
-        public void Movement(InputAction.CallbackContext context)
+        private void Movement(InputAction.CallbackContext context)
         {
-            movement = context.ReadValue<Vector2>();
+            _movement = context.ReadValue<Vector2>();
         }
 
-        public void Look(InputAction.CallbackContext context)
+        private void Look(InputAction.CallbackContext context)
         {
-            look = context.ReadValue<Vector2>();
+            _look = context.ReadValue<Vector2>();
         }
 
-        public void Jump(InputAction.CallbackContext context)
+        private void Jump(InputAction.CallbackContext context)
         {
             if (!GameManager.Paused && context.ReadValueAsButton())
             {
@@ -98,21 +97,26 @@ namespace Characters.Player
             }
         }
 
-        public void Sprint(InputAction.CallbackContext context)
+        private void Sprint(InputAction.CallbackContext context)
         {
-            sprint = context.ReadValueAsButton();
+            _sprint = context.ReadValueAsButton();
         }
 
-        public void StartUse(InputAction.CallbackContext context)
+        private void StartUse(InputAction.CallbackContext context)
         {
-            use = context.ReadValueAsButton();
-            if (!inventoryOpened && !GameManager.Paused)
+            _use = context.ReadValueAsButton();
+            if (!_inventoryOpened && !GameManager.Paused)
             {
                 ItemsInHand.Instance.Use();
             }
         }
+        
+        private void StopUse(InputAction.CallbackContext context)
+        {
+            _use = context.ReadValueAsButton();
+        }
 
-        public void Interact(InputAction.CallbackContext context)
+        private void Interact(InputAction.CallbackContext context)
         {
             if (!GameManager.Paused)
             {
@@ -120,40 +124,54 @@ namespace Characters.Player
             }
         }
 
-        public void StopUse(InputAction.CallbackContext context)
+        private void Inventory(InputAction.CallbackContext context)
         {
-            use = context.ReadValueAsButton();
+            InventoryUI(0);
         }
 
-        public void ToggleInventory(InputAction.CallbackContext context)
+        private void Journal(InputAction.CallbackContext context)
         {
-            if (!GameManager.Paused)
+            InventoryUI(1);
+        }
+        
+        private void InventoryUI(int targetIndex)
+        {
+            if (GameManager.Paused) return;
+
+            var currentIndex = GameManager.Canvas.inventoryManager.GetIndexInventory();
+            
+            if (currentIndex == targetIndex || targetIndex == -1)
             {
-                inventoryOpened = !inventoryOpened;
-                GameManager.Canvas.inventoryManager.SetActiveInventory(inventoryOpened);
-                GameManager.SetCursorVisibility(inventoryOpened);
+                GameManager.Canvas.inventoryManager.InventorySwitcherUI.gameObject.SetActive(false);
+                GameManager.SetCursorVisibility(false);
+                _inventoryOpened = false;
+                return;
             }
+            
+            GameManager.Canvas.inventoryManager.InventorySwitcherUI.SwitchTo(targetIndex);
+            GameManager.Canvas.inventoryManager.InventorySwitcherUI.gameObject.SetActive(true);
+            GameManager.SetCursorVisibility(true);
+            _inventoryOpened = true;
         }
-
-        public void ToggleBackpack(InputAction.CallbackContext context)
+        
+        private void Pause(InputAction.CallbackContext context)
         {
-            toggleBackpack = !toggleBackpack;
-            //CanvasGameManager.Instance.inventoryManager.ToggleBackpack(toggleBackpack);
+            if (!GameManager.Paused && _inventoryOpened)
+            {
+                InventoryUI(-1);
+                return;
+            }
+            GameManager.TogglePause();
         }
 
-        public void SelectToolbar1(InputAction.CallbackContext context) => SelectToolbar(0);
-        public void SelectToolbar2(InputAction.CallbackContext context) => SelectToolbar(1);
-        public void SelectToolbar3(InputAction.CallbackContext context) => SelectToolbar(2);
-        public void SelectToolbar4(InputAction.CallbackContext context) => SelectToolbar(3);
+        private void SelectToolbar1(InputAction.CallbackContext context) => SelectToolbar(0);
+        private void SelectToolbar2(InputAction.CallbackContext context) => SelectToolbar(1);
+        private void SelectToolbar3(InputAction.CallbackContext context) => SelectToolbar(2);
+        private void SelectToolbar4(InputAction.CallbackContext context) => SelectToolbar(3);
 
         private void SelectToolbar(int index)
         {
             _toolbar.SetSelectedSlot(index);
-        }
-
-        public void Pause(InputAction.CallbackContext context)
-        {
-            GameManager.TogglePause();
         }
     }
 }

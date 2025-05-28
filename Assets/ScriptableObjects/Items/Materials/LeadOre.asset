@@ -17,6 +17,7 @@ MonoBehaviour:
   description: ItemDescription
   modifierName: Lead
   stack: 10
-  type: 3
+  type: {fileID: 11400000, guid: c82398f0766eb254ea5dce9ca06c1c8e, type: 2}
+  equippable: 0
   mesh: {fileID: 0}
   materials: []

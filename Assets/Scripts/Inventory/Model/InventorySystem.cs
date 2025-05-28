@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Inventory.Controller;
+using Inventory.Interfaces;
 using Items.Base;
 using UnityEngine;
 
@@ -12,22 +13,36 @@ namespace Inventory.Model
     public abstract class InventorySystem : MonoBehaviour
     {
         [SerializeField] protected List<ItemAmount> items = new List<ItemAmount>();
-        [SerializeField] public Toolbar toolbar;
-        public event Action<int, ItemAmount> OnItemUpdated;
-        public event Action OnInventoryUpdated;
+
+        public List<ItemAmount> GetAllItems => new(items);
+
+        private List<IInventoryObserver> _observers = new();
 
         public abstract int AddItem(ItemAmount itemAmount);
         protected abstract int AddItemEmptySlot(ItemAmount itemAmount);
         public abstract int RemoveItem(ItemAmount itemAmount);
 
-        protected void UpdateItemUI(int index)
+        public void AddObserver(IInventoryObserver observer)
         {
-            OnItemUpdated?.Invoke(index, items[index]);
+            if (!_observers.Contains(observer))
+                _observers.Add(observer);
         }
 
-        protected void UpdateInventoryUI()
+        public void RemoveObserver(IInventoryObserver observer)
         {
-            OnInventoryUpdated?.Invoke();
+            _observers.Remove(observer);
+        }
+
+        protected void NotifyItemChanged(int index)
+        {
+            foreach (var observer in _observers)
+                observer.OnItemChanged(index, items[index]);
+        }
+
+        protected void NotifyInventoryChanged()
+        {
+            foreach (var observer in _observers)
+                observer.OnInventoryChanged(items);
         }
 
         public ItemAmount GetItem(int slot)
@@ -35,6 +50,15 @@ namespace Inventory.Model
             if (slot < 0 || slot >= items.Count) return new ItemAmount();
 
             return items[slot];
+        }
+
+        public ItemAmount GetItem(SO_Item soItem)
+        {
+            foreach (var item in items)
+            {
+                if (item.SoItem == soItem) return new ItemAmount(item);
+            }
+            return new ItemAmount();
         }
 
         public bool HasItem(SO_Item soItem)
@@ -80,11 +104,11 @@ namespace Inventory.Model
             {
                 var item = items[i];
 
-                if (!item.IsEmpty && itemAmount.IsStackable(item))
+                if (!item.IsEmpty && ItemUtility.AreStackable(itemAmount, item))
                 {
                     itemAmount.SetAmount(item.AddAmount(itemAmount.Amount));
                     items[i] = item;
-                    UpdateItemUI(i);
+                    NotifyItemChanged(i);
 
                     if (itemAmount.Amount <= 0)
                         return 0;
@@ -110,7 +134,7 @@ namespace Inventory.Model
                         if (onItemEmptied(i)) i--;
                         else items[i] = item;
 
-                    UpdateItemUI(i);
+                    NotifyItemChanged(i);
                     if (itemAmount.Amount <= 0) return 0;
                 }
             }
@@ -126,44 +150,32 @@ namespace Inventory.Model
             ItemAmount fromItem = items[fromIndex];
             ItemAmount toItem = items[toIndex];
 
-            int fromToolbar = toolbar.GetIndex(fromIndex);
-            int toToolbar = toolbar.GetIndex(toIndex);
-
-            if (toItem.IsEmpty || fromItem.IsStackable(toItem))
+            if (toItem.IsEmpty || ItemUtility.AreStackable(fromItem, toItem))
             {
                 int remainingAmount = toItem.SetItem(fromItem);
                 items[toIndex] = toItem;
-                if (toolbar != null) toolbar.SetIndex(fromToolbar, toIndex);
 
                 if (remainingAmount > 0)
                 {
                     fromItem.SetAmount(remainingAmount);
                     items[fromIndex] = fromItem;
-                    if (toolbar != null) toolbar.SetIndex(toToolbar, fromIndex);
                 }
                 else
                 {
                     ClearSlot(fromIndex);
-                    if (toolbar != null) toolbar.SetIndex(toToolbar, -1);
-                }/*
-                UpdateItemUI(fromIndex);
-                UpdateItemUI(toIndex);*/
+                }
 
+                NotifyItemChanged(fromIndex);
+                NotifyItemChanged(toIndex);
                 return remainingAmount <= 0;
             }
 
             (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
-            if (toolbar != null)
-            {
-                toolbar.SetIndex(fromToolbar, toIndex);
-                toolbar.SetIndex(toToolbar, fromIndex);
-            }
-/*
-            UpdateItemUI(fromIndex);
-            UpdateItemUI(toIndex);
-*/
-            return false;
+            NotifyItemChanged(fromIndex);
+            NotifyItemChanged(toIndex);
+            return true;
         }
+
 
         public List<ItemAmount> ConsumeItems(List<ItemAmount> requiredItems)
         {
@@ -228,44 +240,6 @@ namespace Inventory.Model
                     yield return item;
             }
         }
-
-        public bool TryCraft(Dictionary<SO_Item, int> requiredItems, ItemAmount itemCrafted)
-        {
-            foreach (var requirement in requiredItems)
-            {
-                if (!HasItemAmount(requirement.Key, requirement.Value))
-                {
-                    return false;
-                }
-            }
-
-            foreach (var requirement in requiredItems)
-            {
-                int amountToRemove = requirement.Value;
-
-                for (int i = 0; i < items.Count && amountToRemove > 0; i++)
-                {
-                    var item = items[i];
-                    if (!item.IsEmpty && item.GetSoItem == requirement.Key)
-                    {
-                        int removed = item.RemoveAmount(amountToRemove);
-                        amountToRemove -= removed;
-
-                        if (item.IsEmpty)
-                        {
-                            ClearSlot(i);
-                        }
-                        else
-                        {
-                            items[i] = item;
-                            UpdateItem(i);
-                        }
-                    }
-                }
-            }
-
-            return true;
-        }*/
 /*
         public ItemAmount[] GetItemsOfTypes(params ItemType[] types)
         {

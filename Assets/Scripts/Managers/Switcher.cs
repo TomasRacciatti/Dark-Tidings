@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Patterns
@@ -5,6 +6,11 @@ namespace Patterns
     public class Switcher : MonoBehaviour
     {
         [SerializeField] private int activeIndex = 0;
+
+        private void Awake()
+        {
+            print(transform.childCount);
+        }
 
         void Start()
         {
@@ -14,6 +20,8 @@ namespace Patterns
         public void SwitchTo(int index)
         {
             int childCount = transform.childCount;
+            
+            print(transform.childCount + " : " + index);
 
             for (int i = 0; i < childCount; i++)
             {
@@ -41,6 +49,12 @@ namespace Patterns
         public int GetCurrentIndex()
         {
             return activeIndex;
+        }
+
+        public static int GetIndexSwitcher(Switcher switcher)
+        {
+            if (!switcher.gameObject.activeInHierarchy) return -1;
+            return switcher.GetCurrentIndex();
         }
     }
 }

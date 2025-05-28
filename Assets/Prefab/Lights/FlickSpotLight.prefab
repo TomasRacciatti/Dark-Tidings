@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3600222503630604878}
   - component: {fileID: 1239082422365442421}
   - component: {fileID: 7511100563174954666}
-  - component: {fileID: 6745977784754889323}
   - component: {fileID: 4688432517839475319}
   m_Layer: 0
   m_Name: FlickSpotLight
@@ -219,23 +218,6 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
---- !u!114 &6745977784754889323
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3676016250408936056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d781570747e8a247b0cefca62f8d43a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _activeDistance: 80
-  _player: {fileID: 0}
-  _playerLayerMask:
-    serializedVersion: 2
-    m_Bits: 512
 --- !u!114 &4688432517839475319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,6 +230,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a972110d3c391d4788b048a8738fe08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _activeDistance: 20
+  _detectionOffset: {x: 0, y: 0, z: 0}
+  _playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _player: {fileID: 0}
   _mode: 0
   _minFlickerInterval: 0.05
   _maxFlickerInterval: 0.7

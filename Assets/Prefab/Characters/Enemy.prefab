@@ -147,6 +147,10 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   speed: 2
+  strengths:
+  - {fileID: 11400000, guid: b37e7bc7fbcb07c44b57f3c00fbdb626, type: 2}
+  weaknesses:
+  - {fileID: 11400000, guid: 1d86efae8de79d14f8be294b5c3e2df5, type: 2}
 --- !u!114 &6813438174787629179
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,4 +13,9 @@ MonoBehaviour:
   m_Name: AirQuality
   m_EditorClassIdentifier: 
   clueTypeName: Air Quality
-  clue: []
+  clue:
+  - {fileID: 11400000, guid: 54df0d272298b01449956e9653086d7a, type: 2}
+  - {fileID: 11400000, guid: 3abc47485896b18498ca644c47f9cef8, type: 2}
+  - {fileID: 11400000, guid: b575e13326ced67498973fd3f83a1221, type: 2}
+  - {fileID: 11400000, guid: 1efa43e24d3b999419d3cfc7e440337d, type: 2}
+  - {fileID: 11400000, guid: b30eb933160768e4c8c715d26c9a9c83, type: 2}

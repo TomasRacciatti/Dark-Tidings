@@ -12,15 +12,15 @@ namespace Characters
         public int maxHealth = 100;
         public float speed = 3;
 
-        public List<SO_Item> strengths;
-        public List<SO_Item> weaknesses;
+        public SO_Item[] strengths;
+        public SO_Item[] weaknesses;
 
         private void Awake()
         {
             health = maxHealth;
         }
         
-        public virtual void TakeDamage(int damage, List<SO_Item> modifiers = null)
+        public virtual void TakeDamage(int damage, LinkedList<ItemAmount> modifiers = null)
         {
             float finalDamage = damage;
 
@@ -28,11 +28,11 @@ namespace Characters
             {
                 foreach (var modifier in modifiers)
                 {
-                    if (weaknesses.Contains(modifier))
+                    if (Contains(weaknesses,modifier))
                     {
                         finalDamage *= 2.5f;
                     }
-                    else if (strengths.Contains(modifier))
+                    else if (Contains(strengths, modifier))
                     {
                         finalDamage *= 0.2f;
                     }
@@ -48,8 +48,20 @@ namespace Characters
                 Death();
             }
         }
+        
+        protected bool Contains(SO_Item[] array, ItemAmount item)
+        {
+            foreach (var i in array)
+            {
+                if (i == item.SoItem)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-        public virtual void Heal(int healing, List<SO_Item> modifiers = null)
+        public virtual void Heal(int healing, LinkedList<ItemAmount> modifiers = null)
         {
             float finalHealing = healing;
 
@@ -57,11 +69,11 @@ namespace Characters
             {
                 foreach (var modifier in modifiers)
                 {
-                    if (strengths.Contains(modifier))
+                    if (Contains(strengths,modifier))
                     {
                         finalHealing *= 1.5f;
                     }
-                    else if (weaknesses.Contains(modifier))
+                    else if (Contains(weaknesses,modifier))
                     {
                         finalHealing *= 0.5f;
                     }

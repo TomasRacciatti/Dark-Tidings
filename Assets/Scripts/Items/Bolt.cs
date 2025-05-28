@@ -9,12 +9,12 @@ namespace Items
 {
     public class Bolt : MonoBehaviour
     {
-        [SerializeField] private List<SO_Item> _modifiers = new();
+        [SerializeField] private LinkedList<ItemAmount> _modifiers = new();
         [SerializeField] private LayerMask _layerMask;
 
-        List<SO_Item> Modifiers => _modifiers;
+        LinkedList<ItemAmount> Modifiers => _modifiers;
 
-        public void SetModifiers(List<SO_Item> modifiers)
+        public void SetModifiers(LinkedList<ItemAmount> modifiers)
         {
             _modifiers = modifiers;
         }

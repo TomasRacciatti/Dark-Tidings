@@ -13,25 +13,21 @@ namespace Inventory.Controller
         [SerializeField] private int slotCount = 4;
         [SerializeField] private InventorySystem inventorySystem;
         
-        public event Action<int> OnSelectedSlotChanged;
-        
         public InventorySystem InventorySystem => inventorySystem;
 
-        public int GetSelectedSlot => inventoryIndexes[selectedSlot];
+        public int SelectedInventoryIndex => inventoryIndexes[selectedSlot];
         public int GetSlotIndex(int slot) => inventoryIndexes[slot];
 
         public ItemAmount GetSlotItem()
         {
-            if (GetSelectedSlot == -1) return new ItemAmount();
-            return inventorySystem.GetItem(GetSelectedSlot);
+            if (SelectedInventoryIndex == -1) return new ItemAmount();
+            return inventorySystem.GetItem(SelectedInventoryIndex);
         }
 
-        private void Awake()
+        private void Start()
         {
-            if (inventorySystem == null)
-            {
-                inventorySystem = GetComponentInParent<InventorySystem>();
-            }
+            if (inventorySystem == null) inventorySystem = GetComponent<InventorySystem>();
+            
             InitializeSlots();
         }
 
@@ -50,10 +46,7 @@ namespace Inventory.Controller
         {
             for (int i = 0; i < inventoryIndexes.Length; i++)
             {
-                if (inventoryIndex == inventoryIndexes[i])
-                {
-                    return i;
-                }
+                if (inventoryIndex == inventoryIndexes[i]) return i;
             }
             return -1;
         }
@@ -61,8 +54,9 @@ namespace Inventory.Controller
         public ItemAmount GetItem(int slot)
         {
             if (slot < 0 || slot >= inventoryIndexes.Length) return new ItemAmount();
-            
-            return inventorySystem.GetItem(slot);
+            int inventoryIndex = inventoryIndexes[slot];
+            if (inventoryIndex == -1) return new ItemAmount();
+            return inventorySystem.GetItem(inventoryIndex);
         }
         
         public void SetIndex(int toolbarSlotIndex, int inventoryIndex)
@@ -98,7 +92,7 @@ namespace Inventory.Controller
             if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
             
             selectedSlot = toolbarSlotIndex;
-            GameManager.Canvas.inventoryManager.toolbarView.ChangeSelectedSlot(selectedSlot);
+            GameManager.Canvas.inventoryManager.toolbarUI.ChangeSelectedSlot(selectedSlot);
         }
 
         public void SwapIndexes(int fromSlot, int toSlot)

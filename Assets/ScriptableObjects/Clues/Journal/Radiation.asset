@@ -13,9 +13,4 @@ MonoBehaviour:
   m_Name: Radiation
   m_EditorClassIdentifier: 
   clueTypeName: Radiation
-  clue:
-  - {fileID: 11400000, guid: e566ba9ef32eace44be331b34ffed162, type: 2}
-  - {fileID: 11400000, guid: 378f09edf797858419b0748258955976, type: 2}
-  - {fileID: 11400000, guid: f0bc815fb13f7c34f92f4bf17bff6550, type: 2}
-  - {fileID: 11400000, guid: ee91ed08b313fe84b83494af9fe89654, type: 2}
-  - {fileID: 11400000, guid: 86207897be1a0f947a4f534383a48dc4, type: 2}
+  clue: []

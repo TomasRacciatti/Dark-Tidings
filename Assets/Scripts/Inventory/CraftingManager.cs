@@ -6,15 +6,14 @@ using Inventory.View;
 using Items.Base;
 using Managers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Inventory
 {
     public class CraftingManager : MonoBehaviour
     {
-        [SerializeField] private SlotUI[] _slots;
+        [SerializeField] private InventorySlot[] _slots;
         [SerializeField] private int _selectedSlot = 0;
-        [SerializeField] private SlotUI craftedSlotUI;
+        [SerializeField] private InventorySlot _craftedSlot;
         [SerializeField] private GameObject slotSelector;
         [SerializeField] private SO_Item bullet;
 
@@ -35,16 +34,16 @@ namespace Inventory
 
         public void SetItem(ItemAmount itemAmount)
         {
-            ItemUI itemUI = _slots[_selectedSlot].GetComponentInChildren<ItemUI>();
+            InventoryItem item = _slots[_selectedSlot].GetComponentInChildren<InventoryItem>();
 
-            if (itemUI == null)
+            if (item == null)
             {
                 GameObject itemobject = Instantiate(GameManager.Canvas.inventoryManager.itemSlotPrefab, _slots[_selectedSlot].transform);
-                itemUI = itemobject.GetComponent<ItemUI>();
-                itemUI.SetRaycast(false);
+                item = itemobject.GetComponent<InventoryItem>();
+                item.SetRaycast(false);
             }
             
-            itemUI.SetItem(itemAmount);
+            item.SetItem(itemAmount);
             ChangeSelectedSlot(_selectedSlot + 1);
             UpdateCrafting();
         }
@@ -53,14 +52,14 @@ namespace Inventory
         {
             foreach (var slot in _slots)
             {
-                ItemUI itemUI = slot.GetComponentInChildren<ItemUI>();
-                if (itemUI != null)
+                InventoryItem item = slot.GetComponentInChildren<InventoryItem>();
+                if (item != null)
                 {
-                    Destroy(itemUI.gameObject);
+                    Destroy(item.gameObject);
                 }
             }
             ChangeSelectedSlot(0);
-            craftedSlotUI.SetItem(new ItemAmount(null, 0));
+            _craftedSlot.SetItem(new ItemAmount(null, 0));
         }
 
         private void UpdateCrafting()
@@ -79,11 +78,11 @@ namespace Inventory
             {
                 var bullet = new ItemAmount(this.bullet, 5);
                 bullet.AddModifier(new ItemAmount(item2 != null ? item2 : item0, 1));
-                craftedSlotUI.SetItem(bullet);
+                _craftedSlot.SetItem(bullet);
             }
             else
             {
-                craftedSlotUI.SetItem(new ItemAmount(null, 0));
+                _craftedSlot.SetItem(new ItemAmount(null, 0));
             }
         }
         
@@ -119,7 +118,7 @@ namespace Inventory
             
             yield return null;
 
-            ItemAmount craftedItem = craftedSlotUI.GetItemAmount();
+            ItemAmount craftedItem = _craftedSlot.GetItemAmount();
             if (!craftedItem.IsEmpty)
             {
                 inventorySystem.AddItem(craftedItem);

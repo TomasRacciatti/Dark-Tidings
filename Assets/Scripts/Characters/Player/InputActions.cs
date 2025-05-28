@@ -73,6 +73,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""ToggleBackpack"",
+                    ""type"": ""Button"",
+                    ""id"": ""1ff2c46a-36d2-4c17-bce2-c69f13a89b66"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Toolbar1"",
                     ""type"": ""Button"",
                     ""id"": ""ccce0bec-a2e6-41d2-bb23-19f6dd97ad7e"",
@@ -118,7 +127,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Inventory"",
+                    ""name"": ""ToggleInventory"",
                     ""type"": ""Button"",
                     ""id"": ""c5ab7d12-161a-490a-bc69-2ecb256cbed3"",
                     ""expectedControlType"": """",
@@ -136,27 +145,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Pause"",
+                    ""name"": ""TogglePaused"",
                     ""type"": ""Button"",
                     ""id"": ""83afd3ca-2fce-485a-8450-25470e00ca94"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Journal"",
-                    ""type"": ""Button"",
-                    ""id"": ""fe35c712-661c-40bd-9b48-eb0ff4bdab5e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Test"",
-                    ""type"": ""Button"",
-                    ""id"": ""03ba64df-f42b-4cfd-be5f-6cbdbed822e1"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -309,6 +300,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""2d11c3c3-fdb7-41a6-b1fb-53a338db13c4"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";KeyboardMouse"",
+                    ""action"": ""ToggleBackpack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""3397736b-bd17-402c-9e0b-63c683e20f36"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
@@ -369,7 +371,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Inventory"",
+                    ""action"": ""ToggleInventory"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -391,7 +393,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pause"",
+                    ""action"": ""TogglePaused"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -402,29 +404,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Pause"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""b443a79f-cd0c-4637-9a52-1f893367f626"",
-                    ""path"": ""<Keyboard>/j"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Journal"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""8bdd3a8c-69e3-4143-b56f-ae517133e3b0"",
-                    ""path"": ""<Keyboard>/t"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Test"",
+                    ""action"": ""TogglePaused"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -488,16 +468,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
+        m_Player_ToggleBackpack = m_Player.FindAction("ToggleBackpack", throwIfNotFound: true);
         m_Player_Toolbar1 = m_Player.FindAction("Toolbar1", throwIfNotFound: true);
         m_Player_Toolbar2 = m_Player.FindAction("Toolbar2", throwIfNotFound: true);
         m_Player_Toolbar3 = m_Player.FindAction("Toolbar3", throwIfNotFound: true);
         m_Player_Toolbar4 = m_Player.FindAction("Toolbar4", throwIfNotFound: true);
         m_Player_Flashlight = m_Player.FindAction("Flashlight", throwIfNotFound: true);
-        m_Player_Inventory = m_Player.FindAction("Inventory", throwIfNotFound: true);
+        m_Player_ToggleInventory = m_Player.FindAction("ToggleInventory", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
-        m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
-        m_Player_Journal = m_Player.FindAction("Journal", throwIfNotFound: true);
-        m_Player_Test = m_Player.FindAction("Test", throwIfNotFound: true);
+        m_Player_TogglePaused = m_Player.FindAction("TogglePaused", throwIfNotFound: true);
     }
 
     ~@InputActions()
@@ -569,16 +548,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Use;
+    private readonly InputAction m_Player_ToggleBackpack;
     private readonly InputAction m_Player_Toolbar1;
     private readonly InputAction m_Player_Toolbar2;
     private readonly InputAction m_Player_Toolbar3;
     private readonly InputAction m_Player_Toolbar4;
     private readonly InputAction m_Player_Flashlight;
-    private readonly InputAction m_Player_Inventory;
+    private readonly InputAction m_Player_ToggleInventory;
     private readonly InputAction m_Player_Interact;
-    private readonly InputAction m_Player_Pause;
-    private readonly InputAction m_Player_Journal;
-    private readonly InputAction m_Player_Test;
+    private readonly InputAction m_Player_TogglePaused;
     public struct PlayerActions
     {
         private @InputActions m_Wrapper;
@@ -588,16 +566,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Use => m_Wrapper.m_Player_Use;
+        public InputAction @ToggleBackpack => m_Wrapper.m_Player_ToggleBackpack;
         public InputAction @Toolbar1 => m_Wrapper.m_Player_Toolbar1;
         public InputAction @Toolbar2 => m_Wrapper.m_Player_Toolbar2;
         public InputAction @Toolbar3 => m_Wrapper.m_Player_Toolbar3;
         public InputAction @Toolbar4 => m_Wrapper.m_Player_Toolbar4;
         public InputAction @Flashlight => m_Wrapper.m_Player_Flashlight;
-        public InputAction @Inventory => m_Wrapper.m_Player_Inventory;
+        public InputAction @ToggleInventory => m_Wrapper.m_Player_ToggleInventory;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
-        public InputAction @Pause => m_Wrapper.m_Player_Pause;
-        public InputAction @Journal => m_Wrapper.m_Player_Journal;
-        public InputAction @Test => m_Wrapper.m_Player_Test;
+        public InputAction @TogglePaused => m_Wrapper.m_Player_TogglePaused;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -622,6 +599,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Use.started += instance.OnUse;
             @Use.performed += instance.OnUse;
             @Use.canceled += instance.OnUse;
+            @ToggleBackpack.started += instance.OnToggleBackpack;
+            @ToggleBackpack.performed += instance.OnToggleBackpack;
+            @ToggleBackpack.canceled += instance.OnToggleBackpack;
             @Toolbar1.started += instance.OnToolbar1;
             @Toolbar1.performed += instance.OnToolbar1;
             @Toolbar1.canceled += instance.OnToolbar1;
@@ -637,21 +617,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Flashlight.started += instance.OnFlashlight;
             @Flashlight.performed += instance.OnFlashlight;
             @Flashlight.canceled += instance.OnFlashlight;
-            @Inventory.started += instance.OnInventory;
-            @Inventory.performed += instance.OnInventory;
-            @Inventory.canceled += instance.OnInventory;
+            @ToggleInventory.started += instance.OnToggleInventory;
+            @ToggleInventory.performed += instance.OnToggleInventory;
+            @ToggleInventory.canceled += instance.OnToggleInventory;
             @Interact.started += instance.OnInteract;
             @Interact.performed += instance.OnInteract;
             @Interact.canceled += instance.OnInteract;
-            @Pause.started += instance.OnPause;
-            @Pause.performed += instance.OnPause;
-            @Pause.canceled += instance.OnPause;
-            @Journal.started += instance.OnJournal;
-            @Journal.performed += instance.OnJournal;
-            @Journal.canceled += instance.OnJournal;
-            @Test.started += instance.OnTest;
-            @Test.performed += instance.OnTest;
-            @Test.canceled += instance.OnTest;
+            @TogglePaused.started += instance.OnTogglePaused;
+            @TogglePaused.performed += instance.OnTogglePaused;
+            @TogglePaused.canceled += instance.OnTogglePaused;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -671,6 +645,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Use.started -= instance.OnUse;
             @Use.performed -= instance.OnUse;
             @Use.canceled -= instance.OnUse;
+            @ToggleBackpack.started -= instance.OnToggleBackpack;
+            @ToggleBackpack.performed -= instance.OnToggleBackpack;
+            @ToggleBackpack.canceled -= instance.OnToggleBackpack;
             @Toolbar1.started -= instance.OnToolbar1;
             @Toolbar1.performed -= instance.OnToolbar1;
             @Toolbar1.canceled -= instance.OnToolbar1;
@@ -686,21 +663,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Flashlight.started -= instance.OnFlashlight;
             @Flashlight.performed -= instance.OnFlashlight;
             @Flashlight.canceled -= instance.OnFlashlight;
-            @Inventory.started -= instance.OnInventory;
-            @Inventory.performed -= instance.OnInventory;
-            @Inventory.canceled -= instance.OnInventory;
+            @ToggleInventory.started -= instance.OnToggleInventory;
+            @ToggleInventory.performed -= instance.OnToggleInventory;
+            @ToggleInventory.canceled -= instance.OnToggleInventory;
             @Interact.started -= instance.OnInteract;
             @Interact.performed -= instance.OnInteract;
             @Interact.canceled -= instance.OnInteract;
-            @Pause.started -= instance.OnPause;
-            @Pause.performed -= instance.OnPause;
-            @Pause.canceled -= instance.OnPause;
-            @Journal.started -= instance.OnJournal;
-            @Journal.performed -= instance.OnJournal;
-            @Journal.canceled -= instance.OnJournal;
-            @Test.started -= instance.OnTest;
-            @Test.performed -= instance.OnTest;
-            @Test.canceled -= instance.OnTest;
+            @TogglePaused.started -= instance.OnTogglePaused;
+            @TogglePaused.performed -= instance.OnTogglePaused;
+            @TogglePaused.canceled -= instance.OnTogglePaused;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -761,15 +732,14 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
+        void OnToggleBackpack(InputAction.CallbackContext context);
         void OnToolbar1(InputAction.CallbackContext context);
         void OnToolbar2(InputAction.CallbackContext context);
         void OnToolbar3(InputAction.CallbackContext context);
         void OnToolbar4(InputAction.CallbackContext context);
         void OnFlashlight(InputAction.CallbackContext context);
-        void OnInventory(InputAction.CallbackContext context);
+        void OnToggleInventory(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
-        void OnPause(InputAction.CallbackContext context);
-        void OnJournal(InputAction.CallbackContext context);
-        void OnTest(InputAction.CallbackContext context);
+        void OnTogglePaused(InputAction.CallbackContext context);
     }
 }

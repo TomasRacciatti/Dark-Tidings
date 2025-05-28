@@ -5,8 +5,8 @@ namespace Interfaces
 {
     public interface IDamageable
     {
-        public void TakeDamage(int damage, LinkedList<ItemAmount> modifiers = null);
+        public void TakeDamage(int damage, List<SO_Item> modifiers = null);
         
-        public void Heal(int healing, LinkedList<ItemAmount> modifiers = null);
+        public void Heal(int healing, List<SO_Item> modifiers = null);
     }
 }

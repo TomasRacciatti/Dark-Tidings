@@ -1,5 +1,4 @@
 using Interfaces;
-using Inventory.Controller;
 using Inventory.Model;
 using UnityEngine;
 
@@ -53,8 +52,7 @@ namespace Characters.Player
 
         private Character _character;
         
-        public InventorySystem inventory;
-        public Toolbar toolbar;
+        public FiniteInventory inventory;
         
         private void Awake()
         {
@@ -63,7 +61,6 @@ namespace Characters.Player
             _inputEvents = GetComponent<InputsEvents>();
             _playerView = GetComponent<PlayerView>();
             inventory = GetComponent<FiniteInventory>();
-            toolbar = GetComponent<Toolbar>();
         }
 
         private void Start()

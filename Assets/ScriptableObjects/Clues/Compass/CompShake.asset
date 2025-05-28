@@ -13,9 +13,6 @@ MonoBehaviour:
   m_Name: CompShake
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: f270ec18bac589d47a714ff514e0ded2, type: 2}
-  isDefault: 0
   value: Shake
-  result: 'Potential Weakness:
-
-    Copper - Silver'
+  result: 
   compassMode: 2

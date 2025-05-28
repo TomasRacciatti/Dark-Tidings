@@ -46,6 +46,17 @@ namespace Items.Base
         public bool IsFull => soItem != null && !_overflow && amount >= Stack;
         public int Stack => soItem != null ? soItem.Stack : 0;
 
+        public bool IsStackable(ItemAmount other)
+        {
+            if (other == null || IsFull || other.IsFull) return false;
+
+            if (soItem != other.soItem) return false;
+
+            if (Modifiers.Count != other.Modifiers.Count) return false;
+
+            return Modifiers.All(mod => other.Modifiers.Any(m => m.soItem == mod.soItem));
+        }
+
         public int SetItem(ItemAmount itemAmount)
         {
             soItem = itemAmount.SoItem;
@@ -77,6 +88,14 @@ namespace Items.Base
             if (IsEmpty || amountToRemove <= 0) return amountToRemove;
             return SetAmount(amount - amountToRemove);
         }
+        /*
+        public int RemoveAmount(int amountToRemove)
+        {
+            if (IsEmpty || amountToRemove <= 0) return amountToRemove;
+            int removed = Mathf.Min(amount, this.Amount);
+            SetAmount(amount - amountToRemove);
+            return removed;
+        }*/
 
         public void Clear()
         {

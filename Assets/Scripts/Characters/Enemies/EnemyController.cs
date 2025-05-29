@@ -1,68 +1,68 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Characters;
-using Characters.Player;
+using Interfaces;
 using Managers;
 using Patterns;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+namespace Characters.Enemies
 {
-    [SerializeField] private float chaseRange = 5f;
-    [SerializeField] private float attackRange = 2f;
+    public class EnemyController : MonoBehaviour
+    {
+        [SerializeField] private float chaseRange = 5f;
+        [SerializeField] private float attackRange = 2f;
     
-    Cooldown _cooldown = new Cooldown();
-    NavMeshAgent agent;
-    Transform target;
-    Character character;
+        Cooldown _cooldown = new Cooldown();
+        NavMeshAgent _agent;
+        Transform _target;
+        Character _character;
 
-    private void Awake()
-    {
-        agent = GetComponent<NavMeshAgent>();
-        character = GetComponent<Character>();
-        agent.speed = character.speed;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(ExecuteNextFrame());
-    }
-    
-    private IEnumerator ExecuteNextFrame()
-    {
-        yield return null;
-        SetTarget();
-    }
-
-    private void SetTarget()
-    {
-        target = GameManager.Player.transform;
-    }
-
-    private void Update()
-    {
-        if (target)
+        private void Awake()
         {
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
+            _agent = GetComponent<NavMeshAgent>();
+            _character = GetComponent<Character>();
+            _agent.speed = _character.Stats.MovementSpeed;
+        }
 
-            if (distanceToTarget <= chaseRange)
-            {
-                agent.SetDestination(target.position);
-            }
-            else
-            {
-                agent.ResetPath();
-            }
+        private void Start()
+        {
+            StartCoroutine(ExecuteNextFrame());
+        }
+    
+        private IEnumerator ExecuteNextFrame()
+        {
+            yield return null;
+            SetTarget();
+        }
 
-            if (distanceToTarget <= attackRange && _cooldown.IsReady)
+        private void SetTarget()
+        {
+            _target = GameManager.Player.transform;
+        }
+
+        private void Update()
+        {
+            if (_target)
             {
-                GameManager.Player.GetComponent<Character>().TakeDamage(25); //esta re mal esto
-                _cooldown.StartCooldown(1);
+                float distanceToTarget = Vector3.Distance(transform.position, _target.position);
+
+                if (distanceToTarget <= chaseRange)
+                {
+                    _agent.SetDestination(_target.position);
+                }
+                else
+                {
+                    _agent.ResetPath();
+                }
+
+                if (distanceToTarget <= attackRange && _cooldown.IsReady)
+                {
+                    GameManager.Player.GetComponent<IDamageable>().TakeDamage(25); //esta re mal esto
+                    _cooldown.StartCooldown(1);
+                }
             }
         }
+    
+    
     }
-    
-    
 }

@@ -1,14 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using Characters;
-using UnityEngine;
-
-public class EnemyCharacter : Character
+namespace Characters.Enemies
 {
-    
-    
-    protected override void Death()
+    public class EnemyCharacter : Character
     {
-        gameObject.SetActive(false);
+        
     }
 }

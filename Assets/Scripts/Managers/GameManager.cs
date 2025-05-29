@@ -14,7 +14,7 @@ namespace Managers
         [SerializeField] private GameObject hudPrefab;
         [SerializeField] private GameObject eventSystemPrefab;
         
-        public static PlayerController Player { get; private set; }
+        public static PlayerCharacter Player { get; private set; }
         public static CanvasManager Canvas { get; private set; }
         public static GameManager Instance { get; private set; }
         
@@ -51,7 +51,7 @@ namespace Managers
             Transform spawnPoint = SpawnPointManager.Instance.GetDefault;
             
             Player = Instantiate(playerPrefab, spawnPoint.position, spawnPoint.rotation)
-                .GetComponentInChildren<PlayerController>();
+                .GetComponentInChildren<PlayerCharacter>();
             Canvas = Instantiate(hudPrefab).GetComponent<CanvasManager>();
         }
         

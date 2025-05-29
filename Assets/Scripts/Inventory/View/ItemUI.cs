@@ -14,10 +14,8 @@ namespace Inventory.View
         [SerializeField] private TextMeshProUGUI amountText;
         [SerializeField] private GameObject isEquipable;
         [SerializeField] private TextMeshProUGUI equipableText;
-        [SerializeField] private TextMeshProUGUI tooltipText;
 
         /*[HideInInspector]*/ public ItemAmount itemAmount;
-        /*[HideInInspector]*/ public ItemUI originalItemUI;
         private Canvas _canvas;
 
         private void Awake()
@@ -26,26 +24,12 @@ namespace Inventory.View
             _canvas.sortingOrder = 5;
         }
 
-        private void Start()
-        {
-            amountText.raycastTarget = false;
-        }
-
-        private void OnDisable()
-        {
-            if (tooltipText != null)
-            {
-                tooltipText.gameObject.SetActive(false);
-            }
-        }
-
-        public void SetItem(ItemAmount newItemAmount , ItemUI originalItem = null)
+        public void SetItem(ItemAmount newItemAmount)
         {
             itemAmount = newItemAmount;
             image.sprite = itemAmount.SoItem.Image;
-            originalItemUI = originalItem;
             RefreshCount();
-            ValidateEquipable();
+            ValidateEquippable();
         }
 
         public void SetAmount(int amount)
@@ -54,26 +38,14 @@ namespace Inventory.View
             RefreshCount();
         }
 
-        public void SetEquipable(int slot)
+        public void SetEquippable(int slot)
         {
             equipableText.text = slot == -1 ? "E" : (slot + 1).ToString();
         }
-        
-        public int GetEquipableSlot()
+
+        private void ValidateEquippable()
         {
-            if (equipableText.text == "E")
-                return -1;
-
-            if (int.TryParse(equipableText.text, out int value))
-                return value - 1;
-
-            return -1;
-        }
-
-        private void ValidateEquipable()
-        {
-            if (itemAmount.SoItem.IsEquippable) isEquipable.SetActive(true);
-            else isEquipable.SetActive(false);
+            isEquipable.SetActive(itemAmount.SoItem.IsEquippable);
         }
 
         private void RefreshCount()
@@ -97,6 +69,7 @@ namespace Inventory.View
         {
             image.raycastTarget = false;
             _canvas.sortingOrder = 15;
+            ItemDropper.Show();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -112,6 +85,7 @@ namespace Inventory.View
             image.raycastTarget = true;
             _canvas.sortingOrder = 5;
             transform.localPosition = Vector3.zero;
+            ItemDropper.Hide();
         }
         
         public void OnPointerClick(PointerEventData eventData)
@@ -119,32 +93,25 @@ namespace Inventory.View
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    Debug.Log("Clic izquierdo");
+                    Debug.Log("Click izquierdo");
                     break;
                 case PointerEventData.InputButton.Right:
-                    Debug.Log("Clic derecho");
+                    Debug.Log("Click derecho");
                     break;
                 case PointerEventData.InputButton.Middle:
-                    Debug.Log("Clic del botón del medio");
+                    Debug.Log("Click del botón del medio");
                     break;
             }
         }
         
         public void OnPointerEnter(PointerEventData eventData)
         {
-            if (tooltipText != null)
-            {
-                tooltipText.text = itemAmount.ItemName;
-                tooltipText.gameObject.SetActive(true);
-            }
+            ItemDescription.Show(itemAmount);
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            if (tooltipText != null)
-            {
-                tooltipText.gameObject.SetActive(false);
-            }
+            ItemDescription.Hide();
         }
     }
 }

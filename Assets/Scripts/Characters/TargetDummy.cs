@@ -8,53 +8,45 @@ namespace Characters
 {
     public class TargetDummy : Character
     {
-        [SerializeField] private GameObject _indicator;
-    
-        public override void TakeDamage(int damage, LinkedList<ItemAmount> modifiers = null)
-        {
-            float finalDamage = damage;
+        [SerializeField] private GameObject indicator;
 
-            if (modifiers != null && modifiers.Count > 0)
-            {
-                foreach (var modifier in modifiers)
-                {
-                    if (Contains(weaknesses,modifier))
-                    {
-                        finalDamage *= 2.5f;
-                    }
-                    else if (Contains(strengths, modifier))
-                    {
-                        finalDamage *= 0.2f;
-                    }
-                }
-            }
-            Debug.Log($"{gameObject.name} recibió {finalDamage} de daño");
-            
+        private string GetText(float value, List<ItemAmount> modifiers = null, string label = "")
+        {
             string modifierNames = "";
 
             if (modifiers != null && modifiers.Count > 0)
             {
                 foreach (var modifier in modifiers)
                 {
-                    modifierNames += $"{modifier.SoItem.name} ,";
+                    modifierNames += $"{modifier.SoItem.name}, ";
                 }
+                modifierNames = modifierNames[..^2] + ".";
             }
             else
             {
-                modifierNames = "None";
+                modifierNames = "None.";
             }
-            
 
-            // Mostrar indicador
-            GameObject obj = ObjectPoolManager.Instance.SpawnObject(_indicator, transform.position + Vector3.up * 1, Quaternion.identity, 5f);
-            var text = obj.GetComponentInChildren<TextMeshProUGUI>();
-            text.text = $"Damage: {finalDamage}\nModifiers: {modifierNames}";
-            //Destroy(obj,5);
+            return $"{label}: {value}\nModifiers: {modifierNames}";
         }
-    
-        protected override void Death()
+
+        private void ShowIndicator(string text)
         {
-            //cannot death
+            GameObject obj = ObjectPoolManager.Instance.SpawnObject(indicator, transform.position + Vector3.up * 1,
+                Quaternion.identity, 5f);
+            var textMeshPro = obj.GetComponentInChildren<TextMeshProUGUI>();
+            textMeshPro.text = text;
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _healthComponent.OnDamaged += (damage, modifiers) =>
+                ShowIndicator(GetText(damage, modifiers, "Damage"));
+            _healthComponent.OnHealed += (healing, modifiers) =>
+                ShowIndicator(GetText(healing, modifiers, "Healed"));
+            _healthComponent.OnDeath += _healthComponent.Revive;
+            _healthComponent.OnDeath += () => ShowIndicator("Revived");
         }
     }
 }

@@ -2,6 +2,7 @@ using Interfaces;
 using Inventory.Controller;
 using Inventory.Model;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Characters.Player
 {
@@ -9,24 +10,23 @@ namespace Characters.Player
     [RequireComponent(typeof(InputsEvents))]
     public class PlayerController : MonoBehaviour
     {
-        [Header("PlayerMovement")] [SerializeField]
-        private float JumpHeight = 1.2f;
-
-        [SerializeField] private float Gravity = -9.8f;
-        [SerializeField] private float FallTimeout = 0.15f;
-        [SerializeField] private float SpeedChangeRate = 10.0f;
-        [SerializeField] private float GroundedOffset = -0.41f;
-        [SerializeField] private LayerMask GroundLayers;
+        [Header("PlayerMovement")]
+        [SerializeField] private float jumpHeight = 1.2f;
+        [SerializeField] private float gravity = -9.8f;
+        [SerializeField] private float fallTimeout = 0.15f;
+        [SerializeField] private float speedChangeRate = 10.0f;
+        [SerializeField] private float groundedOffset = -0.21f;
+        [SerializeField] private LayerMask groundLayers;
 
         private bool _grounded = true;
         public bool Grounded => _grounded;
 
         [Header("Cinemachine")] [SerializeField]
-        private GameObject CinemachineCameraTarget;
+        private GameObject cinemachineCameraTarget;
 
-        [SerializeField] private float TopClamp = 89.9f;
-        [SerializeField] private float BottomClamp = -89.9f;
-        [SerializeField] private float CameraAngleOverride = 0.0f;
+        [SerializeField] private float topClamp = 89.9f;
+        [SerializeField] private float bottomClamp = -89.9f;
+        [SerializeField] private float cameraAngleOverride = 0.0f;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -37,7 +37,7 @@ namespace Characters.Player
         private float _animationBlend;
         private float _rotationVelocity;
         private float _verticalVelocity;
-        private float _terminalVelocity = 53.0f;
+        private const float TerminalVelocity = 53.0f;
 
         // timeout deltatime
         private float _fallTimeoutDelta;
@@ -45,31 +45,25 @@ namespace Characters.Player
         private CharacterController _characterController;
         private InputsEvents _inputEvents;
         private PlayerView _playerView;
-
-        [SerializeField] private GameObject _mainCamera;
-        [SerializeField] private LayerMask _raycastLayers;
-
-        private const float _threshold = 0.01f;
-
         private Character _character;
-        
-        public InventorySystem inventory;
-        public Toolbar toolbar;
-        
+
+        [SerializeField] private GameObject mainCamera;
+        [SerializeField] private LayerMask raycastLayers;
+
+        private const float Threshold = 0.01f;
+
         private void Awake()
         {
-            _character = GetComponent<Character>();
             _characterController = GetComponent<CharacterController>();
             _inputEvents = GetComponent<InputsEvents>();
             _playerView = GetComponent<PlayerView>();
-            inventory = GetComponent<FiniteInventory>();
-            toolbar = GetComponent<Toolbar>();
+            _character = GetComponent<Character>();
         }
 
         private void Start()
         {
-            _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
-            _fallTimeoutDelta = FallTimeout;
+            _cinemachineTargetYaw = cinemachineCameraTarget.transform.rotation.eulerAngles.y;
+            _fallTimeoutDelta = fallTimeout;
         }
 
         private void Update()
@@ -89,9 +83,9 @@ namespace Characters.Player
         {
             bool wasGrounded = _grounded;
 
-            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - GroundedOffset,
+            Vector3 spherePosition = new Vector3(transform.position.x, transform.position.y - groundedOffset,
                 transform.position.z);
-            _grounded = Physics.CheckSphere(spherePosition, _characterController.radius, GroundLayers,
+            _grounded = Physics.CheckSphere(spherePosition, _characterController.radius, groundLayers,
                 QueryTriggerInteraction.Ignore);
 
             if (!wasGrounded && _grounded)
@@ -107,9 +101,11 @@ namespace Characters.Player
             if (_verticalVelocity <= 0f) return;
 
             Vector3 spherePosition =
-                new Vector3(transform.position.x, transform.position.y + _characterController.height, transform.position.z);
+                new Vector3(transform.position.x, transform.position.y + _characterController.height,
+                    transform.position.z);
 
-            if (Physics.CheckSphere(spherePosition, _characterController.radius, GroundLayers, QueryTriggerInteraction.Ignore))
+            if (Physics.CheckSphere(spherePosition, _characterController.radius, groundLayers,
+                    QueryTriggerInteraction.Ignore))
             {
                 _verticalVelocity = 0f;
             }
@@ -117,7 +113,7 @@ namespace Characters.Player
 
         private void CameraRotation()
         {
-            if (_inputEvents.GetLook.sqrMagnitude >= _threshold)
+            if (_inputEvents.GetLook.sqrMagnitude >= Threshold)
             {
                 float deltaTimeMultiplier = 1.0f; //arreglar para mando
 
@@ -126,9 +122,9 @@ namespace Characters.Player
             }
 
             _cinemachineTargetYaw = ClampAngle(_cinemachineTargetYaw, float.MinValue, float.MaxValue);
-            _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, BottomClamp, TopClamp);
+            _cinemachineTargetPitch = ClampAngle(_cinemachineTargetPitch, bottomClamp, topClamp);
 
-            CinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + CameraAngleOverride,
+            cinemachineCameraTarget.transform.rotation = Quaternion.Euler(_cinemachineTargetPitch + cameraAngleOverride,
                 _cinemachineTargetYaw, 0.0f);
 
             transform.rotation = Quaternion.Euler(0.0f, _cinemachineTargetYaw, 0.0f);
@@ -136,38 +132,39 @@ namespace Characters.Player
 
         private void HorizontalMovement()
         {
-            float speed = _inputEvents.IsSprinting ? 2 * _character.speed : _character.speed;
+            float tempSpeed = _inputEvents.IsSprinting ? _character.Stats.SprintMultiplier * _character.Stats.MovementSpeed : _character.Stats.MovementSpeed;
 
-            if (_inputEvents.GetMovement == Vector2.zero) speed = 0.0f;
+            if (_inputEvents.GetMovement == Vector2.zero) tempSpeed = 0.0f;
 
             float currentHorizontalSpeed =
                 new Vector3(_characterController.velocity.x, 0.0f, _characterController.velocity.z).magnitude;
 
             float speedOffset = 0.1f;
 
-            if (currentHorizontalSpeed < speed - speedOffset || currentHorizontalSpeed > speed + speedOffset)
+            if (currentHorizontalSpeed < tempSpeed - speedOffset || currentHorizontalSpeed > tempSpeed + speedOffset)
             {
-                _speed = Mathf.Lerp(currentHorizontalSpeed, speed,
-                    Time.deltaTime * SpeedChangeRate);
+                _speed = Mathf.Lerp(currentHorizontalSpeed, tempSpeed,
+                    Time.deltaTime * speedChangeRate);
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
             }
             else
             {
-                _speed = speed;
+                _speed = tempSpeed;
             }
 
-            _animationBlend = Mathf.Lerp(_animationBlend, speed, Time.deltaTime * SpeedChangeRate);
+            _animationBlend = Mathf.Lerp(_animationBlend, tempSpeed, Time.deltaTime * speedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
-            Vector3 cameraForward = _mainCamera.transform.forward;
+            Vector3 cameraForward = mainCamera.transform.forward;
             cameraForward.y = 0;
             cameraForward.Normalize();
 
-            Vector3 cameraRight = _mainCamera.transform.right;
+            Vector3 cameraRight = mainCamera.transform.right;
             cameraRight.y = 0;
             cameraRight.Normalize();
 
-            Vector3 inputDirection = cameraForward * _inputEvents.GetMovement.y + cameraRight * _inputEvents.GetMovement.x;
+            Vector3 inputDirection =
+                cameraForward * _inputEvents.GetMovement.y + cameraRight * _inputEvents.GetMovement.x;
 
             if (inputDirection.sqrMagnitude > 1f)
             {
@@ -188,7 +185,7 @@ namespace Characters.Player
             if (_grounded)
             {
                 // reset the fall timeout timer
-                _fallTimeoutDelta = FallTimeout;
+                _fallTimeoutDelta = fallTimeout;
                 _playerView.SetGrounded(true);
                 _playerView.SetFalling(false);
 
@@ -214,16 +211,16 @@ namespace Characters.Player
             _playerView.SetVerticalSpeed(_grounded ? 0 : _verticalVelocity);
 
             //Gravity
-            if (_verticalVelocity < _terminalVelocity)
+            if (_verticalVelocity < TerminalVelocity)
             {
-                _verticalVelocity += Gravity * Time.deltaTime;
+                _verticalVelocity += gravity * Time.deltaTime;
             }
         }
 
         public void Jump()
         {
             if (!_grounded) return;
-            _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+            _verticalVelocity = Mathf.Sqrt(jumpHeight * -2f * gravity);
             _playerView.Jumped();
         }
 
@@ -236,8 +233,8 @@ namespace Characters.Player
 
         public RaycastHit GetCameraRay(int distance = 1000)
         {
-            Physics.Raycast(_mainCamera.transform.position, _mainCamera.transform.forward, out RaycastHit hit, distance,
-                _raycastLayers);
+            Physics.Raycast(mainCamera.transform.position, mainCamera.transform.forward, out RaycastHit hit, distance,
+                raycastLayers);
             return hit;
         }
 

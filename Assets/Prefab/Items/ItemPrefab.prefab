@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 4613333253710533035}
   - component: {fileID: 7425940554959004907}
   - component: {fileID: 8993443143647275507}
+  - component: {fileID: 885458429486397362}
   m_Layer: 12
   m_Name: ItemPrefab
   m_TagString: Untagged
@@ -165,8 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemAmount:
     amount: 1
-    soItem: {fileID: 0}
-    modifiers: []
+    soItem: {fileID: 11400000, guid: 9b38c3c183286334aba2424cf2745161, type: 2}
   interactionPoint: {fileID: 8084303680152846092}
 --- !u!33 &4613333253710533035
 MeshFilter:
@@ -239,3 +239,30 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.25
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &885458429486397362
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4635736951543140497}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0.2
+  m_AngularDrag: 0
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 1

@@ -21,7 +21,7 @@ namespace Inventory.Controller
         public ItemAmount GetSlotItem()
         {
             if (SelectedInventoryIndex == -1) return new ItemAmount();
-            return inventorySystem.GetItem(SelectedInventoryIndex);
+            return inventorySystem.GetItemByIndex(SelectedInventoryIndex);
         }
 
         private void Start()
@@ -56,7 +56,7 @@ namespace Inventory.Controller
             if (slot < 0 || slot >= inventoryIndexes.Length) return new ItemAmount();
             int inventoryIndex = inventoryIndexes[slot];
             if (inventoryIndex == -1) return new ItemAmount();
-            return inventorySystem.GetItem(inventoryIndex);
+            return inventorySystem.GetItemByIndex(inventoryIndex);
         }
         
         public void SetIndex(int toolbarSlotIndex, int inventoryIndex)
@@ -65,7 +65,7 @@ namespace Inventory.Controller
             
             if (inventoryIndex != -1)
             {
-                ItemAmount item = inventorySystem.GetItem(inventoryIndex);
+                ItemAmount item = inventorySystem.GetItemByIndex(inventoryIndex);
                 if (!item.SoItem.IsEquippable) return;
                 for (int i = 0; i < inventoryIndexes.Length; i++)
                 {

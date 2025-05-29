@@ -27,11 +27,13 @@ namespace Inventory.Model
         public override void ClearInventory()
         {
             items = new List<ItemAmount>();
+            NotifyInventoryChanged();
         }
         
         public override void ClearSlot(int i)
         {
             items.RemoveAt(i);
+            NotifyItemChanged(i);
         }
         
         protected override int AddItemEmptySlot(ItemAmount itemAmount)

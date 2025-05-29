@@ -45,8 +45,12 @@ namespace Items.Weapons
             if (_cooldown.IsReady)
             {
                 InventorySystem inventorySystem = GameManager.Player.inventory;
-                ItemAmount bolt = inventorySystem.GetItem(_bolt);
-            
+                ItemAmount bolt;
+                if (inventorySystem != null)
+                    bolt = inventorySystem.GetFirstSoItem(_bolt);
+                else
+                    bolt = null;
+
                 if (bolt.IsEmpty) return;
             
                 inventorySystem.RemoveItem(new ItemAmount(bolt.SoItem, 1, bolt.Modifiers));

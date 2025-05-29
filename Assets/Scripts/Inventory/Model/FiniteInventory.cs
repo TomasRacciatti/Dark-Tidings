@@ -10,17 +10,12 @@ namespace Inventory.Model
 
         private void Awake()
         {
-            InitializeSlots(); //limpia e inicializa los slots, borrar esto despues
-        }
-        
-        private void InitializeSlots()
-        {
             items = Enumerable.Range(0, slotsAmount)
                 .Select(_ => new ItemAmount())
                 .ToList();
             NotifyInventoryChanged();
         }
-
+        
         public override int AddItem(ItemAmount itemAmount)
         {
             if (itemAmount.IsEmpty) return 0;
@@ -41,11 +36,6 @@ namespace Inventory.Model
             });
         }
 
-        public bool IsFull()
-        {
-            return !items.Exists(item => item.IsEmpty);
-        }
-
         public override void ClearInventory()
         {
             for (int i = 0; i < items.Count; i++)
@@ -59,6 +49,7 @@ namespace Inventory.Model
         public override void ClearSlot(int i)
         {
             items[i].Clear();
+            NotifyItemChanged(i);
         }
         
         protected override int AddItemEmptySlot(ItemAmount itemAmount)

@@ -10,14 +10,18 @@ namespace Items.Base
     {
         [SerializeField] private int amount;
         [SerializeField] private SO_Item soItem;
-        private LinkedList<ItemAmount> modifiers;
+        [NonSerialized] private List<ItemAmount> _modifiers;
         private bool _overflow;
         private string _itemName;
         private string _description;
         
         public int Amount => amount;
         public SO_Item SoItem => soItem;
-        public LinkedList<ItemAmount> Modifiers => modifiers ??= new LinkedList<ItemAmount>();
+        public List<ItemAmount> Modifiers => _modifiers ??= new List<ItemAmount>();
+        public List<ItemAmount> CopyModifiers => 
+            (_modifiers ??= new List<ItemAmount>())
+            .Select(m => new ItemAmount(m))
+            .ToList();
         public bool Overflow => _overflow;
         public string ItemName => _itemName;
         public string Description => _description;
@@ -26,15 +30,17 @@ namespace Items.Base
         {
             soItem = newItemAmount.SoItem;
             amount = newItemAmount.Amount;
-            modifiers = newItemAmount.Modifiers;
+            _modifiers = newItemAmount.Modifiers;
+            SetItemNameAndDescription();
         }
         
-        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, LinkedList<ItemAmount> modifiers = null, bool overflow = false)
+        public ItemAmount(SO_Item newSoItem = null, int newAmount = 0, List<ItemAmount> modifiers = null, bool overflow = false)
         {
             soItem = newSoItem;
             amount = newAmount;
             _overflow = overflow;
-            this.modifiers = modifiers ?? new LinkedList<ItemAmount>();
+            _modifiers = modifiers ?? new List<ItemAmount>();
+            SetItemNameAndDescription();
         }
 
         public void SetOverflow(bool overflow = false)
@@ -50,7 +56,7 @@ namespace Items.Base
         {
             soItem = itemAmount.SoItem;
             SetAmount(_overflow ? Mathf.Max(0, itemAmount.Amount) : Mathf.Clamp(itemAmount.Amount, 0, SoItem.Stack));
-            modifiers = itemAmount.Modifiers;
+            _modifiers = itemAmount.Modifiers;
             SetItemNameAndDescription();
             return _overflow ? 0 : Mathf.Max(0, itemAmount.Amount - SoItem.Stack);
         }
@@ -82,30 +88,24 @@ namespace Items.Base
         {
             soItem = null;
             amount = 0;
-            modifiers = new LinkedList<ItemAmount>();
+            _modifiers = new List<ItemAmount>();
         }
 
         public void AddModifier(ItemAmount itemAmount)
         {
             if (IsEmpty) return;
 
-            if (modifiers.Contains(itemAmount)) return;
+            //if (modifiers.Contains(itemAmount)) return;
 
-            var newPriority = itemAmount.SoItem.ModifierPriority;
+            int newPriority = itemAmount.SoItem.ModifierPriority;
             
-            var current = modifiers.First;
-            while (current != null)
-            {
-                if (current.Value.SoItem.ModifierPriority > newPriority)
-                {
-                    modifiers.AddBefore(current, itemAmount);
-                    SetItemNameAndDescription();
-                    return;
-                }
-                current = current.Next;
-            }
-            
-            modifiers.AddLast(itemAmount);
+            int insertIndex = _modifiers.FindIndex(m => m.SoItem.ModifierPriority > newPriority);
+
+            if (insertIndex >= 0)
+                _modifiers.Insert(insertIndex, itemAmount);
+            else
+                _modifiers.Add(itemAmount);
+
             SetItemNameAndDescription();
         }
 
@@ -119,7 +119,7 @@ namespace Items.Base
             }
 
             string baseName = soItem.ItemName;
-            foreach (var modifier in modifiers)
+            foreach (var modifier in _modifiers)
             {
                 baseName = modifier.soItem.ModifierName + " " + baseName;
             }
@@ -127,10 +127,10 @@ namespace Items.Base
             _itemName = baseName;
 
             string desc = soItem.Description;
-            if (modifiers != null && modifiers.Count > 0)
+            if (_modifiers != null && _modifiers.Count > 0)
             {
                 desc += "\nMade of:";
-                foreach (var modifier in modifiers)
+                foreach (var modifier in _modifiers)
                 {
                     desc += "\n- " + modifier.soItem.ItemName;
                 }

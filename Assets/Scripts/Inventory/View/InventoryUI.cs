@@ -1,44 +1,49 @@
+using System;
 using Interfaces;
 using Inventory.Model;
 using Items.Base;
 using UnityEngine;
 using System.Collections.Generic;
 using Inventory.Interfaces;
+using Managers;
+using UnityEngine.Serialization;
 
 namespace Inventory.View
 {
     public class InventoryUI : MonoBehaviour, IInventoryObserver
     {
         [SerializeField] protected SlotUI[] slots;
-        [SerializeField] protected SlotType slotType;
-        [SerializeField] private InventorySystem _inventory;
+        [SerializeField] protected InventorySystem inventory;
+        
+        public InventorySystem Inventory => inventory;
 
-        protected virtual void Awake()
-        {
-            InitializeInventory();
-        }
-
-        private void InitializeInventory()
+        private void Awake()
         {
             for (int i = 0; i < slots.Length; i++)
             {
-                slots[i].SetSlotType(slotType, i);
+                slots[i].Initialize(this, i);
             }
+        }
+
+        protected virtual void Start()
+        {
+            if (inventory == null) inventory = GameManager.Player.inventory;
+            SetInventory(inventory);
         }
 
         public void SetInventory(InventorySystem newInventory)
         {
-            if (_inventory != null)
+            if (inventory != null)
             {
-                _inventory.RemoveObserver(this);
+                inventory.RemoveObserver(this);
             }
 
-            _inventory = newInventory;
+            inventory = newInventory;
 
-            if (_inventory != null)
+            if (inventory != null)
             {
-                _inventory.AddObserver(this);
-                OnInventoryChanged(_inventory.GetAllItems);
+                inventory.AddObserver(this);
+                OnInventoryChanged(inventory.items);
             }
         }
 

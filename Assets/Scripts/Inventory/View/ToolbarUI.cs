@@ -1,4 +1,5 @@
 using Inventory.Controller;
+using Items.Base;
 using UnityEngine;
 
 namespace Inventory.View
@@ -18,9 +19,9 @@ namespace Inventory.View
             }
         }
 
-        protected override void Awake()
+        protected override void Start()
         {
-            base.Awake();
+            base.Start();
             ChangeSelectedSlot(0);
         }
 
@@ -35,24 +36,10 @@ namespace Inventory.View
             SetItemEquipped();
         }
 
-        public ItemUI GetItem(ItemUI itemUI)
-        {
-            foreach (SlotUI slot in slots)
-            {
-                ItemUI existingItemUI = slot.GetComponentInChildren<ItemUI>();
-                if (existingItemUI != null && existingItemUI.originalItemUI == itemUI)
-                {
-                    return existingItemUI;
-                }
-            }
-
-            return null;
-        }
-
         public void SetItemEquipped()
         {
-            ItemUI itemUI = SelectedSlotUI.GetComponentInChildren<ItemUI>();
-            ItemsInHand.Instance.SetItemEquipped(itemUI == null ? null : itemUI.itemAmount.SoItem);
+            ItemAmount itemAmount = inventory.GetItemByIndex(selectedSlot);
+            ItemsInHand.Instance.SetItemEquipped(itemAmount.SoItem);
         }
     }
 }

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 546197429906522268}
   - component: {fileID: 4654586896035227277}
   - component: {fileID: 6813438174787629179}
+  - component: {fileID: 2814067790599758623}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -144,13 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b17883eccdb8a047b67c75a9ada1d6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  maxHealth: 100
-  speed: 2
-  strengths:
-  - {fileID: 11400000, guid: b37e7bc7fbcb07c44b57f3c00fbdb626, type: 2}
-  weaknesses:
-  - {fileID: 11400000, guid: 1d86efae8de79d14f8be294b5c3e2df5, type: 2}
+  stats: {fileID: 11400000, guid: 52e32e80435f0104581b54e5d7a4c1dd, type: 2}
 --- !u!114 &6813438174787629179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -165,3 +160,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseRange: 5
   attackRange: 2
+--- !u!114 &2814067790599758623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2793677678922802387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489d85c05c6deea408133c647a62e145, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

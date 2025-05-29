@@ -14,10 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Glock
   image: {fileID: 21300000, guid: b67b289d9195e0d42ae87b0cd6c342a3, type: 3}
-  description: ItemDescription
+  description: "\rWeapon that Uses Bullets."
   modifierName: 
+  modifierPriority: 0
   stack: 1
   type: {fileID: 11400000, guid: 1a1ec36dcc4a0be4a956f7aec8eb212b, type: 2}
   equippable: 1
+  ammoType: {fileID: 0}
   mesh: {fileID: 0}
   materials: []

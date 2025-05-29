@@ -3,28 +3,23 @@ using Features.Health;
 using Interfaces;
 using Items.Base;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Characters
 {
     [RequireComponent(typeof(HealthComponent))]
     public abstract class Character : MonoBehaviour
     {
-        [SerializeField] private float speed = 3;
-
-        [SerializeField] private SO_Item[] strengths;
-        [SerializeField] private SO_Item[] weaknesses;
-
+        [SerializeField] private CharacterStats stats;
         protected HealthComponent _healthComponent;
         
-        public float Speed => speed;
-        private IReadOnlyList<SO_Item> Strengths => strengths;
-        private IReadOnlyList<SO_Item> Weaknesses => weaknesses;
+        public CharacterStats Stats => stats;
         public HealthComponent HealthComponent => _healthComponent;
         
         protected virtual void Awake()
         {
             _healthComponent = GetComponent<HealthComponent>();
-            _healthComponent.Initialize(Strengths, Weaknesses);
+            _healthComponent.Initialize(Stats.MaxHealth, Stats.Strengths, Stats.Weaknesses);
         }
     }
 }

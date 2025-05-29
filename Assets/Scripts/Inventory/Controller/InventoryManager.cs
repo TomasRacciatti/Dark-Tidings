@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using Inventory.Model;
 using Inventory.View;
@@ -15,28 +16,12 @@ namespace Inventory.Controller
         //Slots
         [SerializeField] public ToolbarUI toolbarUI;
         [SerializeField] public InventoryUI inventoryUI;
-        
-        [SerializeField] public SlotType inventorySlotType;
-        [SerializeField] public SlotType toolbarSlotType;
-        [SerializeField] public SlotType ammoSlotType;
-
         [SerializeField] private Switcher inventorySwitcherUI;
         public Switcher InventorySwitcherUI => inventorySwitcherUI;
-        
+
         private void Start()
         {
-            StartCoroutine(ExecuteNextFrame());
-        }
-    
-        private IEnumerator ExecuteNextFrame()
-        {
-            yield return null;
-            SetInventory();
-        }
-
-        private void SetInventory()
-        {
-            inventoryUI.SetInventory(GameManager.Player.inventory);
+            inventorySwitcherUI.gameObject.SetActive(false);
         }
         
         public int GetIndexInventory()

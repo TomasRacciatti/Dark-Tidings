@@ -1,35 +1,29 @@
-using System;
 using UnityEngine;
 
-namespace Patterns
+namespace Managers
 {
     public class Switcher : MonoBehaviour
     {
         [SerializeField] private int activeIndex = 0;
-
-        private void Awake()
-        {
-            print(transform.childCount);
-        }
+        public int CurrentIndex => activeIndex;
 
         void Start()
         {
-            SwitchTo(activeIndex);
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                Transform child = transform.GetChild(i);
+                child.gameObject.SetActive(i == activeIndex);
+            }
         }
 
         public void SwitchTo(int index)
         {
-            int childCount = transform.childCount;
-            
-            print(transform.childCount + " : " + index);
+            if (index == activeIndex) return;
+            if (index < 0 || index >= transform.childCount) return;
 
-            for (int i = 0; i < childCount; i++)
-            {
-                Transform child = transform.GetChild(i);
-                child.gameObject.SetActive(i == index);
-            }
-
+            transform.GetChild(activeIndex).gameObject.SetActive(false);
             activeIndex = index;
+            transform.GetChild(activeIndex).gameObject.SetActive(true);
         }
 
         public void Next()
@@ -45,16 +39,11 @@ namespace Patterns
             int prevIndex = (activeIndex - 1 + childCount) % childCount;
             SwitchTo(prevIndex);
         }
-
-        public int GetCurrentIndex()
-        {
-            return activeIndex;
-        }
-
-        public static int GetIndexSwitcher(Switcher switcher)
+        
+        public static int GetIndexSwitcher(Switcher switcher) //-1 si esta desactivado
         {
             if (!switcher.gameObject.activeInHierarchy) return -1;
-            return switcher.GetCurrentIndex();
+            return switcher.CurrentIndex;
         }
     }
 }

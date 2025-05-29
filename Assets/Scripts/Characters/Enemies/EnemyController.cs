@@ -21,7 +21,7 @@ namespace Characters.Enemies
         {
             _agent = GetComponent<NavMeshAgent>();
             _character = GetComponent<Character>();
-            _agent.speed = _character.Speed;
+            _agent.speed = _character.Stats.MovementSpeed;
         }
 
         private void Start()

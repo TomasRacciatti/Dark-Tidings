@@ -10,9 +10,7 @@ namespace Characters.Player
     [RequireComponent(typeof(InputsEvents))]
     public class PlayerController : MonoBehaviour
     {
-        [Header("PlayerMovement")] [SerializeField]
-        private float speed = 3f;
-
+        [Header("PlayerMovement")]
         [SerializeField] private float jumpHeight = 1.2f;
         [SerializeField] private float gravity = -9.8f;
         [SerializeField] private float fallTimeout = 0.15f;
@@ -47,22 +45,19 @@ namespace Characters.Player
         private CharacterController _characterController;
         private InputsEvents _inputEvents;
         private PlayerView _playerView;
+        private Character _character;
 
         [SerializeField] private GameObject mainCamera;
         [SerializeField] private LayerMask raycastLayers;
 
         private const float Threshold = 0.01f;
-        
-        public InventorySystem inventory;
-        public Toolbar toolbar;
 
         private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
             _inputEvents = GetComponent<InputsEvents>();
             _playerView = GetComponent<PlayerView>();
-            inventory = GetComponent<FiniteInventory>();
-            toolbar = GetComponent<Toolbar>();
+            _character = GetComponent<Character>();
         }
 
         private void Start()
@@ -137,7 +132,7 @@ namespace Characters.Player
 
         private void HorizontalMovement()
         {
-            float tempSpeed = _inputEvents.IsSprinting ? 2 * speed : speed;
+            float tempSpeed = _inputEvents.IsSprinting ? _character.Stats.SprintMultiplier * _character.Stats.MovementSpeed : _character.Stats.MovementSpeed;
 
             if (_inputEvents.GetMovement == Vector2.zero) tempSpeed = 0.0f;
 

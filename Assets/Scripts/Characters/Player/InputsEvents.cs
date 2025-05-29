@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Inventory.Controller;
+using Items.Base;
 using Managers;
 
 namespace Characters.Player
@@ -139,6 +140,8 @@ namespace Characters.Player
             if (GameManager.Paused) return;
 
             var currentIndex = GameManager.Canvas.inventoryManager.GetIndexInventory();
+            
+            ItemDescription.Hide(); //esto modificarlo despues
             
             if (currentIndex == targetIndex || targetIndex == -1)
             {

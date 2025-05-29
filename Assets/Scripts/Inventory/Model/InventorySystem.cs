@@ -12,16 +12,30 @@ namespace Inventory.Model
     [Serializable]
     public abstract class InventorySystem : MonoBehaviour
     {
-        [SerializeField] protected List<ItemAmount> items = new List<ItemAmount>();
-
-        public List<ItemAmount> GetAllItems => new(items);
+        [SerializeField] public List<ItemAmount> items = new();
 
         private List<IInventoryObserver> _observers = new();
 
         public abstract int AddItem(ItemAmount itemAmount);
         protected abstract int AddItemEmptySlot(ItemAmount itemAmount);
         public abstract int RemoveItem(ItemAmount itemAmount);
+        public abstract void ClearInventory();
+        public abstract void ClearSlot(int i);
+        
+        public void SetItemByIndex(int slot, ItemAmount itemAmount)
+        {
+            if (slot < 0 || slot >= items.Count) return;
+            if (itemAmount.IsEmpty)
+            {
+                ClearSlot(slot);
+                return;
+            }
 
+            items[slot] = itemAmount;
+            NotifyItemChanged(slot);
+        }
+
+        //observer
         public void AddObserver(IInventoryObserver observer)
         {
             if (!_observers.Contains(observer))
@@ -33,7 +47,7 @@ namespace Inventory.Model
             _observers.Remove(observer);
         }
 
-        protected void NotifyItemChanged(int index)
+        public void NotifyItemChanged(int index)
         {
             foreach (var observer in _observers)
                 observer.OnItemChanged(index, items[index]);
@@ -45,44 +59,41 @@ namespace Inventory.Model
                 observer.OnInventoryChanged(items);
         }
 
-        public ItemAmount GetItem(int slot)
+        public ItemAmount GetItemByIndex(int slot)
         {
             if (slot < 0 || slot >= items.Count) return new ItemAmount();
 
             return items[slot];
         }
-
-        public ItemAmount GetItem(SO_Item soItem)
+        
+        public ItemAmount GetFirstSoItem(SO_Item soItem)
         {
             foreach (var item in items)
             {
                 if (item.SoItem == soItem) return new ItemAmount(item);
             }
+
             return new ItemAmount();
         }
 
         public bool HasItem(SO_Item soItem)
         {
-            return HasItemAmount(soItem, 1);
+            return HasAmountBySoItem(soItem, 1);
         }
 
-        public bool HasItemAmount(SO_Item soItem, int requiredAmount)
+        public bool HasAmountBySoItem(SO_Item soItem, int requiredAmount)
         {
-            return GetItemAmount(soItem) >= requiredAmount;
+            return GetAmountBySoItem(soItem) >= requiredAmount;
         }
 
-        public int GetItemAmount(SO_Item soItem)
+        public int GetAmountBySoItem(SO_Item soItem)
         {
-            if (soItem == null) return 0;
+            if (!soItem) return 0;
 
             return items
                 .Where(item => !item.IsEmpty && item.SoItem == soItem)
                 .Sum(item => item.Amount);
         }
-
-        public abstract void ClearInventory();
-
-        public abstract void ClearSlot(int i);
 
         public (int transferred, int remaining) TransferItemTo(InventorySystem otherInventory, int index)
         {
@@ -104,7 +115,7 @@ namespace Inventory.Model
             {
                 var item = items[i];
 
-                if (!item.IsEmpty && ItemUtility.AreStackable(itemAmount, item))
+                if (!item.IsEmpty && ItemsUtility.AreStackable(itemAmount, item))
                 {
                     itemAmount.SetAmount(item.AddAmount(itemAmount.Amount));
                     items[i] = item;
@@ -142,38 +153,39 @@ namespace Inventory.Model
             return itemAmount.Amount;
         }
 
-        public bool SwapItems(int fromIndex, int toIndex)
+        public void TransferIndexToIndex(InventorySystem targetInventory, int fromIndex, int targetIndex)
         {
-            if (fromIndex < 0 || fromIndex >= items.Count || toIndex < 0 || toIndex >= items.Count) return false;
-            if (fromIndex == toIndex) return false;
+            if (fromIndex < 0 || fromIndex >= items.Count) return;
+            if (targetInventory == null) return;
+            if (targetIndex < 0 || targetIndex >= targetInventory.items.Count) return;
+            if (this == targetInventory && fromIndex == targetIndex) return;
 
             ItemAmount fromItem = items[fromIndex];
-            ItemAmount toItem = items[toIndex];
+            if (fromItem.IsEmpty) return;
 
-            if (toItem.IsEmpty || ItemUtility.AreStackable(fromItem, toItem))
+            ItemAmount targetItem = targetInventory.GetItemByIndex(targetIndex);
+            
+            if (targetItem.IsEmpty) //si esta vacio
             {
-                int remainingAmount = toItem.SetItem(fromItem);
-                items[toIndex] = toItem;
-
-                if (remainingAmount > 0)
-                {
-                    fromItem.SetAmount(remainingAmount);
-                    items[fromIndex] = fromItem;
-                }
-                else
-                {
-                    ClearSlot(fromIndex);
-                }
-
+                targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
+                ClearSlot(fromIndex);
                 NotifyItemChanged(fromIndex);
-                NotifyItemChanged(toIndex);
-                return remainingAmount <= 0;
+                return;
+            }
+            
+            if (ItemsUtility.AreStackable(fromItem, targetItem)) //si son stackeables
+            {
+                int remaining = targetInventory.items[targetIndex].AddAmount(fromItem.Amount);
+                targetInventory.NotifyItemChanged(targetIndex);
+
+                items[fromIndex].SetAmount(remaining);
+                NotifyItemChanged(fromIndex);
+                return;
             }
 
-            (items[fromIndex], items[toIndex]) = (items[toIndex], items[fromIndex]);
-            NotifyItemChanged(fromIndex);
-            NotifyItemChanged(toIndex);
-            return true;
+            // Si no son stackeables, hacemos un swap
+            targetInventory.SetItemByIndex(targetIndex, new ItemAmount(fromItem));
+            SetItemByIndex(fromIndex, targetItem);
         }
 
 
@@ -183,7 +195,7 @@ namespace Inventory.Model
 
             foreach (var required in requiredItems)
             {
-                int availableAmount = GetItemAmount(required.SoItem);
+                int availableAmount = GetAmountBySoItem(required.SoItem);
                 int missingAmount = required.Amount - availableAmount;
 
                 if (missingAmount > 0)
@@ -207,7 +219,7 @@ namespace Inventory.Model
                     bool hasOverflow = group.Any(i => i.Overflow);
                     var modifiers = baseItem.Modifiers;
 
-                    var stacked = new ItemAmount(baseItem.SoItem, totalAmount, modifiers, hasOverflow);
+                    var stacked = new ItemAmount(baseItem.SoItem, totalAmount, modifiers, true);
                     return stacked;
                 })
                 .ToList();

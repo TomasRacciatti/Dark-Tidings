@@ -9,13 +9,13 @@ namespace Features.Health
     [DisallowMultipleComponent]
     public class HealthComponent : MonoBehaviour, IDamageable
     {
-        [SerializeField] private float maxHealth = 100f;
+        private float _maxHealth = 100f;
         private float _currentHealth;
         
         private HashSet<SO_Item> _strengths = new();
         private HashSet<SO_Item> _weaknesses = new();
 
-        public float MaxHealth => maxHealth;
+        public float MaxHealth => _maxHealth;
         public float CurrentHealth => _currentHealth;
         public bool IsDead => _currentHealth <= 0;
         
@@ -25,20 +25,19 @@ namespace Features.Health
         public event Action OnDeath;
         public event Action OnRevived;
         
-        private void Awake()
-        {
-            _currentHealth = maxHealth;
-        }
-        
         private void Start()
         {
+            _currentHealth = _maxHealth;
             NotifyHealthChanged();
         }
         
-        public void Initialize(IEnumerable<SO_Item> strengths, IEnumerable<SO_Item> weaknesses)
+        public void Initialize(float maxHealth ,IEnumerable<SO_Item> strengths, IEnumerable<SO_Item> weaknesses)
         {
             _strengths = new HashSet<SO_Item>(strengths);
             _weaknesses = new HashSet<SO_Item>(weaknesses);
+            _maxHealth = maxHealth;
+            _currentHealth = _maxHealth;
+            NotifyHealthChanged();
         }
         
         public void TakeDamage(float damage, List<ItemAmount> modifiers = null)
@@ -63,7 +62,7 @@ namespace Features.Health
             
             ApplyModifiers(ref healing, modifiers, true);
 
-            _currentHealth = Mathf.Min(_currentHealth + healing, maxHealth);
+            _currentHealth = Mathf.Min(_currentHealth + healing, _maxHealth);
             OnHealed?.Invoke(healing, modifiers);
             NotifyHealthChanged();
         }
@@ -73,13 +72,13 @@ namespace Features.Health
             if (!IsDead) return;
 
             OnRevived?.Invoke();
-            _currentHealth = maxHealth;
+            _currentHealth = _maxHealth;
             NotifyHealthChanged();
         }
 
         private void NotifyHealthChanged()
         {
-            OnHealthChanged?.Invoke(_currentHealth, maxHealth);
+            OnHealthChanged?.Invoke(_currentHealth, _maxHealth);
         }
 
         private void HandleDeath()

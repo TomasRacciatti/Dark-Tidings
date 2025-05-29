@@ -21,6 +21,11 @@ namespace Items.Base
             _meshRenderer = GetComponent<MeshRenderer>();
         }
 
+        public void SetItemAmount(ItemAmount item)
+        {
+            itemAmount = new ItemAmount(item);
+        }
+
         private void OnEnable()
         {
             if (itemAmount.IsEmpty)
@@ -29,7 +34,6 @@ namespace Items.Base
                 return;
             }
             //assign mesh and material
-            
             if (itemAmount.SoItem.Mesh != null)
             {
                 _meshFilter.mesh = itemAmount.SoItem.Mesh;

@@ -69,6 +69,7 @@ namespace Inventory.View
         {
             image.raycastTarget = false;
             _canvas.sortingOrder = 15;
+            ItemDropper.Show();
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -84,6 +85,7 @@ namespace Inventory.View
             image.raycastTarget = true;
             _canvas.sortingOrder = 5;
             transform.localPosition = Vector3.zero;
+            ItemDropper.Hide();
         }
         
         public void OnPointerClick(PointerEventData eventData)

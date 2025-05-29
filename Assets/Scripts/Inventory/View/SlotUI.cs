@@ -67,6 +67,7 @@ namespace Inventory.View
         {
             ItemUI fromItemUI = eventData.pointerDrag.GetComponent<ItemUI>();
             SlotUI fromSlotUI = fromItemUI.GetComponentInParent<SlotUI>();
+            ItemDropper.Hide();
 
             if (fromSlotUI == null) return;
 

@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items: []
-  slotsAmount: 26
+  slotsAmount: 16
 --- !u!114 &5782085653001925886
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -235,8 +235,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedSlot: 0
-  inventoryIndexes: 
-  slotCount: 4
   inventorySystem: {fileID: 0}
 --- !u!114 &6850914345207136916
 MonoBehaviour:
@@ -633,7 +631,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc0a5bf787c73ff42a5079c3d2382242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  items: []
   selectedItem: {fileID: 0}
 --- !u!1 &4517119983749625894
 GameObject:

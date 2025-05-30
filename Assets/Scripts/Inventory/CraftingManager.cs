@@ -107,7 +107,7 @@ namespace Inventory
                 }
             }
 
-            requiredItems = InventorySystem.StackItemAmounts(requiredItems);
+            requiredItems = InventoryUtility.StackItemAmounts(requiredItems);
 
             List<ItemAmount> missingItems = inventorySystem.ConsumeItems(requiredItems);
             if (missingItems.Count > 0) yield break;

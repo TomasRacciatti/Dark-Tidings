@@ -13,9 +13,9 @@ namespace Inventory.View
     public class InventoryUI : MonoBehaviour, IInventoryObserver
     {
         [SerializeField] protected SlotUI[] slots;
-        [SerializeField] protected InventorySystem inventory;
+        [SerializeField] protected InventorySystem inventorySystem;
         
-        public InventorySystem Inventory => inventory;
+        public InventorySystem InventorySystem => inventorySystem;
 
         private void Awake()
         {
@@ -27,24 +27,8 @@ namespace Inventory.View
 
         protected virtual void Start()
         {
-            if (inventory == null) inventory = GameManager.Player.inventory;
-            SetInventory(inventory);
-        }
-
-        public void SetInventory(InventorySystem newInventory)
-        {
-            if (inventory != null)
-            {
-                inventory.RemoveObserver(this);
-            }
-
-            inventory = newInventory;
-
-            if (inventory != null)
-            {
-                inventory.AddObserver(this);
-                OnInventoryChanged(inventory.items);
-            }
+            if (inventorySystem == null) inventorySystem = GameManager.Player.inventory;
+            inventorySystem = InventoryUtility.SetInventoryObserver(null, inventorySystem, this);
         }
 
         public void OnItemChanged(int index, ItemAmount item)

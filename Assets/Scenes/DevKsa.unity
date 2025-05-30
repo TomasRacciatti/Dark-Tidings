@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 2155.7522, g: 2259.465, b: 3281.4692, a: 1}
+  m_IndirectSpecularColor: {r: 2156.6204, g: 2260.0764, b: 3281.8247, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1857,7 +1857,7 @@ GameObject:
   - component: {fileID: 1437514739}
   - component: {fileID: 1437514743}
   m_Layer: 12
-  m_Name: BackPack
+  m_Name: Crafting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

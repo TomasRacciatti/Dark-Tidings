@@ -9,61 +9,52 @@ namespace Inventory.Controller
 {
     public class ItemsInHand : MonoBehaviour
     {
-        public static ItemsInHand Instance { get; private set; }
+        private static ItemsInHand _instance;
 
-        [SerializeField] private List<ItemEquippable> items;
+        private List<ItemEquippable> _items;
 
         public ItemEquippable selectedItem;
 
         private void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-        }
-
-        private void Start()
-        {
+            _instance = this;
             ItemEquippable[] equippables = GetComponentsInChildren<ItemEquippable>(includeInactive: true);
             
-            items = new List<ItemEquippable>();
+            _items = new List<ItemEquippable>();
             foreach (var item in equippables)
             {
-                items.Add(item);
+                _items.Add(item);
             }
         }
 
-        public void Use()
+        public static void Use()
         {
-            if (selectedItem != null)
+            if (_instance.selectedItem != null)
             {
-                selectedItem.Use();
+                _instance.selectedItem.Use();
             }
         }
 
-        public void SetItemEquipped(SO_Item soItem = null)
+        public static void SetItemEquipped(SO_Item soItem = null)
         {
-            if (selectedItem != null)
+            if (_instance.selectedItem != null)
             {
-                selectedItem.gameObject.SetActive(false);
+                _instance.selectedItem.gameObject.SetActive(false);
             }
 
-            foreach (var item in items)
+            foreach (var item in _instance._items)
             {
                 bool shouldBeActive = item.soItem == soItem;
                 item.gameObject.SetActive(shouldBeActive);
 
                 if (shouldBeActive)
                 {
-                    selectedItem = item;
+                    _instance.selectedItem = item;
                     return;
                 }
             }
 
-            selectedItem = null;
+            _instance.selectedItem = null;
         }
     }
 }

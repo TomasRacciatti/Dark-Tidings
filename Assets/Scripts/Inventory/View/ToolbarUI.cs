@@ -9,15 +9,7 @@ namespace Inventory.View
         [SerializeField] private int selectedSlot = 0;
         [SerializeField] private GameObject slotSelector;
 
-        public SlotUI SelectedSlotUI
-        {
-            get
-            {
-                if (slots == null || slots.Length == 0) return null;
-                if (selectedSlot < 0 || selectedSlot >= slots.Length) return null;
-                return slots[selectedSlot];
-            }
-        }
+        private SlotUI SelectedSlotUI => slots[selectedSlot];
 
         protected override void Start()
         {
@@ -33,13 +25,6 @@ namespace Inventory.View
             selectedSlot = slot;
             slotSelector.transform.SetParent(SelectedSlotUI.transform, false);
             slotSelector.transform.localPosition = Vector3.zero;
-            SetItemEquipped();
-        }
-
-        public void SetItemEquipped()
-        {
-            ItemAmount itemAmount = inventory.GetItemByIndex(selectedSlot);
-            ItemsInHand.Instance.SetItemEquipped(itemAmount.SoItem);
         }
     }
 }

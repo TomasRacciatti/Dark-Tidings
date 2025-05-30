@@ -26,6 +26,7 @@ namespace Items.Base
 
         public static void Show(ItemAmount itemAmount)
         {
+            if (ItemDropper.IsActive) return;
             _instance.itemNameText.text = itemAmount.ItemName;
             _instance.itemDescriptionText.text = itemAmount.Description;
             _instance.itemIcon.sprite = itemAmount.SoItem.Image;

@@ -69,7 +69,7 @@ namespace Objects
             }
 
             Toolbar toolbar = interactableObject.GetComponent<Toolbar>();
-            if (toolbar.GetSlotItem().SoItem == keyItem)
+            if (toolbar.GetItem().SoItem == keyItem)
             {
                 if (Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)) <= 5f)
                 {

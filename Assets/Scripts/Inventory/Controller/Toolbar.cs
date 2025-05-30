@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Inventory.Interfaces;
 using Inventory.Model;
 using Items.Base;
 using Managers;
@@ -6,98 +8,49 @@ using UnityEngine;
 
 namespace Inventory.Controller
 {
-    public class Toolbar : MonoBehaviour
+    public class Toolbar : MonoBehaviour, IInventoryObserver
     {
         [SerializeField] private int selectedSlot = 0;
-        [SerializeField] private int[] inventoryIndexes;
-        [SerializeField] private int slotCount = 4;
         [SerializeField] private InventorySystem inventorySystem;
         
-        public InventorySystem InventorySystem => inventorySystem;
-
-        public int SelectedInventoryIndex => inventoryIndexes[selectedSlot];
-        public int GetSlotIndex(int slot) => inventoryIndexes[slot];
-
-        public ItemAmount GetSlotItem()
+        private void Awake()
         {
-            if (SelectedInventoryIndex == -1) return new ItemAmount();
-            return inventorySystem.GetItemByIndex(SelectedInventoryIndex);
+            if (inventorySystem == null) inventorySystem = GetComponent<InventorySystem>();
         }
 
         private void Start()
         {
-            if (inventorySystem == null) inventorySystem = GetComponent<InventorySystem>();
-            
-            InitializeSlots();
+            inventorySystem = InventoryUtility.SetInventoryObserver(null, inventorySystem, this);
         }
 
-        private void InitializeSlots()
+        public ItemAmount GetItem()
         {
-            inventoryIndexes = new int[slotCount];
-            ClearSlots();
-        }
-
-        private void ClearSlots()
-        {
-            Array.Fill(inventoryIndexes, -1);
-        }
-
-        public int GetIndex(int inventoryIndex)
-        {
-            for (int i = 0; i < inventoryIndexes.Length; i++)
-            {
-                if (inventoryIndex == inventoryIndexes[i]) return i;
-            }
-            return -1;
-        }
-
-        public ItemAmount GetItem(int slot)
-        {
-            if (slot < 0 || slot >= inventoryIndexes.Length) return new ItemAmount();
-            int inventoryIndex = inventoryIndexes[slot];
-            if (inventoryIndex == -1) return new ItemAmount();
-            return inventorySystem.GetItemByIndex(inventoryIndex);
+            if (inventorySystem == null) return new ItemAmount();
+            return inventorySystem.GetItemByIndex(selectedSlot);
         }
         
-        public void SetIndex(int toolbarSlotIndex, int inventoryIndex)
+        public void SetSelectedSlot(int index)
         {
-            if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
-            
-            if (inventoryIndex != -1)
-            {
-                ItemAmount item = inventorySystem.GetItemByIndex(inventoryIndex);
-                if (!item.SoItem.IsEquippable) return;
-                for (int i = 0; i < inventoryIndexes.Length; i++)
-                {
-                    if (i != toolbarSlotIndex && inventoryIndexes[i] == inventoryIndex)
-                    {
-                        inventoryIndexes[i] = -1;
-                        SetUI();
-                        break;
-                    }
-                }
-            }
-            
-            inventoryIndexes[toolbarSlotIndex] = inventoryIndex;
-            SetUI();
-        }
-
-        private void SetUI()
-        {
-            //todo logica de ui
-        }
-
-        public void SetSelectedSlot(int toolbarSlotIndex)
-        {
-            if (toolbarSlotIndex < 0 || toolbarSlotIndex >= inventoryIndexes.Length) return;
-            
-            selectedSlot = toolbarSlotIndex;
+            if (index == selectedSlot) return;
+            if (!inventorySystem.ValidIndex(index)) return;
+            selectedSlot = index;
+            ItemsInHand.SetItemEquipped(inventorySystem.items[selectedSlot].SoItem);
             GameManager.Canvas.inventoryManager.toolbarUI.ChangeSelectedSlot(selectedSlot);
         }
 
-        public void SwapIndexes(int fromSlot, int toSlot)
+        public void OnInventoryChanged(List<ItemAmount> currentItems)
         {
-            (inventoryIndexes[fromSlot], inventoryIndexes[toSlot]) = (inventoryIndexes[toSlot], inventoryIndexes[fromSlot]);
+            ItemAmount item = currentItems[selectedSlot];
+            if (item == null) return;
+            ItemsInHand.SetItemEquipped(item.SoItem);
+        }
+
+        public void OnItemChanged(int index, ItemAmount newItem)
+        {
+            if (!inventorySystem.ValidIndex(index)) return;
+            if (index != selectedSlot) return;
+            
+            ItemsInHand.SetItemEquipped(newItem.SoItem);
         }
     }
 }

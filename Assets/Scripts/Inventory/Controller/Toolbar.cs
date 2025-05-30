@@ -21,6 +21,7 @@ namespace Inventory.Controller
         private void Start()
         {
             inventorySystem = InventoryUtility.SetInventoryObserver(null, inventorySystem, this);
+            ItemsInHand.SetItemEquipped(inventorySystem.items[selectedSlot].SoItem);
         }
 
         public ItemAmount GetItem()

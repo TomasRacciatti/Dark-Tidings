@@ -245,7 +245,7 @@ MonoBehaviour:
   - {fileID: 8195891788064835183}
   - {fileID: 2688943111594679375}
   - {fileID: 4610972940842831652}
-  inventory: {fileID: 0}
+  inventorySystem: {fileID: 0}
   selectedSlot: 0
   slotSelector: {fileID: 4250155165518356726}
 --- !u!1 &877654633336865597
@@ -571,7 +571,7 @@ MonoBehaviour:
   - {fileID: 7710908033761264318}
   - {fileID: 6615235525263279288}
   - {fileID: 3604031495710086592}
-  inventory: {fileID: 0}
+  inventorySystem: {fileID: 0}
 --- !u!1 &1305818443749456202
 GameObject:
   m_ObjectHideFlags: 0
@@ -1544,7 +1544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0.27058825}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

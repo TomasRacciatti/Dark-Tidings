@@ -9,6 +9,8 @@ namespace Items.Base
     {
         private static ItemDropper _instance;
         [SerializeField] private GameObject itemPrefab;
+        
+        public static bool IsActive => _instance.gameObject.activeSelf;
 
         private void Awake()
         {
@@ -25,7 +27,7 @@ namespace Items.Base
         {
             _instance.gameObject.SetActive(false);
         }
-
+        
         public void OnDrop(PointerEventData eventData)
         {
             ItemUI fromItemUI = eventData.pointerDrag.GetComponent<ItemUI>();
@@ -42,7 +44,7 @@ namespace Items.Base
                 rb.AddForce((GameManager.Player.transform.forward + 0.8f * Vector3.up).normalized * 3.5f, ForceMode.Impulse);
             }
             
-            fromSlotUI.InventoryUI.Inventory.SetItemByIndex(fromSlotUI.SlotIndex, new ItemAmount());
+            fromSlotUI.InventoryUI.InventorySystem.SetItemByIndex(fromSlotUI.SlotIndex, new ItemAmount());
             Hide();
         }
     }

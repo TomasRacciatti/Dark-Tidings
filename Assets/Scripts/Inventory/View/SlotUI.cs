@@ -68,10 +68,11 @@ namespace Inventory.View
             ItemUI fromItemUI = eventData.pointerDrag.GetComponent<ItemUI>();
             SlotUI fromSlotUI = fromItemUI.GetComponentInParent<SlotUI>();
             ItemDropper.Hide();
+            ItemDescription.Show(fromItemUI.itemAmount);
 
             if (fromSlotUI == null) return;
 
-            fromSlotUI.InventoryUI.Inventory.TransferIndexToIndex(InventoryUI.Inventory, fromSlotUI.SlotIndex,
+            fromSlotUI.InventoryUI.InventorySystem.TransferIndexToIndex(InventoryUI.InventorySystem, fromSlotUI.SlotIndex,
                 SlotIndex);
         }
     }

@@ -16,6 +16,8 @@ namespace Inventory.Model
 
         private List<IInventoryObserver> _observers = new();
 
+        public bool ValidIndex(int index) => index >= 0 && index < items.Count;
+
         public abstract int AddItem(ItemAmount itemAmount);
         protected abstract int AddItemEmptySlot(ItemAmount itemAmount);
         public abstract int RemoveItem(ItemAmount itemAmount);
@@ -205,32 +207,6 @@ namespace Inventory.Model
             }
 
             return missingItems;
-        }
-
-        public static List<ItemAmount> StackItemAmounts(IEnumerable<ItemAmount> items)
-        {
-            return items
-                .Where(item => !item.IsEmpty)
-                .GroupBy(item => new { item.SoItem, ModKey = GetModifierKey(item) })
-                .Select(group =>
-                {
-                    var baseItem = group.First();
-                    int totalAmount = group.Sum(i => i.Amount);
-                    bool hasOverflow = group.Any(i => i.Overflow);
-                    var modifiers = baseItem.Modifiers;
-
-                    var stacked = new ItemAmount(baseItem.SoItem, totalAmount, modifiers, true);
-                    return stacked;
-                })
-                .ToList();
-        }
-
-        private static string GetModifierKey(ItemAmount item)
-        {
-            if (item.Modifiers == null || item.Modifiers.Count == 0)
-                return string.Empty;
-
-            return string.Join(",", item.Modifiers.Select(mod => mod.SoItem.name).OrderBy(name => name));
         }
 
         /*

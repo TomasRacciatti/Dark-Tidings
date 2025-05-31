@@ -108,7 +108,7 @@ namespace Characters.Player
             _use = context.ReadValueAsButton();
             if (!_inventoryOpened && !GameManager.Paused)
             {
-                ItemsInHand.Instance.Use();
+                ItemsInHand.Use();
             }
         }
         

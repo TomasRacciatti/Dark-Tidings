@@ -15,6 +15,8 @@ namespace Inventory.Model
         [SerializeField] public List<ItemAmount> items = new();
 
         private List<IInventoryObserver> _observers = new();
+        
+        public List<ItemAmount> Items => items;
 
         public bool ValidIndex(int index) => index >= 0 && index < items.Count;
 
@@ -49,7 +51,7 @@ namespace Inventory.Model
             _observers.Remove(observer);
         }
 
-        public void NotifyItemChanged(int index)
+        protected virtual void NotifyItemChanged(int index)
         {
             foreach (var observer in _observers)
                 observer.OnItemChanged(index, items[index]);

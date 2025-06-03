@@ -52,6 +52,9 @@ namespace Characters.Player
             _inputActions.Player.Toolbar3.performed += SelectToolbar3;
             _inputActions.Player.Toolbar4.performed += SelectToolbar4;
             _inputActions.Player.Pause.performed += Pause;
+            _inputActions.Player.Reload.started += Reload0;
+            _inputActions.Player.Reload.canceled += Reload1;
+            _inputActions.Player.Reload.performed += Reload2;
             _inputActions.Enable();
         }
 
@@ -76,6 +79,9 @@ namespace Characters.Player
             _inputActions.Player.Toolbar3.performed -= SelectToolbar3;
             _inputActions.Player.Toolbar4.performed -= SelectToolbar4;
             _inputActions.Player.Pause.performed -= Pause;
+            _inputActions.Player.Reload.started -= Reload0;
+            _inputActions.Player.Reload.canceled -= Reload1;
+            _inputActions.Player.Reload.performed -= Reload2;
         }
 
         private void Movement(InputAction.CallbackContext context)
@@ -151,6 +157,15 @@ namespace Characters.Player
         private void SelectToolbar(int index)
         {
             _toolbar.SetSelectedSlot(index);
+        }
+        
+        private void Reload0(InputAction.CallbackContext context) => Reload(0);
+        private void Reload1(InputAction.CallbackContext context) => Reload(1);
+        private void Reload2(InputAction.CallbackContext context) => Reload(2);
+        
+        private void Reload(int index)
+        {
+            print(index);
         }
     }
 }

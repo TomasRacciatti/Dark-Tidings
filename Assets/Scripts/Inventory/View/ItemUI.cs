@@ -100,8 +100,15 @@ namespace Inventory.View
                     break;
                 case PointerEventData.InputButton.Middle:
                     Debug.Log("Click del botón del medio");
+                    SplitItem();
                     break;
             }
+        }
+
+        private void SplitItem()
+        {
+            SlotUI slotUI = GetComponentInParent<SlotUI>();
+            slotUI.InventoryUI.InventorySystem.SplitItemStack(slotUI.SlotIndex);
         }
         
         public void OnPointerEnter(PointerEventData eventData)

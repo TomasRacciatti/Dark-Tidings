@@ -34,7 +34,7 @@ namespace Items.Weapons
             _boltType = boltType;
             Debug.Log("Loaded: " + _boltType.ItemName);
         }
-
+        
         private void Fire()
         {/*
             if (_boltType.SoItem == null || _boltType.Modifiers == null)
@@ -42,24 +42,24 @@ namespace Items.Weapons
                 Debug.LogWarning("No bolt loaded!");
                 return;
             }*/
-            if (_cooldown.IsReady)
-            {
-                InventorySystem inventorySystem = GameManager.Player.inventory;
-                ItemAmount bolt;
-                if (inventorySystem != null)
-                    bolt = inventorySystem.GetFirstSoItem(_bolt);
-                else
-                    bolt = null;
+            if (!_cooldown.IsReady) return;
 
-                if (bolt.IsEmpty) return;
-            
-                inventorySystem.RemoveItem(new ItemAmount(bolt.SoItem, 1, bolt.Modifiers));
-            
-                GameObject boltInstance = ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, _firePoint.rotation, 10f);
-                boltInstance.GetComponent<Bolt>().SetModifiers(bolt.Modifiers);
-                Debug.Log("Fired: " + _boltType.ItemName);
-                _cooldown.StartCooldown(1);
-            }
+            InventorySystem inventorySystem = GameManager.Player.inventory;
+            if (inventorySystem == null) return;
+
+            ItemAmount bolt = inventorySystem.GetFirstSoItem(_bolt);
+            if (bolt.IsEmpty) return;
+
+            // Creamos una copia con cantidad 1 para removerla
+            ItemAmount boltToRemove = new ItemAmount(bolt.SoItem, 1, bolt.Modifiers);
+            inventorySystem.RemoveItem(ref boltToRemove);
+
+            // Disparo
+            GameObject boltInstance = ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, _firePoint.rotation, 10f);
+            boltInstance.GetComponent<Bolt>().SetModifiers(bolt.Modifiers);
+
+            Debug.Log("Fired: " + _boltType.ItemName);
+            _cooldown.StartCooldown(1);
         }
     }
 }

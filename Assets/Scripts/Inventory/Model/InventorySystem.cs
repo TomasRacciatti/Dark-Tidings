@@ -20,11 +20,29 @@ namespace Inventory.Model
 
         public bool ValidIndex(int index) => index >= 0 && index < items.Count;
 
-        public abstract int AddItem(ItemAmount itemAmount);
-        protected abstract int AddItemEmptySlot(ItemAmount itemAmount);
-        public abstract int RemoveItem(ItemAmount itemAmount);
+        public abstract void AddItem(ref ItemAmount itemAmount);
+        protected abstract void AddItemEmptySlot(ref ItemAmount itemAmount);
+        public abstract void RemoveItem(ref ItemAmount itemAmount);
         public abstract void ClearInventory();
         public abstract void ClearSlot(int i);
+
+        public List<ItemAmount> AddItems(List<ItemAmount> itemAmounts)
+        {
+            List<ItemAmount> notAdded = new();
+
+            for (int i = 0; i < itemAmounts.Count; i++)
+            {
+                var item = itemAmounts[i];
+                AddItem(ref item);
+
+                if (!item.IsEmpty)
+                {
+                    notAdded.Add(item);
+                }
+            }
+
+            return notAdded;
+        }
         
         public void SetItemByIndex(int slot, ItemAmount itemAmount)
         {
@@ -37,6 +55,15 @@ namespace Inventory.Model
 
             items[slot] = itemAmount;
             NotifyItemChanged(slot);
+        }
+
+        public bool RemoveItemByIndex(int slot, int amount)
+        {
+            if (slot < 0 || slot >= items.Count) return false;
+            if (items[slot].IsEmpty) return false;
+            items[slot].RemoveAmount(amount);
+            NotifyItemChanged(slot);
+            return true;
         }
 
         //observer
@@ -99,21 +126,9 @@ namespace Inventory.Model
                 .Sum(item => item.Amount);
         }
 
-        public (int transferred, int remaining) TransferItemTo(InventorySystem otherInventory, int index)
+        protected void StackItems(ref ItemAmount itemAmount)
         {
-            var item = items[index];
-            int remaining = otherInventory.AddItem(item);
-            int transferred = item.Amount - remaining;
-
-            item.RemoveAmount(transferred);
-            items[index] = item;
-
-            return (transferred, remaining);
-        }
-
-        protected int StackItems(ItemAmount itemAmount)
-        {
-            if (itemAmount.SoItem.Stack <= 1) return itemAmount.Amount;
+            if (itemAmount.SoItem.Stack <= 1) return;
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -126,16 +141,14 @@ namespace Inventory.Model
                     NotifyItemChanged(i);
 
                     if (itemAmount.Amount <= 0)
-                        return 0;
+                        return;
                 }
             }
-
-            return itemAmount.Amount;
         }
 
-        protected int RemoveItemsInternal(ItemAmount itemAmount, Func<int, bool> onItemEmptied)
+        protected void RemoveItemsInternal(ref ItemAmount itemAmount, Func<int, bool> onItemEmptied)
         {
-            if (itemAmount.IsEmpty) return itemAmount.Amount;
+            if (itemAmount.IsEmpty) return;
 
             for (int i = 0; i < items.Count; i++)
             {
@@ -146,16 +159,17 @@ namespace Inventory.Model
                     itemAmount.SetAmount(item.RemoveAmount(itemAmount.Amount));
 
                     if (item.IsEmpty)
+                    {
                         if (onItemEmptied(i)) i--;
                         else items[i] = item;
+                    }
 
                     NotifyItemChanged(i);
-                    if (itemAmount.Amount <= 0) return 0;
+                    if (itemAmount.Amount <= 0) return;
                 }
             }
-
-            return itemAmount.Amount;
         }
+
 
         public void TransferIndexToIndex(InventorySystem targetInventory, int fromIndex, int targetIndex)
         {
@@ -209,6 +223,40 @@ namespace Inventory.Model
             }
 
             return missingItems;
+        }
+        
+        public bool SplitItemStack(int index)
+        {
+            if (index < 0 || index >= Items.Count) return false;
+
+            var item = Items[index];
+            if (item.IsEmpty || item.Amount <= 1) return false;
+
+            // Calcular mitades
+            int halfAmount = item.Amount / 2;
+            int remainder = item.Amount - halfAmount;
+
+            // Buscar primer slot vacío
+            int emptyIndex = GetFirstEmptySlotIndex();
+            if (emptyIndex == -1) return false;
+
+            // Asignar cantidades
+            Items[index].SetAmount(remainder);
+            Items[emptyIndex] = new ItemAmount(item.SoItem, halfAmount, item.Modifiers);
+
+            NotifyItemChanged(index);
+            NotifyItemChanged(emptyIndex);
+
+            return true;
+        }
+        
+        protected int GetFirstEmptySlotIndex()
+        {
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i].IsEmpty) return i;
+            }
+            return -1;
         }
 
         /*

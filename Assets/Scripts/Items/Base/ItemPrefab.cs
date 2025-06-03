@@ -48,7 +48,7 @@ namespace Items.Base
         {
             if (interactableObject.TryGetComponent(out InventorySystem inventorySystem))
             {
-                itemAmount.RemoveAmount(itemAmount.Amount - inventorySystem.AddItem(itemAmount));
+                inventorySystem.AddItem(ref itemAmount);
                 if (itemAmount.IsEmpty)
                 {
                     Destroy(gameObject);

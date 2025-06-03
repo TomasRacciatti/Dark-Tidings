@@ -21,5 +21,11 @@ namespace Items.Base
 
             return true;
         }
+
+        public static bool CanStackAll(ItemAmount a, ItemAmount b)
+        {
+            if (!AreStackable(a, b)) return false;
+            return a.Amount + b.Amount <= a.SoItem.Stack;
+        }
     }
 }

@@ -17,7 +17,7 @@ namespace Inventory.Model
             if (newInventory != null)
             {
                 newInventory.AddObserver(observer);
-                observer.OnInventoryChanged(newInventory.items);
+                observer.OnInventoryChanged(newInventory.Items);
             }
             
             return newInventory;

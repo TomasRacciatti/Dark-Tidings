@@ -32,7 +32,9 @@ namespace Managers
             {
                 SpawnPlayer();
                 SetCursorVisibility(false);
+                return;
             }
+            SetCursorVisibility(true);
         }
 
         private void InstantiateInstance()

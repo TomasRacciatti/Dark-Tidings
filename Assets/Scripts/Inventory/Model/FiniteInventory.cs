@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Items.Base;
@@ -6,30 +8,31 @@ namespace Inventory.Model
 {
     public class FiniteInventory : InventorySystem
     {
-        [SerializeField] [Range(4, 50)] private int slotsAmount = 12;
+        [SerializeField] [Range(1, 50)] private int slotsAmount = 12;
 
         private void Awake()
         {
-            items = Enumerable.Range(0, slotsAmount)
-                .Select(_ => new ItemAmount())
-                .ToList();
-            NotifyInventoryChanged();
-        }
-        
-        public override int AddItem(ItemAmount itemAmount)
-        {
-            if (itemAmount.IsEmpty) return 0;
-            itemAmount.SetAmount(StackItems(itemAmount));
-            if (itemAmount.IsEmpty) return 0;
-            itemAmount.SetAmount(AddItemEmptySlot(itemAmount));
-
-            return itemAmount.Amount; // amount not added
+            if (items == null)
+                items = new List<ItemAmount>();
+            while (items.Count < slotsAmount)
+            {
+                items.Add(new ItemAmount());
+            }
         }
 
-        public override int RemoveItem(ItemAmount itemAmount)
+        public override void AddItem(ref ItemAmount itemAmount)
         {
-            if (itemAmount.IsEmpty) return 0;
-            return RemoveItemsInternal(itemAmount, i =>
+            if (itemAmount.IsEmpty || !IsItemAllowed(itemAmount.SoItem)) return;
+            StackItems(ref itemAmount);
+            if (itemAmount.IsEmpty) return;
+            AddItemEmptySlot(ref itemAmount);
+        }
+
+        public override void RemoveItem(ref ItemAmount itemAmount)
+        {
+            if (itemAmount.IsEmpty || !IsItemAllowed(itemAmount.SoItem)) return;
+
+            RemoveItemsInternal(ref itemAmount, i =>
             {
                 items[i] = new ItemAmount();
                 return false;
@@ -40,10 +43,8 @@ namespace Inventory.Model
         {
             for (int i = 0; i < items.Count; i++)
             {
-                items.Clear();
-                //NotifyItemChanged(i);
+                ClearSlot(i);
             }
-            NotifyInventoryChanged();
         }
 
         public override void ClearSlot(int i)
@@ -52,10 +53,10 @@ namespace Inventory.Model
             NotifyItemChanged(i);
         }
         
-        protected override int AddItemEmptySlot(ItemAmount itemAmount)
+        protected override void AddItemEmptySlot(ref ItemAmount itemAmount)
         {
-            if (itemAmount.IsEmpty) return itemAmount.Amount;
-            
+            if (itemAmount.IsEmpty || !IsItemAllowed(itemAmount.SoItem)) return;
+
             for (int i = 0; i < items.Count; i++)
             {
                 var item = items[i];
@@ -64,15 +65,12 @@ namespace Inventory.Model
                 {
                     itemAmount.SetAmount(item.SetItem(itemAmount));
                     items[i] = item;
-                    
-                    NotifyItemChanged(i);
 
+                    NotifyItemChanged(i);
                     if (itemAmount.Amount <= 0)
-                        return 0;
+                        return;
                 }
             }
-
-            return itemAmount.Amount;
         }
     }
 }

@@ -17,6 +17,8 @@ namespace Inventory.Controller
         [SerializeField] public ToolbarUI toolbarUI;
         [SerializeField] public InventoryUI inventoryUI;
         [SerializeField] private Switcher inventorySwitcherUI;
+        [SerializeField] public InventorySystem boltsInventorySystem; 
+        
         public Switcher InventorySwitcherUI => inventorySwitcherUI;
 
         private void Start()

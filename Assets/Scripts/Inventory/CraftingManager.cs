@@ -114,7 +114,7 @@ namespace Inventory
 
             foreach (var required in requiredItems)
             {
-                inventorySystem.RemoveItem(new ItemAmount(required.SoItem, required.Amount));
+                //inventorySystem.RemoveItem(new ItemAmount(required.SoItem, required.Amount));
             }
             
             yield return null;
@@ -122,7 +122,7 @@ namespace Inventory
             ItemAmount craftedItem = craftedSlotUI.GetItemAmount();
             if (!craftedItem.IsEmpty)
             {
-                inventorySystem.AddItem(craftedItem);
+                //inventorySystem.AddItem(craftedItem);
             }
 
             UpdateCrafting();

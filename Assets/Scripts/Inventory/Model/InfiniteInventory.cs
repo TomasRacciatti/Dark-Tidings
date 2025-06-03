@@ -6,18 +6,20 @@ namespace Inventory.Model
 {
     public class InfiniteInventory : InventorySystem
     {
-        public override int AddItem(ItemAmount itemAmount)
+        public override void AddItem(ref ItemAmount itemAmount)
         {
-            if (itemAmount.IsEmpty) return itemAmount.Amount;
-            itemAmount.SetAmount(StackItems(itemAmount));
-            if (itemAmount.IsEmpty) return itemAmount.Amount;
-            AddItemEmptySlot(itemAmount);
-            return 0;
+            if (itemAmount.IsEmpty || !IsItemAllowed(itemAmount.SoItem)) return;
+
+            StackItems(ref itemAmount);
+            if (itemAmount.IsEmpty) return;
+
+            AddItemEmptySlot(ref itemAmount);
         }
-        
-        public override int RemoveItem(ItemAmount itemAmount)
+
+        public override void RemoveItem(ref ItemAmount itemAmount)
         {
-            return RemoveItemsInternal(itemAmount, i =>
+            if (itemAmount.IsEmpty || !IsItemAllowed(itemAmount.SoItem)) return;
+            RemoveItemsInternal(ref itemAmount, i =>
             {
                 ClearSlot(i);
                 return true;
@@ -36,17 +38,15 @@ namespace Inventory.Model
             NotifyItemChanged(i);
         }
         
-        protected override int AddItemEmptySlot(ItemAmount itemAmount)
+        protected override void AddItemEmptySlot(ref ItemAmount itemAmount)
         {
             while (!itemAmount.IsEmpty)
             {
                 ItemAmount newItem = new ItemAmount();
                 itemAmount.SetAmount(newItem.SetItem(itemAmount));
                 items.Add(newItem);
-
                 NotifyItemChanged(items.Count - 1);
             }
-            return itemAmount.Amount;
         }
     }
 }

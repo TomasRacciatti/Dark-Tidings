@@ -21,7 +21,7 @@ namespace Inventory.Controller
         private void Start()
         {
             inventorySystem = InventoryUtility.SetInventoryObserver(null, inventorySystem, this);
-            ItemsInHand.SetItemEquipped(inventorySystem.items[selectedSlot].SoItem);
+            ItemsInHand.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
         }
 
         public ItemAmount GetItem()
@@ -35,7 +35,7 @@ namespace Inventory.Controller
             if (index == selectedSlot) return;
             if (!inventorySystem.ValidIndex(index)) return;
             selectedSlot = index;
-            ItemsInHand.SetItemEquipped(inventorySystem.items[selectedSlot].SoItem);
+            ItemsInHand.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
             GameManager.Canvas.inventoryManager.toolbarUI.ChangeSelectedSlot(selectedSlot);
         }
 

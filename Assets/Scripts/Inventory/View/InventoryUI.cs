@@ -1,12 +1,9 @@
-using System;
-using Interfaces;
 using Inventory.Model;
 using Items.Base;
 using UnityEngine;
 using System.Collections.Generic;
 using Inventory.Interfaces;
 using Managers;
-using UnityEngine.Serialization;
 
 namespace Inventory.View
 {

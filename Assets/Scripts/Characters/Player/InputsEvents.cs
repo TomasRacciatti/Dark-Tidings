@@ -16,14 +16,12 @@ namespace Characters.Player
         private Vector2 _look;
         private bool _sprint;
         private bool _use;
-        private bool _inventoryOpened;
-        private bool _toggleBackpack;
         
-        public Vector2 GetMovement => !_inventoryOpened && !GameManager.Paused ? _movement: Vector2.zero;
-        public Vector2 GetLook => !_inventoryOpened && !GameManager.Paused ? _look : Vector2.zero;
+        public Vector2 GetMovement => !InventoryOpened && !GameManager.Paused ? _movement: Vector2.zero;
+        public Vector2 GetLook => !InventoryOpened && !GameManager.Paused ? _look : Vector2.zero;
         public bool IsSprinting => _sprint;
         public bool IsUsing => _use;
-        public bool InventoryOpened => _inventoryOpened;
+        public bool InventoryOpened => Switcher.GetIndexSwitcher(GameManager.Canvas.inventoryManager.InventorySwitcherUI) != -1;
 
         private Toolbar _toolbar;
 
@@ -106,7 +104,7 @@ namespace Characters.Player
         private void StartUse(InputAction.CallbackContext context)
         {
             _use = context.ReadValueAsButton();
-            if (!_inventoryOpened && !GameManager.Paused)
+            if (!GameManager.Paused && !InventoryOpened)
             {
                 ItemsInHand.Use();
             }
@@ -127,41 +125,19 @@ namespace Characters.Player
 
         private void Inventory(InputAction.CallbackContext context)
         {
-            InventoryUI(0);
+            GameManager.Canvas.InventoryUI(0);
         }
 
         private void Journal(InputAction.CallbackContext context)
         {
-            InventoryUI(1);
-        }
-        
-        private void InventoryUI(int targetIndex)
-        {
-            if (GameManager.Paused) return;
-
-            var currentIndex = GameManager.Canvas.inventoryManager.GetIndexInventory();
-            
-            ItemDescription.Hide(); //esto modificarlo despues
-            
-            if (currentIndex == targetIndex || targetIndex == -1)
-            {
-                GameManager.Canvas.inventoryManager.InventorySwitcherUI.gameObject.SetActive(false);
-                GameManager.SetCursorVisibility(false);
-                _inventoryOpened = false;
-                return;
-            }
-            
-            GameManager.Canvas.inventoryManager.InventorySwitcherUI.SwitchTo(targetIndex);
-            GameManager.Canvas.inventoryManager.InventorySwitcherUI.gameObject.SetActive(true);
-            GameManager.SetCursorVisibility(true);
-            _inventoryOpened = true;
+            GameManager.Canvas.InventoryUI(1);
         }
         
         private void Pause(InputAction.CallbackContext context)
         {
-            if (!GameManager.Paused && _inventoryOpened)
+            if (!GameManager.Paused && InventoryOpened)
             {
-                InventoryUI(-1);
+                GameManager.Canvas.InventoryUI(-1);
                 return;
             }
             GameManager.TogglePause();

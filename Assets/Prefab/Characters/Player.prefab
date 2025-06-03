@@ -229,6 +229,7 @@ MonoBehaviour:
     soItem: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
   - amount: 1
     soItem: {fileID: 11400000, guid: f270ec18bac589d47a714ff514e0ded2, type: 2}
+  allowedItemType: []
   slotsAmount: 16
 --- !u!114 &5782085653001925886
 MonoBehaviour:

@@ -44,7 +44,7 @@ namespace Items.Weapons
             }*/
             if (!_cooldown.IsReady) return;
 
-            InventorySystem inventorySystem = GameManager.Player.inventory;
+            InventorySystem inventorySystem = GameManager.Canvas.inventoryManager.boltsInventorySystem;
             if (inventorySystem == null) return;
 
             ItemAmount bolt = inventorySystem.GetFirstSoItem(_bolt);

@@ -8,7 +8,7 @@ namespace Inventory.Model
     {
         public override void AddItem(ref ItemAmount itemAmount)
         {
-            if (itemAmount.IsEmpty) return;
+            if (itemAmount.IsEmpty || !IsItemAllowed(itemAmount.SoItem)) return;
 
             StackItems(ref itemAmount);
             if (itemAmount.IsEmpty) return;
@@ -18,6 +18,7 @@ namespace Inventory.Model
 
         public override void RemoveItem(ref ItemAmount itemAmount)
         {
+            if (itemAmount.IsEmpty || !IsItemAllowed(itemAmount.SoItem)) return;
             RemoveItemsInternal(ref itemAmount, i =>
             {
                 ClearSlot(i);

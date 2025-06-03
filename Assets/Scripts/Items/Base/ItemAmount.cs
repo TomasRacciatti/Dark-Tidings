@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Items.Base
 {
     [Serializable]
-    public class ItemAmount
+    public class ItemAmount : ISerializationCallbackReceiver
     {
         [SerializeField] private int amount;
         [SerializeField] private SO_Item soItem;
@@ -14,7 +14,7 @@ namespace Items.Base
         private bool _overflow;
         private string _itemName;
         private string _description;
-        
+
         public int Amount => amount;
         public SO_Item SoItem => soItem;
         public List<ItemAmount> Modifiers => _modifiers ??= new List<ItemAmount>();
@@ -109,7 +109,7 @@ namespace Items.Base
             SetItemNameAndDescription();
         }
 
-        private void SetItemNameAndDescription()
+        public void SetItemNameAndDescription()
         {
             if (soItem == null)
             {
@@ -119,9 +119,12 @@ namespace Items.Base
             }
 
             string baseName = soItem.ItemName;
-            foreach (var modifier in _modifiers)
+            if (_modifiers != null && _modifiers.Count > 0)
             {
-                baseName = modifier.soItem.ModifierName + " " + baseName;
+                foreach (var modifier in _modifiers)
+                {
+                    baseName = modifier.soItem.ModifierName + " " + baseName;
+                }
             }
 
             _itemName = baseName;
@@ -137,6 +140,16 @@ namespace Items.Base
             }
 
             _description = desc;
+        }
+
+        public void OnBeforeSerialize()
+        {
+            
+        }
+
+        public void OnAfterDeserialize()
+        {
+            SetItemNameAndDescription();
         }
     }
 }

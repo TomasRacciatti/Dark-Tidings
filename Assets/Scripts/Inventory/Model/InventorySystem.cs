@@ -13,7 +13,9 @@ namespace Inventory.Model
     public abstract class InventorySystem : MonoBehaviour
     {
         [SerializeField] public List<ItemAmount> items = new();
-
+        [SerializeField] private List<ItemType> allowedItemType = new();
+        public List<ItemType> AllowedItemType => allowedItemType;
+        
         private List<IInventoryObserver> _observers = new();
         
         public List<ItemAmount> Items => items;
@@ -25,6 +27,11 @@ namespace Inventory.Model
         public abstract void RemoveItem(ref ItemAmount itemAmount);
         public abstract void ClearInventory();
         public abstract void ClearSlot(int i);
+        
+        protected bool IsItemAllowed(SO_Item item)
+        {
+            return allowedItemType.Count == 0 || allowedItemType.Contains(item.ItemType);
+        }
 
         public List<ItemAmount> AddItems(List<ItemAmount> itemAmounts)
         {
@@ -47,11 +54,13 @@ namespace Inventory.Model
         public void SetItemByIndex(int slot, ItemAmount itemAmount)
         {
             if (slot < 0 || slot >= items.Count) return;
+            
             if (itemAmount.IsEmpty)
             {
                 ClearSlot(slot);
                 return;
             }
+            if (!IsItemAllowed(itemAmount.SoItem)) return;
 
             items[slot] = itemAmount;
             NotifyItemChanged(slot);
@@ -65,7 +74,7 @@ namespace Inventory.Model
             NotifyItemChanged(slot);
             return true;
         }
-
+        
         //observer
         public void AddObserver(IInventoryObserver observer)
         {
@@ -169,8 +178,7 @@ namespace Inventory.Model
                 }
             }
         }
-
-
+        
         public void TransferIndexToIndex(InventorySystem targetInventory, int fromIndex, int targetIndex)
         {
             if (fromIndex < 0 || fromIndex >= items.Count) return;
@@ -180,8 +188,12 @@ namespace Inventory.Model
 
             ItemAmount fromItem = items[fromIndex];
             if (fromItem.IsEmpty) return;
+            
+            if (!targetInventory.IsItemAllowed(fromItem.SoItem)) return;
 
             ItemAmount targetItem = targetInventory.GetItemByIndex(targetIndex);
+            
+            if (!targetItem.IsEmpty && !IsItemAllowed(targetItem.SoItem)) return;
             
             if (targetItem.IsEmpty) //si esta vacio
             {

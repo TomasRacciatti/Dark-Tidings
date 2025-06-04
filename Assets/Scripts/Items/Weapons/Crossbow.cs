@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using Inventory.Model;
 using Items.Base;
 using Managers;
-using Patterns;
-using Patterns.ObjectPool;
+using Managers.ObjectPool;
 using UnityEngine;
 
 namespace Items.Weapons

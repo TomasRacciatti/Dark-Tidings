@@ -2,8 +2,10 @@
 {
     public enum CompassMode
     {
-        Normal,
+        Default,
         Spin,
-        Shake
+        Shake,
+        Flip,
+        Random
     }
 }

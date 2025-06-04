@@ -1,8 +1,8 @@
 using System.Collections;
 using Interfaces;
 using Items.Base;
-using Patterns;
-using Patterns.ObjectPool;
+using Managers;
+using Managers.ObjectPool;
 using UnityEngine;
 
 namespace Items.Weapons

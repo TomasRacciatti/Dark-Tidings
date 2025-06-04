@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Patterns
+namespace Managers
 {
     public class Cooldown
     {

@@ -259,4 +259,4 @@ MonoBehaviour:
   shakeFrequency: 12
   shakeSpeed: 100
   shakeAngle: 20
-  randomInterval: 5
+  randomInterval: 3

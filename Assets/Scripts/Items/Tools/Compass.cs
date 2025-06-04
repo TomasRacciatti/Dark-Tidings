@@ -22,7 +22,7 @@ namespace Items.Tools
         [SerializeField] private float shakeFrequency = 12f;
         [SerializeField] private float shakeSpeed = 100f;
         [SerializeField] private float shakeAngle = 20f;
-        [SerializeField] private float randomInterval = 5f;
+        [SerializeField] private float randomInterval = 3f;
 
         private Vector3 _direction;
         private Cooldown _randomCooldown = new();

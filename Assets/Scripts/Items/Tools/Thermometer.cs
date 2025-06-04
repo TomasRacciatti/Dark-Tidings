@@ -8,14 +8,18 @@ namespace Items.Tools
 {
     public class Thermometer : Tool
     {
+        [Header("UI")]
         [SerializeField] private TMP_Text text;
+
+        [Header("Settings")]
         [SerializeField] private SO_ThermClue defaultTemp;
         [SerializeField] private LayerMask clueLayerMask;
-        [SerializeField] private float cooldownTime;
+        [SerializeField] private float cooldownTime = 1f;
         [SerializeField] private float lerpSpeed = 0.5f;
-        
-        private float _temperature = 25;
-        private float _targetTemperature = 25;
+        [SerializeField] private float detectionRadius = 1f;
+
+        private float _temperature = 25f;
+        private float _targetTemperature = 25f;
         private readonly Cooldown _cooldown = new();
 
         private void OnEnable()
@@ -30,31 +34,25 @@ namespace Items.Tools
 
         private void Update()
         {
-            CheckTemperature();
+            UpdateTargetTemperature();
+            UpdateTemperature();
         }
-
-        private void CheckTemperature()
+        
+        private void UpdateTargetTemperature()
         {
-            Collider[] hits = Physics.OverlapSphere(transform.position, 1, clueLayerMask);
+            Collider[] hits = Physics.OverlapSphere(transform.position, detectionRadius, clueLayerMask);
             foreach (var hit in hits)
             {
-                Clue clue = hit.GetComponent<Clue>();
-                if (clue)
+                if (hit.TryGetComponent(out Clue clue) && clue.GetClueProvided is SO_ThermClue tempClue)
                 {
-                    SO_Clue type = clue.GetClueProvided;
-                    if (type is SO_ThermClue tempClue)
-                    {
-                        UpdateTargetTemperature(tempClue.GetValue);
-                        UpdateTemperature();
-                        return;
-                    }
+                    TryUpdateTargetTemperature(tempClue.GetValue);
+                    return;
                 }
             }
             
-            UpdateTargetTemperature(defaultTemp.GetValue);
-            UpdateTemperature();
+            TryUpdateTargetTemperature(defaultTemp.GetValue);
         }
-
+        
         private void UpdateTemperature()
         {
             _temperature = Mathf.Lerp(_temperature, _targetTemperature, Time.deltaTime * lerpSpeed);
@@ -63,25 +61,14 @@ namespace Items.Tools
 
         private void UpdateTemperatureDisplay()
         {
-            text.SetText(_temperature.ToString("F1") + " \u00b0C");
+            if (text != null)
+                text.SetText($"{_temperature:F1} \u00b0C");
         }
 
-        private void UpdateTargetTemperature((int, int) temp)
+        private void TryUpdateTargetTemperature((int min, int max) tempRange)
         {
-            if (_targetTemperature >= temp.Item1 && _targetTemperature <= temp.Item2)
-            {
-                if (_cooldown.IsReady)
-                {
-                    NewTargetTemperature(temp);
-                }
-                return;
-            }
-            NewTargetTemperature(temp);
-        }
-
-        private void NewTargetTemperature((int, int) temp)
-        {
-            _targetTemperature = Random.Range((float)temp.Item1, temp.Item2);
+            if (!_cooldown.IsReady) return;
+            _targetTemperature = Random.Range(tempRange.min, tempRange.max);
             _cooldown.StartCooldown(cooldownTime);
         }
     }

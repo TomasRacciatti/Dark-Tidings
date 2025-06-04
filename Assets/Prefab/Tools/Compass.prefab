@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1372577468647944890}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.083, y: -0.014, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.46, z: 0}
+  m_LocalScale: {x: 5.110646, y: 178.17061, z: 5.110646}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2041973786214362973}
-  m_Father: {fileID: 784638909439449398}
+  m_Father: {fileID: 9145832097897774702}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7027905329076713930
 GameObject:
@@ -141,13 +141,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9059356847505506801}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.088, y: -0.018, z: -0}
+  m_LocalRotation: {x: 0.000000029802322, y: -0, z: 0.4946308, w: 0.8691032}
+  m_LocalPosition: {x: 0.052, y: 0.074, z: 0}
   m_LocalScale: {x: 0.19567, y: 0.005612598, z: 0.19567}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7156376149166626211}
   m_Father: {fileID: 784638909439449398}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 59.291}
 --- !u!33 &2856826830826397855
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -229,7 +230,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9145832097897774702}
-  - {fileID: 7156376149166626211}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5697434649707072630
@@ -245,15 +245,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soItem: {fileID: 11400000, guid: f270ec18bac589d47a714ff514e0ded2, type: 2}
-  mode: 0
+  itemAmount:
+    amount: 0
+    soItem: {fileID: 0}
+  needle: {fileID: 7156376149166626211}
+  targetDirection: {fileID: 0}
   clueLayerMask:
     serializedVersion: 2
     m_Bits: 32768
-  baseTransform: {fileID: 9145832097897774702}
-  compassNeedle: {fileID: 7156376149166626211}
-  normalRotationSpeed: 2
-  normalJitterStrength: 1
-  normalJitterSpeed: 1
-  intenseJitterStrength: 5
-  intenseJitterSpeed: 10
+  rotationSpeed: 2.5
+  standardDirection: {x: 0, y: 0, z: 1}
   spinSpeed: 360
+  shakeFrequency: 12
+  shakeSpeed: 100
+  shakeAngle: 20
+  randomInterval: 5

@@ -3,7 +3,6 @@ using System.Collections;
 using Inventory.Model;
 using Inventory.View;
 using Managers;
-using Patterns;
 using UnityEngine;
 using UnityEngine.Serialization;
 

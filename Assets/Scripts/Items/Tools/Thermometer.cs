@@ -1,11 +1,8 @@
-using System;
 using Objects.Clues;
 using UnityEngine;
 using Interfaces;
-using Patterns;
+using Managers;
 using TMPro;
-using UnityEngine.Serialization;
-using Random = UnityEngine.Random;
 
 namespace Items.Tools
 {

@@ -1,7 +1,6 @@
 using System.Collections;
 using Interfaces;
 using Managers;
-using Patterns;
 using UnityEngine;
 using UnityEngine.AI;
 

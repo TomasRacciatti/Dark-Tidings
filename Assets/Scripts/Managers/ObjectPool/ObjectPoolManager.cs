@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Managers.ObjectPool;
 using UnityEngine;
 
-namespace Patterns.ObjectPool
+namespace Managers.ObjectPool
 {
     public class ObjectPoolManager : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Items.Base;
-using Patterns.ObjectPool;
+using Managers.ObjectPool;
 using TMPro;
 using UnityEngine;
 

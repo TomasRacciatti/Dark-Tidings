@@ -18,3 +18,5 @@ MonoBehaviour:
   result: 'Potential Strength:
 
     Gold - Copper'
+  minRadiation: 40
+  maxRadiation: 100

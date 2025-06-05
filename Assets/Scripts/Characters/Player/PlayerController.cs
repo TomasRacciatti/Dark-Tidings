@@ -175,7 +175,7 @@ namespace Characters.Player
             _characterController.Move(inputDirection * (_speed * Time.deltaTime) +
                                       new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
 
-            _playerView.SetSpeed(Vector3.Dot(inputDirection, cameraForward) * _speed,
+            _playerView.SetSpeed(_speed,Vector3.Dot(inputDirection, cameraForward) * _speed,
                 Vector3.Dot(inputDirection, cameraRight) * _speed);
         }
 

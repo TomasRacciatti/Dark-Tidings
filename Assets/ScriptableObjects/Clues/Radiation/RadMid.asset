@@ -18,3 +18,5 @@ MonoBehaviour:
   result: 'Potential Weakness:
 
     Alcohol - Holy Water'
+  minRadiation: 1
+  maxRadiation: 10

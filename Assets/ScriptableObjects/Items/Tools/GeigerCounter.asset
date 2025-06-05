@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GeigerCounter
   m_EditorClassIdentifier: 
   itemName: Geiger Counter
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: cdf68676ec171bb47942fbbe2066d500, type: 3}
   description: Meassures Radiation
   modifierName: 
   modifierPriority: 0

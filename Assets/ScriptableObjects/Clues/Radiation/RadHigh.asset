@@ -18,3 +18,5 @@ MonoBehaviour:
   result: 'Potential Strength:
 
     Blood - Holy Water'
+  minRadiation: 10
+  maxRadiation: 40

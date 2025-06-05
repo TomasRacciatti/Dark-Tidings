@@ -40,8 +40,7 @@ namespace Characters.Player
             _animIDFalling = Animator.StringToHash("Falling");
         }
 
-
-        public void SetSpeed(float forward, float right)
+        public void SetSpeed(float speed, float forward, float right)
         {
             _animator.SetFloat(_animIDSpeedForward, forward);
             _animator.SetFloat(_animIDSpeedRight, right);

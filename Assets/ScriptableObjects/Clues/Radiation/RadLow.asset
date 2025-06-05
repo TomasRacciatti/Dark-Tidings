@@ -18,3 +18,5 @@ MonoBehaviour:
   result: 'Potential Weakness:
 
     Ash - Salt'
+  minRadiation: 0
+  maxRadiation: 1

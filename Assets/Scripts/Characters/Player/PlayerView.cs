@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Items.Base;
 using UnityEngine;
 
 namespace Characters.Player
@@ -44,6 +46,11 @@ namespace Characters.Player
         {
             _animator.SetFloat(_animIDSpeedForward, forward);
             _animator.SetFloat(_animIDSpeedRight, right);
+        }
+
+        public void Damaged()
+        {
+            
         }
 
         public void SetVerticalSpeed(float up)

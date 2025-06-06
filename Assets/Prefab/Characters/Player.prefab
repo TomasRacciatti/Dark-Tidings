@@ -1208,10 +1208,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveAction: {fileID: -3552364970006637457, guid: 7162a06c8ded66e4db0315c7d0c9956f, type: 3}
-  _verticalAmplitude: 0.02
-  _horizontalAmplitude: 0.01
+  _sprintAction: {fileID: -8750674506638915993, guid: 7162a06c8ded66e4db0315c7d0c9956f, type: 3}
+  _baseVerticalAmplitude: 0.02
+  _baseHorizontalAmplitude: 0.01
   _frequency: 6
-  _fadeSpeed: 1000
+  _sprintMultiplier: 2
+  _smooth: 10
 --- !u!1 &8714241605142659887
 GameObject:
   m_ObjectHideFlags: 0

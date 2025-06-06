@@ -3,64 +3,88 @@ using System.Collections.Generic;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
-public class HeadbobExtension : CinemachineExtension
+public class HeadBobExtension : CinemachineExtension
 {
     [SerializeField] private InputActionReference _moveAction = null;
+    [SerializeField] private InputActionReference _sprintAction = null;
 
     [Header("Bob Parameters")]
-    [SerializeField] private float _verticalAmplitude = 0.02f;
-    [SerializeField] private float _horizontalAmplitude = 0.01f;
-    [SerializeField] private float _frequency = 8f;
-    [SerializeField] private float _fadeSpeed = 10f;
-    
-    
-    private float _currentVertBob   = 0f;
-    private float _currentHorzBob   = 0f;
-    private float _currentFrequency = 0f;
+    [SerializeField] private float _baseVerticalAmplitude = 0.02f;
+    [SerializeField] private float _baseHorizontalAmplitude = 0.01f;
+    [SerializeField] private float _baseFrequency = 6f;
+    [SerializeField] private float _sprintMultiplier = 2f;
+    [SerializeField] private float _smooth = 10f;
+
+
+    private float _bobTimer = 0f;
+    private bool _wasMoving = false;
+    private Vector2 _actualOffset2D = Vector2.zero;
 
     private void OnEnable()
     {
-        if (_moveAction != null)
-            _moveAction.action.Enable();
+        if (_moveAction != null) _moveAction.action.Enable();
+        if (_sprintAction != null) _sprintAction.action.Enable();
     }
 
     private void OnDisable()
     {
-        if (_moveAction != null)
-            _moveAction.action.Disable();
+        if (_moveAction != null) _moveAction.action.Disable();
+        if (_sprintAction != null) _sprintAction.action.Disable();
     }
     
-    // This is called once per frame inside Cinemachine’s pipeline.
-    protected override void PostPipelineStageCallback(CinemachineVirtualCameraBase vcam, CinemachineCore.Stage stage, ref CameraState state, float deltaTime)
+    protected override void PostPipelineStageCallback(
+        CinemachineVirtualCameraBase vcam,
+        CinemachineCore.Stage stage,
+        ref CameraState state,
+        float deltaTime)
     {
         if (stage != CinemachineCore.Stage.Finalize)
             return;
 
         if (_moveAction == null)
             return;
-
-
+        
         var moveInput = _moveAction.action.ReadValue<Vector2>();
+        var isSprinting = (_sprintAction != null && _sprintAction.action.ReadValue<float>() > 0.5f);
+        
         var speedFactor = moveInput.magnitude;
+
+
+        var isMovingNow = speedFactor > 0.01f;
+        if (isMovingNow && !_wasMoving)
+        {
+            _bobTimer = 0f;
+        }
+        _wasMoving = isMovingNow;
+
+        var freqMultiplier = isSprinting ? _sprintMultiplier : 1;
         
-        var targetY   = speedFactor * _verticalAmplitude;
-        var targetX   = speedFactor * _horizontalAmplitude;
-        var targetFreq = speedFactor > 0.01f ? _frequency : 0f;
+        if (isMovingNow)
+        {
+            _bobTimer += deltaTime * (_baseFrequency * freqMultiplier);
+        }
         
-        _currentVertBob   = Mathf.Lerp(_currentVertBob,   targetY,   deltaTime * _fadeSpeed);
-        _currentHorzBob   = Mathf.Lerp(_currentHorzBob,   targetX,   deltaTime * _fadeSpeed);
-        _currentFrequency = Mathf.Lerp(_currentFrequency, targetFreq, deltaTime * _fadeSpeed);
+        var vertAmp = _baseVerticalAmplitude * speedFactor * (isSprinting ? _sprintMultiplier : 1);
+        var horzAmp = _baseHorizontalAmplitude * speedFactor * (isSprinting ? _sprintMultiplier : 1);
         
-        if (_currentFrequency < 0.001f)
+        var desiredVert = Mathf.Sin(_bobTimer) * vertAmp;
+        var desiredHorz = Mathf.Sin(_bobTimer * 0.5f) * horzAmp;
+        var desiredOffset2D = new Vector2(desiredHorz, desiredVert);
+
+
+        _actualOffset2D = Vector2.Lerp(
+            _actualOffset2D,
+            desiredOffset2D,
+            deltaTime * _smooth
+        );
+        
+        if (_actualOffset2D.sqrMagnitude < 0.000001f)
             return;
-        
-        var t = Time.time * _currentFrequency;
-        var bobY = Mathf.Sin(t) * _currentVertBob;
-        var bobX = Mathf.Cos(t * 0.5f) * _currentHorzBob;
-        
-        var localOffset = new Vector3(bobX, bobY, 0f);
-        var worldOffset = state.CorrectedOrientation * localOffset;
+
+        var localOffset3D = new Vector3(_actualOffset2D.x, _actualOffset2D.y, 0f);
+        var worldOffset = state.CorrectedOrientation * localOffset3D;
         
         state.PositionCorrection += worldOffset;
     }

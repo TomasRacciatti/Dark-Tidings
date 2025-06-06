@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: TempHigh
   m_EditorClassIdentifier: 
   tool: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
+  isDefault: 0
   value: "> 35 \xB0C"
   result: 'Potential Weakness:
 
     Iron - Copper'
-  _minTemperature: 35
-  _maxTemperature: 45
+  minTemperature: 35
+  maxTemperature: 50

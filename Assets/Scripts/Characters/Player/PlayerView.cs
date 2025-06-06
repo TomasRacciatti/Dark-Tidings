@@ -48,6 +48,13 @@ namespace Characters.Player
             _animator.SetFloat(_animIDSpeedRight, right);
         }
 
+        public void SetSprinting(bool sprinting)
+        {
+            // Creamos un postproceso con intensidad = 1 - stamina/_character.Stats.MaxStamina (se le nubla la vista)
+
+            // Agregamos audio del pibe cansandose en base al stamina/_character.Stats.MaxStamina
+        }
+        
         public void Damaged()
         {
             

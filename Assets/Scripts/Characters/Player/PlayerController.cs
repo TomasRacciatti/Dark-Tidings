@@ -27,6 +27,11 @@ namespace Characters.Player
         [SerializeField] private float topClamp = 89.9f;
         [SerializeField] private float bottomClamp = -89.9f;
         [SerializeField] private float cameraAngleOverride = 0.0f;
+        
+        [Header("Stamina")]
+        [SerializeField] private float _staminaThreshold = 20;
+        [SerializeField] private float _staminaConsumeRate = 12f;
+        [SerializeField] private float _staminaRegainRate = 6f;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -34,6 +39,9 @@ namespace Characters.Player
 
         // player
         private float _speed;
+        private float _stamina;
+        public bool IsSprinting {get; private set;}
+        private bool _canSprint = true;
         private float _animationBlend;
         private float _rotationVelocity;
         private float _verticalVelocity;
@@ -62,6 +70,7 @@ namespace Characters.Player
 
         private void Start()
         {
+            _stamina = _character.Stats.MaxStamina;
             _cinemachineTargetYaw = cinemachineCameraTarget.transform.rotation.eulerAngles.y;
             _fallTimeoutDelta = fallTimeout;
         }
@@ -130,10 +139,51 @@ namespace Characters.Player
             transform.rotation = Quaternion.Euler(0.0f, _cinemachineTargetYaw, 0.0f);
         }
 
+        private void ConsumeStamina()
+        {
+            _stamina -= Time.deltaTime * _staminaConsumeRate;
+            if ( _stamina <= 0)
+            {
+                _canSprint = false;
+            }
+        }
+        
+        private void RegainStamina()
+        {
+            if (_stamina >= _character.Stats.MaxStamina) return;
+            _stamina = Mathf.Min(_stamina + Time.deltaTime * _staminaRegainRate, _character.Stats.MaxStamina);
+            if (_stamina >= _staminaThreshold)
+            {
+                _canSprint = true;
+            }
+        }
+
+        private void SetSprinting(bool sprinting)
+        {
+            if (IsSprinting != sprinting)
+            {
+                _playerView.SetSprinting(sprinting);
+            }
+            IsSprinting = sprinting;
+        }
+
         private void HorizontalMovement()
         {
-            float tempSpeed = _inputEvents.IsSprinting ? _character.Stats.SprintMultiplier * _character.Stats.MovementSpeed : _character.Stats.MovementSpeed;
+            float tempSpeed;
 
+            if (_inputEvents.IsSprinting && _canSprint)
+            {
+                tempSpeed = _character.Stats.SprintMultiplier * _character.Stats.MovementSpeed;
+                ConsumeStamina();
+                SetSprinting(true);
+            }
+            else
+            {
+                tempSpeed = _character.Stats.MovementSpeed;
+                RegainStamina();
+                SetSprinting(false);
+            }
+            
             if (_inputEvents.GetMovement == Vector2.zero) tempSpeed = 0.0f;
 
             float currentHorizontalSpeed =

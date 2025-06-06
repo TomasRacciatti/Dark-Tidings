@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
   maxHealth: 100
-  maxStamina: 50
+  maxStamina: 100
   attack: 10
   movementSpeed: 1.5
-  sprintMultiplier: 2
+  sprintMultiplier: 5
   attackSpeed: 1
   strengths: []
   weaknesses: []

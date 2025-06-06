@@ -204,6 +204,9 @@ MonoBehaviour:
   topClamp: 89.9
   bottomClamp: -89.9
   cameraAngleOverride: 0
+  _staminaThreshold: 40
+  _staminaConsumeRate: 20
+  _staminaRegainRate: 10
   mainCamera: {fileID: 5777399186146976923}
   raycastLayers:
     serializedVersion: 2
@@ -761,7 +764,7 @@ Transform:
   m_GameObject: {fileID: 5777399186146976923}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.7, z: 0}
+  m_LocalPosition: {x: 0.0009832472, y: 1.6972153, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1211,9 +1214,10 @@ MonoBehaviour:
   _sprintAction: {fileID: -8750674506638915993, guid: 7162a06c8ded66e4db0315c7d0c9956f, type: 3}
   _baseVerticalAmplitude: 0.02
   _baseHorizontalAmplitude: 0.01
-  _frequency: 6
+  _baseFrequency: 6
   _sprintMultiplier: 2
   _smooth: 10
+  _playerController: {fileID: 3336382331427055496}
 --- !u!1 &8714241605142659887
 GameObject:
   m_ObjectHideFlags: 0

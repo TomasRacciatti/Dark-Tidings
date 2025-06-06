@@ -15,7 +15,7 @@ MonoBehaviour:
   maxHealth: 100
   maxStamina: 50
   attack: 10
-  movementSpeed: 3
+  movementSpeed: 1.5
   sprintMultiplier: 2
   attackSpeed: 1
   strengths: []

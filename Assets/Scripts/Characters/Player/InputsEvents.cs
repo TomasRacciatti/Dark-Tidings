@@ -38,8 +38,8 @@ namespace Characters.Player
             _inputActions.Player.Movement.canceled += Movement;
             _inputActions.Player.Look.performed += Look;
             _inputActions.Player.Look.canceled += Look;
-            _inputActions.Player.Jump.performed += Jump;
-            _inputActions.Player.Jump.canceled += Jump;
+            //_inputActions.Player.Jump.performed += Jump;
+            //_inputActions.Player.Jump.canceled += Jump;
             _inputActions.Player.Sprint.performed += Sprint;
             _inputActions.Player.Sprint.canceled += Sprint;
             _inputActions.Player.Use.performed += StartUse;
@@ -65,8 +65,8 @@ namespace Characters.Player
             _inputActions.Player.Movement.canceled -= Movement;
             _inputActions.Player.Look.performed -= Look;
             _inputActions.Player.Look.canceled -= Look;
-            _inputActions.Player.Jump.performed -= Jump;
-            _inputActions.Player.Jump.canceled -= Jump;
+            //_inputActions.Player.Jump.performed -= Jump;
+            //_inputActions.Player.Jump.canceled -= Jump;
             _inputActions.Player.Sprint.performed -= Sprint;
             _inputActions.Player.Sprint.canceled -= Sprint;
             _inputActions.Player.Use.performed -= StartUse;
@@ -94,13 +94,14 @@ namespace Characters.Player
             _look = context.ReadValue<Vector2>();
         }
 
+        /*
         private void Jump(InputAction.CallbackContext context)
         {
             if (!GameManager.Paused && context.ReadValueAsButton())
             {
                 _playerController.Jump();
             }
-        }
+        }*/
 
         private void Sprint(InputAction.CallbackContext context)
         {

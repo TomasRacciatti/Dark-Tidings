@@ -58,7 +58,7 @@ namespace Items.Weapons
             //StartUsing();
         }
 
-        public override void Use()
+        public override void Use(UseType useType)
         {
             StartUsing();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Items.Base;
 using Managers;
 using Objects.Clues;
 using UnityEngine;
@@ -9,29 +10,32 @@ namespace Items.Tools
 {
     public class GeigerCounter : Tool
     {
-        [Header("Settings")]
-        [SerializeField] private LayerMask clueLayerMask;
+        [Header("Settings")] [SerializeField] private LayerMask clueLayerMask;
         [SerializeField] private float cooldownTime = 4f;
         [SerializeField] private float lerpSpeed = 5f;
         [SerializeField] private float detectionRadius = 1f;
 
-        [Header("Needle Reference")]
-        [SerializeField] private Transform needleTransform;
+        [Header("Needle Reference")] [SerializeField]
+        private Transform needleTransform;
 
-        [Header("Needle Rotation")]
-        [SerializeField] private float minAngle = -90f; // Aguja a la izquierda
-        [SerializeField] private float maxAngle = 90f;  // Aguja a la derecha
+        [Header("Needle Rotation")] [SerializeField]
+        private float minAngle = -90f; // Aguja a la izquierda
+
+        [SerializeField] private float maxAngle = 90f; // Aguja a la derecha
 
         private float _radiation = 0f;
         private float _displayedRadiation = 0f; // Para interpolación visual
         //private Cooldown _cooldown = new();
-        
-        
+
+
         private GeigerMode _currentMode = GeigerMode.Off;
-        
-        public override void Use()
+
+        public override void Use(UseType useType)
         {
-            _currentMode = (GeigerMode)(((int)_currentMode + 1) % System.Enum.GetValues(typeof(GeigerMode)).Length);
+            if (useType == UseType.Default)
+            {
+                _currentMode = (GeigerMode)(((int)_currentMode + 1) % System.Enum.GetValues(typeof(GeigerMode)).Length);
+            }
         }
 
         private void Update()
@@ -39,7 +43,7 @@ namespace Items.Tools
             UpdateClueMode();
             UpdateNeedle();
         }
-        
+
         private void UpdateClueMode()
         {
             Collider[] hits = Physics.OverlapSphere(transform.position, 1, clueLayerMask);

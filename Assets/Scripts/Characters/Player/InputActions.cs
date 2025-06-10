@@ -64,6 +64,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""89ea202a-a89a-4c9e-bd13-a31898ed2f49"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Toolbar1"",
                     ""type"": ""Button"",
                     ""id"": ""ccce0bec-a2e6-41d2-bb23-19f6dd97ad7e"",
@@ -427,6 +436,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""53cfd509-0e4a-4532-a589-3a16febac0fc"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -487,6 +507,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
+        m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Toolbar1 = m_Player.FindAction("Toolbar1", throwIfNotFound: true);
         m_Player_Toolbar2 = m_Player.FindAction("Toolbar2", throwIfNotFound: true);
         m_Player_Toolbar3 = m_Player.FindAction("Toolbar3", throwIfNotFound: true);
@@ -568,6 +589,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Use;
+    private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Toolbar1;
     private readonly InputAction m_Player_Toolbar2;
     private readonly InputAction m_Player_Toolbar3;
@@ -587,6 +609,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         public InputAction @Look => m_Wrapper.m_Player_Look;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
         public InputAction @Use => m_Wrapper.m_Player_Use;
+        public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Toolbar1 => m_Wrapper.m_Player_Toolbar1;
         public InputAction @Toolbar2 => m_Wrapper.m_Player_Toolbar2;
         public InputAction @Toolbar3 => m_Wrapper.m_Player_Toolbar3;
@@ -619,6 +642,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Use.started += instance.OnUse;
             @Use.performed += instance.OnUse;
             @Use.canceled += instance.OnUse;
+            @Aim.started += instance.OnAim;
+            @Aim.performed += instance.OnAim;
+            @Aim.canceled += instance.OnAim;
             @Toolbar1.started += instance.OnToolbar1;
             @Toolbar1.performed += instance.OnToolbar1;
             @Toolbar1.canceled += instance.OnToolbar1;
@@ -668,6 +694,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Use.started -= instance.OnUse;
             @Use.performed -= instance.OnUse;
             @Use.canceled -= instance.OnUse;
+            @Aim.started -= instance.OnAim;
+            @Aim.performed -= instance.OnAim;
+            @Aim.canceled -= instance.OnAim;
             @Toolbar1.started -= instance.OnToolbar1;
             @Toolbar1.performed -= instance.OnToolbar1;
             @Toolbar1.canceled -= instance.OnToolbar1;
@@ -760,6 +789,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         void OnLook(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
+        void OnAim(InputAction.CallbackContext context);
         void OnToolbar1(InputAction.CallbackContext context);
         void OnToolbar2(InputAction.CallbackContext context);
         void OnToolbar3(InputAction.CallbackContext context);

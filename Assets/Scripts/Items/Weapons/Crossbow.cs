@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Inventory.Model;
 using Items.Base;
@@ -14,51 +15,66 @@ namespace Items.Weapons
         [SerializeField] private SO_Item _bolt;
 
         private ItemAmount _boltType = new();
-        private ItemAmount _boltRequired1 = new();
-        private ItemAmount _boltRequired2 = new();
-        private Cooldown _cooldown = new();
+        private InventorySystem _boltInventorySystem;
 
-        public override void Use()
+        private void Start()
         {
-            Fire();
+            _boltInventorySystem = GameManager.Canvas.inventoryManager.boltsInventorySystem;
         }
 
-        private void Load(ItemAmount boltType)
+        public override void Use(UseType useType)
         {
-            if (boltType.SoItem == null || boltType.Modifiers == null)
+            switch (useType)
             {
-                Debug.LogWarning("No bolt loaded!");
-                return;
+                case UseType.Default:
+                    Fire();
+                    break;
+                case UseType.Aim:
+                    break;
+                case UseType.Reload1:
+                    Reload1();
+                    break;
+                case UseType.Reload2:
+                    Reload2();
+                    break;
+                case UseType.Reload3:
+                    _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 0, 1);
+                    Reload2();
+                    break;
             }
-            _boltType = boltType;
-            Debug.Log("Loaded: " + _boltType.ItemName);
         }
         
-        private void Fire()
-        {/*
-            if (_boltType.SoItem == null || _boltType.Modifiers == null)
-            {
-                Debug.LogWarning("No bolt loaded!");
-                return;
-            }*/
-            if (!_cooldown.IsReady) return;
-
-            InventorySystem inventorySystem = GameManager.Canvas.inventoryManager.boltsInventorySystem;
-            if (inventorySystem == null) return;
-
-            ItemAmount bolt = inventorySystem.GetFirstSoItem(_bolt);
+        private void Reload1()
+        {
+            Debug.Log("Reload animation started: pulling string back.");
+            // Aquí pondrías tu animación, por ejemplo:
+            // animator.SetTrigger("PullString");
+        }
+        
+        private void Reload2()
+        {
+            ItemAmount bolt = _boltInventorySystem.GetFirstSoItem(_bolt);
             if (bolt.IsEmpty) return;
 
             // Creamos una copia con cantidad 1 para removerla
+            _boltType = new ItemAmount(bolt);
+            _boltType.SetAmount(1);
+            
             ItemAmount boltToRemove = new ItemAmount(bolt.SoItem, 1, bolt.Modifiers);
-            inventorySystem.RemoveItem(ref boltToRemove);
-
-            // Disparo
+            _boltInventorySystem.RemoveItem(ref boltToRemove);
+        }
+        
+        private void Fire()
+        {
+            if (_boltType.IsEmpty)
+            {
+                return;
+            }
+            
             GameObject boltInstance = ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, _firePoint.rotation, 10f);
-            boltInstance.GetComponent<Bolt>().SetModifiers(bolt.Modifiers);
+            boltInstance.GetComponent<Bolt>().SetModifiers(_boltType.Modifiers);
 
-            Debug.Log("Fired: " + _boltType.ItemName);
-            _cooldown.StartCooldown(1);
+            _boltType = new ItemAmount();
         }
     }
 }

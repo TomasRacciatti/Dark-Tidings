@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Items.Base;
 using UnityEngine;
 using Objects.Clues;
 using Managers;
@@ -43,7 +44,7 @@ namespace Items.Tools
             SetRotationBehavior(CompassMode.Default);
         }
         
-        public override void Use()
+        public override void Use(UseType useType)
         {
             
         }

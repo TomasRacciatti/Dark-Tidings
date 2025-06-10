@@ -27,11 +27,11 @@ namespace Inventory.Controller
             }
         }
 
-        public static void Use()
+        public static void Use(UseType useType = UseType.Default)
         {
             if (_instance.selectedItem != null)
             {
-                _instance.selectedItem.Use();
+                _instance.selectedItem.Use(useType);
             }
         }
 

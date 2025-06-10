@@ -224,8 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - amount: 1
-    soItem: {fileID: 11400000, guid: a78f19209f57c034aba4c96ca0ee54ca, type: 2}
+  - amount: 0
+    soItem: {fileID: 0}
   - amount: 1
     soItem: {fileID: 11400000, guid: 2aaed05348d710c449b5bbc562f65f37, type: 2}
   - amount: 1

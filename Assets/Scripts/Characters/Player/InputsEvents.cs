@@ -15,12 +15,10 @@ namespace Characters.Player
         private Vector2 _movement;
         private Vector2 _look;
         private bool _sprint;
-        private bool _use;
         
         public Vector2 GetMovement => !InventoryOpened && !GameManager.Paused ? _movement: Vector2.zero;
         public Vector2 GetLook => !InventoryOpened && !GameManager.Paused ? _look : Vector2.zero;
         public bool IsSprinting => _sprint;
-        public bool IsUsing => _use;
         public bool InventoryOpened => Switcher.GetIndexSwitcher(GameManager.Canvas.inventoryManager.InventorySwitcherUI) != -1;
 
         private Toolbar _toolbar;
@@ -38,12 +36,11 @@ namespace Characters.Player
             _inputActions.Player.Movement.canceled += Movement;
             _inputActions.Player.Look.performed += Look;
             _inputActions.Player.Look.canceled += Look;
-            _inputActions.Player.Jump.performed += Jump;
-            _inputActions.Player.Jump.canceled += Jump;
+            //_inputActions.Player.Jump.performed += Jump;
+            //_inputActions.Player.Jump.canceled += Jump;
             _inputActions.Player.Sprint.performed += Sprint;
             _inputActions.Player.Sprint.canceled += Sprint;
-            _inputActions.Player.Use.performed += StartUse;
-            _inputActions.Player.Use.canceled += StopUse;
+            _inputActions.Player.Use.performed += Use;
             _inputActions.Player.Interact.performed += Interact;
             _inputActions.Player.Inventory.performed += Inventory;
             _inputActions.Player.Journal.performed += Journal;
@@ -52,9 +49,9 @@ namespace Characters.Player
             _inputActions.Player.Toolbar3.performed += SelectToolbar3;
             _inputActions.Player.Toolbar4.performed += SelectToolbar4;
             _inputActions.Player.Pause.performed += Pause;
-            _inputActions.Player.Reload.started += Reload0;
-            _inputActions.Player.Reload.canceled += Reload1;
-            _inputActions.Player.Reload.performed += Reload2;
+            _inputActions.Player.Reload.started += ReloadStarted;
+            _inputActions.Player.Reload.canceled += ReloadCanceled;
+            _inputActions.Player.Reload.performed += ReloadPerformed;
             _inputActions.Enable();
         }
 
@@ -65,12 +62,11 @@ namespace Characters.Player
             _inputActions.Player.Movement.canceled -= Movement;
             _inputActions.Player.Look.performed -= Look;
             _inputActions.Player.Look.canceled -= Look;
-            _inputActions.Player.Jump.performed -= Jump;
-            _inputActions.Player.Jump.canceled -= Jump;
+            //_inputActions.Player.Jump.performed -= Jump;
+            //_inputActions.Player.Jump.canceled -= Jump;
             _inputActions.Player.Sprint.performed -= Sprint;
             _inputActions.Player.Sprint.canceled -= Sprint;
-            _inputActions.Player.Use.performed -= StartUse;
-            _inputActions.Player.Use.canceled -= StopUse;
+            _inputActions.Player.Use.performed -= Use;
             _inputActions.Player.Interact.performed -= Interact;
             _inputActions.Player.Inventory.performed -= Inventory;
             _inputActions.Player.Journal.performed -= Journal;
@@ -79,9 +75,9 @@ namespace Characters.Player
             _inputActions.Player.Toolbar3.performed -= SelectToolbar3;
             _inputActions.Player.Toolbar4.performed -= SelectToolbar4;
             _inputActions.Player.Pause.performed -= Pause;
-            _inputActions.Player.Reload.started -= Reload0;
-            _inputActions.Player.Reload.canceled -= Reload1;
-            _inputActions.Player.Reload.performed -= Reload2;
+            _inputActions.Player.Reload.started -= ReloadStarted;
+            _inputActions.Player.Reload.canceled -= ReloadCanceled;
+            _inputActions.Player.Reload.performed -= ReloadPerformed;
         }
 
         private void Movement(InputAction.CallbackContext context)
@@ -94,31 +90,58 @@ namespace Characters.Player
             _look = context.ReadValue<Vector2>();
         }
 
+        /*
         private void Jump(InputAction.CallbackContext context)
         {
             if (!GameManager.Paused && context.ReadValueAsButton())
             {
                 _playerController.Jump();
             }
-        }
+        }*/
 
         private void Sprint(InputAction.CallbackContext context)
         {
             _sprint = context.ReadValueAsButton();
         }
 
-        private void StartUse(InputAction.CallbackContext context)
+        private void Use(InputAction.CallbackContext context)
         {
-            _use = context.ReadValueAsButton();
             if (!GameManager.Paused && !InventoryOpened)
             {
                 ItemsInHand.Use();
             }
         }
         
-        private void StopUse(InputAction.CallbackContext context)
+        private void Aim(InputAction.CallbackContext context)
         {
-            _use = context.ReadValueAsButton();
+            if (!GameManager.Paused && !InventoryOpened)
+            {
+                ItemsInHand.Use(UseType.Aim);
+            }
+        }
+
+        private void ReloadStarted(InputAction.CallbackContext context)
+        {
+            if (!GameManager.Paused && !InventoryOpened)
+            {
+                ItemsInHand.Use(UseType.Reload1); // inicia la animación del hilo
+            }
+        }
+
+        private void ReloadCanceled(InputAction.CallbackContext context)
+        {
+            if (!GameManager.Paused && !InventoryOpened)
+            {
+                ItemsInHand.Use(UseType.Reload2); // se usa la misma flecha
+            }
+        }
+
+        private void ReloadPerformed(InputAction.CallbackContext context)
+        {
+            if (!GameManager.Paused && !InventoryOpened)
+            {
+                ItemsInHand.Use(UseType.Reload3); // se cambia a la otra flecha
+            }
         }
 
         private void Interact(InputAction.CallbackContext context)

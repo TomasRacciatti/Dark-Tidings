@@ -1,6 +1,7 @@
 using Objects.Clues;
 using UnityEngine;
 using Interfaces;
+using Items.Base;
 using Managers;
 using TMPro;
 
@@ -27,7 +28,7 @@ namespace Items.Tools
             UpdateTemperatureDisplay();
         }
 
-        public override void Use()
+        public override void Use(UseType useType)
         {
             
         }

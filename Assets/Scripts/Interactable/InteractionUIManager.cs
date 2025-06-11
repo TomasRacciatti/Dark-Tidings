@@ -16,6 +16,7 @@ public class InteractionUIManager : MonoBehaviour
     [SerializeField] private Image _interactionKey;
     [SerializeField] private float _directLookThreshold = 0.98f;
     [SerializeField] private float _interactionIconThreshold  = 0.75f;
+    [SerializeField] private float _keyActivationDistance = 2f;
 
     private Camera _mainCamera;
     private IInteractable _currentTarget;
@@ -52,7 +53,10 @@ public class InteractionUIManager : MonoBehaviour
     {
         _currentTarget = interactable;
 
-        bool isDirectlyLooking = alignment >= _directLookThreshold;
+        var distance = Vector3.Distance(_mainCamera.transform.position, interactable.InteractionPoint.position);
+
+        bool isWithinKeyRange   = distance <= _keyActivationDistance;
+        bool isDirectlyLooking = alignment >= _directLookThreshold && isWithinKeyRange;
         bool isCloseLooking = alignment >= _interactionIconThreshold;
 
         _interactionIcon.enabled = isCloseLooking && !isDirectlyLooking;

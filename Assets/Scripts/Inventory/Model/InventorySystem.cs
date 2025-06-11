@@ -110,7 +110,7 @@ namespace Inventory.Model
         {
             foreach (var item in items)
             {
-                if (item.SoItem == soItem) return new ItemAmount(item);
+                if (item.SoItem == soItem) return item;
             }
 
             return new ItemAmount();

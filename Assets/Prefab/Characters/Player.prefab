@@ -204,6 +204,9 @@ MonoBehaviour:
   topClamp: 89.9
   bottomClamp: -89.9
   cameraAngleOverride: 0
+  _staminaThreshold: 40
+  _staminaConsumeRate: 20
+  _staminaRegainRate: 10
   mainCamera: {fileID: 5777399186146976923}
   raycastLayers:
     serializedVersion: 2
@@ -221,8 +224,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   items:
-  - amount: 1
-    soItem: {fileID: 11400000, guid: a78f19209f57c034aba4c96ca0ee54ca, type: 2}
+  - amount: 0
+    soItem: {fileID: 0}
   - amount: 1
     soItem: {fileID: 11400000, guid: 2aaed05348d710c449b5bbc562f65f37, type: 2}
   - amount: 1
@@ -605,8 +608,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _smooth: 2
-  _swayMultiplier: 0.5
-  _rollMultiplier: 1
+  _swayMultiplier: 0.25
+  _rollMultiplier: 0.5
 --- !u!1 &3484608743871816872
 GameObject:
   m_ObjectHideFlags: 0
@@ -1437,6 +1440,7 @@ MonoBehaviour:
   _baseFrequency: 6
   _sprintMultiplier: 2
   _smooth: 10
+  _playerController: {fileID: 3336382331427055496}
 --- !u!1 &8714241605142659887
 GameObject:
   m_ObjectHideFlags: 0

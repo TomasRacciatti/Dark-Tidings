@@ -16,5 +16,5 @@ MonoBehaviour:
   isDefault: 1
   value: No Reaction
   result: No info...
-  _minTemperature: 20
-  _maxTemperature: 30
+  minTemperature: 20
+  maxTemperature: 30

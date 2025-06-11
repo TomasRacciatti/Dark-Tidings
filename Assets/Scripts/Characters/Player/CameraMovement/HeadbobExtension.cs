@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Characters.Player;
 using Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,7 +17,7 @@ public class HeadBobExtension : CinemachineExtension
     [SerializeField] private float _baseFrequency = 6f;
     [SerializeField] private float _sprintMultiplier = 2f;
     [SerializeField] private float _smooth = 10f;
-
+    [SerializeField] private PlayerController _playerController;
 
     private float _bobTimer = 0f;
     private bool _wasMoving = false;
@@ -47,7 +48,7 @@ public class HeadBobExtension : CinemachineExtension
             return;
         
         var moveInput = _moveAction.action.ReadValue<Vector2>();
-        var isSprinting = (_sprintAction != null && _sprintAction.action.ReadValue<float>() > 0.5f);
+        var isSprinting = _playerController.IsSprinting;
         
         var speedFactor = moveInput.magnitude;
 

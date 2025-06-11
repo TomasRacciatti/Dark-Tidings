@@ -1,3 +1,4 @@
+using Items.Base;
 using Objects.Clues;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace Items.Tools
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material detectionMaterial;
     
-        public override void Use()
+        public override void Use(UseType useType)
         {
         
         }

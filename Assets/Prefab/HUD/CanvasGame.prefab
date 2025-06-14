@@ -1289,9 +1289,9 @@ MonoBehaviour:
   _canvas: {fileID: 3167873907660385704}
   _interactionIcon: {fileID: 2799173385811740818}
   _interactionKey: {fileID: 5850780673884362601}
-  _directLookThreshold: 0.98
+  _directLookThreshold: 0.9985
   _interactionIconThreshold: 0.75
-  _keyActivationDistance: 3
+  _keyActivationDistance: 2
   _interactAction: {fileID: -8819475739432969521, guid: 7162a06c8ded66e4db0315c7d0c9956f, type: 3}
   _interactionKeyText: {fileID: 1789617627508075347}
 --- !u!1 &4211112594528151392

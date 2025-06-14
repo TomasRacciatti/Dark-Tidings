@@ -296,6 +296,12 @@ namespace Characters.Player
                 if (hit.collider.TryGetComponent(out IInteractable interactable))
                 {
                     interactable.Interact(gameObject);
+                    
+                    // Chequea si la interaccion tiene un Evento
+                    if (hit.collider.TryGetComponent(out InteractableEventTrigger connector))
+                    {
+                        connector.TryTrigger();
+                    }  
                 }
             }
         }

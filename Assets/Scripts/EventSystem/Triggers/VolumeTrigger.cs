@@ -24,6 +24,8 @@ public class VolumeTrigger : MonoBehaviour
     {
         if (!hasFired && ((playerLayerMask.value & (1 << other.gameObject.layer)) != 0))
         {
+            //Debug.Log($"VolumeTrigger hit by {other.name} (layer {other.gameObject.layer})");
+            
             EventManager.Instance.Trigger(horrorEvent);
             hasFired = true;
         }

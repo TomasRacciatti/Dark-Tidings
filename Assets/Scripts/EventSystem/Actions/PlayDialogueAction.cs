@@ -7,26 +7,32 @@ using UnityEngine;
 public class PlayDialogueAction : HorrorActionSO
 {
     [SerializeField] private DialogueBankSO  dialogueBank;
-
     [SerializeField] private int clipIndex;
-    
     [SerializeField] private float volume = 1f;
+
+    private AudioSource _source;
     
     public override IEnumerator Execute()
     {
+        //Debug.Log("PlayDialogueAction.Execute() starting");
+        
         // Si el indice no esta, volvemos de una
         var clip = dialogueBank?.GetClip(clipIndex);
         if (clip == null) yield break;
 
-        var player = Object.FindObjectOfType<PlayerCharacter>(); // Ver de cambiar por algo menos costoso
-        if (player == null)
-            yield break;
+        if (_source == null)
+        {
+            var player = Object.FindObjectOfType<PlayerCharacter>(); // Ver de cambiar por algo menos costoso
+            if (player == null)
+                yield break;
         
-        var source = player.GetComponent<AudioSource>();
-        if (source == null)
-            yield break;
+            _source = player.GetComponentInChildren<AudioSource>();
+            if (_source == null)
+                yield break;
+        }
+        
 
-        source.PlayOneShot(clip, volume);
+        _source.PlayOneShot(clip, volume);
         
         yield return new WaitForSeconds(clip.length);
     }

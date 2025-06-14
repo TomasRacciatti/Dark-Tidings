@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider))]
 public class VolumeTrigger : MonoBehaviour
 {
-    [SerializeField, Tooltip("Drag in the HorrorEvents you want to fire here")]
+    [SerializeField, Tooltip("Add the HorrorEvent you want to fire here")]
     private HorrorEvent horrorEvent;
 
     [SerializeField] private LayerMask playerLayerMask = 1 << 9;

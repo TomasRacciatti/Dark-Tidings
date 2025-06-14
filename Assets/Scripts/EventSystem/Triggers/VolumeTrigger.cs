@@ -11,6 +11,8 @@ public class VolumeTrigger : MonoBehaviour
     [SerializeField] private LayerMask playerLayerMask = 1 << 9;
     
     private bool hasFired = false;
+    
+    private Color gizmoColor = new Color(0f, 1f, 0f, 0.1f);
 
     private void Reset()
     {
@@ -25,5 +27,16 @@ public class VolumeTrigger : MonoBehaviour
             EventManager.Instance.Trigger(horrorEvent);
             hasFired = true;
         }
+    }
+    
+    void OnDrawGizmos()
+    {
+        var box = GetComponent<BoxCollider>();
+        if (box == null) return;
+
+        Gizmos.color = gizmoColor;
+
+        Gizmos.matrix = transform.localToWorldMatrix;
+        Gizmos.DrawCube(box.center, box.size);
     }
 }

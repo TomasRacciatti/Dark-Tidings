@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1897224c0b0097649b81f6222c5d8869, type: 3}
+  m_Name: DialogueBank_Main
+  m_EditorClassIdentifier: 
+  audioClips:
+  - {fileID: 8300000, guid: 9ad8aa2075e6c4f4484814d95709cc9b, type: 3}
+  - {fileID: 8300000, guid: 4bbb22af31d7b3d42beeee07072aa16e, type: 3}
+  - {fileID: 8300000, guid: 4029d7be5dea9074ca90bffa7a469ddc, type: 3}
+  - {fileID: 8300000, guid: ac4e1bd6e6e2dc04da1e345d096bb462, type: 3}
+  - {fileID: 8300000, guid: 753ddb0f2c0cae344a65c3ca9c9d2ef3, type: 3}
+  - {fileID: 8300000, guid: 1e32d0c754e474840a83f8f9c9228db7, type: 3}
+  - {fileID: 8300000, guid: 9ba9a837c18f94847b244e9ad58b1aa9, type: 3}
+  - {fileID: 8300000, guid: 8d6ec5f52b45cc546a45f15c0c54d2d1, type: 3}
+  - {fileID: 8300000, guid: 3601098f2a1338b4e8801bc77848d332, type: 3}
+  - {fileID: 8300000, guid: 69cca792278ca9d4c827aa324b9c6b53, type: 3}

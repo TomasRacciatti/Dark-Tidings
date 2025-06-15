@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueBank: {fileID: 11400000, guid: 7217511ead2f09142b53f5bd2c1aa71c, type: 2}
   clipIndex: 3
-  volume: 1
+  volume: 0.5

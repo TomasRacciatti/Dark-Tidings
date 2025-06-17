@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectId: ToolsTutorial
   activate: 1
+  shouldPause: 1

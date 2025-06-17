@@ -23,7 +23,6 @@ public class PlayDialogueAction : HorrorActionSO
 
         if (_source == null)
         {
-            //var player = Object.FindObjectOfType<PlayerCharacter>(); // Ver de cambiar por algo menos costoso
             var player = GameManager.Player; 
             if (player == null)
                 yield break;

@@ -63,14 +63,14 @@ namespace Managers
             {
                 Paused = true;
                 Time.timeScale = 0;
-                Canvas.PauseMenu.gameObject.SetActive(true);
+                //Canvas.PauseMenu.gameObject.SetActive(true);
                 SetCursorVisibility(true);
             }
             else
             {
                 Paused = false;
                 Time.timeScale = 1;
-                Canvas.PauseMenu.gameObject.SetActive(false);
+                //Canvas.PauseMenu.gameObject.SetActive(false);
                 SetCursorVisibility(false);
             }
         }
@@ -84,6 +84,7 @@ namespace Managers
         public static void TogglePause()
         {
             Paused = !Paused;
+            Canvas.PauseMenu.gameObject.SetActive(Paused);
             Pause(Paused);
         }
         

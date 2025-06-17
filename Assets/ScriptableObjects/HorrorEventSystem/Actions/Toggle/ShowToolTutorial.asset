@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0028ca22362f68b439affb864d0ac635, type: 3}
   m_Name: ShowToolTutorial
   m_EditorClassIdentifier: 
-  targetObject: {fileID: 0}
+  objectId: ToolsTutorial
   activate: 1

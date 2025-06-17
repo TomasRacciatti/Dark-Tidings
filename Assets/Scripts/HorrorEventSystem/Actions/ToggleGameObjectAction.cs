@@ -13,18 +13,16 @@ public class ToggleGameObjectAction : HorrorActionSO
     
     public override IEnumerator Execute()
     {
-        Debug.Log($"[ToggleAction] Firing for ID='{objectId}'");
+        //Debug.Log($"[ToggleAction] Firing for ID='{objectId}'");
         
         var targetObject = SceneObjectRegister.GetById(objectId);
         
-        Debug.Log(targetObject != null
-            ? $"[ToggleAction] Found GameObject '{targetObject.name}', active={targetObject.activeSelf}"
-            : $"[ToggleAction] Couldn’t find any object registered under '{objectId}'");
+        //Debug.Log(targetObject != null ? $"[ToggleAction] Found GameObject '{targetObject.name}', active={targetObject.activeSelf}" : $"[ToggleAction] Couldn’t find any object registered under '{objectId}'");
 
         if (targetObject != null)
         {
             targetObject.SetActive(activate);
-            Debug.Log($"[ToggleAction] Now active={targetObject.activeSelf}");
+            //Debug.Log($"[ToggleAction] Now active={targetObject.activeSelf}");
         }
         else
             Debug.LogWarning($"ToggleGameObjectAction: no object registered with ID '{objectId}'");

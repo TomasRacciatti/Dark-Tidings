@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ToggleGameObjectAction", menuName = "ScriptableObject/HorrorEvents/Actions/Toggle GameObject")]
-public class ToggleGameOobjectAction : HorrorActionSO
+public class ToggleGameObjectAction : HorrorActionSO
 {
     [SerializeField] private GameObject targetObject;
     

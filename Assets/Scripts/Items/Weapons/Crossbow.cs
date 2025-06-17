@@ -13,6 +13,7 @@ namespace Items.Weapons
         [SerializeField] private GameObject _boltPrefab;
         [SerializeField] private Transform _firePoint;
         [SerializeField] private SO_Item _bolt;
+        [SerializeField] private float recoilStrength = 0.2f;
 
         private ItemAmount _boltType = new();
         private InventorySystem _boltInventorySystem;
@@ -71,6 +72,7 @@ namespace Items.Weapons
                 return;
             }
             
+            CameraShake1.Instance.Shake(transform.right, recoilStrength);
             GameObject boltInstance = ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, _firePoint.rotation, 10f);
             boltInstance.GetComponent<Bolt>().SetModifiers(_boltType.Modifiers);
 

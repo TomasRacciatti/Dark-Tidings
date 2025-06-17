@@ -23,7 +23,7 @@ public class SceneObjectRegister : MonoBehaviour
             Debug.LogWarning($"No ID on {name}");
             return;
         }
-        _registry[objectId] = gameObject;
+        _registry[objectId] = targetObject;
         Debug.Log($"[SceneObjectRegister] registered '{objectId}' for {gameObject.name}");
     }
 

@@ -8,6 +8,7 @@ namespace Hud
         public void Resume()
         {
             GameManager.Pause(false);
+            GameManager.Canvas.PauseMenu.gameObject.SetActive(false);
         }
         
         public void Restart()

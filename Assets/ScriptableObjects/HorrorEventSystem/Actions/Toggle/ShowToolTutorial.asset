@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff726493463c3342b21335dde679798, type: 3}
-  m_Name: PlayDial_11
+  m_Script: {fileID: 11500000, guid: 0028ca22362f68b439affb864d0ac635, type: 3}
+  m_Name: ShowToolTutorial
   m_EditorClassIdentifier: 
-  dialogueBank: {fileID: 11400000, guid: 7217511ead2f09142b53f5bd2c1aa71c, type: 2}
-  clipIndex: 9
-  volume: 1
+  objectId: ToolsTutorial
+  activate: 1
+  shouldPause: 1

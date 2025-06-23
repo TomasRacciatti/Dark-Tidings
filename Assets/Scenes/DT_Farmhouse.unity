@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.13173999, g: 0.16280223, b: 0.22925094, a: 1}
+  m_IndirectSpecularColor: {r: 0.13177116, g: 0.1628666, b: 0.22940567, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -111409,6 +111409,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 354012129}
     m_Modifications:
     - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.49999857
       objectReference: {fileID: 0}
@@ -157849,6 +157853,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 4284804}
     m_Modifications:
     - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.5
       objectReference: {fileID: 0}
@@ -170611,6 +170619,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4284804}
     m_Modifications:
+    - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 8.5
@@ -241275,6 +241287,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 419102712}
     m_Modifications:
     - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.499998
       objectReference: {fileID: 0}
@@ -248830,6 +248846,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 354012129}
     m_Modifications:
+    - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.50000334
@@ -292971,6 +292991,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 419102712}
     m_Modifications:
+    - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3712040484154683158, guid: 857da7671d091ea40996241484baecf1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.499998

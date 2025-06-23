@@ -8145,6 +8145,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2874748608485482154}
     m_Modifications:
+    - target: {fileID: 1656316887339126253, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1656316887339126253, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60
+      objectReference: {fileID: 0}
     - target: {fileID: 3610361353509058811, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_Name
       value: InteractionUI
@@ -8228,6 +8236,14 @@ PrefabInstance:
     - target: {fileID: 7993223683949840646, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188297824436485723, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8188297824436485723, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

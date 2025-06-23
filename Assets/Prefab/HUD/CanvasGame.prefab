@@ -8147,11 +8147,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1656316887339126253, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 60
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 1656316887339126253, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 60
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 3610361353509058811, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_Name
@@ -8239,11 +8239,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8188297824436485723, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8188297824436485723, guid: 1677d733c6d39e14e8b46ec8d3b43d35, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

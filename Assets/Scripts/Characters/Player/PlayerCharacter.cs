@@ -1,6 +1,7 @@
 using Inventory.Model;
 using Items.Base;
 using Managers;
+using UnityEngine;
 
 namespace Characters.Player
 {
@@ -8,10 +9,12 @@ namespace Characters.Player
     {
         public InventorySystem inventory;
         private PlayerView _playerView;
+        public PlayerController playerController;
         
         protected override void Awake()
         {
             base.Awake();
+            playerController = GetComponent<PlayerController>();
             inventory = GetComponent<InventorySystem>();
             _healthComponent.OnDeath += ShowGameOverScreen;
             _playerView  = GetComponent<PlayerView>();
@@ -19,7 +22,6 @@ namespace Characters.Player
             _healthComponent.OnDamaged += (damage, modifiers) =>
                 _playerView.Damaged();
         }
-
         
         private void ShowGameOverScreen()
         {

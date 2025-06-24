@@ -3,6 +3,7 @@ using Items.Base;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Hud
 {
@@ -11,6 +12,7 @@ namespace Hud
         [SerializeField] public InventoryManager inventoryManager;
         [SerializeField] public TextMeshProUGUI LostUI;
         [SerializeField] public PausedMenu PauseMenu;
+        [SerializeField] public RectTransform crosshairUI;
         
         public void InventoryUI(int targetIndex)
         {

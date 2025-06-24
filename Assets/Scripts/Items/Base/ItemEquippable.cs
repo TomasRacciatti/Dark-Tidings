@@ -14,6 +14,7 @@ namespace Items.Base
     {
         Default,
         Aim,
+        StopAim,
         Reload1,
         Reload2,
         Reload3,

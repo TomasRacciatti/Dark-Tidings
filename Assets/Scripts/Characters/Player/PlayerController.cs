@@ -55,7 +55,7 @@ namespace Characters.Player
         private PlayerView _playerView;
         private Character _character;
 
-        [SerializeField] private GameObject mainCamera;
+        [SerializeField] public GameObject mainCamera;
         [SerializeField] private LayerMask raycastLayers;
 
         private const float Threshold = 0.01f;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Characters.Player;
 using Inventory.Model;
 using Items.Base;
 using Managers;
@@ -106,20 +107,33 @@ namespace Items.Weapons
             if (_boltType.IsEmpty)
                 return;
 
-            // Obtener dirección deseada del raycast
-            RaycastHit hit = GameManager.Player.playerController.GetCameraRay();
-            Vector3 targetPoint = hit.point;
+            // Dirección de la cámara
+            Transform cameraTransform = GameManager.Player.GetComponent<PlayerController>().mainCamera.transform;
+            Vector3 rayOrigin = cameraTransform.position;
+            Vector3 rayDirection = cameraTransform.forward;
+
+            // Calcular punto objetivo
+            Vector3 targetPoint;
+            if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, 1000f))
+            {
+                targetPoint = hit.point;
+            }
+            else
+            {
+                // Si no golpea nada, usar dirección a distancia máxima
+                targetPoint = rayOrigin + rayDirection * 1000f;
+            }
+
+            // Calcular dirección desde el punto de disparo
             Vector3 direction = (targetPoint - _firePoint.position).normalized;
 
             // Agregar desviación según precisión
             float currentSpread = (1f - _accuracy) * spreadAngle;
             Vector2 randomOffset = UnityEngine.Random.insideUnitCircle * currentSpread;
 
-            // Crear rotación con desviación alrededor del eje
             Quaternion spreadRotation = Quaternion.Euler(randomOffset.x, randomOffset.y, 0f);
             Vector3 spreadDirection = spreadRotation * direction;
 
-            // Crear rotación final basada en dirección con desviación
             Quaternion finalRotation = Quaternion.LookRotation(spreadDirection);
 
             // Instanciar y configurar bolt
@@ -130,6 +144,7 @@ namespace Items.Weapons
 
             _boltType = new ItemAmount();
         }
+
 
         
         private void StartAiming()

@@ -87,6 +87,7 @@ namespace Inventory.Model
 
         private void OnDisable()
         {
+            if (_playerInventorySystem == null) return;
             ClearCraft();
         }
 

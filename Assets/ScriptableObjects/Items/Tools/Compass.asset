@@ -16,8 +16,11 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 224c3aada45bb854887175d05882ff8d, type: 3}
   description: Tells North
   modifierName: 
+  modifierPriority: 0
   stack: 1
   type: {fileID: 11400000, guid: fe6dba5fb3d37f143badbbdf0e61ab98, type: 2}
   equippable: 1
+  ammoType: {fileID: 0}
   mesh: {fileID: 0}
   materials: []
+  grabAudioClip: {fileID: 8300000, guid: 2a667135bea46df488bcd7d464b6184b, type: 3}

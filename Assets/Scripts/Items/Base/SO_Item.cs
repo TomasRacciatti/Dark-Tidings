@@ -16,6 +16,7 @@ namespace Items.Base
         [SerializeField] private SO_Item ammoType;
         [SerializeField] private Mesh mesh;
         [SerializeField] private Material[] materials;
+        [SerializeField] private AudioClip grabAudioClip;
 
         // Propiedades para acceder a los datos
         public string ItemName => itemName;
@@ -30,5 +31,6 @@ namespace Items.Base
         public bool HasAmmo => ammoType != null;
         public Mesh Mesh => mesh;
         public Material[] Materials => materials;
+        public AudioClip AudioClip => grabAudioClip;
     }
 }

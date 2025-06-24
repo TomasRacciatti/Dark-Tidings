@@ -23,3 +23,4 @@ MonoBehaviour:
   ammoType: {fileID: 0}
   mesh: {fileID: 0}
   materials: []
+  grabAudioClip: {fileID: 8300000, guid: a8a434f1f3f14a54ca5c7b884b23eea4, type: 3}

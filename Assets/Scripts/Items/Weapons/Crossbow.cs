@@ -16,10 +16,12 @@ namespace Items.Weapons
         [SerializeField] private float recoilStrength = 0.2f;
 
         private ItemAmount _boltType = new();
+        private InventorySystem _inventorySystem;
         private InventorySystem _boltInventorySystem;
 
         private void Start()
         {
+            _inventorySystem = GameManager.Player.inventory;
             _boltInventorySystem = GameManager.Canvas.inventoryManager.boltsInventorySystem;
         }
 
@@ -36,9 +38,13 @@ namespace Items.Weapons
                     Reload1();
                     break;
                 case UseType.Reload2:
+                    if (!_boltType.IsEmpty) return;
                     Reload2();
                     break;
                 case UseType.Reload3:
+                    if (!_boltType.IsEmpty) _boltInventorySystem.AddItem(ref _boltType);
+                    if (!_boltType.IsEmpty) GameManager.Player.AddItem(ref _boltType);
+                    _boltType = new ItemAmount();
                     _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 0, 1);
                     Reload2();
                     break;
@@ -47,9 +53,8 @@ namespace Items.Weapons
         
         private void Reload1()
         {
-            Debug.Log("Reload animation started: pulling string back.");
-            // Aquí pondrías tu animación, por ejemplo:
-            // animator.SetTrigger("PullString");
+            if (!_boltType.IsEmpty) return;
+            Debug.Log("Reload animation started:");
         }
         
         private void Reload2()

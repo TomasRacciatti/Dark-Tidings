@@ -1,4 +1,5 @@
 using Inventory.Model;
+using Items.Base;
 using Managers;
 
 namespace Characters.Player
@@ -23,6 +24,13 @@ namespace Characters.Player
         private void ShowGameOverScreen()
         {
             GameManager.Canvas.LostUI.gameObject.SetActive(true);
+        }
+
+        public void AddItem(ref ItemAmount itemAmount)
+        {
+            inventory.AddItem(ref itemAmount);
+            if (itemAmount.IsEmpty) return;
+            ItemDropper.Drop(itemAmount);
         }
     }
 }

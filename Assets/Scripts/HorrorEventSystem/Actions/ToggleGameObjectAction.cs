@@ -29,8 +29,10 @@ public class ToggleGameObjectAction : HorrorActionSO
             
         if (shouldPause)
         {
-            if (activate)   PauseGame();
-            else            ResumeGame();
+            if (activate)
+                PauseGame();
+            else
+                ResumeGame();
         }
 
         yield break;

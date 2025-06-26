@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010643722, g: 0.013154509, b: 0.018515052, a: 1}
+  m_IndirectSpecularColor: {r: 0.010592916, g: 0.013092043, b: 0.018432261, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -158203,7 +158203,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _activeDistance
-      value: 14
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _detectionOffset.x
@@ -172299,6 +172299,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horrorEvent: {fileID: 11400000, guid: c1833ad37ddfe0e48ab49c20636c0bec, type: 2}
   sceneBindings: []
+  delaySeconds: 0
+  delayedHorrorEvent: {fileID: 0}
+  delayedSceneBindings: []
   fireOnce: 1
 --- !u!1001 &963478990
 PrefabInstance:
@@ -245158,6 +245161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   horrorEvent: {fileID: 11400000, guid: b278d11562b4e344287507fd960bf8a0, type: 2}
   sceneBindings: []
+  delaySeconds: 0
+  delayedHorrorEvent: {fileID: 0}
+  delayedSceneBindings: []
   fireOnce: 1
 --- !u!1001 &1407723409
 PrefabInstance:
@@ -249267,7 +249273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _activeDistance
-      value: 13
+      value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _detectionOffset.y
@@ -249275,7 +249281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _detectionOffset.z
-      value: 3.16
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Name
@@ -269037,6 +269043,9 @@ MonoBehaviour:
   - actionDef: {fileID: 11400000, guid: 41d2d7c9976cab34fad14d0a0fa2579e, type: 2}
     targets:
     - {fileID: 1317986693}
+  delaySeconds: 0
+  delayedHorrorEvent: {fileID: 0}
+  delayedSceneBindings: []
   fireOnce: 1
 --- !u!1001 &1674516993
 PrefabInstance:
@@ -293895,7 +293904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _activeDistance
-      value: 13
+      value: 15.5
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _detectionOffset.y

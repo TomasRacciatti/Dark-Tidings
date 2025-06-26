@@ -39,16 +39,10 @@ public class ToggleGameObjectAction : HorrorActionSO
     private void PauseGame()
     {
         GameManager.Pause(true);
-
-        // disable camera input
-        
     }
 
     private void ResumeGame()
     {
         GameManager.Pause(false);
-
-        // Enable Input
-        
     }
 }

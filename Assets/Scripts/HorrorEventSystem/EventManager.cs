@@ -18,8 +18,8 @@ public class EventManager : MonoBehaviour
     {
         if (horrorEvent.runInParallel)
         {
-            foreach (var action in horrorEvent.actions)
-                StartCoroutine(action.Execute());
+            foreach (var bind in horrorEvent.bindings)
+                StartCoroutine(RunBinding(bind));
         }
         else
         {
@@ -29,7 +29,24 @@ public class EventManager : MonoBehaviour
     
     private IEnumerator RunSequentially(HorrorEvent horrorEvent)
     {
-        foreach (var action in horrorEvent.actions)
-            yield return StartCoroutine(action.Execute());
+        foreach (var bind in horrorEvent.bindings)
+            yield return StartCoroutine(RunBinding(bind));
+    }
+
+    private IEnumerator RunBinding(ActionBinding bind)
+    {
+        // if this SO needs a target, handle it here
+        if (bind.actionDef is LightToggleAction lta)
+        {
+            var light = bind.target?.GetComponent<Light>(); // Esto en realidad va ser el game object porque voy a acceder al codigo y cambiar el enum
+            yield return StartCoroutine(lta.ExecuteOn(light));
+        }
+        // Agregar acciones que requieren un target (ExecuteOn) aca
+
+        // Si no tienen target como es el caso del play dialogue
+        else
+        {
+            yield return StartCoroutine(bind.actionDef.Execute());
+        }
     }
 }

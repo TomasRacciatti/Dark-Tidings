@@ -32,6 +32,25 @@ public class EventManager : MonoBehaviour
         foreach (var bind in horrorEvent.bindings)
             yield return StartCoroutine(RunBinding(bind));
     }
+    
+    public void TriggerBindings(IEnumerable<ActionBinding> bindings, bool runInParallel)
+    {
+        if (runInParallel)
+        {
+            foreach (var bind in bindings)
+                StartCoroutine(RunBinding(bind));
+        }
+        else
+        {
+            StartCoroutine(RunSequentialBindings(bindings));
+        }
+    }
+    
+    private IEnumerator RunSequentialBindings(IEnumerable<ActionBinding> bindings)
+    {
+        foreach (var bind in bindings)
+            yield return StartCoroutine(RunBinding(bind));
+    }
 
     private IEnumerator RunBinding(ActionBinding bind)
     {

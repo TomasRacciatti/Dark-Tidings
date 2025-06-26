@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0105503285, g: 0.013040232, b: 0.018359603, a: 1}
+  m_IndirectSpecularColor: {r: 0.0105467, g: 0.013034867, b: 0.018350782, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3903,7 +3903,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 623193351203346071, guid: da7274c75ca5e4945b7933c5eae26918, type: 3}
       insertIndex: -1
       addedObject: {fileID: 350644754}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4635736951543140497, guid: da7274c75ca5e4945b7933c5eae26918, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1674163710}
   m_SourcePrefab: {fileID: 100100000, guid: da7274c75ca5e4945b7933c5eae26918, type: 3}
 --- !u!4 &84968298 stripped
 Transform:
@@ -172294,7 +172297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f378f9d2687a40408572cc29c8c5f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactEvent: {fileID: 11400000, guid: c1833ad37ddfe0e48ab49c20636c0bec, type: 2}
+  horrorEvent: {fileID: 0}
   fireOnce: 1
 --- !u!1001 &963478990
 PrefabInstance:
@@ -245147,7 +245150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f378f9d2687a40408572cc29c8c5f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactEvent: {fileID: 11400000, guid: b278d11562b4e344287507fd960bf8a0, type: 2}
+  horrorEvent: {fileID: 0}
   fireOnce: 1
 --- !u!1001 &1407723409
 PrefabInstance:
@@ -269005,6 +269008,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1499639972942977568, guid: 5701dcff889b1bd439eaa81f495349ca, type: 3}
   m_PrefabInstance: {fileID: 255911029}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1674163704 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4635736951543140497, guid: da7274c75ca5e4945b7933c5eae26918, type: 3}
+  m_PrefabInstance: {fileID: 84968297}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1674163710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674163704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f378f9d2687a40408572cc29c8c5f33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horrorEvent: {fileID: 0}
+  fireOnce: 1
 --- !u!1001 &1674516993
 PrefabInstance:
   m_ObjectHideFlags: 0

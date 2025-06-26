@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001b560247d5e064cb6757ec9c317c92, type: 3}
   m_Name: EnterKitchen
   m_EditorClassIdentifier: 
-  actions:
-  - {fileID: 11400000, guid: 44da86a3f95f786439fcf8ce5f50daef, type: 2}
+  bindings:
+  - actionDef: {fileID: 11400000, guid: 44da86a3f95f786439fcf8ce5f50daef, type: 2}
+    target: {fileID: 0}
   runInParallel: 0

@@ -35,8 +35,14 @@ public class FadeBehavior : ILightBehavior
             _fadeSpeed * Time.deltaTime
         );
     }
-
-    // helper for turning completely off
+    
+    public void TurnOn()
+    {
+        _targetIntensity = _originalIntensity;
+        if (!_light.enabled)
+            _light.enabled = true;
+    }
+    
     public void TurnOff()
     {
         _targetIntensity = 0f;

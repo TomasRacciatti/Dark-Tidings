@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010561832, g: 0.013055177, b: 0.018383892, a: 1}
+  m_IndirectSpecularColor: {r: 0.01055956, g: 0.0130521525, b: 0.01837817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -119853,6 +119853,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1135346320686007762, guid: af4168a174e1a77468bc46570207cb38, type: 3}
   m_PrefabInstance: {fileID: 415017233}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &658448686 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+  m_PrefabInstance: {fileID: 799379031000593298}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &659824798
 PrefabInstance:
@@ -419316,16 +419321,45 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 9.132937
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5390813156062816190, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 799379031000593303}
   m_SourcePrefab: {fileID: 100100000, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
 --- !u!4 &799379031000593299 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
   m_PrefabInstance: {fileID: 799379031000593298}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &799379031000593303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 658448686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1200fcff9ad34a46a45a431c957188c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeDistance: 5
+  _detectionOffset: {x: 0, y: 0, z: 0}
+  _playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _player: {fileID: 0}
+  _initialMode: 1
+  _fadeSpeed: 2
+  _minFlickerInterval: 0.05
+  _maxFlickerInterval: 0.3
+  _pattern:
+  - 0.5
+  - 0.5
 --- !u!1001 &1299318865023422057
 PrefabInstance:
   m_ObjectHideFlags: 0

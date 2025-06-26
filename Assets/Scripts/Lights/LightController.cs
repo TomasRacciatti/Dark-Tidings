@@ -11,6 +11,9 @@ public class LightController : Lights
         FlickerRandom,
         FlickerPattern
     }
+    
+    [Header("Light State")]
+    [SerializeField] private Mode _initialMode = Mode.On;
 
     [Header("Fade Settings")] [SerializeField]
     private float _fadeSpeed = 2f;
@@ -43,12 +46,24 @@ public class LightController : Lights
     {
         base.Start();
 
-        SwitchMode(Mode.Off);
+        SwitchMode(_initialMode);
     }
 
     protected override void UpdateLightBehavior()
     {
-        // Apago si no esta en rango
+        // Aca quiero fadear, no apagar
+        if (_mode == Mode.On)
+        {
+            if (_isPlayerInRange)
+                _fadeBehavior.TurnOn();
+            else
+                _fadeBehavior.TurnOff();
+
+            _fadeBehavior.UpdateBehavior();
+            return;
+        }
+        
+        // Apago si no esta en rango y no esta en state On
         if (!_isPlayerInRange)
         {
             _currentBehavior?.Exit();

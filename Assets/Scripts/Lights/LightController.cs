@@ -66,8 +66,6 @@ public class LightController : Lights
         // Apago si no esta en rango y no esta en state On
         if (!_isPlayerInRange)
         {
-            _currentBehavior?.Exit();
-            _currentBehavior = null;
             _light.enabled = false;
             return;
         }

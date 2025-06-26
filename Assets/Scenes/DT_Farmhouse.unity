@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0105467, g: 0.013034867, b: 0.018350782, a: 1}
+  m_IndirectSpecularColor: {r: 0.01065495, g: 0.013167398, b: 0.018530132, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172297,7 +172297,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f378f9d2687a40408572cc29c8c5f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horrorEvent: {fileID: 0}
+  horrorEvent: {fileID: 11400000, guid: c1833ad37ddfe0e48ab49c20636c0bec, type: 2}
   fireOnce: 1
 --- !u!1001 &963478990
 PrefabInstance:
@@ -245150,7 +245150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f378f9d2687a40408572cc29c8c5f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horrorEvent: {fileID: 0}
+  horrorEvent: {fileID: 11400000, guid: b278d11562b4e344287507fd960bf8a0, type: 2}
   fireOnce: 1
 --- !u!1001 &1407723409
 PrefabInstance:

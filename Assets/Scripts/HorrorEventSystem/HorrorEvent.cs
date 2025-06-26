@@ -10,7 +10,7 @@ public struct ActionBinding // ActionBinding nos va a hacer la conexion entre la
     public HorrorActionSO actionDef;
 
     [Tooltip("Which GameObject to pass into that action")]
-    public GameObject target;
+    public List<GameObject> targets;
 }
 
 

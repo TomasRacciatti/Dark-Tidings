@@ -38,8 +38,11 @@ public class EventManager : MonoBehaviour
         // if this SO needs a target, handle it here
         if (bind.actionDef is LightToggleAction lta)
         {
-            var light = bind.target?.GetComponent<Light>(); // Esto en realidad va ser el game object porque voy a acceder al codigo y cambiar el enum
-            yield return StartCoroutine(lta.ExecuteOn(light));
+            foreach (var lightObject in bind.targets)
+            {
+                var lightController = lightObject?.GetComponent<LightController>();
+                yield return StartCoroutine(lta.ExecuteOn(lightController));
+            }
         }
         // Agregar acciones que requieren un target (ExecuteOn) aca
 

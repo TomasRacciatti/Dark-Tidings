@@ -14,6 +14,7 @@ public class EventManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    
     public void Trigger(HorrorEvent horrorEvent)
     {
         if (horrorEvent.runInParallel)
@@ -32,6 +33,7 @@ public class EventManager : MonoBehaviour
         foreach (var bind in horrorEvent.bindings)
             yield return StartCoroutine(RunBinding(bind));
     }
+    
     
     public void TriggerBindings(IEnumerable<ActionBinding> bindings, bool runInParallel)
     {

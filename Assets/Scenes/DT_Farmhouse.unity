@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.01065495, g: 0.013167398, b: 0.018530132, a: 1}
+  m_IndirectSpecularColor: {r: 0.010574975, g: 0.013070421, b: 0.018402385, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -172298,6 +172298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horrorEvent: {fileID: 11400000, guid: c1833ad37ddfe0e48ab49c20636c0bec, type: 2}
+  sceneBindings: []
   fireOnce: 1
 --- !u!1001 &963478990
 PrefabInstance:
@@ -234314,11 +234315,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _activeDistance
-      value: 11
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _detectionOffset.z
-      value: -3.13
+      value: -8.19
       objectReference: {fileID: 0}
     - target: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Name
@@ -241308,6 +241309,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e313505a7ec3a614cbea2ef8c0760a31, type: 3}
+--- !u!1 &1317986693 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+  m_PrefabInstance: {fileID: 1309316211}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1318718883
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245151,6 +245157,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horrorEvent: {fileID: 11400000, guid: b278d11562b4e344287507fd960bf8a0, type: 2}
+  sceneBindings: []
   fireOnce: 1
 --- !u!1001 &1407723409
 PrefabInstance:
@@ -269025,7 +269032,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f378f9d2687a40408572cc29c8c5f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horrorEvent: {fileID: 0}
+  horrorEvent: {fileID: 11400000, guid: 29d1cf289af81cf488f4b5d71a2c33e6, type: 2}
+  sceneBindings:
+  - actionDef: {fileID: 11400000, guid: 41d2d7c9976cab34fad14d0a0fa2579e, type: 2}
+    targets:
+    - {fileID: 1317986693}
   fireOnce: 1
 --- !u!1001 &1674516993
 PrefabInstance:
@@ -419325,7 +419336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _initialMode
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _activeDistance

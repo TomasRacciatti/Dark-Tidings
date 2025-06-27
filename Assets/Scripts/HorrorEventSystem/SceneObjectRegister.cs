@@ -24,7 +24,7 @@ public class SceneObjectRegister : MonoBehaviour
             return;
         }
         _registry[objectId] = targetObject;
-        Debug.Log($"[SceneObjectRegister] registered '{objectId}' for {gameObject.name}");
+        //Debug.Log($"[SceneObjectRegister] registered '{objectId}' for {gameObject.name}");
     }
 
     private void OnDestroy()

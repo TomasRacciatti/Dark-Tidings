@@ -14,12 +14,13 @@ public class EventManager : MonoBehaviour
             Destroy(gameObject);
     }
 
+    
     public void Trigger(HorrorEvent horrorEvent)
     {
         if (horrorEvent.runInParallel)
         {
-            foreach (var action in horrorEvent.actions)
-                StartCoroutine(action.Execute());
+            foreach (var bind in horrorEvent.bindings)
+                StartCoroutine(RunBinding(bind));
         }
         else
         {
@@ -29,7 +30,75 @@ public class EventManager : MonoBehaviour
     
     private IEnumerator RunSequentially(HorrorEvent horrorEvent)
     {
-        foreach (var action in horrorEvent.actions)
-            yield return StartCoroutine(action.Execute());
+        foreach (var bind in horrorEvent.bindings)
+            yield return StartCoroutine(RunBinding(bind));
+    }
+    
+    
+    public void TriggerBindings(IEnumerable<ActionBinding> bindings, bool runInParallel)
+    {
+        if (runInParallel)
+        {
+            foreach (var bind in bindings)
+                StartCoroutine(RunBinding(bind));
+        }
+        else
+        {
+            StartCoroutine(RunSequentialBindings(bindings));
+        }
+    }
+    
+    private IEnumerator RunSequentialBindings(IEnumerable<ActionBinding> bindings)
+    {
+        foreach (var bind in bindings)
+            yield return StartCoroutine(RunBinding(bind));
+    }
+
+    private IEnumerator RunBinding(ActionBinding bind)
+    {
+        // SOs que usan target
+        if (bind.actionDef is LightToggleAction lta)
+        {
+            foreach (var lightObject in bind.targets)
+            {
+                var lightController = lightObject?.GetComponent<LightController>();
+                yield return StartCoroutine(lta.ExecuteOn(lightController));
+            }
+        }
+
+        else if (bind.actionDef is ToggleGameObjectAction tga)
+        {
+            if (tga.mode == ToggleGameObjectAction.TargetMode.ByReference)
+            {
+                foreach (var target in bind.targets)
+                    yield return StartCoroutine(tga.ExecuteOn(target));
+            }
+            else
+            {
+                yield return StartCoroutine(tga.Execute());
+            }
+        }
+        
+        else if (bind.actionDef is TransportAction transportAction)
+        {
+            if (bind.targets.Count >= 2)
+                yield return StartCoroutine(transportAction.ExecuteOn(bind.targets[0], bind.targets[1]));
+            
+            yield break;    
+        }
+        
+        else if (bind.actionDef is DoorStateAction doorState)
+        {
+            foreach (var targetDoor in bind.targets)
+                yield return StartCoroutine(doorState.ExecuteOn(targetDoor));
+            yield break;
+        }
+        // Agregar acciones que requieren un target (ExecuteOn) aca
+
+        // Si no tienen target como es el caso del play dialogue
+        else
+        {
+            yield return StartCoroutine(bind.actionDef.Execute());
+        }
     }
 }

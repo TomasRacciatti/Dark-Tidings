@@ -335,7 +335,7 @@ MonoBehaviour:
     pulse signals a critical vulnerability, and a <b><color=#FFF100>YELLOW</color></b>
     pulse means no detectable reaction.\n\n<b>BEWARE</b>, the biological reactor
     gets easily contaminated and must be cleaned back at base, therefore you can
-    only use it <b>TWO</b> times in the field. Be smart when chosing to use it."
+    only use it <b>TWO</b> times in the field. Be smart when choosing to use it."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4388,7 +4388,7 @@ MonoBehaviour:
   m_text: "The <b>THERMOMETER</b> displays the ambient temperature in real time.
     As you approach a supernatural echo, watch for sudden drops or heat surges\u2014these
     thermal anomalies reveal the echo\u2019s thermal profile, hinting at its resistance
-    or vulnerability. Be sure have your thermometer ready when you detect an echo."
+    or vulnerability. Be sure to have your thermometer ready when you detect an echo."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6900,14 +6900,14 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "The <b>SPIRIT TUNNER</b> iis your most crucial field instrument. Sweep
-    it through every room with steady precision; as you draw near a supernatural
-    echo, the device will emit a slow, rhythmic pulse that accelerates into a rapid
-    stutter at close range. Once you have identified the presence of an echo, you
-    can use your other tools for deeper analysis. Each echo will contain ONE testing
-    profile (temperature, magnetic field, radiation or air quality).\n\nYou can also
-    switch the Tuner into Recorder Mode to capture the echo\u2019s waveform\u2014this
-    will provide further context of what went down in this place."
+  m_text: "The <b>SPIRIT TUNER</b> is your most crucial field instrument. Sweep it
+    through every room with steady precision; as you draw near a supernatural echo,
+    the device will emit a slow, rhythmic pulse that accelerates into a rapid stutter
+    at close range. Once you have identified the presence of an echo, you can use
+    your other tools for deeper analysis. Each echo will contain ONE testing profile
+    (temperature, magnetic field, radiation or air quality).\n\nYou can also switch
+    the Tuner into Recorder Mode to capture the echo\u2019s waveform\u2014this will
+    provide further context of what went down in this place."
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

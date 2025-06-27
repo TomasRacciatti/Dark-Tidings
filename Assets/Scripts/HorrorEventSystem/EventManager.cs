@@ -93,6 +93,13 @@ public class EventManager : MonoBehaviour
                 yield return StartCoroutine(doorState.ExecuteOn(targetDoor));
             yield break;
         }
+        
+        if (bind.actionDef is ActivateEnemyAction activateEnemy)
+        {
+            foreach (var target in bind.targets)
+                yield return StartCoroutine(activateEnemy.ExecuteOn(target));
+            yield break;
+        }
         // Agregar acciones que requieren un target (ExecuteOn) aca
 
         // Si no tienen target como es el caso del play dialogue

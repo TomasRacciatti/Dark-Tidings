@@ -10,6 +10,8 @@ namespace Characters.Enemies
     {
         [SerializeField] private float chaseRange = 5f;
         [SerializeField] private float attackRange = 2f;
+
+        public bool isActive = true;
     
         Cooldown _cooldown = new Cooldown();
         NavMeshAgent _agent;
@@ -41,6 +43,8 @@ namespace Characters.Enemies
 
         private void Update()
         {
+            if (!isActive) return;
+            
             if (_target)
             {
                 float distanceToTarget = Vector3.Distance(transform.position, _target.position);

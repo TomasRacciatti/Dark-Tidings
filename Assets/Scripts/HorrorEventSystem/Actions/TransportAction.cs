@@ -2,24 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TransportAction : HorrorActionSO
+[CreateAssetMenu(fileName = "TransportAction", menuName = "ScriptableObject/HorrorEvents/Actions/Transport Game Object")]
+ class TransportAction : HorrorActionSO
 {
-    [Tooltip("The Transform whose position (and optionally rotation) we copy")]
-    [SerializeField] private Transform destination;
 
-    [Tooltip("Also match destination.rotation?")]
+    [Tooltip("Also match destination.rotation")]
     [SerializeField] private bool matchRotation = true;
     
     
-    public IEnumerator ExecuteOn(GameObject target)
+    public IEnumerator ExecuteOn(GameObject target, GameObject destination)
     {
         if (target == null || destination == null)
             yield break;
 
         var t = target.transform;
-        t.position = destination.position;
+        t.position = destination.transform.position;
         if (matchRotation)
-            t.rotation = destination.rotation;
+            t.rotation = destination.transform.rotation;
 
         yield break;
     }

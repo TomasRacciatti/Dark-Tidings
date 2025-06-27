@@ -9,6 +9,8 @@ namespace Objects
 {
     public class Door : MonoBehaviour, IInteractable, IPushable
     {
+        public enum DoorMode { Open, Close, SuperLock }
+        
         [Header("Options")] [SerializeField] private float openedAngle = 120f;
         [SerializeField] private float closedAngle = 0f;
         [SerializeField] private float lockedAngle = 3f;
@@ -31,6 +33,10 @@ namespace Objects
         private float _lastOpenedAngle;
 
         public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
+        
+        
+        // Necesario para el action
+        public bool IsOpen => isOpen;
 
         private void Awake()
         {

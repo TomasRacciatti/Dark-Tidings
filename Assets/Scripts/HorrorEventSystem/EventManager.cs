@@ -56,7 +56,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator RunBinding(ActionBinding bind)
     {
-        // if this SO needs a target, handle it here
+        // SOs que usan target
         if (bind.actionDef is LightToggleAction lta)
         {
             foreach (var lightObject in bind.targets)
@@ -70,13 +70,21 @@ public class EventManager : MonoBehaviour
         {
             if (tga.mode == ToggleGameObjectAction.TargetMode.ByReference)
             {
-                foreach (var go in bind.targets)
-                    yield return StartCoroutine(tga.ExecuteOn(go));
+                foreach (var target in bind.targets)
+                    yield return StartCoroutine(tga.ExecuteOn(target));
             }
             else
             {
                 yield return StartCoroutine(tga.Execute());
             }
+        }
+        
+        else if (bind.actionDef is TransportAction transportAction)
+        {
+            if (bind.targets.Count >= 2)
+                yield return StartCoroutine(transportAction.ExecuteOn(bind.targets[0], bind.targets[1]));
+            
+            yield break;    
         }
         // Agregar acciones que requieren un target (ExecuteOn) aca
 

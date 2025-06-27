@@ -53,19 +53,21 @@ namespace Objects
         void Start()
         {
             transform.rotation = isOpen ? transform.rotation * Quaternion.Euler(0f, _lastOpenedAngle, 0f) : transform.rotation;
-            noExploit.SetActive(isLocked);
+            noExploit.SetActive(IsActuallyLocked);
             Setup();
         }
 
         private void Setup()
         {
             JointLimits limits = _hinge.limits;
-            limits.min = !isLocked ? -openedAngle : -lockedAngle;
-            limits.max = !isLocked ? openedAngle : lockedAngle;
+            limits.min = !IsActuallyLocked ? -openedAngle : -lockedAngle;
+            limits.max = !IsActuallyLocked ? openedAngle : lockedAngle;
             _hinge.limits = limits;
 
             JointSpring spring = _hinge.spring;
-            spring.targetPosition = isLocked || !isOpen ? closedAngle : _lastOpenedAngle;
+            spring.targetPosition = IsActuallyLocked || !isOpen ? closedAngle : _lastOpenedAngle;
+            spring.damper = 20f;
+            spring.spring = 40f;
             _hinge.spring = spring;
         }
 
@@ -87,7 +89,7 @@ namespace Objects
                 return;
             }
 
-            if (isLocked)
+            if (IsActuallyLocked)
             {
                 StartCoroutine(ForceDoor());
                 return;
@@ -154,7 +156,7 @@ namespace Objects
         public void OnPushed(Vector3 pushDirection, float strength)
         {
             if (_rigidbody == null) return;
-            if (isLocked) return;
+            if (IsActuallyLocked) return;
 
             StartCoroutine(PlayIfMoved());
         }
@@ -174,6 +176,7 @@ namespace Objects
         {
             if (mode == DoorMode.SuperLock)
             {
+                isOpen = false;
                 isSuperLocked = true;
                 noExploit.SetActive(true);
             }
@@ -185,34 +188,43 @@ namespace Objects
             
             if (mode == DoorMode.Open)
             {
+                isLocked = false;
+                isSuperLocked = false;
                 isOpen = true;
                 _lastOpenedAngle = Mathf.Clamp(targetAngle, -openedAngle, openedAngle);
+                _audioSource.PlayOneShot(openSound);
             }
             else if (mode == DoorMode.Close)
             {
                 isOpen = false;
+                _audioSource.PlayOneShot(closeSound);
+                StartCoroutine(SlamCloseRoutine(springForce));
+                return;
             }
-            
-            
-            JointLimits limits = _hinge.limits;
-
-            if (IsActuallyLocked)
-            {
-                limits.min = -lockedAngle;
-                limits.max = lockedAngle;
-            }
-            else
-            {
-                limits.min = -openedAngle; limits.max = openedAngle;
-            }
-
-            _hinge.limits = limits;
-
-            // adjust spring
+        } 
+        
+        private IEnumerator SlamCloseRoutine(float springForce)
+        {
             JointSpring spring = _hinge.spring;
             spring.spring = springForce;
-            spring.targetPosition = isLocked || !isOpen ? closedAngle : _lastOpenedAngle;
+            spring.targetPosition = closedAngle;
             _hinge.spring = spring;
-        }  
+            
+            while (Mathf.Abs(
+                Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)
+            ) > 1f)
+            {
+                yield return null;
+            }
+            
+            if (_rigidbody != null)
+            {
+                _rigidbody.velocity = Vector3.zero;
+                _rigidbody.angularVelocity = Vector3.zero;
+            }
+            
+            spring.damper = 1000f;
+            _hinge.spring = spring;
+        }
     }
 }

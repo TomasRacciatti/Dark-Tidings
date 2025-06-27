@@ -65,6 +65,19 @@ public class EventManager : MonoBehaviour
                 yield return StartCoroutine(lta.ExecuteOn(lightController));
             }
         }
+
+        else if (bind.actionDef is ToggleGameObjectAction tga)
+        {
+            if (tga.mode == ToggleGameObjectAction.TargetMode.ByReference)
+            {
+                foreach (var go in bind.targets)
+                    yield return StartCoroutine(tga.ExecuteOn(go));
+            }
+            else
+            {
+                yield return StartCoroutine(tga.Execute());
+            }
+        }
         // Agregar acciones que requieren un target (ExecuteOn) aca
 
         // Si no tienen target como es el caso del play dialogue

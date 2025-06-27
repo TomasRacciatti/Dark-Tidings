@@ -4,6 +4,7 @@ using UnityEngine;
 using Interfaces;
 using Inventory.Controller;
 using Items.Base;
+using UnityEngine.ProBuilder.MeshOperations;
 
 namespace Objects
 {
@@ -16,6 +17,7 @@ namespace Objects
         [SerializeField] private float lockedAngle = 3f;
         [SerializeField] private bool isOpen = false;
         [SerializeField] private bool isLocked = false;
+        [SerializeField] private bool isSuperLocked = false;
         [SerializeField] private SO_Item keyItem;
 
         [SerializeField] private Transform interactionPoint;
@@ -37,6 +39,7 @@ namespace Objects
         
         // Necesario para el action
         public bool IsOpen => isOpen;
+        private bool IsActuallyLocked => isLocked || isSuperLocked;
 
         private void Awake()
         {
@@ -165,5 +168,51 @@ namespace Objects
                 _audioSource.PlayOneShot(openSound);
             }
         }
+        
+        
+        public void SetDoorState(DoorMode mode, float targetAngle, float springForce, bool overrideLock = false)
+        {
+            if (mode == DoorMode.SuperLock)
+            {
+                isSuperLocked = true;
+                noExploit.SetActive(true);
+            }
+            else if (overrideLock)
+            {
+                isSuperLocked = false;
+                noExploit.SetActive(false);
+            }
+            
+            if (mode == DoorMode.Open)
+            {
+                isOpen = true;
+                _lastOpenedAngle = Mathf.Clamp(targetAngle, -openedAngle, openedAngle);
+            }
+            else if (mode == DoorMode.Close)
+            {
+                isOpen = false;
+            }
+            
+            
+            JointLimits limits = _hinge.limits;
+
+            if (IsActuallyLocked)
+            {
+                limits.min = -lockedAngle;
+                limits.max = lockedAngle;
+            }
+            else
+            {
+                limits.min = -openedAngle; limits.max = openedAngle;
+            }
+
+            _hinge.limits = limits;
+
+            // adjust spring
+            JointSpring spring = _hinge.spring;
+            spring.spring = springForce;
+            spring.targetPosition = isLocked || !isOpen ? closedAngle : _lastOpenedAngle;
+            _hinge.spring = spring;
+        }  
     }
 }

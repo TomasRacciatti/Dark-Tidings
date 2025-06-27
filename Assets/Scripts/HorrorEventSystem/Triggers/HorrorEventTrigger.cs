@@ -12,7 +12,6 @@ public class HorrorEventTrigger : MonoBehaviour
 
     [Header("Delayed Events")] [SerializeField]
     protected float delaySeconds = 0f;
-
     [SerializeField] protected HorrorEvent delayedHorrorEvent;
     [SerializeField] protected List<ActionBinding> delayedSceneBindings = new List<ActionBinding>();
 

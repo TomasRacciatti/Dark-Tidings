@@ -86,6 +86,13 @@ public class EventManager : MonoBehaviour
             
             yield break;    
         }
+        
+        else if (bind.actionDef is DoorStateAction doorState)
+        {
+            foreach (var targetDoor in bind.targets)
+                yield return StartCoroutine(doorState.ExecuteOn(targetDoor));
+            yield break;
+        }
         // Agregar acciones que requieren un target (ExecuteOn) aca
 
         // Si no tienen target como es el caso del play dialogue

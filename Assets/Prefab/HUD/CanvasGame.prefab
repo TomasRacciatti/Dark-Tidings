@@ -404,57 +404,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &160591385383920857
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7525845634164004197}
-  - component: {fileID: 3370528002276390078}
-  m_Layer: 5
-  m_Name: JournalTutorial
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &7525845634164004197
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160591385383920857}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4535328394844707180}
-  m_Father: {fileID: 6603434594158025526}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &3370528002276390078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 160591385383920857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4133fd52fc0bc34ea7c25af1f5679ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectId: JournalTutorial
-  targetObject: {fileID: 8341804861510501575}
 --- !u!1 &497310288458693066
 GameObject:
   m_ObjectHideFlags: 0
@@ -899,6 +848,7 @@ RectTransform:
   m_Children:
   - {fileID: 4605642204564148186}
   - {fileID: 4650045087412696915}
+  - {fileID: 4535328394844707180}
   m_Father: {fileID: 2282641080331105438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7462,12 +7412,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4535328394844707180}
   m_Layer: 5
-  m_Name: JournalTutoInactiveHolder
+  m_Name: JournalTuto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4535328394844707180
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7475,7 +7425,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8341804861510501575}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7483,7 +7433,7 @@ RectTransform:
   - {fileID: 7434516368011234732}
   - {fileID: 5514425178130200056}
   - {fileID: 5265871328644102526}
-  m_Father: {fileID: 7525845634164004197}
+  m_Father: {fileID: 593184730437429481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7561,7 +7511,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6878300270376695263}
-  - {fileID: 7525845634164004197}
   m_Father: {fileID: 2874748608485482154}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

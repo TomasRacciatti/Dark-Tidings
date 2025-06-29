@@ -14,7 +14,9 @@ public class JournalEntryController : MonoBehaviour
     [SerializeField] Button rightArrow;
     
     int currentIndex = 0;
-
+    
+    public string CurrentValue => clueData.clue[currentIndex].Value;
+    
     void Awake()
     {
         clueTypeText.text = clueData.clueTypeName;

@@ -849,6 +849,7 @@ RectTransform:
   - {fileID: 4605642204564148186}
   - {fileID: 4650045087412696915}
   - {fileID: 4535328394844707180}
+  - {fileID: 5183948129759087689}
   m_Father: {fileID: 2282641080331105438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7244,6 +7245,63 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &8123221482824918511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5183948129759087689}
+  - component: {fileID: 2830638464552836465}
+  m_Layer: 5
+  m_Name: NegativeTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5183948129759087689
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8123221482824918511}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 593184730437429481}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2830638464552836465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8123221482824918511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37677ddbe6472dc439ebda849299db4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horrorEvent: {fileID: 11400000, guid: dc4d633a35ba0754c8c5aa3722fe8b4e, type: 2}
+  sceneBindings: []
+  delaySeconds: 0
+  delayedHorrorEvent: {fileID: 0}
+  delayedSceneBindings: []
+  fireOnce: 1
+  targetValue: Negative
+  holdDuration: 1
+  _journalEntryController: {fileID: 4180575815523318089}
 --- !u!1 &8148700740553775592
 GameObject:
   m_ObjectHideFlags: 0
@@ -7254,6 +7312,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1391230832182886436}
   - component: {fileID: 6990469705079620153}
+  - component: {fileID: 198867395060695565}
   m_Layer: 5
   m_Name: AllInventory
   m_TagString: Untagged
@@ -7301,6 +7360,20 @@ MonoBehaviour:
   inventoryUI: {fileID: 1047644225956118928}
   inventorySwitcherUI: {fileID: 7740694051245990537}
   boltsInventorySystem: {fileID: 8616380388024482428}
+--- !u!114 &198867395060695565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8148700740553775592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4133fd52fc0bc34ea7c25af1f5679ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectId: NegativeTrigger
+  targetObject: {fileID: 8123221482824918511}
 --- !u!1 &8198694150618168224
 GameObject:
   m_ObjectHideFlags: 0
@@ -11354,6 +11427,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45d6419b63d703842b5802b44a4a0a1b, type: 3}
+--- !u!114 &4180575815523318089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 829739184193112151, guid: 45d6419b63d703842b5802b44a4a0a1b, type: 3}
+  m_PrefabInstance: {fileID: 3569015747354472734}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 262b242d58489df42a9ea3cdb033bf39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4797857538493270136 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8291930568707602790, guid: 45d6419b63d703842b5802b44a4a0a1b, type: 3}

@@ -752,6 +752,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chaseRange: 5
   attackRange: 2
+  isActive: 1
 --- !u!114 &2814067790599758623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,7 +996,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 2016d82e9ddcf744ca30e30bcea103ff, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

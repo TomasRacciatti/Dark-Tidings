@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,8 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
     public static EventManager Instance { get; private set; }
+    
+    public static event Action<HorrorEvent> OnEventCompleted;
     
     private void Awake()
     {
@@ -18,20 +21,33 @@ public class EventManager : MonoBehaviour
     public void Trigger(HorrorEvent horrorEvent)
     {
         if (horrorEvent.runInParallel)
-        {
-            foreach (var bind in horrorEvent.bindings)
-                StartCoroutine(RunBinding(bind));
-        }
+            StartCoroutine(RunParallelThenNotify(horrorEvent));
         else
-        {
-            StartCoroutine(RunSequentially(horrorEvent));
-        }
+            StartCoroutine(RunSequentialThenNotify(horrorEvent));
     }
     
     private IEnumerator RunSequentially(HorrorEvent horrorEvent)
     {
         foreach (var bind in horrorEvent.bindings)
             yield return StartCoroutine(RunBinding(bind));
+    }
+    
+    private IEnumerator RunSequentialThenNotify(HorrorEvent horrorEvent)
+    {
+        foreach (var bind in horrorEvent.bindings)
+            yield return StartCoroutine(RunBinding(bind));
+
+        OnEventCompleted?.Invoke(horrorEvent);
+    }
+    
+    private IEnumerator RunParallelThenNotify(HorrorEvent horrorEvent)
+    {
+        foreach (var bind in horrorEvent.bindings)
+            StartCoroutine(RunBinding(bind));
+
+        yield return null;
+
+        OnEventCompleted?.Invoke(horrorEvent);
     }
     
     

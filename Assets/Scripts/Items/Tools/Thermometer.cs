@@ -22,6 +22,8 @@ namespace Items.Tools
         private float _temperature = 25f;
         private float _targetTemperature = 25f;
         private Cooldown _cooldown = new();
+        
+        public float Temperature => _temperature;
 
         private void OnEnable()
         {

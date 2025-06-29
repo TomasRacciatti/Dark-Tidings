@@ -64,6 +64,7 @@ public class EventManager : MonoBehaviour
                 var lightController = lightObject?.GetComponent<LightController>();
                 yield return StartCoroutine(lta.ExecuteOn(lightController));
             }
+            yield break;
         }
 
         else if (bind.actionDef is ToggleGameObjectAction tga)
@@ -72,6 +73,7 @@ public class EventManager : MonoBehaviour
             {
                 foreach (var target in bind.targets)
                     yield return StartCoroutine(tga.ExecuteOn(target));
+                yield break;
             }
             else
             {

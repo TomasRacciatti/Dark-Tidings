@@ -15,7 +15,7 @@ MonoBehaviour:
   tool: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
   isDefault: 0
   value: Negative
-  result: 'Potential Weakness:
+  result: 'Potential Vulnerability:
 
     Iron - Silver'
   minTemperature: -15

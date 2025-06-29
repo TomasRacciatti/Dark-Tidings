@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 001b560247d5e064cb6757ec9c317c92, type: 3}
-  m_Name: ThermometerNegative
+  m_Script: {fileID: 11500000, guid: 0028ca22362f68b439affb864d0ac635, type: 3}
+  m_Name: ShowJournalTutorial
   m_EditorClassIdentifier: 
-  bindings:
-  - actionDef: {fileID: 11400000, guid: 159837ec87d798d42b8fa90e1da016f6, type: 2}
-    targets: []
-  runInParallel: 0
+  mode: 0
+  objectId: JournalTutorial
+  activate: 1
+  shouldPause: 0

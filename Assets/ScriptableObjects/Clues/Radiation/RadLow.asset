@@ -15,7 +15,7 @@ MonoBehaviour:
   tool: {fileID: 11400000, guid: a8dabc892158ee24b9835e770cb3ad21, type: 2}
   isDefault: 0
   value: 0.1 - 1
-  result: 'Potential Weakness:
+  result: 'Potential Vulnerability:
 
     Ash - Salt'
   minRadiation: 0

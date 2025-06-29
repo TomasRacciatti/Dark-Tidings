@@ -15,7 +15,7 @@ MonoBehaviour:
   tool: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
   isDefault: 0
   value: "0 - 5 \xB0C"
-  result: 'Potential Strength:
+  result: 'Potential Resistance:
 
     Holy Water - Alcohol'
   minTemperature: 0

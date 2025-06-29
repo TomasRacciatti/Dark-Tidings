@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7287ecbb5a3a0684e82a39c2a10da43b, type: 3}
   m_Name: Compass
   m_EditorClassIdentifier: 
-  clueTypeName: Compass Reaction
+  clueTypeName: Magnetic Disturbance
   clue:
   - {fileID: 11400000, guid: fb9b1d64790424f40a306567770e1662, type: 2}
   - {fileID: 11400000, guid: 005121b6087f54b41be7ed3b1cc769f9, type: 2}

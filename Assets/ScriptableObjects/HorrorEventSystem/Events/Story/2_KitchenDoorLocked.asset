@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0e10f654b95a374ab3e6fde56454cb4, type: 3}
-  m_Name: AirCarbonMonoxide
+  m_Script: {fileID: 11500000, guid: 001b560247d5e064cb6757ec9c317c92, type: 3}
+  m_Name: 2_KitchenDoorLocked
   m_EditorClassIdentifier: 
-  tool: {fileID: 0}
-  isDefault: 0
-  value: Carbon Monoxide
-  result: 'Potential Resistance:
-
-    Salt - Ash'
+  bindings:
+  - actionDef: {fileID: 11400000, guid: 5dd26cb7f6cfcb747b109c68628d9704, type: 2}
+    targets: []
+  runInParallel: 1

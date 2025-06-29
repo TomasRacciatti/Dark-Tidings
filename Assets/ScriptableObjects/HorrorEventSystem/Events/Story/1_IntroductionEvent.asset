@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 001b560247d5e064cb6757ec9c317c92, type: 3}
-  m_Name: UseSpiritTunnerEvent
+  m_Name: 1_IntroductionEvent
   m_EditorClassIdentifier: 
   bindings:
-  - actionDef: {fileID: 11400000, guid: a4e1c809a5b2b994084f5ee955363e23, type: 2}
-    target: {fileID: 0}
-  - actionDef: {fileID: 11400000, guid: 3a0efa5c8a12b034c8c4d5094401649b, type: 2}
+  - actionDef: {fileID: 11400000, guid: a9647b03e41de814a9e6388ffd91f285, type: 2}
     target: {fileID: 0}
   runInParallel: 0

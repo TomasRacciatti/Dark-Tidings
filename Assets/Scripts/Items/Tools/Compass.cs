@@ -30,6 +30,8 @@ namespace Items.Tools
         private CompassMode _currentMode = CompassMode.Default;
         private Action _currentRotationBehavior;
         private readonly Dictionary<CompassMode, Action> _modeBehaviors = new();
+        
+        public CompassMode Behavior => _currentMode;
 
         private void Start()
         {

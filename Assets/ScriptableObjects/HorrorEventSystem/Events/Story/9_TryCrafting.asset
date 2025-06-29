@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 001b560247d5e064cb6757ec9c317c92, type: 3}
-  m_Name: CutOff
+  m_Name: 9_TryCrafting
   m_EditorClassIdentifier: 
   bindings:
-  - actionDef: {fileID: 11400000, guid: e1f3d837f7fa75f47bacdbfbf48d247c, type: 2}
-    target: {fileID: 0}
+  - actionDef: {fileID: 11400000, guid: 4f5901e6eb478274fb721184aabaafa7, type: 2}
+    targets: []
   runInParallel: 0

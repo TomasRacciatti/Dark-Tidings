@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 001b560247d5e064cb6757ec9c317c92, type: 3}
-  m_Name: CrossbowPickUo
+  m_Name: 7_NegTempsAdded
   m_EditorClassIdentifier: 
   bindings:
-  - actionDef: {fileID: 11400000, guid: e0e4ceb717741d944b900e5902f13475, type: 2}
-    target: {fileID: 0}
+  - actionDef: {fileID: 11400000, guid: 7fa5131105f34e74b8727acfbc8b265f, type: 2}
+    targets: []
   runInParallel: 0

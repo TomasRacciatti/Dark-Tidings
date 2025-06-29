@@ -9,7 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5117ce7d22f61fe43b17b06ed6b756cb, type: 3}
-  m_Name: LightsFlicker
+  m_Script: {fileID: 11500000, guid: 0028ca22362f68b439affb864d0ac635, type: 3}
+  m_Name: ActivateNegativeTrigger
   m_EditorClassIdentifier: 
-  modeToSet: 2
+  mode: 0
+  objectId: NegativeTrigger
+  activate: 1
+  shouldPause: 0

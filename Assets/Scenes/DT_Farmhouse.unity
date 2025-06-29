@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010322959, g: 0.012767585, b: 0.018013524, a: 1}
+  m_IndirectSpecularColor: {r: 0.01048986, g: 0.012967089, b: 0.018265875, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1315,6 +1315,22 @@ PrefabInstance:
       propertyPath: horrorEvent
       value: 
       objectReference: {fileID: 11400000, guid: 01bfb8476f290bb4890bcb2beba37d2a, type: 2}
+    - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
+      propertyPath: sceneBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
+      propertyPath: sceneBindings.Array.data[0].actionDef
+      value: 
+      objectReference: {fileID: 11400000, guid: bb0354e72639b924f880650bfb96224a, type: 2}
+    - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
+      propertyPath: sceneBindings.Array.data[0].targets.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
+      propertyPath: sceneBindings.Array.data[0].targets.Array.data[0]
+      value: 
+      objectReference: {fileID: 842674930}
     - target: {fileID: 3531206422727090233, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: m_Name
       value: EventVolumeTrigger (1)
@@ -21743,7 +21759,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8098912601968707352, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: m_Size.x
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8098912601968707352, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: m_Size.z
@@ -158556,6 +158572,14 @@ PrefabInstance:
       propertyPath: _detectionOffset.z
       value: 0.26
       objectReference: {fileID: 0}
+    - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+      propertyPath: _maxFlickerInterval
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+      propertyPath: _minFlickerInterval
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Name
       value: RTPointLight (10)
@@ -158625,6 +158649,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+--- !u!1 &842674930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+  m_PrefabInstance: {fileID: 842674929}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &843948338
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -245570,7 +245599,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horrorEvent: {fileID: 11400000, guid: b278d11562b4e344287507fd960bf8a0, type: 2}
-  sceneBindings: []
+  sceneBindings:
+  - actionDef: {fileID: 11400000, guid: febfdad76196572419f7f53398be8635, type: 2}
+    targets:
+    - {fileID: 842674930}
   delaySeconds: 0
   delayedHorrorEvent: {fileID: 0}
   delayedSceneBindings: []

@@ -196,6 +196,8 @@ namespace Objects
             }
             else if (mode == DoorMode.Close)
             {
+                if (!isOpen) return; // Si ya esta cerrada, no hace nada
+                
                 isOpen = false;
                 _audioSource.PlayOneShot(closeSound);
                 StartCoroutine(SlamCloseRoutine(springForce));

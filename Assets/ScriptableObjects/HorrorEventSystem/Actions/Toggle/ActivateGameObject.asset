@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0028ca22362f68b439affb864d0ac635, type: 3}
-  m_Name: ShowJournalTutorial
+  m_Name: ActivateGameObject
   m_EditorClassIdentifier: 
-  mode: 0
-  objectId: JournalTutorial
+  mode: 1
+  objectId: 
   activate: 1
   shouldPause: 0

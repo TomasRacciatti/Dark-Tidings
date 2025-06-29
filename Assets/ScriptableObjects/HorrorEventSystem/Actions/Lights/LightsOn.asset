@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5117ce7d22f61fe43b17b06ed6b756cb, type: 3}
   m_Name: LightsOn
   m_EditorClassIdentifier: 
-  modeToSet: 0
+  modeToSet: 1

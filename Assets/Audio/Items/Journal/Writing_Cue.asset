@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea1a920a5b53e54aa92d42be3cc3e4e, type: 3}
+  m_Name: Writing_Cue
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: ced06301919138e4ab0849d524a2cf25, type: 3}
+  - {fileID: 8300000, guid: 943041bf7f5cd7f45950c49cd9fca474, type: 3}
+  - {fileID: 8300000, guid: b30afb4a9049dce488868b1752235802, type: 3}
+  - {fileID: 8300000, guid: 363fe5467e171024ab6dae3730d2a426, type: 3}
+  - {fileID: 8300000, guid: d6aa5d22fdb58dd4e8cf447b2bcf1a7b, type: 3}

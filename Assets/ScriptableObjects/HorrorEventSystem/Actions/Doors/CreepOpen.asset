@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: CreepOpen
   m_EditorClassIdentifier: 
   mode: 0
-  targetAngle: 75
-  springForce: 15
+  targetAngle: 60
+  springForce: 10

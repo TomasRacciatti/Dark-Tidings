@@ -193,6 +193,12 @@ namespace Objects
                 isOpen = true;
                 _lastOpenedAngle = Mathf.Clamp(targetAngle, -openedAngle, openedAngle);
                 _audioSource.PlayOneShot(openSound);
+                
+                Setup();
+                
+                var spring = _hinge.spring;
+                spring.spring = springForce;
+                _hinge.spring = spring;
             }
             else if (mode == DoorMode.Close)
             {
@@ -201,7 +207,6 @@ namespace Objects
                 isOpen = false;
                 _audioSource.PlayOneShot(closeSound);
                 StartCoroutine(SlamCloseRoutine(springForce));
-                return;
             }
         } 
         

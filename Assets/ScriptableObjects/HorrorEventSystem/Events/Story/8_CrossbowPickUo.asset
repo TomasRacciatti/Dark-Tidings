@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bindings:
   - actionDef: {fileID: 11400000, guid: e0e4ceb717741d944b900e5902f13475, type: 2}
-    target: {fileID: 0}
-  runInParallel: 0
+    targets: []
+  - actionDef: {fileID: 11400000, guid: 86c14e5c4b006f64ba95c22aca6c35f7, type: 2}
+    targets: []
+  runInParallel: 1

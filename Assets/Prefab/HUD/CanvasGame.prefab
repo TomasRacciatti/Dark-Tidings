@@ -5161,7 +5161,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7337570856433149851
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7300,7 +7300,7 @@ MonoBehaviour:
   delayedSceneBindings: []
   fireOnce: 1
   targetValue: Negative
-  holdDuration: 1
+  holdDuration: 0.5
   _journalEntryController: {fileID: 4180575815523318089}
 --- !u!1 &8148700740553775592
 GameObject:
@@ -7313,6 +7313,7 @@ GameObject:
   - component: {fileID: 1391230832182886436}
   - component: {fileID: 6990469705079620153}
   - component: {fileID: 198867395060695565}
+  - component: {fileID: 8607211146274334672}
   m_Layer: 5
   m_Name: AllInventory
   m_TagString: Untagged
@@ -7374,6 +7375,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectId: NegativeTrigger
   targetObject: {fileID: 8123221482824918511}
+--- !u!114 &8607211146274334672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8148700740553775592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4133fd52fc0bc34ea7c25af1f5679ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectId: CraftingMenu
+  targetObject: {fileID: 5901935790005853409}
 --- !u!1 &8198694150618168224
 GameObject:
   m_ObjectHideFlags: 0

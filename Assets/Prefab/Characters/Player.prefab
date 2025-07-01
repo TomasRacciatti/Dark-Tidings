@@ -1896,7 +1896,7 @@ GameObject:
   - component: {fileID: 7465821319183596726}
   - component: {fileID: 45449125392995199}
   m_Layer: 16
-  m_Name: Brazos
+  m_Name: Handheld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3247,13 +3247,57 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4455596597054105705, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1801660486459544307}
   m_SourcePrefab: {fileID: 100100000, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+--- !u!114 &4246535419037359940 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7197668492489710256, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+  m_PrefabInstance: {fileID: 6417057916230616564}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266713384468458909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4bd738953527804fb7e23a8ab447918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6560804917660428315 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 144486148121685487, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
   m_PrefabInstance: {fileID: 6417057916230616564}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7266713384468458909 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4455596597054105705, guid: 5fe3eaa0329abf140841f3ec002c22b5, type: 3}
+  m_PrefabInstance: {fileID: 6417057916230616564}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1801660486459544307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266713384468458909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b464da45b887459428c0229aafac0dec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horrorEvent: {fileID: 11400000, guid: 1c6d304910f4602498eb7d832bc2a6a7, type: 2}
+  sceneBindings: []
+  delaySeconds: 0
+  delayedHorrorEvent: {fileID: 0}
+  delayedSceneBindings: []
+  fireOnce: 1
+  thermometer: {fileID: 4246535419037359940}
+  compass: {fileID: 0}
+  checkInterval: 0.5
+  conditions:
+  - kind: 0
+    numericThreshold: 0
+    compassBehavior: 0
 --- !u!1001 &7657461672868429276
 PrefabInstance:
   m_ObjectHideFlags: 0

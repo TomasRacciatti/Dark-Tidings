@@ -93,14 +93,11 @@ namespace Inventory.View
             switch (eventData.button)
             {
                 case PointerEventData.InputButton.Left:
-                    Debug.Log("Click izquierdo");
                     break;
                 case PointerEventData.InputButton.Right:
-                    Debug.Log("Click derecho");
+                    SplitItem();
                     break;
                 case PointerEventData.InputButton.Middle:
-                    Debug.Log("Click del botón del medio");
-                    SplitItem();
                     break;
             }
         }

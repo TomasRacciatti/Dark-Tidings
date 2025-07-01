@@ -1,3 +1,4 @@
+using System;
 using Items.Base;
 using Objects.Clues;
 using UnityEngine;
@@ -12,10 +13,16 @@ namespace Items.Tools
         [SerializeField] private MeshRenderer screen;
         [SerializeField] private Material defaultMaterial;
         [SerializeField] private Material detectionMaterial;
-    
+        [SerializeField] private Animator animator;
+
         public override void Use(UseType useType)
         {
         
+        }
+
+        private void OnEnable()
+        {
+            animator.SetTrigger("Spirit");
         }
 
         // Update is called once per frame

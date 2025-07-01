@@ -17,7 +17,7 @@ public class ActivateEnemyAction : HorrorActionSO
         var enemy = target.GetComponent<EnemyController>();
         if (enemy != null)
         {
-            enemy.isActive = activate;
+            enemy.SetActive(activate);
         }
         else
         {

@@ -770,6 +770,7 @@ MonoBehaviour:
   resultText: {fileID: 5678748483512213630}
   leftArrow: {fileID: 2483212441999415014}
   rightArrow: {fileID: 5044997450723079708}
+  audioCue: {fileID: 11400000, guid: b3bd202843b3b474e98bb70ba8b7ac29, type: 2}
 --- !u!1 &8532459664153131103
 GameObject:
   m_ObjectHideFlags: 0

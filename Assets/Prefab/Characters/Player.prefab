@@ -3111,16 +3111,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 3447135883986483060}
     m_Modifications:
     - target: {fileID: 784638909439449398, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 784638909439449398, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 784638909439449398, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 784638909439449398, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.0089
       objectReference: {fileID: 0}
     - target: {fileID: 784638909439449398, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.036
       objectReference: {fileID: 0}
     - target: {fileID: 784638909439449398, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0583
       objectReference: {fileID: 0}
     - target: {fileID: 784638909439449398, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3150,9 +3162,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 784638909439449398, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9215843155192302155, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
       propertyPath: m_Name
       value: Compass
+      objectReference: {fileID: 0}
+    - target: {fileID: 9215843155192302155, guid: 944795fc4c68529469d79a89c09239a1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3439,6 +3459,10 @@ PrefabInstance:
     - target: {fileID: 4776498118628300235, guid: ace082a077df8ff4b90862c87f0816ef, type: 3}
       propertyPath: m_Name
       value: Crossbow
+      objectReference: {fileID: 0}
+    - target: {fileID: 4776498118628300235, guid: ace082a077df8ff4b90862c87f0816ef, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5228353479462233569, guid: ace082a077df8ff4b90862c87f0816ef, type: 3}
       propertyPath: m_LocalPosition.x

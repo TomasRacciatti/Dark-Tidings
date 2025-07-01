@@ -59,7 +59,7 @@ namespace Inventory.Model
             if (!_itemCraft.IsEmpty)
             {
                 text.text = "Craft " + _itemCraft.ItemName;
-                image.sprite = _itemCraft.SoItem.Image;
+                image.sprite = _itemCraft.SoItem.Image2(_itemCraft.Modifiers);
                 return;
             }
             text.text = "No Recipe";

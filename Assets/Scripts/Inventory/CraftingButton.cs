@@ -19,7 +19,7 @@ public class CraftingButton : MonoBehaviour
     private void Awake()
     {
         textMesh.text = soItem.ItemName;
-        image.sprite = soItem.Image;
+        //image.sprite = soItem.Image2(itemAmount.Modifiers);
     }
 
     public void Click()

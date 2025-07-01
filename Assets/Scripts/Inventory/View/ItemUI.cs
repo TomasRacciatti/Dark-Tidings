@@ -17,7 +17,7 @@ namespace Inventory.View
 
         /*[HideInInspector]*/ public ItemAmount itemAmount;
         private Canvas _canvas;
-
+        
         private void Awake()
         {
             _canvas = GetComponent<Canvas>();
@@ -27,7 +27,7 @@ namespace Inventory.View
         public void SetItem(ItemAmount newItemAmount)
         {
             itemAmount = newItemAmount;
-            image.sprite = itemAmount.SoItem.Image;
+            image.sprite = itemAmount.SoItem.Image2(itemAmount.Modifiers);
             RefreshCount();
             ValidateEquippable();
         }

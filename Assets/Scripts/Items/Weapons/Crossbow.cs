@@ -6,51 +6,73 @@ using Items.Base;
 using Managers;
 using Managers.ObjectPool;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Items.Weapons
 {
     public class Crossbow : ItemEquippable
     {
+        [Header("Setup")]
         [SerializeField] private GameObject _boltPrefab;
         [SerializeField] private Transform _firePoint;
         [SerializeField] private SO_Item _bolt;
+        [SerializeField] private GameObject _boltObject;
+
+        [Header("Animators")]
+        [SerializeField] private Animator handsAnimator;
+        [SerializeField] private Animator crossbowAnimator;
+        [SerializeField] private Animator boltAnimator; // Usar si se necesita
+
+        [Header("Aiming")]
         [SerializeField] private float recoilStrength = 0.2f;
-        private bool _isAiming = false;
-
-        private ItemAmount _boltType = new();
-        private InventorySystem _inventorySystem;
-        private InventorySystem _boltInventorySystem;
+        [SerializeField] private float aimAccuracySpeed = 0.4f;
+        [SerializeField] private float maxAccuracy = 1f;
+        [SerializeField] private float minAccuracy = 0.5f;
+        [SerializeField] private float spreadAngle = 15f;
+        [SerializeField] private float minSpread = 150f;
+        [SerializeField] private float maxSpread = 4f;
         
-        [SerializeField] private float aimAccuracySpeed = 2f; // velocidad de aumento
-        [SerializeField] private float maxAccuracy = 1f;      // 100% de precisión
-        [SerializeField] private float minAccuracy = 0.5f;    // sin apuntar
-        [SerializeField] private float spreadAngle = 5f;      // desvío máximo
-
         private float _accuracy = 0.5f;
+        private bool _isAiming = false;
+        private bool _isCharged = false;
+        private bool _isReloading = false;
+        private float _timeReload = 1.5f;
+
+        private ItemAmount _boltType = new(null, 0);
+        private InventorySystem _boltInventorySystem;
 
         private void Start()
         {
-            _inventorySystem = GameManager.Player.inventory;
             _boltInventorySystem = GameManager.Canvas.inventoryManager.boltsInventorySystem;
         }
 
         private void OnEnable()
         {
-            GameManager.Canvas.crosshairUI.gameObject.SetActive(true);
+            GameManager.Canvas.crosshairCrossbow.gameObject.SetActive(true);
+            GameManager.Canvas.crosshairDefault.gameObject.SetActive(false);
         }
 
         private void OnDisable()
         {
             StopAiming();
             if (GameManager.Canvas == null) return;
-            GameManager.Canvas.crosshairUI.gameObject.SetActive(false);
+            GameManager.Canvas.crosshairCrossbow.gameObject.SetActive(false);
+            GameManager.Canvas.crosshairDefault.gameObject.SetActive(true);
         }
         
         private void Update()
         {
             float targetAccuracy = _isAiming ? maxAccuracy : minAccuracy;
             _accuracy = Mathf.MoveTowards(_accuracy, targetAccuracy, Time.deltaTime * aimAccuracySpeed);
-            GameManager.Canvas.crosshairUI.sizeDelta = new Vector2(50 / _accuracy, 50 / _accuracy);
+            float spread = Mathf.Lerp(minSpread, maxSpread, Mathf.InverseLerp(minAccuracy, maxAccuracy, _accuracy));
+            GameManager.Canvas.crosshairCrossbow.sizeDelta = new Vector2(spread, spread);
+        }
+
+        private void Animate(string anim)
+        {
+            handsAnimator.SetTrigger(anim);
+            crossbowAnimator.SetTrigger(anim);
+            boltAnimator.SetTrigger(anim);
         }
 
         public override void Use(UseType useType)
@@ -70,15 +92,32 @@ namespace Items.Weapons
                     Reload1();
                     break;
                 case UseType.Reload2:
+                    if (!_isCharged) return;
                     if (!_boltType.IsEmpty) return;
-                    Reload2();
+                    if (Reload2())
+                    {
+                        Animate("Reload2");
+                    }
                     break;
                 case UseType.Reload3:
-                    if (!_boltType.IsEmpty) _boltInventorySystem.AddItem(ref _boltType);
+                    if (!_isCharged) return;
+                    bool hasBolt = false;
+                    if (!_boltType.IsEmpty)
+                    {
+                        hasBolt = true;
+                        _boltInventorySystem.AddItem(ref _boltType);
+                    }
                     if (!_boltType.IsEmpty) GameManager.Player.AddItem(ref _boltType);
                     _boltType = new ItemAmount();
                     _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 0, 1);
-                    Reload2();
+                    if (Reload2())
+                    {
+                        Animate(hasBolt ? "Change" : "Reload2");
+                        if (hasBolt)
+                        {
+                            _boltObject.SetActive(true);
+                        }
+                    }
                     break;
             }
         }
@@ -86,13 +125,17 @@ namespace Items.Weapons
         private void Reload1()
         {
             if (!_boltType.IsEmpty) return;
-            Debug.Log("Reload animation started:");
+            if (!_boltInventorySystem.HasItem(_bolt)) return;
+            Animate("Reload1");
+            _boltObject.SetActive(true);
+            _isCharged = true;
+            _isReloading = true;
         }
         
-        private void Reload2()
+        private bool Reload2()
         {
             ItemAmount bolt = _boltInventorySystem.GetFirstSoItem(_bolt);
-            if (bolt.IsEmpty) return;
+            if (bolt.IsEmpty) return false;
 
             // Creamos una copia con cantidad 1 para removerla
             _boltType = new ItemAmount(bolt);
@@ -100,10 +143,20 @@ namespace Items.Weapons
             
             ItemAmount boltToRemove = new ItemAmount(bolt.SoItem, 1, bolt.Modifiers);
             _boltInventorySystem.RemoveItem(ref boltToRemove);
+            _isReloading = true;
+            Invoke(nameof(FinishReloading), _timeReload);
+            return true;
+        }
+
+        private void FinishReloading()
+        {
+            _isReloading = false;
         }
         
         private void Fire()
         {
+            //if (!_isAiming) return;
+            if (_isReloading) return;
             if (_boltType.IsEmpty)
                 return;
 
@@ -141,11 +194,12 @@ namespace Items.Weapons
 
             GameObject boltInstance = ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, finalRotation, 10f);
             boltInstance.GetComponent<Bolt>().SetModifiers(_boltType.Modifiers);
+            Animate("Fire");
+            _boltObject.SetActive(false);
 
             _boltType = new ItemAmount();
+            _isCharged = false;
         }
-
-
         
         private void StartAiming()
         {
@@ -155,7 +209,6 @@ namespace Items.Weapons
         private void StopAiming()
         {
             _isAiming = false;
-
         }
     }
 }

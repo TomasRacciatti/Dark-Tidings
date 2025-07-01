@@ -13,12 +13,14 @@ namespace Inventory.Model
         [SerializeField] private TMP_Text text;
         [SerializeField] private Image image;
         [SerializeField] private List<SO_Item> metals;
-        private ItemAmount _itemCraft;
+        [SerializeField] private Sprite noRecipeImage;
+        private ItemAmount _itemCraft = new();
         private InventorySystem _playerInventorySystem;
 
         private void Start()
         {
             _playerInventorySystem = GameManager.Player.inventory;
+            UpdateInfo();
         }
 
         protected override void NotifyItemChanged(int index)
@@ -61,28 +63,17 @@ namespace Inventory.Model
                 return;
             }
             text.text = "No Recipe";
-            image.sprite = null;
+            image.sprite = noRecipeImage;
         }
 
         public void CraftItem()
         {
             if (_itemCraft.IsEmpty) return;
-            if (!Items[3].IsEmpty) return;
-            SetItemByIndex(3, _itemCraft);
+            _playerInventorySystem.AddItem(ref _itemCraft);
             RemoveItemByIndex(0,1);
             RemoveItemByIndex(1,1);
             RemoveItemByIndex(2,1);
             UpdateCrafting();
-        }
-
-        public void GiveItemCrafted()
-        {
-            if (Items[3].IsEmpty) return;
-            var craftedItem = Items[3];
-            _playerInventorySystem.AddItem(ref craftedItem);
-            Items[3] = craftedItem;
-            //Items[3].Clear();
-            NotifyItemChanged(3);
         }
 
         private void OnDisable()

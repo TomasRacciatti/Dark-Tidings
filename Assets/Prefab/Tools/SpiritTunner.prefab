@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 431911290819269237}
   - component: {fileID: 6176491881176100219}
   - component: {fileID: 2101853321529349198}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 8739076113089369849}
   - component: {fileID: 2879438269961055047}
   - component: {fileID: 1913146321702530175}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7763482166233578422}
   - component: {fileID: 3363121986713306807}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: SpiritTunner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,6 +257,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soItem: {fileID: 11400000, guid: 2aaed05348d710c449b5bbc562f65f37, type: 2}
+  itemAmount:
+    amount: 0
+    soItem: {fileID: 0}
   clueLayerMask:
     serializedVersion: 2
     m_Bits: 32768

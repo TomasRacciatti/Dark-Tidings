@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9123685595846338561}
   - component: {fileID: 6592330524283252827}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: Key
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,6 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soItem: {fileID: 11400000, guid: 77367ca7c480d744880ea706eef0c73c, type: 2}
+  itemAmount:
+    amount: 0
+    soItem: {fileID: 0}
 --- !u!1 &8039570195107601620
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +61,7 @@ GameObject:
   - component: {fileID: 2696090073669967305}
   - component: {fileID: 5886320963272158989}
   - component: {fileID: 5460285222745261537}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: Borrar
   m_TagString: Untagged
   m_Icon: {fileID: 0}

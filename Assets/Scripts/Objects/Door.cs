@@ -79,16 +79,19 @@ namespace Objects
                 return;
             }
 
-            Toolbar toolbar = interactableObject.GetComponent<Toolbar>();
-            if (toolbar.GetItem().SoItem == keyItem)
+            if (isLocked) // para no cerrar puerta
             {
-                if (Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)) <= 5f)
+                Toolbar toolbar = interactableObject.GetComponent<Toolbar>();
+                if (toolbar.GetItem().SoItem == keyItem)
                 {
-                    LockDoor(!isLocked);
+                    if (Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)) <= 5f)
+                    {
+                        LockDoor(!isLocked);
+                    }
+                    return;
                 }
-                return;
             }
-
+            
             if (IsActuallyLocked)
             {
                 StartCoroutine(ForceDoor());

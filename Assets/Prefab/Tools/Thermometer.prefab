@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8614300931109342550}
   - component: {fileID: 3280939701631498655}
   - component: {fileID: 1099915947994796851}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: Body1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 9598038845365915}
   - component: {fileID: 593748165649145897}
   - component: {fileID: 285604694405837527}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 7476195826005419675}
   - component: {fileID: 5184467147384033154}
   - component: {fileID: 891899044872764701}
-  m_Layer: 5
+  m_Layer: 16
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -351,7 +351,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5211983355801730199}
   - component: {fileID: 7579158936670888186}
-  m_Layer: 1
+  - component: {fileID: 9151583778465634575}
+  m_Layer: 16
   m_Name: Thermometer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,12 +390,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soItem: {fileID: 11400000, guid: 9204985dd3455b24c9b0d4bd549f3bfd, type: 2}
+  itemAmount:
+    amount: 0
+    soItem: {fileID: 0}
   text: {fileID: 891899044872764701}
   defaultTemp: {fileID: 11400000, guid: c7b06b362c408c5439ded185b6e1e3e2, type: 2}
   clueLayerMask:
     serializedVersion: 2
     m_Bits: 32768
   cooldownTime: 5
+  lerpSpeed: 0.5
+  detectionRadius: 1
+--- !u!114 &9151583778465634575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6076981128630292790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b464da45b887459428c0229aafac0dec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horrorEvent: {fileID: 11400000, guid: 1c6d304910f4602498eb7d832bc2a6a7, type: 2}
+  sceneBindings: []
+  delaySeconds: 0
+  delayedHorrorEvent: {fileID: 0}
+  delayedSceneBindings: []
+  fireOnce: 1
+  thermometer: {fileID: 7579158936670888186}
+  compass: {fileID: 0}
+  checkInterval: 0.5
+  conditions:
+  - kind: 0
+    numericThreshold: 0
+    compassBehavior: 0
 --- !u!1 &6394018305517521743
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +438,7 @@ GameObject:
   - component: {fileID: 5569825308977842132}
   - component: {fileID: 2196608652754217922}
   - component: {fileID: 7271066364180222539}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: Body2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

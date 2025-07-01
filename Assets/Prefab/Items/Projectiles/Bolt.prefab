@@ -134,7 +134,7 @@ MonoBehaviour:
   _layerMask:
     serializedVersion: 2
     m_Bits: 26049
-  damage: 25
+  damage: 10
   force: 50
 --- !u!136 &1095582539407874200
 CapsuleCollider:

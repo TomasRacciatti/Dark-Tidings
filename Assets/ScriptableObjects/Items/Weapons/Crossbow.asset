@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crossbow
   m_EditorClassIdentifier: 
   itemName: Crossbow
-  image: {fileID: 21300000, guid: 24baa24f342c8d54da766db691ae8d67, type: 3}
+  image: {fileID: 21300000, guid: f2e63b05f6fa8304b9ccf8ff80ad6cca, type: 3}
   description: "\rWeapon that Uses Bolts."
   modifierName: 
   modifierPriority: 0

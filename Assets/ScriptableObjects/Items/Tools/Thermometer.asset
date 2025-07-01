@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Thermometer
   m_EditorClassIdentifier: 
   itemName: Thermometer
-  image: {fileID: 21300000, guid: 976fb7ac876bc5344b78ebfb53d68635, type: 3}
+  image: {fileID: 21300000, guid: 231fe97c707966a4ca8ce6771b875eac, type: 3}
   description: Tells Temperature
   modifierName: 
   modifierPriority: 0

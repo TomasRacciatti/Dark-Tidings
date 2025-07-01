@@ -44,6 +44,10 @@ namespace Items.Weapons
         private void Start()
         {
             _boltInventorySystem = GameManager.Canvas.inventoryManager.boltsInventorySystem;
+            if (_boltType.IsEmpty)
+            {
+                _boltObject.SetActive(false);
+            }
         }
 
         private void OnEnable()

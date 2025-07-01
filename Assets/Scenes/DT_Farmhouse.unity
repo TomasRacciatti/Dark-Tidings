@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010651589, g: 0.013162898, b: 0.018523308, a: 1}
+  m_IndirectSpecularColor: {r: 0.010486231, g: 0.012964474, b: 0.018269302, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -47636,6 +47636,10 @@ PrefabInstance:
       propertyPath: m_Intensity
       value: 9.588235
       objectReference: {fileID: 0}
+    - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _initialMode
       value: 2
@@ -83347,6 +83351,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3805179179299988046, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5114891045770344201, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -83354,6 +83362,10 @@ PrefabInstance:
     - target: {fileID: 5288699641106407109, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_Name
       value: Wall_Lampara (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6018997913005705205, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -88008,6 +88020,10 @@ PrefabInstance:
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Intensity
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_ColorTemperature
@@ -100307,11 +100323,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Range
-      value: 5.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Intensity
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_ColorTemperature
@@ -127854,6 +127874,10 @@ PrefabInstance:
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Intensity
       value: 2.7049484
+      objectReference: {fileID: 0}
+    - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _activeDistance
@@ -160036,6 +160060,10 @@ PrefabInstance:
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Intensity
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
+      propertyPath: m_Lightmapping
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1336317437671197286, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: _activeDistance
@@ -237141,7 +237169,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Range
-      value: 16
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Intensity
@@ -237157,7 +237185,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_Lightmapping
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_ColorTemperature
@@ -237165,7 +237193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 16
+      value: 8.481216
       objectReference: {fileID: 0}
     - target: {fileID: 467417686068450464, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_BoundingSphereOverride.z
@@ -424320,6 +424348,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1430227347997583315, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.4
@@ -424367,6 +424399,10 @@ PrefabInstance:
     - target: {fileID: 5288699641106407109, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_Name
       value: Wall_Lampara
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044947326881560391, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

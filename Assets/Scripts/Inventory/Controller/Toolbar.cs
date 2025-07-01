@@ -21,7 +21,7 @@ namespace Inventory.Controller
         private void Start()
         {
             inventorySystem = InventoryUtility.SetInventoryObserver(null, inventorySystem, this);
-            ItemsInHand.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
+            ItemsInHand.Instance.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
         }
 
         public ItemAmount GetItem()
@@ -35,7 +35,7 @@ namespace Inventory.Controller
             if (index == selectedSlot) return;
             if (!inventorySystem.ValidIndex(index)) return;
             selectedSlot = index;
-            ItemsInHand.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
+            ItemsInHand.Instance.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
             GameManager.Canvas.inventoryManager.toolbarUI.ChangeSelectedSlot(selectedSlot);
         }
 
@@ -43,7 +43,7 @@ namespace Inventory.Controller
         {
             ItemAmount item = currentItems[selectedSlot];
             if (item == null) return;
-            ItemsInHand.SetItemEquipped(item.SoItem);
+            ItemsInHand.Instance.SetItemEquipped(item.SoItem);
         }
 
         public void OnItemChanged(int index, ItemAmount newItem)
@@ -51,7 +51,7 @@ namespace Inventory.Controller
             if (!inventorySystem.ValidIndex(index)) return;
             if (index != selectedSlot) return;
             
-            ItemsInHand.SetItemEquipped(newItem.SoItem);
+            ItemsInHand.Instance.SetItemEquipped(newItem.SoItem);
         }
     }
 }

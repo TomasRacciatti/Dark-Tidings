@@ -1016,6 +1016,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedItem: {fileID: 0}
+  hands: {fileID: 45449125392995199}
 --- !u!1 &4120806157424626380
 GameObject:
   m_ObjectHideFlags: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010486231, g: 0.012964474, b: 0.018269302, a: 1}
+  m_IndirectSpecularColor: {r: 0.010403358, g: 0.012862714, b: 0.018130975, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -126225,6 +126225,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 950501747}
     m_Modifications:
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _activeDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.x
+      value: -3.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.y
+      value: -1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.z
+      value: 2.57
+      objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.3840017
@@ -126280,6 +126296,22 @@ PrefabInstance:
     - target: {fileID: 5288699641106407109, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_Name
       value: Wall_Lampara (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _activeDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.x
+      value: -3.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.y
+      value: -1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.z
+      value: 2.57
       objectReference: {fileID: 0}
     - target: {fileID: 8087732311024949954, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: _activeDistance
@@ -207588,19 +207620,27 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1947927925}
     m_Modifications:
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _activeDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.x
+      value: 6.08
+      objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15.8859
+      value: -9.385899
       objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.5207
+      value: 0.3701172
       objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 21.7596
+      value: 6.7595997
       objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -207608,15 +207648,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -207642,6 +207682,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Lampara
       objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _activeDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.x
+      value: 6.08
+      objectReference: {fileID: 0}
     - target: {fileID: 8087732311024949954, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: _activeDistance
       value: 7
@@ -207655,6 +207703,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+--- !u!4 &1266319939 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+  m_PrefabInstance: {fileID: 1266319938}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1267137608 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 198752618492679416, guid: e7acceabbce9c1b41a878844520f124c, type: 3}
@@ -266930,6 +266983,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 950501747}
     m_Modifications:
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _activeDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.x
+      value: -3.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.y
+      value: -1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.z
+      value: -0.6
+      objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.3840017
@@ -266981,6 +267050,22 @@ PrefabInstance:
     - target: {fileID: 5288699641106407109, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_Name
       value: Wall_Lampara (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _activeDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.x
+      value: -3.54
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.y
+      value: -1.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.z
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: 8087732311024949954, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: _activeDistance
@@ -323717,6 +323802,7 @@ Transform:
   - {fileID: 985338496}
   - {fileID: 1213812480402231279}
   - {fileID: 5808010663504898279}
+  - {fileID: 1266319939}
   - {fileID: 379380712}
   m_Father: {fileID: 238204072}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -423702,6 +423788,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1820512803}
     m_Modifications:
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _activeDistance
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.x
+      value: 1.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.y
+      value: -1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1607204004676274544, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.z
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.6665471
@@ -423745,6 +423847,22 @@ PrefabInstance:
     - target: {fileID: 5288699641106407109, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_Name
       value: Wall_Lampara (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _activeDistance
+      value: 3.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.x
+      value: 1.78
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.y
+      value: -1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944028657583105324, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: _detectionOffset.z
+      value: 0.7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -424350,7 +424468,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1430227347997583315, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1430227347997583315, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: m_Intensity
+      value: 1.0204177
       objectReference: {fileID: 0}
     - target: {fileID: 2296150445228977392, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -424392,6 +424514,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3805179179299988046, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5114891045770344201, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -424400,9 +424526,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall_Lampara
       objectReference: {fileID: 0}
+    - target: {fileID: 6018997913005705205, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9044947326881560391, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9044947326881560391, guid: 1cc4121ac11d7884cb6bbd08f61af7b4, type: 3}
+      propertyPath: m_Intensity
+      value: 6.1225066
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
@@ -424841,4 +424975,3 @@ SceneRoots:
   - {fileID: 217036615}
   - {fileID: 247036715}
   - {fileID: 1033128091104000031}
-  - {fileID: 1266319938}

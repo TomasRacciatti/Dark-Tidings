@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5253178971817492143}
   - component: {fileID: 9044947326881560391}
   - component: {fileID: 2170977361767385029}
+  - component: {fileID: 1607204004676274544}
   m_Layer: 0
   m_Name: Spot Light_Down
   m_TagString: Untagged
@@ -84,7 +85,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
@@ -217,6 +218,31 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &1607204004676274544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3805179179299988046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1200fcff9ad34a46a45a431c957188c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeDistance: 20
+  _detectionOffset: {x: 0, y: 0, z: 0}
+  _playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _player: {fileID: 0}
+  _initialMode: 1
+  _fadeSpeed: 2
+  _minFlickerInterval: 0.05
+  _maxFlickerInterval: 0.3
+  _pattern:
+  - 0.5
+  - 0.5
 --- !u!1 &5288699641106407109
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +288,7 @@ GameObject:
   - component: {fileID: 805682950707800866}
   - component: {fileID: 1430227347997583315}
   - component: {fileID: 8666208839727756503}
+  - component: {fileID: 6944028657583105324}
   m_Layer: 0
   m_Name: Spot Light_Up
   m_TagString: Untagged
@@ -335,7 +362,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 2
   m_AreaSize: {x: 0.5, y: 0.5}
   m_BounceIntensity: 1
@@ -468,6 +495,31 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 0
   m_AreaLightShape: 0
+--- !u!114 &6944028657583105324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6018997913005705205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1200fcff9ad34a46a45a431c957188c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _activeDistance: 20
+  _detectionOffset: {x: 0, y: 0, z: 0}
+  _playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  _player: {fileID: 0}
+  _initialMode: 1
+  _fadeSpeed: 2
+  _minFlickerInterval: 0.05
+  _maxFlickerInterval: 0.3
+  _pattern:
+  - 0.5
+  - 0.5
 --- !u!1 &6278103063512585265
 GameObject:
   m_ObjectHideFlags: 0

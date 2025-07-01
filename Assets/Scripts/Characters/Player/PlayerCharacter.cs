@@ -2,6 +2,7 @@ using Inventory.Model;
 using Items.Base;
 using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Characters.Player
 {
@@ -16,16 +17,11 @@ namespace Characters.Player
             base.Awake();
             playerController = GetComponent<PlayerController>();
             inventory = GetComponent<InventorySystem>();
-            _healthComponent.OnDeath += ShowGameOverScreen;
+            _healthComponent.OnDeath += Lose;
             _playerView  = GetComponent<PlayerView>();
 
             _healthComponent.OnDamaged += (damage, modifiers) =>
                 _playerView.Damaged();
-        }
-        
-        private void ShowGameOverScreen()
-        {
-            GameManager.Canvas.LostUI.gameObject.SetActive(true);
         }
 
         public void AddItem(ref ItemAmount itemAmount)
@@ -33,6 +29,11 @@ namespace Characters.Player
             inventory.AddItem(ref itemAmount);
             if (itemAmount.IsEmpty) return;
             ItemDropper.Drop(itemAmount);
+        }
+
+        private void Lose()
+        {
+            SceneManager.LoadScene("Lose");
         }
     }
 }

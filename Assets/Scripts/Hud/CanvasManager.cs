@@ -12,7 +12,6 @@ namespace Hud
         [SerializeField] public InventoryManager inventoryManager;
         [SerializeField] public TextMeshProUGUI LostUI;
         [SerializeField] public PausedMenu PauseMenu;
-        [SerializeField] public RectTransform crosshairDefault;
         [SerializeField] public RectTransform crosshairCrossbow;
         [SerializeField] public GameObject toolbarUI;
         

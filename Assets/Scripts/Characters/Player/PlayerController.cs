@@ -69,6 +69,9 @@ namespace Characters.Player
             _inputEvents = GetComponent<InputsEvents>();
             _playerView = GetComponent<PlayerView>();
             _character = GetComponent<Character>();
+            
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Start()

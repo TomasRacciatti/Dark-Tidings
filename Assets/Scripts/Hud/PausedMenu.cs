@@ -1,5 +1,6 @@
 using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Hud
 {
@@ -19,6 +20,11 @@ namespace Hud
         public void QuitGame()
         {
             GameManager.QuitGame();
+        }
+
+        public void Menu()
+        {
+            SceneManager.LoadScene("Menu");
         }
     }
 }

@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Menu.unity
+    guid: 95d191e74a665474e9795397e03ac4c6
+  - enabled: 1
     path: Assets/Scenes/DT_Farmhouse.unity
     guid: 737b576059df6024d832a92f6f9b8520
+  - enabled: 1
+    path: Assets/Scenes/Lose.unity
+    guid: 8a5c3a57f1da82849963db827582afa4
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: a8d801fed6b3e9f499e3d41919ac7694, type: 2}

@@ -482,15 +482,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9112134440749212408, guid: f58a933dc21b0e6488b280bc3145da91, type: 3}
       propertyPath: m_text
-      value: Dark Tidings
+      value: You lose
       objectReference: {fileID: 0}
     - target: {fileID: 9112134440749212408, guid: f58a933dc21b0e6488b280bc3145da91, type: 3}
       propertyPath: m_fontSize
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 9112134440749212408, guid: f58a933dc21b0e6488b280bc3145da91, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112134440749212408, guid: f58a933dc21b0e6488b280bc3145da91, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112134440749212408, guid: f58a933dc21b0e6488b280bc3145da91, type: 3}
+      propertyPath: m_fontColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112134440749212408, guid: f58a933dc21b0e6488b280bc3145da91, type: 3}
       propertyPath: m_fontSizeBase
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9112134440749212408, guid: f58a933dc21b0e6488b280bc3145da91, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190335
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -608,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1806694144640897495, guid: b2e02ac8c11d4bb4faf1cd5e3b42a940, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Play
+      value: GoToMenu
       objectReference: {fileID: 0}
     - target: {fileID: 1806694144640897495, guid: b2e02ac8c11d4bb4faf1cd5e3b42a940, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -624,7 +640,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6004817110466800455, guid: b2e02ac8c11d4bb4faf1cd5e3b42a940, type: 3}
       propertyPath: m_text
-      value: Play
+      value: Main Menu
       objectReference: {fileID: 0}
     - target: {fileID: 6004817110466800455, guid: b2e02ac8c11d4bb4faf1cd5e3b42a940, type: 3}
       propertyPath: m_fontSize

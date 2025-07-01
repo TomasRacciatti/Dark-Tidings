@@ -42,6 +42,16 @@ namespace Characters.Enemies
             _collider.enabled = isActive;
             handCollider.gameObject.SetActive(false);
         }
+
+        public void ActivateDamage()
+        {
+            handCollider.gameObject.SetActive(true);
+        }
+        
+        public void DeactivateDamage()
+        {
+            handCollider.gameObject.SetActive(false);
+        }
     
         private IEnumerator ExecuteNextFrame()
         {
@@ -69,14 +79,12 @@ namespace Characters.Enemies
             if (isAttacking) return;
             isAttacking = true;
             _animator.SetTrigger("Attack");
-            handCollider.gameObject.SetActive(true);
             Invoke(nameof(StopAttacking), 1.7f);
         }
 
         private void StopAttacking()
         {
             isAttacking = false;
-            handCollider.gameObject.SetActive(false);
         }
 
         private void Hit(float damage, List<ItemAmount> modifiers)

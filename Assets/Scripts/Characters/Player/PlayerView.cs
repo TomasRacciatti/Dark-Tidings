@@ -53,11 +53,20 @@ namespace Characters.Player
             // Creamos un postproceso con intensidad = 1 - stamina/_character.Stats.MaxStamina (se le nubla la vista)
 
             // Agregamos audio del pibe cansandose en base al stamina/_character.Stats.MaxStamina
+
+            if (sprinting)
+            {
+                
+            }
+            else
+            {
+                
+            }
         }
         
         public void Damaged()
         {
-            
+            DamagedPlayer.Damaged();
         }
 
         public void SetVerticalSpeed(float up)

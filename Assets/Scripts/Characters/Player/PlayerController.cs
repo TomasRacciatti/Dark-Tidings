@@ -32,6 +32,9 @@ namespace Characters.Player
         [SerializeField] private float _staminaThreshold = 20;
         [SerializeField] private float _staminaConsumeRate = 12f;
         [SerializeField] private float _staminaRegainRate = 6f;
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _runAudio;
+        [SerializeField] private AudioClip _windedAudio;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -145,6 +148,9 @@ namespace Characters.Player
             if ( _stamina <= 0)
             {
                 _canSprint = false;
+                _audioSource.Stop();
+                _audioSource.clip = _windedAudio;
+                _audioSource.Play();
             }
         }
         
@@ -163,6 +169,11 @@ namespace Characters.Player
             if (IsSprinting != sprinting)
             {
                 _playerView.SetSprinting(sprinting);
+                if (sprinting)
+                {
+                    _audioSource.clip = _runAudio;
+                    _audioSource.Play();
+                }
             }
             IsSprinting = sprinting;
         }

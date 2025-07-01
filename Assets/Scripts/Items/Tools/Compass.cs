@@ -24,6 +24,7 @@ namespace Items.Tools
         [SerializeField] private float shakeSpeed = 100f;
         [SerializeField] private float shakeAngle = 20f;
         [SerializeField] private float randomInterval = 3f;
+        [SerializeField] private Animator animator;
 
         private Vector3 _direction;
         private Cooldown _randomCooldown = new();
@@ -44,6 +45,11 @@ namespace Items.Tools
             _modeBehaviors[CompassMode.Random] = RandomRotation;
 
             SetRotationBehavior(CompassMode.Default);
+        }
+        
+        private void OnEnable()
+        {
+            animator.SetTrigger("Compass");
         }
         
         public override void Use(UseType useType)

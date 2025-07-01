@@ -54,6 +54,7 @@ namespace Items.Weapons
         {
             GameManager.Canvas.crosshairCrossbow.gameObject.SetActive(true);
             GameManager.Canvas.crosshairDefault.gameObject.SetActive(false);
+            Animate("Reload1");
         }
 
         private void OnDisable()

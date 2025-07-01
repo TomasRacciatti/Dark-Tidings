@@ -22,6 +22,7 @@ namespace Inventory.Controller
         {
             inventorySystem = InventoryUtility.SetInventoryObserver(null, inventorySystem, this);
             ItemsInHand.Instance.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
+            Invoke(nameof(HideToolbar), 5);
         }
 
         public ItemAmount GetItem()
@@ -37,6 +38,21 @@ namespace Inventory.Controller
             selectedSlot = index;
             ItemsInHand.Instance.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
             GameManager.Canvas.inventoryManager.toolbarUI.ChangeSelectedSlot(selectedSlot);
+            
+            if (GameManager.Canvas.inventoryManager.GetIndexInventory() == -1)
+            {
+                GameManager.Canvas.toolbarUI.SetActive(true);
+                CancelInvoke(nameof(HideToolbar));
+                Invoke(nameof(HideToolbar), 5);
+            }
+        }
+
+        public void HideToolbar()
+        {
+            if (GameManager.Canvas.inventoryManager.GetIndexInventory() == -1)
+            {
+                GameManager.Canvas.toolbarUI.SetActive(false);
+            }
         }
 
         public void OnInventoryChanged(List<ItemAmount> currentItems)

@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4035264098430673754
 Transform:
@@ -32,7 +32,7 @@ Transform:
   - {fileID: 1807103062864288516}
   - {fileID: 850503148547005651}
   - {fileID: 3105176327063742951}
-  - {fileID: 1009975821946125944}
+  - {fileID: 688662434128959901}
   - {fileID: 390183268550893945}
   - {fileID: 1019386680825465080}
   - {fileID: 7415761609361438936}
@@ -94,6 +94,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
       propertyPath: m_Name
       value: Drawer2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -161,6 +169,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drawer2 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -226,6 +242,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
       propertyPath: m_Name
       value: DrawerCenter
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -322,6 +346,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrawerLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -330,7 +362,7 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7409368085859409787}
   m_SourcePrefab: {fileID: 100100000, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
---- !u!1 &1009975821946125943 stripped
+--- !u!1 &199652041542976295 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
   m_PrefabInstance: {fileID: 1009975821946125942}
@@ -341,7 +373,7 @@ BoxCollider:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1009975821946125943}
+  m_GameObject: {fileID: 199652041542976295}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -356,7 +388,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 0.175, z: 0.75}
   m_Center: {x: 0, y: 0.09, z: 0}
---- !u!4 &1009975821946125944 stripped
+--- !u!4 &688662434128959901 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
   m_PrefabInstance: {fileID: 1009975821946125942}
@@ -416,6 +448,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 14de090c1b8c5de4c97d1630e63b1c75, type: 3}
       propertyPath: m_Name
       value: Bureau
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 14de090c1b8c5de4c97d1630e63b1c75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 14de090c1b8c5de4c97d1630e63b1c75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -512,6 +552,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrawerRight
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: bba4c5cff32009e498dee6dd1eac7c25, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -607,6 +655,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Drawer2 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -672,6 +728,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
       propertyPath: m_Name
       value: Drawer2 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 80efb23b9f891b24aba890c2e6119051, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

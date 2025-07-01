@@ -159,6 +159,14 @@ namespace Characters.Player
         private void Inventory(InputAction.CallbackContext context)
         {
             GameManager.Canvas.InventoryUI(0);
+            if (GameManager.Canvas.inventoryManager.GetIndexInventory() != -1)
+            {
+                GameManager.Canvas.toolbarUI.SetActive(true);
+            }
+            else
+            {
+                GameManager.Canvas.toolbarUI.SetActive(false);
+            }
         }
 
         private void Journal(InputAction.CallbackContext context)

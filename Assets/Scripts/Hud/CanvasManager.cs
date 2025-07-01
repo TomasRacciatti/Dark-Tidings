@@ -14,6 +14,7 @@ namespace Hud
         [SerializeField] public PausedMenu PauseMenu;
         [SerializeField] public RectTransform crosshairDefault;
         [SerializeField] public RectTransform crosshairCrossbow;
+        [SerializeField] public GameObject toolbarUI;
         
         public void InventoryUI(int targetIndex)
         {
@@ -34,6 +35,16 @@ namespace Hud
             GameManager.Canvas.inventoryManager.InventorySwitcherUI.SwitchTo(targetIndex);
             GameManager.Canvas.inventoryManager.InventorySwitcherUI.gameObject.SetActive(true);
             GameManager.SetCursorVisibility(true);
+        }
+
+        public void OpenToolbar()
+        {
+            GameManager.Canvas.toolbarUI.SetActive(true);
+        }
+        
+        public void CloseToolbar()
+        {
+            GameManager.Canvas.toolbarUI.SetActive(true);
         }
     }
 }

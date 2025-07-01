@@ -127,6 +127,7 @@ MonoBehaviour:
   PauseMenu: {fileID: 7341544107341122099}
   crosshairDefault: {fileID: 2845969533144207675}
   crosshairCrossbow: {fileID: 8405313929529058886}
+  toolbarUI: {fileID: 497310288458693066}
 --- !u!1 &72825807617410344
 GameObject:
   m_ObjectHideFlags: 0

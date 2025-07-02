@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0104487995, g: 0.01292024, b: 0.018211978, a: 1}
+  m_IndirectSpecularColor: {r: 0.010605701, g: 0.013107689, b: 0.018451544, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -247635,7 +247635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -258399,7 +258399,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4506862231309992886, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5122248471578401717, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_LocalPosition.x
@@ -265435,7 +265435,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2615841795366299565, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -424675,7 +424675,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4506862231309992886, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5122248471578401717, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_LocalPosition.x
@@ -425032,6 +425032,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1451883819}
     m_Modifications:
+    - target: {fileID: 61895008838502346, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
+      propertyPath: _activeDistance
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 61895008838502346, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
+      propertyPath: _detectionOffset.x
+      value: 31.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 61895008838502346, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
+      propertyPath: _detectionOffset.z
+      value: -13.41
+      objectReference: {fileID: 0}
     - target: {fileID: 3600222503630604878, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.4870071
@@ -425078,35 +425090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3676016250408936056, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688432517839475319, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
-      propertyPath: _activeDistance
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688432517839475319, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
-      propertyPath: _detectionOffset.x
-      value: 38.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688432517839475319, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
-      propertyPath: _detectionOffset.z
-      value: -5.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4688432517839475319, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
-      propertyPath: _playerLayerMask.m_Bits
-      value: 512
-      objectReference: {fileID: 0}
-    - target: {fileID: 6745977784754889323, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
-      propertyPath: _activeDistance
-      value: 55
-      objectReference: {fileID: 0}
-    - target: {fileID: 6745977784754889323, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
-      propertyPath: _detectionOffset.x
-      value: 29.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 6745977784754889323, guid: 4a45b3a19ad31a24da9bf0ca83299cf7, type: 3}
-      propertyPath: _detectionOffset.z
-      value: -24.57
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

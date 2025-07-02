@@ -10,10 +10,10 @@ public class WeaponSway : MonoBehaviour
     [SerializeField] private float _swayMultiplier;
     [SerializeField] private float _rollMultiplier;
     
+    
     void Update()
     {
         Vector2 mouseDelta = Mouse.current.delta.ReadValue() * _swayMultiplier;
-        
         var rotation = CalculateRotation(mouseDelta);
         
         transform.localRotation = Quaternion.Slerp(transform.localRotation, rotation, _smooth * Time.deltaTime);
@@ -25,6 +25,7 @@ public class WeaponSway : MonoBehaviour
         // Input del mouse
         float mouseX = mouseDelta.x;
         float mouseY = mouseDelta.y;
+        
         
         // Calculamos rotacion
         Quaternion rotationX = Quaternion.AngleAxis(-mouseY, Vector3.right);

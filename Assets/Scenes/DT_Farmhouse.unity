@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010574938, g: 0.013069468, b: 0.018396037, a: 1}
+  m_IndirectSpecularColor: {r: 0.0104487995, g: 0.01292024, b: 0.018211978, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -82107,7 +82107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7617335694531611400, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_ShapeHeight
-      value: 9.963036
+      value: 11.880367
       objectReference: {fileID: 0}
     - target: {fileID: 8154460535102457241, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: _activeDistance
@@ -82135,7 +82135,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526757945405809289, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_Intensity
-      value: 0.54080546
+      value: 0.4535267
       objectReference: {fileID: 0}
     - target: {fileID: 8526757945405809289, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_AreaSize.x
@@ -82143,7 +82143,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526757945405809289, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_AreaSize.y
-      value: 9.963036
+      value: 11.880367
       objectReference: {fileID: 0}
     - target: {fileID: 8526757945405809289, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_Lightmapping
@@ -82159,7 +82159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8526757945405809289, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 10.165736
+      value: 10.668293
       objectReference: {fileID: 0}
     - target: {fileID: 8526757945405809289, guid: 8c31f0273ae8cc54eb69bf2f62b1bc78, type: 3}
       propertyPath: m_Shadows.m_CullingMatrixOverride.e00

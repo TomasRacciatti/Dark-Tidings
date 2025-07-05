@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010479637, g: 0.012956904, b: 0.018258484, a: 1}
+  m_IndirectSpecularColor: {r: 0.010447689, g: 0.0129178185, b: 0.01820624, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -251079,12 +251079,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8476007199652537861, guid: e7acceabbce9c1b41a878844520f124c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1889550516}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4885487747367066262, guid: e7acceabbce9c1b41a878844520f124c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1405336733}
   m_SourcePrefab: {fileID: 100100000, guid: e7acceabbce9c1b41a878844520f124c, type: 3}
+--- !u!4 &1454904575 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8476007199652537861, guid: e7acceabbce9c1b41a878844520f124c, type: 3}
+  m_PrefabInstance: {fileID: 1454904574}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1456959357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -267226,7 +267234,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -44.692
+      value: -45.366
       objectReference: {fileID: 0}
     - target: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -310263,6 +310271,64 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1135346320686007762, guid: af4168a174e1a77468bc46570207cb38, type: 3}
   m_PrefabInstance: {fileID: 393912669}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1889550515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1889550516}
+  - component: {fileID: 1889550517}
+  m_Layer: 0
+  m_Name: Decal Projector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1889550516
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889550515}
+  serializedVersion: 2
+  m_LocalRotation: {x: 2.3305802e-12, y: -0.00000008940697, z: -0.000001464603, w: 1}
+  m_LocalPosition: {x: 0.46729907, y: 0.22, z: -0.04733757}
+  m_LocalScale: {x: 0.8333332, y: 0.8333332, z: 0.83333325}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1454904575}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1889550517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889550515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f19d9143a39eb3b46bc4563e9889cfbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 2100000, guid: 001d076b60407b84db668a5a87c16a6e, type: 2}
+  m_DrawDistance: 1000
+  m_FadeScale: 1
+  m_StartAngleFade: 180
+  m_EndAngleFade: 180
+  m_UVScale: {x: 1, y: 1}
+  m_UVBias: {x: 0, y: 0}
+  m_AffectsTransparency: 0
+  m_DecalLayerMask: 1
+  m_ScaleMode: 1
+  m_Offset: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_FadeFactor: 1
+  m_Version: 2
 --- !u!1001 &1890020594
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -423832,7 +423898,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.2813854
+      value: -2.9553852
       objectReference: {fileID: 0}
     - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
       propertyPath: m_LocalRotation.w

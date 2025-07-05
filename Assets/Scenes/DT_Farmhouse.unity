@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010578194, g: 0.013076821, b: 0.018416168, a: 1}
+  m_IndirectSpecularColor: {r: 0.010556736, g: 0.013048219, b: 0.018371316, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -272708,7 +272708,7 @@ Transform:
   m_GameObject: {fileID: 1671456193}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 5}
+  m_LocalPosition: {x: 0.767, y: 0.5, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -272874,7 +272874,7 @@ MonoBehaviour:
     targets:
     - {fileID: 2142077125}
     - {fileID: 652456169}
-  delaySeconds: 1
+  delaySeconds: 2
   delayedHorrorEvent: {fileID: 11400000, guid: 97552bf8f0dd909489040305f7ed290c, type: 2}
   delayedSceneBindings:
   - actionDef: {fileID: 11400000, guid: 41d2d7c9976cab34fad14d0a0fa2579e, type: 2}

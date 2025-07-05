@@ -365,6 +365,7 @@ MonoBehaviour:
   lockedAngle: 0.3
   isOpen: 0
   isLocked: 0
+  isSuperLocked: 0
   keyItem: {fileID: 11400000, guid: 77367ca7c480d744880ea706eef0c73c, type: 2}
   interactionPoint: {fileID: 4769861704452350535}
   noExploit: {fileID: 6874284017073566076}
@@ -663,7 +664,7 @@ Transform:
   m_GameObject: {fileID: 7668562261589769539}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.854, y: 0, z: 0}
+  m_LocalPosition: {x: 0.854, y: 0, z: -0.045}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

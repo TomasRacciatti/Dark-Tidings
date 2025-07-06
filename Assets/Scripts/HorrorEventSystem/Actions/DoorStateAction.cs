@@ -31,7 +31,8 @@ public class DoorStateAction : HorrorActionSO
             mode,
             targetAngle,
             springForce,
-            clearLock        // overrideLock: true if Opening, false otherwise
+            clearLock,        // overrideLock: true if Opening, false otherwise
+            superLockAfterClose
         );
         
         yield break;

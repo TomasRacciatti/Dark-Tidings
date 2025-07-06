@@ -182,6 +182,8 @@ namespace Objects
                 isOpen = false;
                 isSuperLocked = true;
                 noExploit.SetActive(true);
+                Setup();
+                return;
             }
             else if (overrideLock)
             {
@@ -212,9 +214,10 @@ namespace Objects
 
                 if (superLockAfterClose)
                     StartCoroutine(CloseAndSuperLock(springForce));
-                
+
                 else
                     StartCoroutine(SlamCloseRoutine(springForce));
+                    
             }
         } 
         
@@ -246,10 +249,7 @@ namespace Objects
         {
             yield return SlamCloseRoutine(springForce);
             
-            isSuperLocked = true;
-            noExploit.SetActive(true);
-            
-            Setup();
+            SetDoorState(DoorMode.SuperLock, 0f, springForce, false, false);
         }
     }
 }

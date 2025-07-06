@@ -126,4 +126,28 @@ public class EventManager : MonoBehaviour
             yield return StartCoroutine(bind.actionDef.Execute());
         }
     }
+    
+    
+    
+    public void ScheduleDelayed(HorrorEvent horrorEvent, List<ActionBinding> extraBindings, float delaySeconds, bool runInParallel)
+    {
+        StartCoroutine(DelayedRoutine(horrorEvent, extraBindings, delaySeconds, runInParallel));
+    }
+
+    private IEnumerator DelayedRoutine(HorrorEvent horrorEvent, List<ActionBinding> extraBindings, float delaySeconds, bool runInParallel)
+    {
+        yield return new WaitForSeconds(delaySeconds);
+
+        if (extraBindings != null && extraBindings.Count > 0)
+        {
+            // merge the SO-driven bindings with the scene-driven ones
+            var all = new List<ActionBinding>(horrorEvent.bindings);
+            all.AddRange(extraBindings);
+            TriggerBindings(all, runInParallel);
+        }
+        else
+        {
+            Trigger(horrorEvent);
+        }
+    }
 }

@@ -39,22 +39,13 @@ public class HorrorEventTrigger : MonoBehaviour
         }
 
         if (delayedHorrorEvent != null && delaySeconds > 0f)
-            StartCoroutine(FireDelayed());
-    }
-
-    private IEnumerator FireDelayed()
-    {
-        yield return new WaitForSeconds(delaySeconds);
-
-        if (delayedSceneBindings.Count > 0)
         {
-            var all = new List<ActionBinding>(delayedHorrorEvent.bindings);
-            all.AddRange(delayedSceneBindings);
-            EventManager.Instance.TriggerBindings(all, delayedHorrorEvent.runInParallel);
-        }
-        else
-        {
-            EventManager.Instance.Trigger(delayedHorrorEvent);
+            EventManager.Instance.ScheduleDelayed(
+                delayedHorrorEvent,
+                delayedSceneBindings,
+                delaySeconds,
+                delayedHorrorEvent.runInParallel
+            );
         }
     }
 }

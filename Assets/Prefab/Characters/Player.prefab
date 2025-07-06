@@ -1631,7 +1631,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 65527
+    m_Bits: 4294967295
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -3384,6 +3384,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PentagramKey
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 1a4b6c806d144f14e8ce0db6974fd39d, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 1a4b6c806d144f14e8ce0db6974fd39d, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3776,6 +3784,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: InvertedCrossKey
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 30b3b212a3a09a343ab6cde3fd199a8e, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 30b3b212a3a09a343ab6cde3fd199a8e, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4155,6 +4171,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4113dd6ca65953042811b55e906dedd0, type: 3}
       propertyPath: m_Name
       value: DemonicKey
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4113dd6ca65953042811b55e906dedd0, type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 8164078558771037576, guid: 4113dd6ca65953042811b55e906dedd0, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

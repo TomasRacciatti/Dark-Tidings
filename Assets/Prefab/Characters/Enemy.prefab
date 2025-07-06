@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fed505cc48e00cb45ac7a588245089bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chaseRange: 5
+  chaseRange: 15
   attackRange: 1.3
   isActive: 1
   handCollider: {fileID: 5811761830771326463}

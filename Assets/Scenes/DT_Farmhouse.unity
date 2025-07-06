@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010530175, g: 0.013015704, b: 0.018327044, a: 1}
+  m_IndirectSpecularColor: {r: 0.010537223, g: 0.013026433, b: 0.018349307, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -251448,6 +251448,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 556313906784937565, guid: e7acceabbce9c1b41a878844520f124c, type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 513
+      objectReference: {fileID: 0}
     - target: {fileID: 7008359825026903809, guid: e7acceabbce9c1b41a878844520f124c, type: 3}
       propertyPath: m_Name
       value: Door
@@ -310819,7 +310823,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 2.3305802e-12, y: -0.00000008940697, z: -0.000001464603, w: 1}
   m_LocalPosition: {x: 0.46729907, y: 0.22, z: -0.04733757}
-  m_LocalScale: {x: 0.8333332, y: 0.8333332, z: 0.83333325}
+  m_LocalScale: {x: 0.8333332, y: 0.8333332, z: 0.05130394}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1454904575}
@@ -310844,7 +310848,7 @@ MonoBehaviour:
   m_UVScale: {x: 1, y: 1}
   m_UVBias: {x: 0, y: 0}
   m_AffectsTransparency: 0
-  m_DecalLayerMask: 1
+  m_DecalLayerMask: 2
   m_ScaleMode: 1
   m_Offset: {x: 0, y: 0, z: 0}
   m_Size: {x: 1, y: 1, z: 1}

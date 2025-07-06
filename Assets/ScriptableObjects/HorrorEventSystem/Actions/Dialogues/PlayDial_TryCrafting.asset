@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PlayDial_TryCrafting
   m_EditorClassIdentifier: 
   dialogueBank: {fileID: 11400000, guid: 7217511ead2f09142b53f5bd2c1aa71c, type: 2}
-  clipIndex: 7
+  clipIndex: 8
   volume: 0.5

@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: DialogueBank_Main
   m_EditorClassIdentifier: 
   audioClips:
-  - {fileID: 8300000, guid: 9ad8aa2075e6c4f4484814d95709cc9b, type: 3}
-  - {fileID: 8300000, guid: 4bbb22af31d7b3d42beeee07072aa16e, type: 3}
-  - {fileID: 8300000, guid: 4029d7be5dea9074ca90bffa7a469ddc, type: 3}
-  - {fileID: 8300000, guid: ac4e1bd6e6e2dc04da1e345d096bb462, type: 3}
-  - {fileID: 8300000, guid: 753ddb0f2c0cae344a65c3ca9c9d2ef3, type: 3}
-  - {fileID: 8300000, guid: 1e32d0c754e474840a83f8f9c9228db7, type: 3}
-  - {fileID: 8300000, guid: 9ba9a837c18f94847b244e9ad58b1aa9, type: 3}
-  - {fileID: 8300000, guid: 8d6ec5f52b45cc546a45f15c0c54d2d1, type: 3}
-  - {fileID: 8300000, guid: 3601098f2a1338b4e8801bc77848d332, type: 3}
-  - {fileID: 8300000, guid: 69cca792278ca9d4c827aa324b9c6b53, type: 3}
+  - {fileID: 8300000, guid: 16c8957a9182a2749bb4c24e962a8e15, type: 3}
+  - {fileID: 8300000, guid: eb30746cb27773647b0649b177327aec, type: 3}
+  - {fileID: 8300000, guid: bf9f1c7a1372538458bebd65b2c8adc7, type: 3}
+  - {fileID: 8300000, guid: 78d1ac3928348fd4dafcc28493732782, type: 3}
+  - {fileID: 8300000, guid: f8bf5a11e1a1c00438dff5c706b584f1, type: 3}
+  - {fileID: 8300000, guid: 1ed4be4779f9d504c83f8d289eefb1e6, type: 3}
+  - {fileID: 8300000, guid: c97a2969b3a390c4d88d56671c46e374, type: 3}
+  - {fileID: 8300000, guid: d36ae5d8ee71b5341aed474234180e79, type: 3}
+  - {fileID: 8300000, guid: 8d577f81f9ba59f4fbc33bfbf6693143, type: 3}

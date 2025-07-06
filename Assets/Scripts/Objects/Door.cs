@@ -175,7 +175,7 @@ namespace Objects
         }
         
         
-        public void SetDoorState(DoorMode mode, float targetAngle, float springForce, bool overrideLock = false)
+        public void SetDoorState(DoorMode mode, float targetAngle, float springForce, bool overrideLock = false, bool superLockAfterClose = false)
         {
             if (mode == DoorMode.SuperLock)
             {
@@ -209,11 +209,16 @@ namespace Objects
                 
                 isOpen = false;
                 _audioSource.PlayOneShot(closeSound);
-                StartCoroutine(SlamCloseRoutine(springForce));
+
+                if (superLockAfterClose)
+                    StartCoroutine(CloseAndSuperLock(springForce));
+                
+                else
+                    StartCoroutine(SlamCloseRoutine(springForce));
             }
         } 
         
-        private IEnumerator SlamCloseRoutine(float springForce)
+        public IEnumerator SlamCloseRoutine(float springForce)
         {
             JointSpring spring = _hinge.spring;
             spring.spring = springForce;
@@ -235,6 +240,16 @@ namespace Objects
             
             spring.damper = 1000f;
             _hinge.spring = spring;
+        }
+        
+        private IEnumerator CloseAndSuperLock(float springForce)
+        {
+            yield return SlamCloseRoutine(springForce);
+            
+            isSuperLocked = true;
+            noExploit.SetActive(true);
+            
+            Setup();
         }
     }
 }

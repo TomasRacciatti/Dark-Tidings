@@ -15,6 +15,9 @@ public class DoorStateAction : HorrorActionSO
     [Tooltip("Spring force for opening/closing (higher = snappier/slammed)")]
     public float springForce = 100f;
     
+    [Tooltip("If true, slam-close then apply supernatural lock")]
+    public bool superLockAfterClose = false;
+    
     public IEnumerator ExecuteOn(GameObject doorGO)
     {
         if (doorGO == null) yield break;

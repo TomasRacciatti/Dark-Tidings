@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class HorrorEventTrigger : MonoBehaviour
     protected bool fireOnce = true;
 
     protected bool hasFired = false;
+
+    public event Action FiredEvent;
 
     protected void Fire()
     {
@@ -47,5 +50,7 @@ public class HorrorEventTrigger : MonoBehaviour
                 delayedHorrorEvent.runInParallel
             );
         }
+        
+        FiredEvent?.Invoke();
     }
 }

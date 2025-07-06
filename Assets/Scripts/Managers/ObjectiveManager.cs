@@ -8,7 +8,10 @@ public class ObjectiveManager : MonoBehaviour
     public static ObjectiveManager Instance { get; private set; }
     public event Action<string> OnObjectiveChanged;
     
-    [SerializeField] private string initialObjective = "Find what type of entity you are dealing with";
+    [SerializeField] private string initialObjective = "Find out what type of entity you are dealing with";
+    
+    private string _currentObjective;
+    public string CurrentObjective => _currentObjective;
 
     private void Awake()
     {
@@ -16,6 +19,9 @@ public class ObjectiveManager : MonoBehaviour
             Instance = this;
         else
             Destroy(gameObject);
+        
+        _currentObjective = initialObjective;
+        OnObjectiveChanged?.Invoke(_currentObjective);
     }
 
     public void SetObjective(string objective)

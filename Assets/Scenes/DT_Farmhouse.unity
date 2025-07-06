@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.0106634805, g: 0.013177441, b: 0.01854089, a: 1}
+  m_IndirectSpecularColor: {r: 0.01056964, g: 0.01306464, b: 0.018398376, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17086,7 +17086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207c1b9deb203a449a707cdf32436db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialObjective: Find what type of entity you are dealing with
+  initialObjective: Find out what type of entity you are dealing with
 --- !u!114 &168977846
 MonoBehaviour:
   m_ObjectHideFlags: 0

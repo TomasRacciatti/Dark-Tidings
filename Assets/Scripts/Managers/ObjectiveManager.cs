@@ -26,7 +26,8 @@ public class ObjectiveManager : MonoBehaviour
 
     public void SetObjective(string objective)
     {
-        Debug.Log($"[ObjectiveManager] New objective: {objective}");
+        if (objective == _currentObjective) return;
+        
         OnObjectiveChanged?.Invoke(objective);
     }
 }

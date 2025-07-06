@@ -3,31 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(HorrorEventTrigger))]
+
 public class ObjectiveListener : MonoBehaviour
 {
-    [Tooltip("Objective to show when the trigger fires")]
-    [TextArea] public string objectiveText;
-    
-    private HorrorEventTrigger _trigger;
-
-    private void Awake()
+    [Serializable]
+    private struct Entry
     {
-        _trigger = GetComponent<HorrorEventTrigger>();
+        [Tooltip("Which trigger to watch")]
+        public HorrorEventTrigger trigger;
+        [TextArea, Tooltip("Objective text to set when that trigger fires")]
+        public string objectiveText;
     }
+    
+    [Tooltip("Drag each VolumeTrigger / InteractableEventTrigger you want to listen to here")]
+    [SerializeField]
+    private List<Entry> entries = new List<Entry>();
 
     private void OnEnable()
     {
-        _trigger.FiredEvent += OnFired;
+        foreach (var e in entries)
+        {
+            if (e.trigger != null)
+                e.trigger.FiredEvent += () => ObjectiveManager.Instance.SetObjective(e.objectiveText);
+        }
     }
 
     private void OnDisable()
     {
-        _trigger.FiredEvent -= OnFired;
+        foreach (var e in entries)
+        {
+            if (e.trigger != null)
+                e.trigger.FiredEvent -= () => OnFired(e.objectiveText);
+        }
     }
 
-    private void OnFired()
+    private void OnFired(string objective)
     {
-        ObjectiveManager.Instance.SetObjective(objectiveText);
+        ObjectiveManager.Instance.SetObjective(objective);
     }
 }

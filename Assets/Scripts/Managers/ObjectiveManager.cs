@@ -7,6 +7,8 @@ public class ObjectiveManager : MonoBehaviour
 {
     public static ObjectiveManager Instance { get; private set; }
     public event Action<string> OnObjectiveChanged;
+    
+    [SerializeField] private string initialObjective = "Find what type of entity you are dealing with";
 
     private void Awake()
     {
@@ -18,6 +20,7 @@ public class ObjectiveManager : MonoBehaviour
 
     public void SetObjective(string objective)
     {
+        Debug.Log($"[ObjectiveManager] New objective: {objective}");
         OnObjectiveChanged?.Invoke(objective);
     }
 }

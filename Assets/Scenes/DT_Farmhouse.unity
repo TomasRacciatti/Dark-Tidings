@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010639445, g: 0.013149323, b: 0.018506201, a: 1}
+  m_IndirectSpecularColor: {r: 0.0106634805, g: 0.013177441, b: 0.01854089, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17050,6 +17050,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 168977844}
+  - component: {fileID: 168977845}
+  - component: {fileID: 168977846}
   m_Layer: 0
   m_Name: ObjectiveManager
   m_TagString: Untagged
@@ -17072,6 +17074,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1309278400}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &168977845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168977843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207c1b9deb203a449a707cdf32436db9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialObjective: Find what type of entity you are dealing with
+--- !u!114 &168977846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168977843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a6cf88ce1b1a343ad92bde4e552f5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  entries:
+  - trigger: {fileID: 1405336733}
+    objectiveText: Find a key for the pentagram door
+  - trigger: {fileID: 1674163710}
+    objectiveText: Use the pentagram key on the kitchen door
+  - trigger: {fileID: 2129357504}
+    objectiveText: Run!
+  - trigger: {fileID: 1909005695}
+    objectiveText: Find the source and nature of the echo
 --- !u!1001 &169153567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22480,18 +22516,18 @@ PrefabInstance:
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: horrorEvent
       value: 
-      objectReference: {fileID: 11400000, guid: 60022a87a22e94c47b425761f3e5eb7d, type: 2}
+      objectReference: {fileID: 11400000, guid: 73b2631926c5cb94b86c46e0f1cd707b, type: 2}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delaySeconds
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedHorrorEvent
       value: 
-      objectReference: {fileID: 11400000, guid: 73b2631926c5cb94b86c46e0f1cd707b, type: 2}
+      objectReference: {fileID: 11400000, guid: 97552bf8f0dd909489040305f7ed290c, type: 2}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: sceneBindings.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedSceneBindings.Array.size
@@ -22512,7 +22548,7 @@ PrefabInstance:
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: sceneBindings.Array.data[3].actionDef
       value: 
-      objectReference: {fileID: 11400000, guid: 37fd04626d31cf74aa2df5085b64e7eb, type: 2}
+      objectReference: {fileID: 11400000, guid: 9c7f391a3e2acec44a0c09c654dbdf2b, type: 2}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedSceneBindings.Array.data[0].actionDef
       value: 
@@ -22556,7 +22592,7 @@ PrefabInstance:
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: sceneBindings.Array.data[3].targets.Array.data[0]
       value: 
-      objectReference: {fileID: 1282731251}
+      objectReference: {fileID: 1293046868}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedSceneBindings.Array.data[0].targets.Array.size
       value: 1
@@ -272752,7 +272788,7 @@ PrefabInstance:
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: horrorEvent
       value: 
-      objectReference: {fileID: 11400000, guid: 60022a87a22e94c47b425761f3e5eb7d, type: 2}
+      objectReference: {fileID: 11400000, guid: 97552bf8f0dd909489040305f7ed290c, type: 2}
     - target: {fileID: 3531206422727090233, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: m_Name
       value: EventVolumeTrigger (3)
@@ -322039,6 +322075,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7600514875591079688, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
   m_PrefabInstance: {fileID: 231483958}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1909005695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
+  m_PrefabInstance: {fileID: 231483958}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f825686eb47ef464dbfc15af66459164, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1909147285
 PrefabInstance:
   m_ObjectHideFlags: 0

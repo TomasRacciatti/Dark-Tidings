@@ -28,8 +28,6 @@ public class HorrorEventTrigger : MonoBehaviour
         if (hasFired && fireOnce) return;
 
         hasFired = true;
-        
-        FiredEvent?.Invoke();
 
         // Si hay bindings hacemos las dos
         if (sceneBindings.Count > 0)
@@ -52,5 +50,7 @@ public class HorrorEventTrigger : MonoBehaviour
                 delayedHorrorEvent.runInParallel
             );
         }
+        
+        FiredEvent?.Invoke();
     }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.01056964, g: 0.01306464, b: 0.018398376, a: 1}
+  m_IndirectSpecularColor: {r: 0.0105822915, g: 0.013079839, b: 0.018416287, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17086,7 +17086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 207c1b9deb203a449a707cdf32436db9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialObjective: Find out what type of entity you are dealing with
+  initialObjective: Identify the entity
 --- !u!114 &168977846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17101,13 +17101,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entries:
   - trigger: {fileID: 1405336733}
-    objectiveText: Find a key for the pentagram door
+    objectiveText: Find the pentagram key
   - trigger: {fileID: 1674163710}
-    objectiveText: Use the pentagram key on the kitchen door
+    objectiveText: Open kitchen door with pentagram key
   - trigger: {fileID: 2129357504}
     objectiveText: Run!
   - trigger: {fileID: 1909005695}
-    objectiveText: Find the source and nature of the echo
+    objectiveText: Investigate the echo
+  - trigger: {fileID: 1909005695}
+    objectiveText: Investigate the echo
+  - trigger: {fileID: 1909005695}
+    objectiveText: Investigate the echo
+  - trigger: {fileID: 1144427855}
+    objectiveText: Find a key for the second floor
 --- !u!1001 &169153567
 PrefabInstance:
   m_ObjectHideFlags: 0

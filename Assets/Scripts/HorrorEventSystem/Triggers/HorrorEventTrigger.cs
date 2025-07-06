@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,11 +21,15 @@ public class HorrorEventTrigger : MonoBehaviour
 
     protected bool hasFired = false;
 
+    public event Action FiredEvent;
+
     protected void Fire()
     {
         if (hasFired && fireOnce) return;
 
         hasFired = true;
+        
+        FiredEvent?.Invoke();
 
         // Si hay bindings hacemos las dos
         if (sceneBindings.Count > 0)

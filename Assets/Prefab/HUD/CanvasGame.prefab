@@ -8852,7 +8852,7 @@ MonoBehaviour:
   delayedSceneBindings: []
   fireOnce: 1
   targetValue: Negative
-  holdDuration: 0.5
+  holdDuration: 0.3
   _journalEntryController: {fileID: 4180575815523318089}
 --- !u!1 &8148700740553775592
 GameObject:

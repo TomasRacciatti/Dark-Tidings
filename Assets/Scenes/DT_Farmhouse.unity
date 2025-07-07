@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010435105, g: 0.012904542, b: 0.018193843, a: 1}
+  m_IndirectSpecularColor: {r: 0.010465906, g: 0.012941459, b: 0.018242063, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -111656,7 +111656,7 @@ MonoBehaviour:
   initialTrack: {fileID: 8300000, guid: f179e2ee366aae440b24304c5b325365, type: 3}
   initialLoop: 1
   initialFadeTime: 0.5
-  initialVolume: 0.5
+  initialVolume: 0.4
   defaultFadeDuration: 0.5
 --- !u!114 &570000781
 MonoBehaviour:
@@ -111686,11 +111686,16 @@ MonoBehaviour:
     loop: 1
     fadeTime: 1
     volume: 0.75
-  - trigger: {fileID: 1909005695}
+  - trigger: {fileID: 1111653203}
     clip: {fileID: 8300000, guid: f179e2ee366aae440b24304c5b325365, type: 3}
     loop: 1
     fadeTime: 3
-    volume: 0.5
+    volume: 0.4
+  - trigger: {fileID: 1909005695}
+    clip: {fileID: 8300000, guid: 16f41d92f4e98f748a6e1a14acd566c0, type: 3}
+    loop: 1
+    fadeTime: 3
+    volume: 0.75
 --- !u!1 &571616524
 GameObject:
   m_ObjectHideFlags: 0

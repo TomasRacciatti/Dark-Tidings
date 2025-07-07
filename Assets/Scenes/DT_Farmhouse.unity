@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010455788, g: 0.01292594, b: 0.018211829, a: 1}
+  m_IndirectSpecularColor: {r: 0.010596932, g: 0.0130978245, b: 0.018441217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17113,9 +17113,9 @@ MonoBehaviour:
   - trigger: {fileID: 1144427855}
     objectiveText: Craft Iron or Silver bolts
   - trigger: {fileID: 1549785841}
-    objectiveText: Find the to the second floor
+    objectiveText: Find the key to the second floor
   - trigger: {fileID: 1109488844}
-    objectiveText: Find the to the second floor
+    objectiveText: Find the key to the second floor
 --- !u!1001 &169153567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -424661,6 +424661,26 @@ PrefabInstance:
     - target: {fileID: 4815497138505805677, guid: f6884a3b889a0bf48b304d91917bb2aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258037196836369070, guid: f6884a3b889a0bf48b304d91917bb2aa, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].time
+      value: 0.7206014
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258037196836369070, guid: f6884a3b889a0bf48b304d91917bb2aa, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
+      value: 0.46243286
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258037196836369070, guid: f6884a3b889a0bf48b304d91917bb2aa, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inSlope
+      value: -1.0591402
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258037196836369070, guid: f6884a3b889a0bf48b304d91917bb2aa, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].outSlope
+      value: -1.0591402
+      objectReference: {fileID: 0}
+    - target: {fileID: 8258037196836369070, guid: f6884a3b889a0bf48b304d91917bb2aa, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].outWeight
+      value: 0.5835206
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

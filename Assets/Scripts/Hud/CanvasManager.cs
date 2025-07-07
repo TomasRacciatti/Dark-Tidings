@@ -28,12 +28,14 @@ namespace Hud
                 GameManager.Canvas.inventoryManager.InventorySwitcherUI.SwitchTo(0);
                 GameManager.Canvas.inventoryManager.InventorySwitcherUI.gameObject.SetActive(false);
                 GameManager.SetCursorVisibility(false);
+                GameManager.Canvas.inventoryManager.DeactiveBoltUI();
                 return;
             }
             
             GameManager.Canvas.inventoryManager.InventorySwitcherUI.SwitchTo(targetIndex);
             GameManager.Canvas.inventoryManager.InventorySwitcherUI.gameObject.SetActive(true);
             GameManager.SetCursorVisibility(true);
+            GameManager.Canvas.inventoryManager.ActiveBoltUI();
         }
 
         public void OpenToolbar()

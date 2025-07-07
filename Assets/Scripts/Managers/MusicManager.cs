@@ -11,6 +11,7 @@ public class MusicManager : MonoBehaviour
     [SerializeField] private AudioClip initialTrack;
     [SerializeField] private bool initialLoop = true;
     [SerializeField] private float initialFadeTime = 1f;
+    [SerializeField] private float initialVolume = 0.5f;
 
     [Header("Cross-fade settings")] 
     [SerializeField] private float defaultFadeDuration = 1f;
@@ -35,11 +36,11 @@ public class MusicManager : MonoBehaviour
         _idleSource.playOnAwake = false;
         
         if (initialTrack != null)
-            PlayMusic(initialTrack, initialLoop, initialFadeTime);
+            PlayMusic(initialTrack, initialLoop, initialFadeTime, initialVolume);
     }
 
 
-    public void PlayMusic(AudioClip clip, bool loop = true, float fadeDuration = -1f)
+    public void PlayMusic(AudioClip clip, bool loop = true, float fadeDuration = -1f, float volume = 1f)
     {
         if (clip == _activeSource.clip) return;
 
@@ -49,11 +50,12 @@ public class MusicManager : MonoBehaviour
         (_idleSource, _activeSource) = (_activeSource, _idleSource);
         _activeSource.clip = clip;
         _activeSource.loop = loop;
+        _activeSource.volume = 0f;
         _activeSource.Play();
 
         // do the fade
         if (_fadeCoroutine != null) StopCoroutine(_fadeCoroutine);
-        _fadeCoroutine = StartCoroutine(CrossFade(fadeDuration));
+        _fadeCoroutine = StartCoroutine(CrossFade(fadeDuration, volume));
     }
 
 
@@ -64,24 +66,24 @@ public class MusicManager : MonoBehaviour
         _fadeCoroutine = StartCoroutine(FadeVolume(_activeSource, targetVolume, fadeDuration));
     }
 
-    private IEnumerator CrossFade(float duration)
+    private IEnumerator CrossFade(float duration, float targetVolume)
     {
         float elapsed = 0f;
-        _idleSource.volume = _activeSource.volume;
+        float startIdleVol  = _idleSource.volume;
         _activeSource.volume = 0f;
 
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / duration;
-            _activeSource.volume = Mathf.Lerp(0f, 1f, t);
-            _idleSource.volume = Mathf.Lerp(1f, 0f, t);
+            _activeSource.volume = Mathf.Lerp(0f, targetVolume, t);
+            _idleSource.volume = Mathf.Lerp(startIdleVol, 0f, t);
             yield return null;
         }
 
         _idleSource.Stop();
-        _idleSource.volume = 1f;
-        _activeSource.volume = 1f;
+        _idleSource.volume = startIdleVol;
+        _activeSource.volume = targetVolume;
     }
 
     private IEnumerator FadeVolume(AudioSource src, float target, float duration)

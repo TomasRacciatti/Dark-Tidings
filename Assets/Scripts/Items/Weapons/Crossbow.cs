@@ -53,7 +53,8 @@ namespace Items.Weapons
         private void OnEnable()
         {
             GameManager.Canvas.crosshairCrossbow.gameObject.SetActive(true);
-            Animate("Reload1");
+            Animate("Equip");
+            GameManager.Canvas.inventoryManager.ActiveBoltUI();
         }
 
         private void OnDisable()
@@ -80,6 +81,7 @@ namespace Items.Weapons
 
         public override void Use(UseType useType)
         {
+            GameManager.Canvas.inventoryManager.ActiveBoltUI();
             switch (useType)
             {
                 case UseType.Default:

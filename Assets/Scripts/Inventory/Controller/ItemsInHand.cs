@@ -14,7 +14,6 @@ namespace Inventory.Controller
         private List<ItemEquippable> _items;
 
         public ItemEquippable selectedItem;
-        public SkinnedMeshRenderer hands;
 
         private void Awake()
         {
@@ -26,11 +25,6 @@ namespace Inventory.Controller
             {
                 _items.Add(item);
             }
-        }
-
-        private void Start()
-        {
-            hands.enabled = false;
         }
 
         public static void Use(UseType useType = UseType.Default)
@@ -56,11 +50,9 @@ namespace Inventory.Controller
                 if (shouldBeActive)
                 {
                     Instance.selectedItem = item;
-                    hands.enabled = true;
                     return;
                 }
             }
-            hands.enabled = false;
 
             Instance.selectedItem = null;
         }

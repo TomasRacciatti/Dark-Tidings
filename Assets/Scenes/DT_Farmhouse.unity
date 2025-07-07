@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010608145, g: 0.013109328, b: 0.018446954, a: 1}
+  m_IndirectSpecularColor: {r: 0.010544152, g: 0.013032498, b: 0.018347891, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22450,7 +22450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8496916409424306140, guid: d8f844e4813836b4ca795734f34c2e99, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.218
+      value: -4.99
       objectReference: {fileID: 0}
     - target: {fileID: 8496916409424306140, guid: d8f844e4813836b4ca795734f34c2e99, type: 3}
       propertyPath: m_LocalPosition.y
@@ -22458,7 +22458,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8496916409424306140, guid: d8f844e4813836b4ca795734f34c2e99, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.967
+      value: 2.68
       objectReference: {fileID: 0}
     - target: {fileID: 8496916409424306140, guid: d8f844e4813836b4ca795734f34c2e99, type: 3}
       propertyPath: m_LocalRotation.w
@@ -115957,7 +115957,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8496916409424306140, guid: 9652d8cb65c54334498c10333b12a0cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.886
+      value: -4.349
       objectReference: {fileID: 0}
     - target: {fileID: 8496916409424306140, guid: 9652d8cb65c54334498c10333b12a0cd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -115965,7 +115965,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8496916409424306140, guid: 9652d8cb65c54334498c10333b12a0cd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.939
+      value: 0.889
       objectReference: {fileID: 0}
     - target: {fileID: 8496916409424306140, guid: 9652d8cb65c54334498c10333b12a0cd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -202357,6 +202357,10 @@ PrefabInstance:
     - target: {fileID: 4496641258339444045, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
       propertyPath: m_Name
       value: Desk_lamp (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7024177012902469416, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

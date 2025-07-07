@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010539995, g: 0.0130284745, b: 0.018346222, a: 1}
+  m_IndirectSpecularColor: {r: 0.010608145, g: 0.013109328, b: 0.018446954, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -89443,6 +89443,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 862216999}
     m_Modifications:
+    - target: {fileID: 6022949440421985090, guid: 814a68c6ca858894db05402f91c94be2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f668c4924b03754c9fcc20d10f27588, type: 2}
     - target: {fileID: 7263235672371908706, guid: 814a68c6ca858894db05402f91c94be2, type: 3}
       propertyPath: m_Name
       value: Desk_Covered_2
@@ -89681,6 +89685,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 862216999}
     m_Modifications:
+    - target: {fileID: 133463997006522690, guid: 543bc92ae0433c2419013882356dcb9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f668c4924b03754c9fcc20d10f27588, type: 2}
     - target: {fileID: 7263235672371908706, guid: 543bc92ae0433c2419013882356dcb9d, type: 3}
       propertyPath: m_Name
       value: Desk_Covered (4)
@@ -166150,6 +166158,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 862216999}
     m_Modifications:
+    - target: {fileID: 4846557648497338596, guid: d8f844e4813836b4ca795734f34c2e99, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f668c4924b03754c9fcc20d10f27588, type: 2}
     - target: {fileID: 7263235672371908706, guid: d8f844e4813836b4ca795734f34c2e99, type: 3}
       propertyPath: m_Name
       value: Clock_Covered (1)
@@ -244939,6 +244951,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 862216999}
     m_Modifications:
+    - target: {fileID: 2249041158642951605, guid: a9de1ca1c69870d4f99ecbe8811193dc, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f668c4924b03754c9fcc20d10f27588, type: 2}
     - target: {fileID: 7263235672371908706, guid: a9de1ca1c69870d4f99ecbe8811193dc, type: 3}
       propertyPath: m_Name
       value: Desk_Covered_3
@@ -300150,6 +300166,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tall_Covered (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 7588413743990333633, guid: e8d6309e8102b2a4b81a641587dbf9cd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f668c4924b03754c9fcc20d10f27588, type: 2}
     - target: {fileID: 8496916409424306140, guid: e8d6309e8102b2a4b81a641587dbf9cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.41
@@ -409975,6 +409995,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 862216999}
     m_Modifications:
+    - target: {fileID: 6377027470160309360, guid: 9652d8cb65c54334498c10333b12a0cd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f668c4924b03754c9fcc20d10f27588, type: 2}
     - target: {fileID: 7263235672371908706, guid: 9652d8cb65c54334498c10333b12a0cd, type: 3}
       propertyPath: m_Name
       value: Chair_Covered (1)
@@ -410212,11 +410236,10 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7094619013168759276, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
   m_PrefabInstance: {fileID: 7184176989702923274}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2129357504
+--- !u!114 &2129357504 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 4409358634161246410, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
+  m_PrefabInstance: {fileID: 7184176989702923274}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129357500}
   m_Enabled: 1
@@ -410224,15 +410247,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f378f9d2687a40408572cc29c8c5f33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horrorEvent: {fileID: 11400000, guid: 97552bf8f0dd909489040305f7ed290c, type: 2}
-  sceneBindings:
-  - actionDef: {fileID: 11400000, guid: 928e4045d464e9745ac09baf3b01b19a, type: 2}
-    targets:
-    - {fileID: 1293046868}
-  delaySeconds: 0
-  delayedHorrorEvent: {fileID: 0}
-  delayedSceneBindings: []
-  fireOnce: 1
 --- !u!4 &2135125853 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6268633125643560728, guid: d12239d8a6f0a6343bfa756f9b2fa910, type: 3}
@@ -416973,6 +416987,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 862216999}
     m_Modifications:
+    - target: {fileID: 1613399656215074616, guid: c78cbfee5afa9e94db9ad985cb748535, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f668c4924b03754c9fcc20d10f27588, type: 2}
     - target: {fileID: 7263235672371908706, guid: c78cbfee5afa9e94db9ad985cb748535, type: 3}
       propertyPath: m_Name
       value: Wardrobe_Covered
@@ -426200,22 +426218,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1475311885077419337, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 3792831268952669402, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 5020521607682909392, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 5020521607682909392, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.25
-      objectReference: {fileID: 0}
+    - target: {fileID: 4409358634161246410, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
+      propertyPath: sceneBindings.Array.data[0].targets.Array.data[0]
+      value: 
+      objectReference: {fileID: 1293046868}
     - target: {fileID: 5020521607682909392, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.7863472
@@ -426260,25 +426266,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CoveredInteractable
       objectReference: {fileID: 0}
-    - target: {fileID: 7094619013168759276, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 7634894082733567376, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
-      propertyPath: m_Layer
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8841753720134916146, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
-      propertyPath: m_Size.x
-      value: 0.67
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7094619013168759276, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2129357504}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b0f0bb9809d4cc24ea41036f661e2b81, type: 3}
 --- !u!33 &8172211792333864174
 MeshFilter:

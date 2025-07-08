@@ -32,7 +32,6 @@ namespace Items.Weapons
 
         private float _accuracy = 0.5f;
         private bool _isAiming = false;
-        private bool _isCharged = false;
         private bool _isReloading = false;
         private float _timeReload = 1.5f;
 
@@ -102,16 +101,9 @@ namespace Items.Weapons
                     Reload1();
                     break;
                 case UseType.Reload2:
-                    if (!_isCharged) return;
-                    if (!_boltType.IsEmpty) return;
-                    if (Reload2())
-                    {
-                        Animate("Reload2");
-                    }
-                    CheckReload();
+                    Reload2();
                     break;
                 case UseType.Reload3:
-                    if (!_isCharged) return;
                     bool hasBolt = false;
                     if (!_boltType.IsEmpty)
                     {
@@ -121,27 +113,65 @@ namespace Items.Weapons
 
                     if (!_boltType.IsEmpty) GameManager.Player.AddItem(ref _boltType);
                     _boltType = new ItemAmount();
-                    _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 0, 1);
-                    if (Reload2())
+                    _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 1, 0);
+                    if (Reload21() && hasBolt)
                     {
-                        Animate(hasBolt ? "Change" : "Reload2");
+                        Animate("Change");
                     }
                     CheckReload();
+                    Invoke(nameof(FinishReloading), _timeReload);
                     break;
             }
         }
 
         private void Reload1()
         {
+            if (_isReloading) return;
             if (!_boltType.IsEmpty) return;
             if (!_boltInventorySystem.HasItem(_bolt)) return;
-            Animate("Reload1");
+            if (_boltInventorySystem.Items[0].IsEmpty) _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 1, 0);
+            Animate("Reload");
             _boltObject.SetActive(true);
-            _isCharged = true;
             _isReloading = true;
+            CheckReload();
+            Invoke(nameof(FinishReloading), _timeReload);
+        }
+        
+        private void Reload2()
+        {
+            if (!_isReloading) return;
+            if (!_boltType.IsEmpty) return;
+            ItemAmount bolt = _boltInventorySystem.Items[0];
+            if (bolt.IsEmpty) return;
+            
+            _boltType = new ItemAmount(bolt);
+            _boltType.SetAmount(1);
+
+            ItemAmount boltToRemove = new ItemAmount(bolt.SoItem, 1, bolt.Modifiers);
+            _boltInventorySystem.RemoveItem(ref boltToRemove);
+            _isReloading = true;
+            CheckReload();
+        }
+        
+        private void Reload3()
+        {
+            if (!_boltType.IsEmpty)
+            {
+                _boltInventorySystem.AddItem(ref _boltType);
+                if (!_boltType.IsEmpty) GameManager.Player.AddItem(ref _boltType);
+                _boltType = new ItemAmount();
+                _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 1, 0);
+                Reload2();
+                Animate("Change");
+            }
+            else
+            {
+                _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 1, 0);
+                Reload2();
+            }
         }
 
-        private bool Reload2()
+        private bool Reload21()
         {
             ItemAmount bolt = _boltInventorySystem.Items[0];
             if (bolt.IsEmpty) return false;
@@ -153,7 +183,6 @@ namespace Items.Weapons
             ItemAmount boltToRemove = new ItemAmount(bolt.SoItem, 1, bolt.Modifiers);
             _boltInventorySystem.RemoveItem(ref boltToRemove);
             _isReloading = true;
-            Invoke(nameof(FinishReloading), _timeReload);
             return true;
         }
 
@@ -208,7 +237,6 @@ namespace Items.Weapons
             _boltObject.SetActive(false);
 
             _boltType = new ItemAmount();
-            _isCharged = false;
         }
 
         private void StartAiming()

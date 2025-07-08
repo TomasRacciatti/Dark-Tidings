@@ -54,6 +54,8 @@ namespace Characters.Enemies
         public void ActivateDamage()
         {
             handCollider.gameObject.SetActive(true);
+            Rotate();
+            transform.position += transform.forward * (1 + extraSpeed) * 0.15f;
         }
         
         public void DeactivateDamage()

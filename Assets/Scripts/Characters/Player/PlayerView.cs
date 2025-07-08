@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Items.Base;
+using Managers;
 using UnityEngine;
 
 namespace Characters.Player
@@ -68,8 +69,8 @@ namespace Characters.Player
         
         public void Damaged()
         {
-            DamagedPlayer.Damaged();
-            CameraShake1.Instance.Shake(-CameraShake1.Instance.transform.forward, 0.1f);
+            DamagedPlayer.instance.ScreenDamageEffect(1 - (GameManager.Player.HealthComponent.CurrentHealth / GameManager.Player.HealthComponent.MaxHealth));
+            CameraShake1.Instance.Shake(-CameraShake1.Instance.transform.forward, 0.4f);
             _audioSource.Play();
         }
 

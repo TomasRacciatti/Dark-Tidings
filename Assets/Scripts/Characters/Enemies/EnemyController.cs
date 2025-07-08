@@ -164,6 +164,7 @@ namespace Characters.Enemies
             
             if (_target)
             {
+                Rotate();
                 float distanceToTarget = Vector3.Distance(transform.position, _target.position);
 
                 if (distanceToTarget <= chaseRange)
@@ -179,7 +180,6 @@ namespace Characters.Enemies
 
                 if (distanceToTarget <= attackRange)
                 {
-                    Rotate();
                     Attack();
                 }
             }

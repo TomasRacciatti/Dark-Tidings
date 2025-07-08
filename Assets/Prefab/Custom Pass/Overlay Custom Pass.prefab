@@ -134,7 +134,7 @@ MonoBehaviour:
       type: {class: FullScreenCustomPass, ns: UnityEngine.Rendering.HighDefinition, asm: Unity.RenderPipelines.HighDefinition.Runtime}
       data:
         m_Name: Custom Pass
-        enabled: 0
+        enabled: 1
         targetColorBuffer: 0
         targetDepthBuffer: 0
         clearFlags: 0
@@ -156,3 +156,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd41e22e02314b4289e1f17bf69a911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  screenDamageMat: {fileID: 2100000, guid: 0812805275f5ac549b1594a8020d3ab8, type: 2}

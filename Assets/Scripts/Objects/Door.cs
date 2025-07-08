@@ -29,7 +29,6 @@ namespace Objects
         [SerializeField] private AudioClip lockedSound;
         
         [SerializeField] private GameObject keyWarning;
-        [SerializeField] private GameObject keyWarning2;
         
         private HingeJoint _hinge;
         private Rigidbody _rigidbody;
@@ -59,10 +58,9 @@ namespace Objects
             noExploit.SetActive(IsActuallyLocked);
             Setup();
             
-            if (keyWarning != null && keyWarning2 != null)
+            if (keyWarning != null)
             {
                 keyWarning.SetActive(false);
-                keyWarning2.SetActive(false);
             }
         }
 
@@ -134,10 +132,9 @@ namespace Objects
         {
             _audioSource.PlayOneShot(forcedSound);
             
-            if (keyWarning != null && keyWarning2 != null)
+            if (keyWarning != null)
             {
                 keyWarning.SetActive(true);
-                keyWarning2.SetActive(true);
             }
             
             JointLimits limits = _hinge.limits;
@@ -170,10 +167,9 @@ namespace Objects
             _hinge.spring = spring;
             Setup();
             
-            if (keyWarning != null && keyWarning2 != null)
+            if (keyWarning != null)
             {
                 keyWarning.SetActive(false);
-                keyWarning2.SetActive(false);
             }
         }
         

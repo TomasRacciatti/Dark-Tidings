@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.008872204, g: 0.010750619, b: 0.014295394, a: 1}
+  m_IndirectSpecularColor: {r: 0.00886057, g: 0.010736764, b: 0.014276931, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1509,7 +1509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6813438174787629179, guid: d03c510c05147b745a6ad348fa5894a7, type: 3}
       propertyPath: isActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21796,10 +21796,6 @@ PrefabInstance:
     - target: {fileID: 4009884709577281038, guid: d0f9ed23a8cc5e2468a56f129d6f9e18, type: 3}
       propertyPath: m_Name
       value: Overlay Custom Pass
-      objectReference: {fileID: 0}
-    - target: {fileID: 4009884709577281038, guid: d0f9ed23a8cc5e2468a56f129d6f9e18, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

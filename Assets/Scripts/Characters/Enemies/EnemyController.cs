@@ -148,7 +148,7 @@ namespace Characters.Enemies
             _animator.SetTrigger("Die");
             StartCoroutine(FadeOutAudio(1f));
             
-            Invoke(nameof(Deactivate), 5);
+            //Invoke(nameof(Deactivate), 5);
         }
         
         private IEnumerator FadeOutAudio(float duration)

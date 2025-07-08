@@ -15,4 +15,6 @@ MonoBehaviour:
   bindings:
   - actionDef: {fileID: 11400000, guid: 7fa5131105f34e74b8727acfbc8b265f, type: 2}
     targets: []
+  - actionDef: {fileID: 11400000, guid: 18aa9189add58c7449ae8b223fd790e6, type: 2}
+    targets: []
   runInParallel: 0

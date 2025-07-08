@@ -65,7 +65,6 @@ public class DamagedPlayer : MonoBehaviour
             float t = Mathf.Clamp01(elapsed / duration); // t va de 0 a 1
             float interpolated = Mathf.Lerp(currentIntensity, targetIntensity, 4 * t);
             screenDamageMat.SetFloat("_Intensity", interpolated);
-            print(interpolated);
             yield return null;
         }
         

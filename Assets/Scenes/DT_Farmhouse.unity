@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010453188, g: 0.012922617, b: 0.018205987, a: 1}
+  m_IndirectSpecularColor: {r: 0.010473006, g: 0.012948247, b: 0.018243613, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -22625,7 +22625,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 73b2631926c5cb94b86c46e0f1cd707b, type: 2}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delaySeconds
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedHorrorEvent
@@ -22637,7 +22637,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedSceneBindings.Array.size
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: sceneBindings.Array.data[0].actionDef
@@ -22658,7 +22658,7 @@ PrefabInstance:
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedSceneBindings.Array.data[0].actionDef
       value: 
-      objectReference: {fileID: 11400000, guid: febfdad76196572419f7f53398be8635, type: 2}
+      objectReference: {fileID: 11400000, guid: 37fd04626d31cf74aa2df5085b64e7eb, type: 2}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedSceneBindings.Array.data[1].actionDef
       value: 
@@ -22710,7 +22710,7 @@ PrefabInstance:
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedSceneBindings.Array.data[0].targets.Array.data[0]
       value: 
-      objectReference: {fileID: 1640569542}
+      objectReference: {fileID: 1405336724}
     - target: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
       propertyPath: delayedSceneBindings.Array.data[0].targets.Array.data[1]
       value: 
@@ -81985,6 +81985,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3759261132665604506, guid: 8ca456bc8a54afd49832e48507d39826, type: 3}
   m_PrefabInstance: {fileID: 878163905}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &329066513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3531206422727090233, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
+  m_PrefabInstance: {fileID: 1109488842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &329120270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108992,6 +108997,11 @@ Transform:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4468224821181404920, guid: 0c8a463674eddb54d87dc7eba45b809b, type: 3}
   m_PrefabInstance: {fileID: 1965832994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &512954824 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3531206422727090233, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
+  m_PrefabInstance: {fileID: 1662657636}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &513567206
 PrefabInstance:
@@ -189363,7 +189373,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
   m_PrefabInstance: {fileID: 1109488842}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 329066513}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f825686eb47ef464dbfc15af66459164, type: 3}
@@ -194723,6 +194733,8 @@ MonoBehaviour:
     - {fileID: 847670151}
     - {fileID: 1245474406}
     - {fileID: 1906180368}
+    - {fileID: 512954824}
+    - {fileID: 329066513}
   delaySeconds: 0
   delayedHorrorEvent: {fileID: 0}
   delayedSceneBindings: []
@@ -259823,7 +259835,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 722999357479615407, guid: fa02ebeb5e17bf84a97dce532934f790, type: 3}
   m_PrefabInstance: {fileID: 1662657636}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 512954824}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f825686eb47ef464dbfc15af66459164, type: 3}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8496916409424306140}
   - component: {fileID: 3298685577544327126}
   - component: {fileID: 4108573021779753201}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Chair_Covered
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +131,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 21bb7dd09ce6bee41960bf86d2bc42c8, type: 3}
       propertyPath: m_Name
       value: Covered4 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 21bb7dd09ce6bee41960bf86d2bc42c8, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

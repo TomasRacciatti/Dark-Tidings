@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7046311969645628259}
   - component: {fileID: 9090899621535998798}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Ballesta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6977238374746582571}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: StringL1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,7 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1904871772431243561}
   - component: {fileID: 3268074252025036021}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Arrow_change
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -191,7 +191,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2614740697766918018}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: StringR2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6638509488274959241}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Crossbow_root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2692947906933910050}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Arrow_rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,6 +281,59 @@ Transform:
   - {fileID: 8016631057665300745}
   m_Father: {fileID: 1904871772431243561}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2355999193496794862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5681705984241754458}
+  - component: {fileID: 5844958042050374383}
+  m_Layer: 5
+  m_Name: ReloadPrompt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5681705984241754458
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2355999193496794862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4407606637388653609}
+  - {fileID: 5277573846667479847}
+  m_Father: {fileID: 8427502059330119244}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5844958042050374383
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2355999193496794862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e62d4c3ab6c934eab5ab4c9b8dc614, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 5681705984241754458}
+  scaleAmount: 0.5
+  speed: 2
 --- !u!1 &2549554777766603793
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1084712587605026824}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Reloader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +374,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7577721144557201306}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: String
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -368,12 +421,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3013399893853492055}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4407606637388653609}
+  m_Father: {fileID: 5681705984241754458}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -412,15 +465,15 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 7d380749c3d9b1943ac2bd2258efbb9a, type: 2}
+  m_sharedMaterial: {fileID: -7697241620393075689, guid: 7d380749c3d9b1943ac2bd2258efbb9a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4287993237
+  m_fontColor: {r: 0.5849056, g: 0.5849056, b: 0.5849056, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -506,17 +559,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4180349924864687622}
   m_LocalRotation: {x: 0.051754832, y: 0.81287223, z: -0.07309997, w: 0.5755142}
-  m_LocalPosition: {x: 0, y: 0, z: -0.1102}
+  m_LocalPosition: {x: 0, y: 0, z: -0.09334}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4407606637388653609}
+  - {fileID: 5681705984241754458}
   m_Father: {fileID: 5228353479462233569}
   m_LocalEulerAnglesHint: {x: 10.277, y: 109.403, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.0834, y: 0.3194}
-  m_SizeDelta: {x: 0.1, y: 0.1}
+  m_AnchoredPosition: {x: 0.0845, y: 0.23139}
+  m_SizeDelta: {x: 0.06648, y: 0.06648}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8695114829197935107
 Canvas:
@@ -590,7 +643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3212624299638181402}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: StringR3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,7 +674,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 736806879159010771}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: StringR1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5228353479462233569
 Transform:
   m_ObjectHideFlags: 0
@@ -720,7 +773,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4746886324745943415}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: StringL2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +805,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4797793559526150224}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: StringL3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -783,7 +836,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3733854640887253503}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Crossbow_rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6182582322573258138}
   - component: {fileID: 7250570255569087780}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Crossbow_change
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -917,18 +970,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7474941874129681288}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5277573846667479847}
-  m_Father: {fileID: 8427502059330119244}
+  m_Children: []
+  m_Father: {fileID: 5681705984241754458}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0.06648, y: 0.06648}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6786114453057143314
 CanvasRenderer:
@@ -978,7 +1030,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5859345443949118403}
   - component: {fileID: 4737290842215715928}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Flecha 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1063,7 +1115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8016631057665300745}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Arrow_Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}

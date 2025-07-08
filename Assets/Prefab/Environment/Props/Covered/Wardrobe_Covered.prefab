@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8496916409424306140}
   - component: {fileID: 885677143838947074}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wardrobe_Covered
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,6 +109,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: f3f11ea5785c82542ab2fcac274c86b2, type: 3}
       propertyPath: m_Name
       value: Covered7 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f3f11ea5785c82542ab2fcac274c86b2, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

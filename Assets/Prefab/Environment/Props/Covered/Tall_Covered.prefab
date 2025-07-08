@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8496916409424306140}
   - component: {fileID: 4573491407811026448}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tall_Covered
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,6 +109,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: a69d823156c219c4fa168f54c1ab3f67, type: 3}
       propertyPath: m_Name
       value: Covered2
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a69d823156c219c4fa168f54c1ab3f67, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

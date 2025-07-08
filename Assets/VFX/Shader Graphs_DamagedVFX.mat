@@ -38,7 +38,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _Darkning: 0.06
-    - _Intensity: 0.832
+    - _Intensity: 0
     - _Intesity: 0
     - _Radius: 1.6
     - _Softness: -1

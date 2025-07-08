@@ -1018,6 +1018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 6397107408364585983}
+  damagedCue: {fileID: 11400000, guid: c75b821b49fc5fe4aa5e51c9fc9f9b00, type: 2}
 --- !u!1 &2305245683631710906
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,7 +1156,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 7edb89c774bced94faa7003cd1407463, type: 3}
+  m_audioClip: {fileID: 8300000, guid: ce902d2a361fbf34187925ebb234a413, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

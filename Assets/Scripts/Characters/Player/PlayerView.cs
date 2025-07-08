@@ -23,6 +23,8 @@ namespace Characters.Player
         private int _animIDFalling;
         
         [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioCue damagedCue;
+        //[SerializeField] private AudioCue footstepCue;
     
         private void Awake()
         {
@@ -71,7 +73,10 @@ namespace Characters.Player
         {
             DamagedPlayer.instance.ScreenDamageEffect(1 - (GameManager.Player.HealthComponent.CurrentHealth / GameManager.Player.HealthComponent.MaxHealth));
             CameraShake1.Instance.Shake(-CameraShake1.Instance.transform.forward, 0.4f);
-            _audioSource.Play();
+            
+            var clip = damagedCue?.GetRandomClip();
+            if (clip != null)
+                _audioSource.PlayOneShot(clip, 1f);
         }
 
         public void SetVerticalSpeed(float up)

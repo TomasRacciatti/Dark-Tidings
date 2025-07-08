@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.010473006, g: 0.012948247, b: 0.018243613, a: 1}
+  m_IndirectSpecularColor: {r: 0.010593065, g: 0.013091551, b: 0.01842806, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -174885,6 +174885,68 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8f844e4813836b4ca795734f34c2e99, type: 3}
+--- !u!1001 &946373963
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1947927925}
+    m_Modifications:
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.025
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8005829
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 21.701
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4496641258339444045, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+      propertyPath: m_Name
+      value: Desk_lamp (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+--- !u!4 &946373964 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3417794665851588819, guid: 0e764aeae4664754b93e7fc616d6e1ad, type: 3}
+  m_PrefabInstance: {fileID: 946373963}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &947160321
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -247498,15 +247560,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.058
+      value: 34.992
       objectReference: {fileID: 0}
     - target: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.093
+      value: -1.834
       objectReference: {fileID: 0}
     - target: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.654
+      value: -20.706
       objectReference: {fileID: 0}
     - target: {fileID: 2789993470689316763, guid: 29439deec1a4bed40b03790a286672cb, type: 3}
       propertyPath: m_LocalRotation.w
@@ -326146,6 +326208,7 @@ Transform:
   - {fileID: 985338496}
   - {fileID: 1213812480402231279}
   - {fileID: 1974898074}
+  - {fileID: 946373964}
   - {fileID: 1675093985}
   - {fileID: 5808010663504898279}
   - {fileID: 1266319939}

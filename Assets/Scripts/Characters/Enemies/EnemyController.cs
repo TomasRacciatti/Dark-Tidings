@@ -146,7 +146,24 @@ namespace Characters.Enemies
             _animator.SetBool("Walking", false);
             _animator.ResetTrigger("Hit");
             _animator.SetTrigger("Die");
+            StartCoroutine(FadeOutAudio(1f));
+            
             Invoke(nameof(Deactivate), 5);
+        }
+        
+        private IEnumerator FadeOutAudio(float duration)
+        {
+            float startVol = _audioSource.volume;
+            float elapsed  = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                _audioSource.volume = Mathf.Lerp(startVol, 0f, elapsed / duration);
+                yield return null;
+            }
+
+            _audioSource.volume = 0f;
         }
 
         private void Deactivate()

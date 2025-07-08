@@ -37,6 +37,15 @@ namespace Items.Weapons
 
         private ItemAmount _boltType = new(null, 0);
         private InventorySystem _boltInventorySystem;
+        private AudioSource _audioSource;
+
+        [SerializeField] private AudioClip _drawback;
+        [SerializeField] private AudioCue _shootSound;
+
+        private void Awake()
+        {
+            _audioSource = gameObject.GetComponent<AudioSource>();
+        }
 
         private void Start()
         {
@@ -104,22 +113,7 @@ namespace Items.Weapons
                     Reload2();
                     break;
                 case UseType.Reload3:
-                    bool hasBolt = false;
-                    if (!_boltType.IsEmpty)
-                    {
-                        hasBolt = true;
-                        _boltInventorySystem.AddItem(ref _boltType);
-                    }
-
-                    if (!_boltType.IsEmpty) GameManager.Player.AddItem(ref _boltType);
-                    _boltType = new ItemAmount();
-                    _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 1, 0);
-                    if (Reload21() && hasBolt)
-                    {
-                        Animate("Change");
-                    }
-                    CheckReload();
-                    Invoke(nameof(FinishReloading), _timeReload);
+                    Reload3();
                     break;
             }
         }
@@ -134,6 +128,7 @@ namespace Items.Weapons
             _boltObject.SetActive(true);
             _isReloading = true;
             CheckReload();
+            _audioSource.PlayOneShot(_drawback);
             Invoke(nameof(FinishReloading), _timeReload);
         }
         
@@ -169,21 +164,6 @@ namespace Items.Weapons
                 _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 1, 0);
                 Reload2();
             }
-        }
-
-        private bool Reload21()
-        {
-            ItemAmount bolt = _boltInventorySystem.Items[0];
-            if (bolt.IsEmpty) return false;
-
-            // Creamos una copia con cantidad 1 para removerla
-            _boltType = new ItemAmount(bolt);
-            _boltType.SetAmount(1);
-
-            ItemAmount boltToRemove = new ItemAmount(bolt.SoItem, 1, bolt.Modifiers);
-            _boltInventorySystem.RemoveItem(ref boltToRemove);
-            _isReloading = true;
-            return true;
         }
 
         private void FinishReloading()
@@ -235,7 +215,7 @@ namespace Items.Weapons
             boltInstance.GetComponent<Bolt>().SetModifiers(_boltType.Modifiers);
             Animate("Fire");
             _boltObject.SetActive(false);
-
+            _audioSource.PlayOneShot(_shootSound.GetRandomClip());
             _boltType = new ItemAmount();
         }
 

@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0776dc754a4f1c44fb737d73397c3c76, type: 3}
   m_Name: InvertedCorssKey
   m_EditorClassIdentifier: 
-  itemName: Inverted Corss Key
-  image: {fileID: 21300000, guid: cf8ff6b1f64555f49a047bce1bbef351, type: 3}
+  itemName: Inverted Cross Key
+  image: {fileID: 21300000, guid: 63f464a86604be940a8e5f5b2c2d5b65, type: 3}
   description: Used to Open inverted cross Doors
   modifierName: 
   modifierPriority: 0
@@ -24,3 +24,4 @@ MonoBehaviour:
   mesh: {fileID: 0}
   materials: []
   grabAudioClip: {fileID: 8300000, guid: a8a434f1f3f14a54ca5c7b884b23eea4, type: 3}
+  imageDictionary: []

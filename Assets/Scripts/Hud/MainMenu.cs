@@ -6,10 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private AudioSource _audioSource;
+    
     private void Awake()
     {
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        _audioSource = GetComponent<AudioSource>();
+    }
+
+    private void Start()
+    {
+        _audioSource.Play();
     }
 
     public void GoToMenu()

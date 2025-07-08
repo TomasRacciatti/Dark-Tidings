@@ -161,11 +161,11 @@ namespace Characters.Player
             GameManager.Canvas.InventoryUI(0);
             if (GameManager.Canvas.inventoryManager.GetIndexInventory() != -1)
             {
-                GameManager.Canvas.toolbarUI.SetActive(true);
+                GameManager.Canvas.toolbarUI.Show();
             }
             else
             {
-                GameManager.Canvas.toolbarUI.SetActive(false);
+                GameManager.Canvas.toolbarUI.Hide();
             }
         }
 

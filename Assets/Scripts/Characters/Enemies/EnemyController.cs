@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Features.Health;
 using Interfaces;
 using Items.Base;
 using Managers;
@@ -15,22 +16,29 @@ namespace Characters.Enemies
 
         [SerializeField] private bool isActive = true;
         [SerializeField] private GameObject handCollider;
+
+        [SerializeField] private AudioClip zombieClip;
+        [SerializeField] private AudioClip hitClip;
         
         bool isAttacking = false;
         bool isHitting = false;
+        
+        private float extraSpeed = 0;
         
         NavMeshAgent _agent;
         Transform _target;
         Character _character;
         Animator _animator;
         CapsuleCollider _collider;
+        AudioSource _audioSource;
 
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
             _animator = GetComponent<Animator>();
             _character = GetComponent<Character>();
-            _collider = GetComponent<CapsuleCollider>();
+            _collider = GetComponentInChildren<CapsuleCollider>();
+            _audioSource = GetComponent<AudioSource>();
             _agent.speed = _character.Stats.MovementSpeed;
         }
 
@@ -66,12 +74,24 @@ namespace Characters.Enemies
         
         public void SetActive(bool active)
         {
-            isActive = active;
             if (active)
             {
                 _animator.SetTrigger("Activate");
+                _audioSource.clip = zombieClip;
+                _audioSource.Play();
+                GetComponent<HealthComponent>().inmune = false;
+                Invoke(nameof(Activate), 2f);
+            }
+            else
+            {
+                isActive = false;
             }
             _collider.enabled = active;
+        }
+
+        private void Activate()
+        {
+            isActive = true;
         }
         
         private void Attack()
@@ -79,7 +99,7 @@ namespace Characters.Enemies
             if (isAttacking) return;
             isAttacking = true;
             _animator.SetTrigger("Attack");
-            Invoke(nameof(StopAttacking), 1.7f);
+            Invoke(nameof(StopAttacking), 0.9f);
         }
 
         private void StopAttacking()
@@ -89,9 +109,26 @@ namespace Characters.Enemies
 
         private void Hit(float damage, List<ItemAmount> modifiers)
         {
+            foreach (ItemAmount modifier in modifiers)
+            {
+                foreach (var i in _character.Stats.Strengths)
+                {
+                    if (i == modifier.SoItem)
+                    {
+                        AddSpeed();
+                    }
+                }
+            }
+            _audioSource.PlayOneShot(hitClip);
             isHitting = true;
             _animator.SetTrigger("Hit");
-            Invoke(nameof(StopHitting), 1.2f);
+            Invoke(nameof(StopHitting), 1.3f);
+        }
+
+        private void AddSpeed()
+        {
+            extraSpeed += 0.2f;
+            _agent.speed = _character.Stats.MovementSpeed + extraSpeed;
         }
 
         private void StopHitting()
@@ -142,8 +179,20 @@ namespace Characters.Enemies
 
                 if (distanceToTarget <= attackRange)
                 {
+                    Rotate();
                     Attack();
                 }
+            }
+        }
+
+        private void Rotate()
+        {
+            Vector3 direction = _target.position - transform.position;
+            direction.y = 0f;
+            if (direction.sqrMagnitude > 0.001f)
+            {
+                Vector3 euler = Quaternion.LookRotation(direction.normalized, Vector3.up).eulerAngles;
+                transform.rotation = Quaternion.Euler(0f, euler.y, 0f);
             }
         }
     }

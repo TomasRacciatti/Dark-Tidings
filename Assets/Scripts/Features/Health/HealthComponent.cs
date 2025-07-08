@@ -11,6 +11,7 @@ namespace Features.Health
     {
         private float _maxHealth = 100f;
         private float _currentHealth;
+        [SerializeField] public bool inmune = false;
         
         private HashSet<SO_Item> _strengths = new();
         private HashSet<SO_Item> _weaknesses = new();
@@ -43,6 +44,7 @@ namespace Features.Health
         public void TakeDamage(float damage, List<ItemAmount> modifiers = null)
         {
             if (IsDead) return;
+            if (inmune) return;
             
             ApplyModifiers(ref damage, modifiers, false);
 

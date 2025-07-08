@@ -1,8 +1,12 @@
+using System.Collections;
+using Effects;
 using Inventory.Controller;
+using Inventory.View;
 using Items.Base;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace Hud
@@ -13,7 +17,8 @@ namespace Hud
         [SerializeField] public TextMeshProUGUI LostUI;
         [SerializeField] public PausedMenu PauseMenu;
         [SerializeField] public RectTransform crosshairCrossbow;
-        [SerializeField] public GameObject toolbarUI;
+        [SerializeField] public ToolbarUI toolbarUI;
+        [SerializeField] private CanvasGroup continueCanvasGroup;
         
         public void InventoryUI(int targetIndex)
         {
@@ -33,19 +38,29 @@ namespace Hud
             }
             
             GameManager.Canvas.inventoryManager.InventorySwitcherUI.SwitchTo(targetIndex);
+            
             GameManager.Canvas.inventoryManager.InventorySwitcherUI.gameObject.SetActive(true);
             GameManager.SetCursorVisibility(true);
             GameManager.Canvas.inventoryManager.ActiveBoltUI();
         }
-
-        public void OpenToolbar()
-        {
-            GameManager.Canvas.toolbarUI.SetActive(true);
-        }
         
-        public void CloseToolbar()
+        private IEnumerator Fade(CanvasGroup canvasGroup, float from, float to, float duration)
         {
-            GameManager.Canvas.toolbarUI.SetActive(true);
+            float elapsed = 0f;
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                canvasGroup.alpha = Mathf.Lerp(from, to, elapsed / duration);
+                yield return null;
+            }
+            canvasGroup.alpha = to;
+        }
+
+        public IEnumerator FinishGame()
+        {
+            StartCoroutine(Effect.Fade(continueCanvasGroup, 0, 1, 1));
+            yield return new WaitForSeconds(5);
+            SceneManager.LoadScene("Menu");
         }
     }
 }

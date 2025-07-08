@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Effects;
 using Inventory.Interfaces;
 using Inventory.Model;
 using Items.Base;
@@ -12,6 +13,7 @@ namespace Inventory.Controller
     {
         [SerializeField] private int selectedSlot = 0;
         [SerializeField] private InventorySystem inventorySystem;
+
         
         private void Awake()
         {
@@ -41,7 +43,8 @@ namespace Inventory.Controller
             
             if (GameManager.Canvas.inventoryManager.GetIndexInventory() == -1)
             {
-                GameManager.Canvas.toolbarUI.SetActive(true);
+                GameManager.Canvas.toolbarUI.Show();
+                
                 CancelInvoke(nameof(HideToolbar));
                 Invoke(nameof(HideToolbar), 5);
             }
@@ -51,7 +54,7 @@ namespace Inventory.Controller
         {
             if (GameManager.Canvas.inventoryManager.GetIndexInventory() == -1)
             {
-                GameManager.Canvas.toolbarUI.SetActive(false);
+                GameManager.Canvas.toolbarUI.Hide();
             }
         }
 

@@ -20,6 +20,8 @@ namespace Characters.Player
         private int _animIDLanded;
         private int _animIDGrounded;
         private int _animIDFalling;
+        
+        [SerializeField] private AudioSource _audioSource;
     
         private void Awake()
         {
@@ -67,6 +69,8 @@ namespace Characters.Player
         public void Damaged()
         {
             DamagedPlayer.Damaged();
+            CameraShake1.Instance.Shake(-CameraShake1.Instance.transform.forward, 0.1f);
+            _audioSource.Play();
         }
 
         public void SetVerticalSpeed(float up)

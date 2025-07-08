@@ -28,6 +28,9 @@ namespace Objects
         [SerializeField] private AudioClip forcedSound;
         [SerializeField] private AudioClip lockedSound;
         
+        [SerializeField] private GameObject keyWarning;
+        [SerializeField] private GameObject keyWarning2;
+        
         private HingeJoint _hinge;
         private Rigidbody _rigidbody;
         private AudioSource _audioSource;
@@ -55,6 +58,8 @@ namespace Objects
             transform.rotation = isOpen ? transform.rotation * Quaternion.Euler(0f, _lastOpenedAngle, 0f) : transform.rotation;
             noExploit.SetActive(IsActuallyLocked);
             Setup();
+            keyWarning.SetActive(false);
+            keyWarning2.SetActive(false);
         }
 
         private void Setup()
@@ -124,7 +129,8 @@ namespace Objects
         private IEnumerator ForceDoor()
         {
             _audioSource.PlayOneShot(forcedSound);
-
+            keyWarning.SetActive(true);
+            keyWarning2.SetActive(true);
             JointLimits limits = _hinge.limits;
             limits.min = -lockedAngle;
             limits.max = lockedAngle;
@@ -154,6 +160,8 @@ namespace Objects
             spring.spring = _hingeForce;
             _hinge.spring = spring;
             Setup();
+            keyWarning.SetActive(false);
+            keyWarning2.SetActive(false);
         }
         
         public void OnPushed(Vector3 pushDirection, float strength)

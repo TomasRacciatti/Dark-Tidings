@@ -9,9 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ff726493463c3342b21335dde679798, type: 3}
-  m_Name: PlayDial_KitchenDoor
+  m_Script: {fileID: 11500000, guid: 019728aae4fa44e459d926d48f576672, type: 3}
+  m_Name: LivingRoomObjectsMoved
   m_EditorClassIdentifier: 
-  dialogueBank: {fileID: 11400000, guid: 7217511ead2f09142b53f5bd2c1aa71c, type: 2}
-  clipIndex: 2
-  volume: 0.7
+  clips:
+  - clip: {fileID: 8300000, guid: ee143e9af1a69ea40bcab0070c1f6b05, type: 3}
+    volume: 1
+  playInParallel: 0

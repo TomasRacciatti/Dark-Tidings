@@ -118,6 +118,16 @@ public class EventManager : MonoBehaviour
                 yield return StartCoroutine(activateEnemy.ExecuteOn(target));
             yield break;
         }
+
+        if (bind.actionDef is Play3DSoundAction play3DSound)
+        {
+            foreach (var target in bind.targets)
+            {
+                var source = target.GetComponent<AudioSource>();
+                yield return StartCoroutine(play3DSound.ExecuteOn(source));
+            }
+            yield break;
+        }
         // Agregar acciones que requieren un target (ExecuteOn) aca
 
         // Si no tienen target como es el caso del play dialogue

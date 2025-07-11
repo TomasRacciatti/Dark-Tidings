@@ -156,7 +156,15 @@ namespace Items.Weapons
                 if (!_boltType.IsEmpty) GameManager.Player.AddItem(ref _boltType);
                 _boltType = new ItemAmount();
                 _boltInventorySystem.TransferIndexToIndex(_boltInventorySystem, 1, 0);
-                Reload2();
+                ItemAmount bolt = _boltInventorySystem.Items[0];
+                if (bolt.IsEmpty) return;
+            
+                _boltType = new ItemAmount(bolt);
+                _boltType.SetAmount(1);
+
+                ItemAmount boltToRemove = new ItemAmount(bolt.SoItem, 1, bolt.Modifiers);
+                _boltInventorySystem.RemoveItem(ref boltToRemove);
+                CheckReload();
                 Animate("Change");
             }
             else
@@ -183,11 +191,22 @@ namespace Items.Weapons
             Vector3 rayOrigin = cameraTransform.position;
             Vector3 rayDirection = cameraTransform.forward;
 
+            bool closeRange = false;
             // Calcular punto objetivo
             Vector3 targetPoint;
             if (Physics.Raycast(rayOrigin, rayDirection, out RaycastHit hit, 1000f))
             {
-                targetPoint = hit.point;
+                float distanceToHit = Vector3.Distance(_firePoint.position, hit.point);
+                if (distanceToHit < 1.5f)
+                {
+                    // Está demasiado cerca: apuntamos hacia adelante
+                    targetPoint = _firePoint.position + _firePoint.forward * 1.5f;
+                    closeRange = true;
+                }
+                else
+                {
+                    targetPoint = hit.point;
+                }
             }
             else
             {
@@ -211,7 +230,7 @@ namespace Items.Weapons
             CameraShake1.Instance.Shake(transform.right, recoilStrength);
 
             GameObject boltInstance =
-                ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position, finalRotation, 10f);
+                ObjectPoolManager.Instance.SpawnObject(_boltPrefab, _firePoint.position + (closeRange ? -_firePoint.forward : Vector3.zero), finalRotation, 10f);
             boltInstance.GetComponent<Bolt>().SetModifiers(_boltType.Modifiers);
             Animate("Fire");
             _boltObject.SetActive(false);

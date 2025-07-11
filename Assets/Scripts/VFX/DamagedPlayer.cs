@@ -75,4 +75,9 @@ public class DamagedPlayer : MonoBehaviour
     {
         return Mathf.Lerp(toMin, toMax, Mathf.InverseLerp(fromMin, fromMax, value));
     }
+    
+    private void OnApplicationQuit()
+    {
+        screenDamageMat.SetFloat("_Intensity", 0);
+    }
 }

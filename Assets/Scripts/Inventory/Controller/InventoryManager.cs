@@ -23,6 +23,8 @@ namespace Inventory.Controller
         
         public Switcher InventorySwitcherUI => inventorySwitcherUI;
 
+        private Coroutine _coroutine;
+
         private void Start()
         {
             inventorySwitcherUI.gameObject.SetActive(false);
@@ -36,10 +38,17 @@ namespace Inventory.Controller
 
         public void ActiveBoltUI()
         {
-            if (boltPanel.gameObject.activeInHierarchy) return;
             CancelInvoke(nameof(DeactiveBoltUI));
-            boltUIGameObject.SetActive(true);
-            StartCoroutine(Effect.Fade(boltPanel ,0, 1, 0.4f));
+            CancelInvoke(nameof(DeactiveBoltUI2));
+            if (boltPanel.alpha < 1)
+            {
+                boltUIGameObject.SetActive(true);
+                if (_coroutine != null)
+                {
+                    StopCoroutine(_coroutine);
+                }
+                _coroutine = StartCoroutine(Effect.Fade(boltPanel, 0, 1, 0.4f));
+            }
             if (GetIndexInventory() == -1)
             {
                 Invoke(nameof(DeactiveBoltUI), 5);
@@ -49,7 +58,17 @@ namespace Inventory.Controller
         public void DeactiveBoltUI()
         {
             if (!boltPanel.gameObject.activeInHierarchy) return;
-            StartCoroutine(Effect.Fade(boltPanel ,1, 0, 0.4f));
+            if (_coroutine != null)
+            {
+                StopCoroutine(_coroutine);
+            }
+
+            _coroutine = StartCoroutine(Effect.Fade(boltPanel, 1, 0, 0.4f));
+            Invoke(nameof(DeactiveBoltUI2), 0.4f);
+        }
+
+        private void DeactiveBoltUI2()
+        {
             boltUIGameObject.SetActive(false);
         }
     }

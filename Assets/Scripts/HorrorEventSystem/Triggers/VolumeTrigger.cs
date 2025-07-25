@@ -8,7 +8,7 @@ public class VolumeTrigger : HorrorEventTrigger
 
     [SerializeField] private LayerMask playerLayerMask = 1 << 9;
     
-    private Color gizmoColor = new Color(0f, 1f, 0f, 0.1f);
+    private Color gizmoColor = new Color(0f, 1f, 1f, 0.1f);
 
     private void Reset()
     {

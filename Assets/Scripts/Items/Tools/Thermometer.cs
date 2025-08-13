@@ -18,14 +18,18 @@ namespace Items.Tools
         [SerializeField] private float cooldownTime = 1f;
         [SerializeField] private float lerpSpeed = 0.5f;
         [SerializeField] private float detectionRadius = 1f;
+        //[SerializeField] private Animator animator;
 
         private float _temperature = 25f;
         private float _targetTemperature = 25f;
         private Cooldown _cooldown = new();
+        
+        public float Temperature => _temperature;
 
         private void OnEnable()
         {
             UpdateTemperatureDisplay();
+            //animator.SetTrigger("Thermometer");
         }
 
         public override void Use(UseType useType)

@@ -32,6 +32,9 @@ namespace Characters.Player
         [SerializeField] private float _staminaThreshold = 20;
         [SerializeField] private float _staminaConsumeRate = 12f;
         [SerializeField] private float _staminaRegainRate = 6f;
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioClip _runAudio;
+        [SerializeField] private AudioClip _windedAudio;
 
         // cinemachine
         private float _cinemachineTargetYaw;
@@ -55,7 +58,7 @@ namespace Characters.Player
         private PlayerView _playerView;
         private Character _character;
 
-        [SerializeField] private GameObject mainCamera;
+        [SerializeField] public GameObject mainCamera;
         [SerializeField] private LayerMask raycastLayers;
 
         private const float Threshold = 0.01f;
@@ -66,6 +69,9 @@ namespace Characters.Player
             _inputEvents = GetComponent<InputsEvents>();
             _playerView = GetComponent<PlayerView>();
             _character = GetComponent<Character>();
+            
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void Start()
@@ -145,6 +151,9 @@ namespace Characters.Player
             if ( _stamina <= 0)
             {
                 _canSprint = false;
+                _audioSource.Stop();
+                _audioSource.clip = _windedAudio;
+                _audioSource.Play();
             }
         }
         
@@ -163,6 +172,11 @@ namespace Characters.Player
             if (IsSprinting != sprinting)
             {
                 _playerView.SetSprinting(sprinting);
+                if (sprinting)
+                {
+                    _audioSource.clip = _runAudio;
+                    _audioSource.Play();
+                }
             }
             IsSprinting = sprinting;
         }

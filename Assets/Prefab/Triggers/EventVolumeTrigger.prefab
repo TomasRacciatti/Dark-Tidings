@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1092528648739746761}
   - component: {fileID: 8098912601968707352}
   - component: {fileID: 722999357479615407}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: EventVolumeTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,6 +76,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   horrorEvent: {fileID: 0}
+  sceneBindings: []
+  delaySeconds: 0
+  delayedHorrorEvent: {fileID: 0}
+  delayedSceneBindings: []
+  fireOnce: 1
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 512

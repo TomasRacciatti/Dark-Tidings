@@ -4,16 +4,20 @@ using UnityEngine;
 using Interfaces;
 using Inventory.Controller;
 using Items.Base;
+using UnityEngine.ProBuilder.MeshOperations;
 
 namespace Objects
 {
     public class Door : MonoBehaviour, IInteractable, IPushable
     {
+        public enum DoorMode { Open, Close, SuperLock }
+        
         [Header("Options")] [SerializeField] private float openedAngle = 120f;
         [SerializeField] private float closedAngle = 0f;
         [SerializeField] private float lockedAngle = 3f;
         [SerializeField] private bool isOpen = false;
         [SerializeField] private bool isLocked = false;
+        [SerializeField] private bool isSuperLocked = false;
         [SerializeField] private SO_Item keyItem;
 
         [SerializeField] private Transform interactionPoint;
@@ -24,6 +28,8 @@ namespace Objects
         [SerializeField] private AudioClip forcedSound;
         [SerializeField] private AudioClip lockedSound;
         
+        [SerializeField] private GameObject keyWarning;
+        
         private HingeJoint _hinge;
         private Rigidbody _rigidbody;
         private AudioSource _audioSource;
@@ -31,6 +37,11 @@ namespace Objects
         private float _lastOpenedAngle;
 
         public Transform InteractionPoint => interactionPoint != null ? interactionPoint : transform;
+        
+        
+        // Necesario para el action
+        public bool IsOpen => isOpen;
+        private bool IsActuallyLocked => isLocked || isSuperLocked;
 
         private void Awake()
         {
@@ -44,19 +55,26 @@ namespace Objects
         void Start()
         {
             transform.rotation = isOpen ? transform.rotation * Quaternion.Euler(0f, _lastOpenedAngle, 0f) : transform.rotation;
-            noExploit.SetActive(isLocked);
+            noExploit.SetActive(IsActuallyLocked);
             Setup();
+            
+            if (keyWarning != null)
+            {
+                keyWarning.SetActive(false);
+            }
         }
 
         private void Setup()
         {
             JointLimits limits = _hinge.limits;
-            limits.min = !isLocked ? -openedAngle : -lockedAngle;
-            limits.max = !isLocked ? openedAngle : lockedAngle;
+            limits.min = !IsActuallyLocked ? -openedAngle : -lockedAngle;
+            limits.max = !IsActuallyLocked ? openedAngle : lockedAngle;
             _hinge.limits = limits;
 
             JointSpring spring = _hinge.spring;
-            spring.targetPosition = isLocked || !isOpen ? closedAngle : _lastOpenedAngle;
+            spring.targetPosition = IsActuallyLocked || !isOpen ? closedAngle : _lastOpenedAngle;
+            spring.damper = 20f;
+            spring.spring = 40f;
             _hinge.spring = spring;
         }
 
@@ -68,17 +86,20 @@ namespace Objects
                 return;
             }
 
-            Toolbar toolbar = interactableObject.GetComponent<Toolbar>();
-            if (toolbar.GetItem().SoItem == keyItem)
+            if (isLocked) // para no cerrar puerta
             {
-                if (Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)) <= 5f)
+                Toolbar toolbar = interactableObject.GetComponent<Toolbar>();
+                if (toolbar.GetItem().SoItem == keyItem)
                 {
-                    LockDoor(!isLocked);
+                    if (Mathf.Abs(Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)) <= 5f)
+                    {
+                        LockDoor(!isLocked);
+                    }
+                    return;
                 }
-                return;
             }
-
-            if (isLocked)
+            
+            if (IsActuallyLocked)
             {
                 StartCoroutine(ForceDoor());
                 return;
@@ -110,7 +131,12 @@ namespace Objects
         private IEnumerator ForceDoor()
         {
             _audioSource.PlayOneShot(forcedSound);
-
+            
+            if (keyWarning != null)
+            {
+                keyWarning.SetActive(true);
+            }
+            
             JointLimits limits = _hinge.limits;
             limits.min = -lockedAngle;
             limits.max = lockedAngle;
@@ -140,12 +166,17 @@ namespace Objects
             spring.spring = _hingeForce;
             _hinge.spring = spring;
             Setup();
+            
+            if (keyWarning != null)
+            {
+                keyWarning.SetActive(false);
+            }
         }
         
         public void OnPushed(Vector3 pushDirection, float strength)
         {
             if (_rigidbody == null) return;
-            if (isLocked) return;
+            if (IsActuallyLocked) return;
 
             StartCoroutine(PlayIfMoved());
         }
@@ -158,6 +189,84 @@ namespace Objects
             {
                 _audioSource.PlayOneShot(openSound);
             }
+        }
+        
+        
+        public void SetDoorState(DoorMode mode, float targetAngle, float springForce, bool overrideLock = false, bool superLockAfterClose = false)
+        {
+            if (mode == DoorMode.SuperLock)
+            {
+                isOpen = false;
+                isSuperLocked = true;
+                noExploit.SetActive(true);
+                Setup();
+                return;
+            }
+            else if (overrideLock)
+            {
+                isSuperLocked = false;
+                noExploit.SetActive(false);
+            }
+            
+            if (mode == DoorMode.Open)
+            {
+                isLocked = false;
+                isSuperLocked = false;
+                isOpen = true;
+                _lastOpenedAngle = Mathf.Clamp(targetAngle, -openedAngle, openedAngle);
+                _audioSource.PlayOneShot(openSound);
+                
+                Setup();
+                
+                var spring = _hinge.spring;
+                spring.spring = springForce;
+                _hinge.spring = spring;
+            }
+            else if (mode == DoorMode.Close)
+            {
+                if (!isOpen) return; // Si ya esta cerrada, no hace nada
+                
+                isOpen = false;
+                _audioSource.PlayOneShot(closeSound);
+
+                if (superLockAfterClose)
+                    StartCoroutine(CloseAndSuperLock(springForce));
+
+                else
+                    StartCoroutine(SlamCloseRoutine(springForce));
+                    
+            }
+        } 
+        
+        public IEnumerator SlamCloseRoutine(float springForce)
+        {
+            JointSpring spring = _hinge.spring;
+            spring.spring = springForce;
+            spring.targetPosition = closedAngle;
+            _hinge.spring = spring;
+            
+            while (Mathf.Abs(
+                Mathf.DeltaAngle(transform.localEulerAngles.y, closedAngle)
+            ) > 1f)
+            {
+                yield return null;
+            }
+            
+            if (_rigidbody != null)
+            {
+                _rigidbody.velocity = Vector3.zero;
+                _rigidbody.angularVelocity = Vector3.zero;
+            }
+            
+            spring.damper = 1000f;
+            _hinge.spring = spring;
+        }
+        
+        private IEnumerator CloseAndSuperLock(float springForce)
+        {
+            yield return SlamCloseRoutine(springForce);
+            
+            SetDoorState(DoorMode.SuperLock, 0f, springForce, false, false);
         }
     }
 }

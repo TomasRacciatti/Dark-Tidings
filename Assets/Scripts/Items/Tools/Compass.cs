@@ -24,12 +24,15 @@ namespace Items.Tools
         [SerializeField] private float shakeSpeed = 100f;
         [SerializeField] private float shakeAngle = 20f;
         [SerializeField] private float randomInterval = 3f;
+        //[SerializeField] private Animator animator;
 
         private Vector3 _direction;
         private Cooldown _randomCooldown = new();
         private CompassMode _currentMode = CompassMode.Default;
         private Action _currentRotationBehavior;
         private readonly Dictionary<CompassMode, Action> _modeBehaviors = new();
+        
+        public CompassMode Behavior => _currentMode;
 
         private void Start()
         {
@@ -42,6 +45,11 @@ namespace Items.Tools
             _modeBehaviors[CompassMode.Random] = RandomRotation;
 
             SetRotationBehavior(CompassMode.Default);
+        }
+        
+        private void OnEnable()
+        {
+            //animator.SetTrigger("Compass");
         }
         
         public override void Use(UseType useType)

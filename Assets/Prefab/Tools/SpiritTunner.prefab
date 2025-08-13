@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1486357317238078652
+--- !u!1 &1895175447971397212
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,47 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2980642184711250889}
-  - component: {fileID: 431911290819269237}
-  - component: {fileID: 6176491881176100219}
-  - component: {fileID: 2101853321529349198}
-  m_Layer: 1
-  m_Name: Cube
+  - component: {fileID: 7664988001267162734}
+  - component: {fileID: 2140989590830603716}
+  - component: {fileID: 7746837718587400876}
+  - component: {fileID: 7166100370434216326}
+  m_Layer: 16
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2980642184711250889
+--- !u!4 &7664988001267162734
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486357317238078652}
+  m_GameObject: {fileID: 1895175447971397212}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1659e-10, y: 0.0527, z: -0.000000029801}
-  m_LocalScale: {x: 0.036567, y: 0.1334147, z: 0.06489911}
+  m_LocalPosition: {x: 0.0105, y: 0.125, z: 0.0145}
+  m_LocalScale: {x: 0.07061793, y: 0.2728927, z: 0.1009592}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7763482166233578422}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &431911290819269237
+--- !u!33 &2140989590830603716
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486357317238078652}
+  m_GameObject: {fileID: 1895175447971397212}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &6176491881176100219
+--- !u!23 &7746837718587400876
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486357317238078652}
+  m_GameObject: {fileID: 1895175447971397212}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -84,13 +84,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2101853321529349198
+--- !u!65 &7166100370434216326
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1486357317238078652}
+  m_GameObject: {fileID: 1895175447971397212}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -116,8 +116,7 @@ GameObject:
   - component: {fileID: 7960073385335890206}
   - component: {fileID: 8739076113089369849}
   - component: {fileID: 2879438269961055047}
-  - component: {fileID: 1913146321702530175}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,8 +132,8 @@ Transform:
   m_GameObject: {fileID: 5724176611596633913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0321, y: 0.088, z: 0}
-  m_LocalScale: {x: 0.045406, y: 0.045406, z: 0.045406}
+  m_LocalPosition: {x: 0.0108, y: 0.2713, z: 0.0131}
+  m_LocalScale: {x: 0.07072017, y: 0.07072017, z: 0.07072017}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7763482166233578422}
@@ -146,7 +145,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5724176611596633913}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &2879438269961055047
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -167,7 +166,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 73c176f402d2c2f4d929aa5da7585d17, type: 2}
+  - {fileID: 2100000, guid: 956cdf14150c51d43be6d1e40964d365, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -189,27 +188,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1913146321702530175
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5724176611596633913}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8802761542054114062
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,13 +198,13 @@ GameObject:
   m_Component:
   - component: {fileID: 7763482166233578422}
   - component: {fileID: 3363121986713306807}
-  m_Layer: 1
+  m_Layer: 16
   m_Name: SpiritTunner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7763482166233578422
 Transform:
   m_ObjectHideFlags: 0
@@ -240,8 +218,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2980642184711250889}
   - {fileID: 7960073385335890206}
+  - {fileID: 7664988001267162734}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3363121986713306807
@@ -257,9 +235,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soItem: {fileID: 11400000, guid: 2aaed05348d710c449b5bbc562f65f37, type: 2}
+  itemAmount:
+    amount: 0
+    soItem: {fileID: 0}
   clueLayerMask:
     serializedVersion: 2
     m_Bits: 32768
   screen: {fileID: 2879438269961055047}
-  defaultMaterial: {fileID: -3661639628750336703, guid: 7e0223e1d3e1733499accfa5ebffb67e, type: 3}
-  detectionMaterial: {fileID: 2100000, guid: d059325868484fa4ba2ba6091682a8bf, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 956cdf14150c51d43be6d1e40964d365, type: 2}
+  detectionMaterial: {fileID: 2100000, guid: feb3a6e3fd42d1f42ae9f4e0990f63a8, type: 2}

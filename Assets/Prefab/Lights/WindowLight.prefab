@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4711694465600190383}
   - component: {fileID: 3784564217627952881}
   - component: {fileID: 7857815452342782780}
-  - component: {fileID: 3682837450459963195}
+  - component: {fileID: 5808556625967143219}
   m_Layer: 0
   m_Name: WindowLight
   m_TagString: Untagged
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_PointlightHDType: 0
   m_SpotLightShape: 1
   m_AreaLightShape: 0
---- !u!114 &3682837450459963195
+--- !u!114 &5808556625967143219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -227,13 +227,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1624008093624814827}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d781570747e8a247b0cefca62f8d43a, type: 3}
+  m_Script: {fileID: 11500000, guid: b1200fcff9ad34a46a45a431c957188c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _activeDistance: 15
+  _activeDistance: 8
   _detectionOffset: {x: 0, y: 0, z: 0}
   _playerLayerMask:
     serializedVersion: 2
     m_Bits: 512
   _player: {fileID: 0}
+  _initialMode: 1
   _fadeSpeed: 2
+  _minFlickerInterval: 0.05
+  _maxFlickerInterval: 0.3
+  _pattern:
+  - 0.5
+  - 0.5

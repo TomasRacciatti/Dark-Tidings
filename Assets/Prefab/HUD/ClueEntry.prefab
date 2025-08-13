@@ -77,7 +77,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4279706153
-  m_fontColor: {r: 0.16037738, g: 0.13459852, b: 0.09153615, a: 1}
+  m_fontColor: {r: 0.2, g: 0.19607843, b: 0.1882353, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -656,7 +656,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4279773491
-  m_fontColor: {r: 0.20000002, g: 0.16078432, b: 0.09411766, a: 1}
+  m_fontColor: {r: 0.2, g: 0.19607843, b: 0.1882353, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -770,6 +770,7 @@ MonoBehaviour:
   resultText: {fileID: 5678748483512213630}
   leftArrow: {fileID: 2483212441999415014}
   rightArrow: {fileID: 5044997450723079708}
+  audioCue: {fileID: 11400000, guid: b3bd202843b3b474e98bb70ba8b7ac29, type: 2}
 --- !u!1 &8532459664153131103
 GameObject:
   m_ObjectHideFlags: 0
@@ -845,7 +846,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4279905590
-  m_fontColor: {r: 0.21176472, g: 0.1764706, b: 0.10196079, a: 1}
+  m_fontColor: {r: 0.1981132, g: 0.19535531, b: 0.18783374, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

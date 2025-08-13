@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Effects;
 using Inventory.Interfaces;
 using Inventory.Model;
 using Items.Base;
@@ -12,6 +13,7 @@ namespace Inventory.Controller
     {
         [SerializeField] private int selectedSlot = 0;
         [SerializeField] private InventorySystem inventorySystem;
+
         
         private void Awake()
         {
@@ -21,7 +23,8 @@ namespace Inventory.Controller
         private void Start()
         {
             inventorySystem = InventoryUtility.SetInventoryObserver(null, inventorySystem, this);
-            ItemsInHand.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
+            ItemsInHand.Instance.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
+            Invoke(nameof(HideToolbar), 5);
         }
 
         public ItemAmount GetItem()
@@ -35,15 +38,31 @@ namespace Inventory.Controller
             if (index == selectedSlot) return;
             if (!inventorySystem.ValidIndex(index)) return;
             selectedSlot = index;
-            ItemsInHand.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
+            ItemsInHand.Instance.SetItemEquipped(inventorySystem.Items[selectedSlot].SoItem);
             GameManager.Canvas.inventoryManager.toolbarUI.ChangeSelectedSlot(selectedSlot);
+            
+            if (GameManager.Canvas.inventoryManager.GetIndexInventory() == -1)
+            {
+                GameManager.Canvas.toolbarUI.Show();
+                
+                CancelInvoke(nameof(HideToolbar));
+                Invoke(nameof(HideToolbar), 5);
+            }
+        }
+
+        public void HideToolbar()
+        {
+            if (GameManager.Canvas.inventoryManager.GetIndexInventory() == -1)
+            {
+                GameManager.Canvas.toolbarUI.Hide();
+            }
         }
 
         public void OnInventoryChanged(List<ItemAmount> currentItems)
         {
             ItemAmount item = currentItems[selectedSlot];
             if (item == null) return;
-            ItemsInHand.SetItemEquipped(item.SoItem);
+            ItemsInHand.Instance.SetItemEquipped(item.SoItem);
         }
 
         public void OnItemChanged(int index, ItemAmount newItem)
@@ -51,7 +70,7 @@ namespace Inventory.Controller
             if (!inventorySystem.ValidIndex(index)) return;
             if (index != selectedSlot) return;
             
-            ItemsInHand.SetItemEquipped(newItem.SoItem);
+            ItemsInHand.Instance.SetItemEquipped(newItem.SoItem);
         }
     }
 }

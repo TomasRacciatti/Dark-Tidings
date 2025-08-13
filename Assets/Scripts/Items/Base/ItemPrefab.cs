@@ -48,6 +48,13 @@ namespace Items.Base
         {
             if (interactableObject.TryGetComponent(out InventorySystem inventorySystem))
             {
+                if (itemAmount.SoItem.AudioClip != null)
+                {
+                    GameObject tempAudio = new GameObject("TempAudio");
+                    AudioSource audio = tempAudio.AddComponent<AudioSource>();
+                    audio.PlayOneShot(itemAmount.SoItem.AudioClip, 1f);
+                    Destroy(tempAudio, itemAmount.SoItem.AudioClip.length);
+                }
                 inventorySystem.AddItem(ref itemAmount);
                 if (itemAmount.IsEmpty)
                 {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Items.Base;
+using Managers;
 using UnityEngine;
 
 namespace Characters.Player
@@ -20,6 +21,10 @@ namespace Characters.Player
         private int _animIDLanded;
         private int _animIDGrounded;
         private int _animIDFalling;
+        
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioCue damagedCue;
+        //[SerializeField] private AudioCue footstepCue;
     
         private void Awake()
         {
@@ -53,11 +58,25 @@ namespace Characters.Player
             // Creamos un postproceso con intensidad = 1 - stamina/_character.Stats.MaxStamina (se le nubla la vista)
 
             // Agregamos audio del pibe cansandose en base al stamina/_character.Stats.MaxStamina
+
+            if (sprinting)
+            {
+                
+            }
+            else
+            {
+                
+            }
         }
         
         public void Damaged()
         {
+            DamagedPlayer.instance.ScreenDamageEffect(1 - (GameManager.Player.HealthComponent.CurrentHealth / GameManager.Player.HealthComponent.MaxHealth));
+            CameraShake1.Instance.Shake(-CameraShake1.Instance.transform.forward, 0.4f);
             
+            var clip = damagedCue?.GetRandomClip();
+            if (clip != null)
+                _audioSource.PlayOneShot(clip, 1f);
         }
 
         public void SetVerticalSpeed(float up)

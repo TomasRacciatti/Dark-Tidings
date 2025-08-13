@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ea1a920a5b53e54aa92d42be3cc3e4e, type: 3}
+  m_Name: CrossbowFire
+  m_EditorClassIdentifier: 
+  clips:
+  - {fileID: 8300000, guid: 031eb2b5b0af2a24695ebaa6d1b200ef, type: 3}
+  - {fileID: 8300000, guid: 2de1fff4a20ea754cb63168d8f8463da, type: 3}
+  - {fileID: 8300000, guid: 5122ef01bac2cb54d88e008c547c78f0, type: 3}
+  - {fileID: 8300000, guid: 5af4d8d2ffc95074a91c0d559be11b94, type: 3}
+  - {fileID: 8300000, guid: 568adc02f695c014ea293fe92caeba24, type: 3}

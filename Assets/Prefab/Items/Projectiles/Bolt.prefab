@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e398cd9f182da1947880afc8c8b63fbf, type: 2}
+  - {fileID: 2100000, guid: 50c24c2a472f2c244b67dab5f861ec1e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -133,7 +133,8 @@ MonoBehaviour:
   _modifiers: []
   _layerMask:
     serializedVersion: 2
-    m_Bits: 26049
+    m_Bits: 25985
+  damage: 10
   force: 50
 --- !u!136 &1095582539407874200
 CapsuleCollider:

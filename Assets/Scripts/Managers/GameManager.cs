@@ -65,6 +65,7 @@ namespace Managers
                 Time.timeScale = 0;
                 //Canvas.PauseMenu.gameObject.SetActive(true);
                 SetCursorVisibility(true);
+                MusicManager.Instance.SetPausedMusic(true);
             }
             else
             {
@@ -72,6 +73,7 @@ namespace Managers
                 Time.timeScale = 1;
                 //Canvas.PauseMenu.gameObject.SetActive(false);
                 SetCursorVisibility(false);
+                MusicManager.Instance.SetPausedMusic(false);
             }
         }
 

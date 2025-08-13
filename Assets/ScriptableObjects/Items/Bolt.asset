@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bolt
   m_EditorClassIdentifier: 
   itemName: Bolt
-  image: {fileID: 21300000, guid: 916498e25dde4b848a8098b5b8e475e0, type: 3}
+  image: {fileID: 21300000, guid: 64bee812354ccfb408cbd48df5d3d991, type: 3}
   description: "\rUsed as Crossbow Ammunition"
   modifierName: 
   modifierPriority: 0
@@ -23,3 +23,13 @@ MonoBehaviour:
   ammoType: {fileID: 0}
   mesh: {fileID: 0}
   materials: []
+  grabAudioClip: {fileID: 8300000, guid: 1d5436f37b199aa438b0691df18c3561, type: 3}
+  imageDictionary:
+  - item: {fileID: 11400000, guid: 1d86efae8de79d14f8be294b5c3e2df5, type: 2}
+    image: {fileID: 21300000, guid: 4842a8da3f273494788ee7177a76ecfa, type: 3}
+  - item: {fileID: 11400000, guid: b5543f93e168a7740937eccb294dd822, type: 2}
+    image: {fileID: 21300000, guid: 958ffeee9b0ad284799003ad4386dd96, type: 3}
+  - item: {fileID: 11400000, guid: b37e7bc7fbcb07c44b57f3c00fbdb626, type: 2}
+    image: {fileID: 21300000, guid: 8c39c42047b3b2d4199eb0b9ce1dd97c, type: 3}
+  - item: {fileID: 11400000, guid: f180559814b276343ba1b8229670f142, type: 2}
+    image: {fileID: 21300000, guid: aa4cec48d5f077f4d9f59c3353bf00e9, type: 3}

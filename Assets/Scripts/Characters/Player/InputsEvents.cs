@@ -41,6 +41,8 @@ namespace Characters.Player
             _inputActions.Player.Sprint.performed += Sprint;
             _inputActions.Player.Sprint.canceled += Sprint;
             _inputActions.Player.Use.performed += Use;
+            _inputActions.Player.Aim.performed += AimStarted;
+            _inputActions.Player.Aim.canceled += AimCanceled;
             _inputActions.Player.Interact.performed += Interact;
             _inputActions.Player.Inventory.performed += Inventory;
             _inputActions.Player.Journal.performed += Journal;
@@ -67,6 +69,8 @@ namespace Characters.Player
             _inputActions.Player.Sprint.performed -= Sprint;
             _inputActions.Player.Sprint.canceled -= Sprint;
             _inputActions.Player.Use.performed -= Use;
+            _inputActions.Player.Aim.performed -= AimStarted;
+            _inputActions.Player.Aim.canceled -= AimCanceled;
             _inputActions.Player.Interact.performed -= Interact;
             _inputActions.Player.Inventory.performed -= Inventory;
             _inputActions.Player.Journal.performed -= Journal;
@@ -155,6 +159,14 @@ namespace Characters.Player
         private void Inventory(InputAction.CallbackContext context)
         {
             GameManager.Canvas.InventoryUI(0);
+            if (GameManager.Canvas.inventoryManager.GetIndexInventory() != -1)
+            {
+                GameManager.Canvas.toolbarUI.Show();
+            }
+            else
+            {
+                GameManager.Canvas.toolbarUI.Hide();
+            }
         }
 
         private void Journal(InputAction.CallbackContext context)
@@ -182,13 +194,20 @@ namespace Characters.Player
             _toolbar.SetSelectedSlot(index);
         }
         
-        private void Reload0(InputAction.CallbackContext context) => Reload(0);
-        private void Reload1(InputAction.CallbackContext context) => Reload(1);
-        private void Reload2(InputAction.CallbackContext context) => Reload(2);
-        
-        private void Reload(int index)
+        private void AimStarted(InputAction.CallbackContext context)
         {
-            print(index);
+            if (!GameManager.Paused && !InventoryOpened)
+            {
+                ItemsInHand.Use(UseType.Aim);
+            }
+        }
+
+        private void AimCanceled(InputAction.CallbackContext context)
+        {
+            if (!GameManager.Paused && !InventoryOpened)
+            {
+                ItemsInHand.Use(UseType.StopAim);
+            }
         }
     }
 }

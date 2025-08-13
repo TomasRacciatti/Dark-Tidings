@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: PentagramKey
   m_EditorClassIdentifier: 
   itemName: Pentagram Key
-  image: {fileID: 21300000, guid: cf8ff6b1f64555f49a047bce1bbef351, type: 3}
+  image: {fileID: 21300000, guid: 8777acbc2403ec24d9e224e352457243, type: 3}
   description: Used to Open pentagram doors
   modifierName: 
   modifierPriority: 0
@@ -23,3 +23,5 @@ MonoBehaviour:
   ammoType: {fileID: 0}
   mesh: {fileID: 0}
   materials: []
+  grabAudioClip: {fileID: 8300000, guid: a8a434f1f3f14a54ca5c7b884b23eea4, type: 3}
+  imageDictionary: []

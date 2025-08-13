@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Items.Base
@@ -16,10 +18,13 @@ namespace Items.Base
         [SerializeField] private SO_Item ammoType;
         [SerializeField] private Mesh mesh;
         [SerializeField] private Material[] materials;
+        [SerializeField] private AudioClip grabAudioClip;
+
+        [SerializeField] private itemImage[] imageDictionary = Array.Empty<itemImage>();
 
         // Propiedades para acceder a los datos
         public string ItemName => itemName;
-        public Sprite Image => image;
+        //public Sprite Image => image;
         public string Description => description;
         public string ModifierName => modifierName;
         public int ModifierPriority => modifierPriority;
@@ -30,5 +35,29 @@ namespace Items.Base
         public bool HasAmmo => ammoType != null;
         public Mesh Mesh => mesh;
         public Material[] Materials => materials;
+        public AudioClip AudioClip => grabAudioClip;
+
+        public Sprite Image2(List<ItemAmount> modifiers)
+        {
+            foreach (var modifier in modifiers)
+            {
+                foreach (var image in imageDictionary)
+                {
+                    if (modifier.SoItem == image.item)
+                    {
+                        return image.image;
+                    }
+                }
+            }
+            
+            return image;
+        }
+    }
+
+    [Serializable]
+    public struct itemImage
+    {
+        [SerializeField] public SO_Item item;
+        [SerializeField] public Sprite image;
     }
 }

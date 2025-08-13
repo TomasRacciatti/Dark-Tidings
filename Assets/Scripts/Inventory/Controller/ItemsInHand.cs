@@ -9,7 +9,7 @@ namespace Inventory.Controller
 {
     public class ItemsInHand : MonoBehaviour
     {
-        private static ItemsInHand _instance;
+        public static ItemsInHand Instance;
 
         private List<ItemEquippable> _items;
 
@@ -17,7 +17,7 @@ namespace Inventory.Controller
 
         private void Awake()
         {
-            _instance = this;
+            Instance = this;
             ItemEquippable[] equippables = GetComponentsInChildren<ItemEquippable>(includeInactive: true);
             
             _items = new List<ItemEquippable>();
@@ -29,32 +29,32 @@ namespace Inventory.Controller
 
         public static void Use(UseType useType = UseType.Default)
         {
-            if (_instance.selectedItem != null)
+            if (Instance.selectedItem != null)
             {
-                _instance.selectedItem.Use(useType);
+                Instance.selectedItem.Use(useType);
             }
         }
 
-        public static void SetItemEquipped(SO_Item soItem = null)
+        public void SetItemEquipped(SO_Item soItem = null)
         {
-            if (_instance.selectedItem != null)
+            if (Instance.selectedItem != null)
             {
-                _instance.selectedItem.gameObject.SetActive(false);
+                Instance.selectedItem.gameObject.SetActive(false);
             }
 
-            foreach (var item in _instance._items)
+            foreach (var item in Instance._items)
             {
                 bool shouldBeActive = item.soItem == soItem;
                 item.gameObject.SetActive(shouldBeActive);
 
                 if (shouldBeActive)
                 {
-                    _instance.selectedItem = item;
+                    Instance.selectedItem = item;
                     return;
                 }
             }
 
-            _instance.selectedItem = null;
+            Instance.selectedItem = null;
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Items
     {
         [SerializeField] private List<ItemAmount> _modifiers = new();
         [SerializeField] private LayerMask _layerMask;
+        [SerializeField] private float damage = 25;
 
         List<ItemAmount> Modifiers => _modifiers;
 
@@ -63,7 +64,7 @@ namespace Items
 
             IDamageable damageable = hit.collider.GetComponent<IDamageable>();
 
-            damageable?.TakeDamage(10, Modifiers);
+            damageable?.TakeDamage(damage, Modifiers);
 
             _rb.isKinematic = true;
             transform.position = hit.point - transform.forward * _collider.height / 3;

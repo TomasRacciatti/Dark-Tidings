@@ -29,7 +29,7 @@ namespace Items.Base
             if (ItemDropper.IsActive) return;
             _instance.itemNameText.text = itemAmount.ItemName;
             _instance.itemDescriptionText.text = itemAmount.Description;
-            _instance.itemIcon.sprite = itemAmount.SoItem.Image;
+            _instance.itemIcon.sprite = itemAmount.SoItem.Image2(itemAmount.Modifiers);
             _instance.gameObject.SetActive(true);
             _instance.UpdatePositionAndPivot();
         }

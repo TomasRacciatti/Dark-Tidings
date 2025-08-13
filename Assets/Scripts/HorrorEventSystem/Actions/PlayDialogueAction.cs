@@ -32,7 +32,8 @@ public class PlayDialogueAction : HorrorActionSO
                 yield break;
         }
         
-
+        _source.Stop();
+        
         _source.PlayOneShot(clip, volume);
         
         yield return new WaitForSeconds(clip.length);
